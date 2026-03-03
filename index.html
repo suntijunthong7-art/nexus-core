@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
 body{
     margin:0;
     background:#e6e6e6;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -20,19 +20,28 @@ body{
     background:#ffffff;
     width:95%;
     max-width:420px;
-    padding:30px;
+    padding:25px;
     border:1px solid #cfcfcf;
+}
+
+.logo{
+    display:block;
+    margin:0 auto 15px auto;
+    width:70px;
 }
 
 .header{
     font-size:16px;
     font-weight:bold;
+    text-align:center;
     margin-bottom:5px;
 }
 
 .subheader{
     font-size:13px;
+    text-align:center;
     margin-bottom:20px;
+    color:#444;
 }
 
 input{
@@ -46,7 +55,7 @@ input{
 button{
     width:100%;
     padding:10px;
-    background:#2d2d2d;
+    background:#000;
     color:#fff;
     border:none;
     font-size:14px;
@@ -54,21 +63,15 @@ button{
 }
 
 button:disabled{
-    background:#777;
+    background:#888;
     cursor:not-allowed;
 }
 
 .warning{
-    font-size:12px;
+    font-size:13px;
     color:#b00000;
     margin-top:10px;
-    min-height:16px;
-}
-
-.notice{
-    font-size:11px;
-    margin-top:20px;
-    line-height:1.5;
+    min-height:18px;
 }
 </style>
 </head>
@@ -76,30 +79,34 @@ button:disabled{
 <body>
 
 <div class="container">
+
+    <img src="logo.png" class="logo">
+
     <div class="header">U.S. GOVERNMENT INFORMATION SYSTEM</div>
     <div class="subheader">Authorized Use Only</div>
 
     <input type="password" id="password" placeholder="Enter Access Code">
-    <button id="loginBtn" onclick="login()">Sign In</button>
+    <button id="loginBtn">Sign In</button>
 
     <div class="warning" id="warning"></div>
 
-    <div class="notice">
-        Unauthorized access is prohibited and subject to criminal penalties.
-    </div>
 </div>
 
 <script>
 let attempts = 0;
 const correctPassword = "0000";
-let lockTimer = null;
+let locked = false;
+let countdownInterval;
+
+const input = document.getElementById("password");
+const btn = document.getElementById("loginBtn");
+const warning = document.getElementById("warning");
+
+btn.addEventListener("click", login);
 
 function login(){
-    const input = document.getElementById("password");
-    const warning = document.getElementById("warning");
-    const btn = document.getElementById("loginBtn");
 
-    if(btn.disabled) return;
+    if(locked) return;
 
     if(input.value === correctPassword){
         window.location.href = "https://lin.ee/xbIaU45";
@@ -111,32 +118,35 @@ function login(){
     if(attempts >= 3){
         lockSystem();
     } else {
-        warning.innerText = "Invalid access credentials. (" + attempts + "/3)";
+        warning.innerText = "Invalid credentials (" + attempts + "/3)";
     }
 
     input.value = "";
 }
 
 function lockSystem(){
-    const btn = document.getElementById("loginBtn");
-    const warning = document.getElementById("warning");
-
-    let countdown = 30;
+    locked = true;
     btn.disabled = true;
+    input.disabled = true;
 
+    let timeLeft = 30;
     warning.innerText = "System locked. Try again in 30 seconds.";
 
-    lockTimer = setInterval(() => {
-        countdown--;
-        warning.innerText = "System locked. Try again in " + countdown + " seconds.";
+    countdownInterval = setInterval(function(){
 
-        if(countdown <= 0){
-            clearInterval(lockTimer);
+        timeLeft--;
+        warning.innerText = "System locked. Try again in " + timeLeft + " seconds.";
+
+        if(timeLeft <= 0){
+            clearInterval(countdownInterval);
             attempts = 0;
+            locked = false;
             btn.disabled = false;
+            input.disabled = false;
             warning.innerText = "";
         }
-    }, 1000);
+
+    },1000);
 }
 </script>
 
