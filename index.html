@@ -2,103 +2,105 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NEXUS CORE | Restricted Terminal</title>
+<title>NEXUS CORE | Federal Secure Access</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 
 body{
     margin:0;
     height:100vh;
-    background:black;
+    background:#0b1a2a;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-family:'Share Tech Mono', monospace;
-    overflow:hidden;
+    font-family:'Roboto', sans-serif;
 }
 
-/* scanline effect */
+/* subtle background grid */
 body::before{
     content:"";
     position:absolute;
     width:100%;
     height:100%;
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(0,255,0,0.05),
-        rgba(0,255,0,0.05) 2px,
-        transparent 2px,
-        transparent 4px
-    );
-    pointer-events:none;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:40px 40px;
 }
 
 .card{
     position:relative;
-    background:#050505;
-    border:1px solid #00ff66;
-    padding:40px;
-    width:360px;
-    box-shadow:0 0 30px #00ff66;
-    color:#00ff66;
+    background:#111c2e;
+    width:420px;
+    padding:50px;
+    border-radius:8px;
+    box-shadow:0 0 40px rgba(0,0,0,0.8);
+    color:white;
     text-align:center;
+    border-top:4px solid #caa64d;
 }
 
 .logo{
-    width:100px;
-    margin-bottom:15px;
-    filter: brightness(0) saturate(100%) invert(61%) sepia(96%) saturate(550%) hue-rotate(95deg);
+    width:110px;
+    margin-bottom:20px;
 }
 
 h1{
-    margin:10px 0;
+    margin:10px 0 5px;
+    font-weight:700;
     letter-spacing:2px;
 }
 
-.status{
+.subtitle{
     font-size:12px;
-    margin-bottom:20px;
-    color:#00ff66;
+    color:#aab4c4;
+    margin-bottom:30px;
+    letter-spacing:1px;
 }
 
 input{
     width:100%;
-    padding:10px;
-    margin:10px 0;
-    background:black;
-    border:1px solid #00ff66;
-    color:#00ff66;
-    font-family:'Share Tech Mono', monospace;
+    padding:14px;
+    margin:12px 0;
+    background:#0d1624;
+    border:1px solid #2b3b52;
+    color:white;
+    font-size:14px;
 }
 
 input:focus{
     outline:none;
-    box-shadow:0 0 10px #00ff66;
+    border:1px solid #caa64d;
 }
 
 button{
     width:100%;
-    padding:10px;
-    margin-top:15px;
-    background:#00ff66;
+    padding:14px;
+    margin-top:20px;
+    background:#caa64d;
     border:none;
-    color:black;
-    font-weight:bold;
+    color:#111;
+    font-weight:700;
+    letter-spacing:1px;
     cursor:pointer;
     transition:0.3s;
 }
 
 button:hover{
-    background:#00cc55;
-    box-shadow:0 0 15px #00ff66;
+    background:#e0bb63;
 }
 
 .footer{
-    margin-top:20px;
-    font-size:10px;
-    opacity:0.7;
+    margin-top:30px;
+    font-size:11px;
+    color:#7f8da3;
+}
+
+.warning{
+    margin-top:15px;
+    font-size:11px;
+    color:#caa64d;
 }
 
 </style>
@@ -111,19 +113,20 @@ button:hover{
 <img src="logo.png" class="logo">
 
 <h1>NEXUS CORE</h1>
+<div class="subtitle">FEDERAL INTELLIGENCE DIVISION</div>
 
-<div class="status">
-SYSTEM STATUS: SECURE<br>
-CLEARANCE LEVEL: OMEGA
+<input type="text" placeholder="AGENT IDENTIFICATION">
+<input type="password" placeholder="SECURITY CLEARANCE CODE">
+
+<button>AUTHORIZED ACCESS</button>
+
+<div class="warning">
+OFFICIAL USE ONLY
 </div>
 
-<input type="text" placeholder="ENTER USERNAME">
-<input type="password" placeholder="ENTER ACCESS CODE">
-
-<button>INITIATE ACCESS</button>
-
 <div class="footer">
-RESTRICTED AREA • UNAUTHORIZED ACCESS PROHIBITED
+Unauthorized access is a violation of federal law.<br>
+© 2026 NEXUS CORE INTELLIGENCE AUTHORITY
 </div>
 
 </div>
