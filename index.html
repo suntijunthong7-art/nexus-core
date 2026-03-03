@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE</title>
+<title>NEXUS CORE - Secure Access</title>
 
 <style>
 body{
@@ -12,61 +12,77 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#071a2f,#0b2c4d);
-    font-family:Arial, sans-serif;
-    color:white;
+    background:#0b1c2d;
+    font-family:Segoe UI, Arial, sans-serif;
+    color:#d9e2ec;
 }
 
 .container{
-    background:#0f2744;
-    padding:40px;
+    background:#13293d;
+    padding:35px;
     width:340px;
-    text-align:center;
-    border-radius:15px;
-    box-shadow:0 0 40px rgba(0,0,0,0.6);
-    border-top:4px solid gold;
+    border-radius:8px;
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
 }
 
 .logo{
-    width:90px;
-    margin-bottom:15px;
+    width:65px;
+    display:block;
+    margin:0 auto 15px auto;
 }
 
 h1{
-    margin:10px 0 5px;
-    font-size:22px;
+    text-align:center;
+    font-size:20px;
     letter-spacing:2px;
+    margin:5px 0;
 }
 
-p{
-    margin-bottom:25px;
-    font-size:13px;
-    color:#aaa;
+.subtitle{
+    text-align:center;
+    font-size:12px;
+    color:#9fb3c8;
+    margin-bottom:20px;
+}
+
+.meta{
+    text-align:center;
+    font-size:10px;
+    color:#6b859c;
+    margin-bottom:20px;
 }
 
 input{
     width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    background:#071a2f;
-    border:1px solid #1d3b5f;
+    padding:10px;
+    margin-bottom:14px;
+    background:#0b1c2d;
+    border:1px solid #1f3b55;
     color:white;
-    border-radius:6px;
-    font-size:14px;
+    border-radius:4px;
+    font-size:13px;
 }
 
 button{
     width:100%;
-    padding:12px;
-    background:gold;
+    padding:11px;
+    background:#1f3b55;
     border:none;
-    font-weight:bold;
+    color:white;
+    font-weight:600;
+    border-radius:4px;
     cursor:pointer;
-    border-radius:6px;
 }
 
 button:hover{
-    background:#e6c200;
+    background:#294e70;
+}
+
+.footer{
+    text-align:center;
+    font-size:9px;
+    color:#5d7287;
+    margin-top:20px;
 }
 </style>
 </head>
@@ -75,13 +91,22 @@ button:hover{
 
 <div class="container">
     <img src="logo.png" class="logo">
+
     <h1>NEXUS CORE</h1>
-    <p>Central Intelligence Division</p>
+    <div class="subtitle">Internal Secure Intelligence Portal</div>
 
-    <input id="username" type="text" placeholder="รหัสตัวแทน">
-    <input id="password" type="password" placeholder="รหัสเข้าใช้งาน">
+    <div class="meta">
+        Build 2.4.7 | Secure Node: TH-48291
+    </div>
 
-    <button onclick="login()">AUTHORIZED ACCESS</button>
+    <input id="username" type="text" placeholder="Agent ID">
+    <input id="password" type="password" placeholder="Access Key">
+
+    <button onclick="login()">AUTHENTICATE</button>
+
+    <div class="footer">
+        Unauthorized access is strictly prohibited and monitored.
+    </div>
 </div>
 
 <script>
@@ -103,8 +128,8 @@ function login(){
         if(attempts >= 3){
             document.body.innerHTML = `
                 <div style="
-                    background:black;
-                    color:red;
+                    background:#000;
+                    color:#ff4d4d;
                     height:100vh;
                     display:flex;
                     justify-content:center;
@@ -113,13 +138,13 @@ function login(){
                     font-family:monospace;
                     text-align:center;
                 ">
-                    <h1>⚠ SECURITY LOCKDOWN ⚠</h1>
-                    <p>Unauthorized Access Detected</p>
-                    <p>System Locked</p>
+                    <h1>SECURITY LOCKDOWN</h1>
+                    <p>Multiple unauthorized attempts detected.</p>
+                    <p>Session Terminated.</p>
                 </div>
             `;
         } else {
-            alert("รหัสไม่ถูกต้อง (" + attempts + "/3)");
+            alert("Authentication failed (" + attempts + "/3)");
         }
     }
 }
