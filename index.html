@@ -3,111 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Federal Secure Access</title>
+<title>Government Information System</title>
 
 <style>
 body{
     margin:0;
-    background:#0a1a2f;
-    font-family: "Segoe UI", Arial, sans-serif;
+    background:#e6e6e6;
+    font-family: Arial, Helvetica, sans-serif;
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
-    color:#ffffff;
 }
 
-.wrapper{
-    width:90%;
-    max-width:380px;
+.container{
     background:#ffffff;
-    color:#1a1a1a;
-    border-radius:8px;
-    padding:35px 30px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.4);
-    text-align:center;
+    width:95%;
+    max-width:420px;
+    padding:30px;
+    border:1px solid #cfcfcf;
 }
 
-.logo{
-    width:90px;
-    margin-bottom:15px;
-}
-
-h1{
-    font-size:18px;
-    letter-spacing:1px;
+.header{
+    font-size:16px;
+    font-weight:bold;
+    color:#000;
     margin-bottom:5px;
-    color:#0a1a2f;
 }
 
-.subtitle{
-    font-size:12px;
-    color:#666;
-    margin-bottom:25px;
+.subheader{
+    font-size:13px;
+    color:#444;
+    margin-bottom:20px;
 }
 
 input{
     width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:4px;
+    padding:10px;
+    margin-bottom:10px;
+    border:1px solid #999;
     font-size:14px;
-}
-
-input:focus{
-    outline:none;
-    border-color:#0a1a2f;
 }
 
 button{
     width:100%;
-    padding:12px;
-    background:#0a1a2f;
-    color:white;
+    padding:10px;
+    background:#2d2d2d;
+    color:#fff;
     border:none;
-    border-radius:4px;
     font-size:14px;
     cursor:pointer;
 }
 
 button:hover{
-    background:#132a4a;
+    background:#000;
 }
 
 .warning{
-    margin-top:10px;
     font-size:12px;
-    color:red;
-    min-height:18px;
+    color:#b00000;
+    margin-top:10px;
+    min-height:16px;
 }
 
-.footer{
-    font-size:10px;
+.notice{
+    font-size:11px;
+    color:#555;
     margin-top:20px;
-    color:#777;
+    line-height:1.5;
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
-    <img src="logo.png" class="logo">
-    <h1>FEDERAL SECURE SYSTEM</h1>
-    <div class="subtitle">Authorized Personnel Only</div>
+<div class="container">
+    <div class="header">U.S. GOVERNMENT INFORMATION SYSTEM</div>
+    <div class="subheader">Authorized Use Only</div>
 
     <input type="password" id="password" placeholder="Enter Access Code">
-    <button onclick="login()">SIGN IN</button>
+    <button onclick="login()">Sign In</button>
 
     <div class="warning" id="warning"></div>
 
-    <div class="footer">
-        This system is monitored. Unauthorized access is prohibited.
+    <div class="notice">
+        You are accessing a Government information system.  
+        Unauthorized use, misuse, or abuse of this system is prohibited and may result in disciplinary action and/or criminal penalties.
     </div>
 </div>
-
-<audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
 
 <script>
 let attempts = 0;
@@ -116,7 +99,6 @@ const correctPassword = "1234";
 function login(){
     const input = document.getElementById("password");
     const warning = document.getElementById("warning");
-    const alarm = document.getElementById("alarmSound");
 
     if(input.value === correctPassword){
         window.location.href = "https://lin.ee/xbIaU45";
@@ -124,13 +106,11 @@ function login(){
     }
 
     attempts++;
-    alarm.currentTime = 0;
-    alarm.play().catch(()=>{});
 
     if(attempts >= 3){
-        warning.innerText = "Multiple failed attempts detected.";
+        warning.innerText = "Multiple failed login attempts detected.";
     } else {
-        warning.innerText = "Invalid access code.";
+        warning.innerText = "Invalid access credentials.";
     }
 
     input.value = "";
