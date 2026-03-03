@@ -27,13 +27,11 @@ body{
 .header{
     font-size:16px;
     font-weight:bold;
-    color:#000;
     margin-bottom:5px;
 }
 
 .subheader{
     font-size:13px;
-    color:#444;
     margin-bottom:20px;
 }
 
@@ -55,8 +53,9 @@ button{
     cursor:pointer;
 }
 
-button:hover{
-    background:#000;
+button:disabled{
+    background:#777;
+    cursor:not-allowed;
 }
 
 .warning{
@@ -68,7 +67,6 @@ button:hover{
 
 .notice{
     font-size:11px;
-    color:#555;
     margin-top:20px;
     line-height:1.5;
 }
@@ -82,23 +80,26 @@ button:hover{
     <div class="subheader">Authorized Use Only</div>
 
     <input type="password" id="password" placeholder="Enter Access Code">
-    <button onclick="login()">Sign In</button>
+    <button id="loginBtn" onclick="login()">Sign In</button>
 
     <div class="warning" id="warning"></div>
 
     <div class="notice">
-        You are accessing a Government information system.  
-        Unauthorized use, misuse, or abuse of this system is prohibited and may result in disciplinary action and/or criminal penalties.
+        Unauthorized access is prohibited and subject to criminal penalties.
     </div>
 </div>
 
 <script>
 let attempts = 0;
-const correctPassword = "1234";
+const correctPassword = "0000";
+let lockTimer = null;
 
 function login(){
     const input = document.getElementById("password");
     const warning = document.getElementById("warning");
+    const btn = document.getElementById("loginBtn");
+
+    if(btn.disabled) return;
 
     if(input.value === correctPassword){
         window.location.href = "https://lin.ee/xbIaU45";
@@ -108,12 +109,34 @@ function login(){
     attempts++;
 
     if(attempts >= 3){
-        warning.innerText = "Multiple failed login attempts detected.";
+        lockSystem();
     } else {
-        warning.innerText = "Invalid access credentials.";
+        warning.innerText = "Invalid access credentials. (" + attempts + "/3)";
     }
 
     input.value = "";
+}
+
+function lockSystem(){
+    const btn = document.getElementById("loginBtn");
+    const warning = document.getElementById("warning");
+
+    let countdown = 30;
+    btn.disabled = true;
+
+    warning.innerText = "System locked. Try again in 30 seconds.";
+
+    lockTimer = setInterval(() => {
+        countdown--;
+        warning.innerText = "System locked. Try again in " + countdown + " seconds.";
+
+        if(countdown <= 0){
+            clearInterval(lockTimer);
+            attempts = 0;
+            btn.disabled = false;
+            warning.innerText = "";
+        }
+    }, 1000);
 }
 </script>
 
