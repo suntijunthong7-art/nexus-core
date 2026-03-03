@@ -1,122 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE - Secure Access</title>
-
-<style>
-body{
-    margin:0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at center,#0a1a2f,#050b18);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:white;
-}
-
-.card{
-    width:350px;
-    background:#0f1e35;
-    border-radius:12px;
-    padding:40px 30px;
-    text-align:center;
-    box-shadow:0 0 40px rgba(0,0,0,0.8);
-    border-top:3px solid gold;
-    animation: fadeIn 1s ease;
-}
-
-h1{
-    letter-spacing:3px;
-    margin-bottom:5px;
-}
-
-.sub{
-    font-size:12px;
-    color:#aaa;
-    margin-bottom:25px;
-}
-
-input{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    background:#091423;
-    border:1px solid #1c355e;
-    border-radius:6px;
-    color:white;
-}
-
-button{
-    width:100%;
-    padding:12px;
-    margin-top:15px;
-    background:goldenrod;
-    border:none;
-    border-radius:6px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    background:gold;
-}
-
-.alert{
-    margin-top:15px;
-    font-size:13px;
-    display:none;
-}
-
-.success{
-    color:#00ff88;
-}
-
-.danger{
-    color:#ff4d4d;
-}
-
-@keyframes fadeIn{
-    from{opacity:0;transform:translateY(20px);}
-    to{opacity:1;transform:translateY(0);}
-}
-</style>
-</head>
-
-<body>
-
-<div class="card">
-    <h1>NEXUS CORE</h1>
-    <div class="sub">FEDERAL INTELLIGENCE DIVISION</div>
-
-    <input type="text" id="user" placeholder="Agent ID">
-    <input type="password" id="pass" placeholder="Access Key">
-
-    <button type="button" onclick="login()">AUTHORIZED ACCESS</button>
-
-    <div id="alertBox" class="alert"></div>
-</div>
-
 <script>
-function login(){
-    const user = document.getElementById("user").value;
-    const pass = document.getElementById("pass").value;
-    const alertBox = document.getElementById("alertBox");
+let attempts = 0;
 
-    if(user === "admin" && pass === "1234"){
-        alertBox.style.display = "block";
-        alertBox.className = "alert success";
-        alertBox.innerText = "ACCESS GRANTED - Welcome Agent";
+function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    const correctUser = "director";
+    const correctPass = "nexus2026";
+
+    if (user === correctUser && pass === correctPass) {
+        alert("ACCESS GRANTED");
     } else {
-        alertBox.style.display = "block";
-        alertBox.className = "alert danger";
-        alertBox.innerText = "⚠ UNAUTHORIZED ACCESS DETECTED";
+        attempts++;
+        if (attempts >= 3) {
+            document.body.innerHTML = `
+                <div style="
+                    background:black;
+                    color:red;
+                    height:100vh;
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    flex-direction:column;
+                    font-family:monospace;
+                    text-align:center;
+                ">
+                    <h1>⚠ SECURITY BREACH DETECTED ⚠</h1>
+                    <p>Unauthorized access attempt logged.</p>
+                    <p>System locked.</p>
+                </div>
+            `;
+        } else {
+            alert("Invalid credentials (" + attempts + "/3)");
+        }
     }
 }
 </script>
-
-</body>
-</html>
