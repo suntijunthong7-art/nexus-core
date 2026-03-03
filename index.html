@@ -2,90 +2,103 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NEXUS CORE | Secure Portal</title>
+<title>NEXUS CORE | Restricted Terminal</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
 
 body{
     margin:0;
     height:100vh;
+    background:black;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-family:'Orbitron', sans-serif;
-    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
-    background-size:400% 400%;
-    animation: gradientMove 12s ease infinite;
+    font-family:'Share Tech Mono', monospace;
+    overflow:hidden;
 }
 
-@keyframes gradientMove {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+/* scanline effect */
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,255,0,0.05),
+        rgba(0,255,0,0.05) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events:none;
 }
 
 .card{
-    backdrop-filter: blur(15px);
-    background: rgba(0,0,0,0.65);
-    padding:50px;
-    width:380px;
-    border-radius:20px;
-    box-shadow:0 0 40px rgba(0,0,0,0.8);
+    position:relative;
+    background:#050505;
+    border:1px solid #00ff66;
+    padding:40px;
+    width:360px;
+    box-shadow:0 0 30px #00ff66;
+    color:#00ff66;
     text-align:center;
-    color:white;
 }
 
 .logo{
-    width:120px;
-    margin-bottom:20px;
-    filter: drop-shadow(0 0 15px gold);
+    width:100px;
+    margin-bottom:15px;
+    filter: brightness(0) saturate(100%) invert(61%) sepia(96%) saturate(550%) hue-rotate(95deg);
 }
 
 h1{
-    margin:10px 0 30px;
-    letter-spacing:3px;
-    font-weight:600;
+    margin:10px 0;
+    letter-spacing:2px;
+}
+
+.status{
+    font-size:12px;
+    margin-bottom:20px;
+    color:#00ff66;
 }
 
 input{
     width:100%;
-    padding:14px;
-    margin:12px 0;
-    border:none;
-    border-radius:10px;
-    background:#111;
-    color:white;
-    font-size:14px;
+    padding:10px;
+    margin:10px 0;
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+    font-family:'Share Tech Mono', monospace;
 }
 
 input:focus{
     outline:none;
-    box-shadow:0 0 10px gold;
+    box-shadow:0 0 10px #00ff66;
 }
 
 button{
     width:100%;
-    padding:14px;
+    padding:10px;
     margin-top:15px;
+    background:#00ff66;
     border:none;
-    border-radius:10px;
-    background:gold;
+    color:black;
     font-weight:bold;
     cursor:pointer;
     transition:0.3s;
 }
 
 button:hover{
-    background:#ffd700;
-    box-shadow:0 0 15px gold;
+    background:#00cc55;
+    box-shadow:0 0 15px #00ff66;
 }
 
 .footer{
-    margin-top:25px;
-    font-size:11px;
-    color:#aaa;
+    margin-top:20px;
+    font-size:10px;
+    opacity:0.7;
 }
 
 </style>
@@ -99,14 +112,18 @@ button:hover{
 
 <h1>NEXUS CORE</h1>
 
-<input type="text" placeholder="USERNAME">
-<input type="password" placeholder="PASSWORD">
+<div class="status">
+SYSTEM STATUS: SECURE<br>
+CLEARANCE LEVEL: OMEGA
+</div>
 
-<button>SECURE ACCESS</button>
+<input type="text" placeholder="ENTER USERNAME">
+<input type="password" placeholder="ENTER ACCESS CODE">
+
+<button>INITIATE ACCESS</button>
 
 <div class="footer">
-AUTHORIZED PERSONNEL ONLY<br>
-© 2026 NEXUS CORE SYSTEMS
+RESTRICTED AREA • UNAUTHORIZED ACCESS PROHIBITED
 </div>
 
 </div>
