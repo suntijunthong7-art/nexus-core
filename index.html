@@ -1,4 +1,5 @@
 <script>
+document.addEventListener("DOMContentLoaded", function(){
 
 const correctCard = "LC-A01";
 const correctPass = "Lc1993♧";
@@ -13,13 +14,14 @@ const btn = document.getElementById("loginBtn");
 const msg = document.getElementById("msg");
 const session = document.getElementById("session");
 
+if(!card || !pass || !btn) return; // กันพัง
+
 btn.addEventListener("click", authenticate);
 
 function authenticate(){
 
     if(locked || hardLocked) return;
 
-    msg.style.color = "#333";
     msg.innerText = "กำลังตรวจสอบข้อมูล...";
     btn.disabled = true;
 
@@ -27,8 +29,7 @@ function authenticate(){
 
         if(card.value === correctCard && pass.value === correctPass){
 
-            const sessionID = "NC-" + Math.floor(Math.random()*1000000);
-            session.innerText = "Session ID: " + sessionID;
+            session.innerText = "Session ID: NC-" + Math.floor(Math.random()*1000000);
             msg.style.color = "green";
             msg.innerText = "ยืนยันตัวตนสำเร็จ";
 
@@ -42,12 +43,17 @@ function authenticate(){
         attempts++;
 
         if(attempts >= 9){
-            activateHardLock();
+            hardLocked = true;
+            msg.style.color = "#8b0000";
+            msg.innerText = "บัญชีถูกระงับ กรุณาติดต่อผู้ดูแลระบบ";
+            card.disabled = true;
+            pass.disabled = true;
+            btn.disabled = true;
             return;
         }
 
         if(attempts >= 6){
-            activateLock(300, true); // 5 นาที + Alert
+            activateLock(300, true);
             return;
         }
 
@@ -69,20 +75,13 @@ function activateLock(seconds, alertMode){
     locked = true;
     let timeLeft = seconds;
 
-    msg.style.color = alertMode ? "#8b0000" : "#b00000";
-
-    if(alertMode){
-        msg.innerText = "SECURITY ALERT: ระบบระงับชั่วคราว 5 นาที";
-    }else{
-        msg.innerText = "ระบบถูกระงับชั่วคราว 30 วินาที";
-    }
-
     card.disabled = true;
     pass.disabled = true;
 
     const timer = setInterval(()=>{
         timeLeft--;
 
+        msg.style.color = alertMode ? "#8b0000" : "#b00000";
         msg.innerText = alertMode
             ? "SECURITY ALERT: โปรดลองใหม่ใน "+timeLeft+" วินาที"
             : "ระบบถูกระงับชั่วคราว โปรดลองอีกครั้งใน "+timeLeft+" วินาที";
@@ -100,25 +99,5 @@ function activateLock(seconds, alertMode){
     },1000);
 }
 
-function activateHardLock(){
-
-    hardLocked = true;
-
-    msg.style.color = "#8b0000";
-    msg.innerText = "บัญชีถูกระงับ กรุณาติดต่อผู้ดูแลระบบ";
-
-    card.disabled = true;
-    pass.disabled = true;
-    btn.disabled = true;
-}
-
-function updateTime(){
-    const now = new Date();
-    document.getElementById("time").innerText =
-        now.toLocaleDateString() + " " + now.toLocaleTimeString();
-}
-
-setInterval(updateTime,1000);
-updateTime();
-
+});
 </script>
