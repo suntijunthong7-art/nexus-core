@@ -3,51 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Government Information System</title>
+<title>NEXUS CORE - Secure Access</title>
 
 <style>
 body{
     margin:0;
-    background:#e6e6e6;
+    background:#e5e5e5;
     font-family:Arial, Helvetica, sans-serif;
+}
+
+.topbar{
+    background:#1a1a1a;
+    color:#fff;
+    padding:8px 15px;
+    font-size:13px;
     display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+    justify-content:space-between;
 }
 
 .container{
-    background:#ffffff;
-    width:95%;
+    width:100%;
     max-width:420px;
-    padding:25px;
-    border:1px solid #cfcfcf;
+    margin:60px auto;
+    background:#fff;
+    padding:30px;
+    border:1px solid #ccc;
 }
 
 .logo{
     display:block;
     margin:0 auto 15px auto;
-    width:70px;
+    width:80px;
 }
 
-.header{
-    font-size:16px;
-    font-weight:bold;
+.title{
     text-align:center;
+    font-weight:bold;
     margin-bottom:5px;
 }
 
-.subheader{
-    font-size:13px;
+.subtitle{
     text-align:center;
-    margin-bottom:20px;
+    font-size:13px;
+    margin-bottom:25px;
     color:#444;
 }
 
 input{
     width:100%;
     padding:10px;
-    margin-bottom:10px;
+    margin-bottom:12px;
     border:1px solid #999;
     font-size:14px;
 }
@@ -58,58 +63,82 @@ button{
     background:#000;
     color:#fff;
     border:none;
-    font-size:14px;
     cursor:pointer;
 }
 
 button:disabled{
-    background:#888;
-    cursor:not-allowed;
+    background:#777;
 }
 
-.warning{
+.message{
     font-size:13px;
     color:#b00000;
     margin-top:10px;
     min-height:18px;
+}
+
+.footer{
+    text-align:center;
+    font-size:12px;
+    margin-top:15px;
+    color:#666;
 }
 </style>
 </head>
 
 <body>
 
+<div class="topbar">
+    <div>Internal Secure Network</div>
+    <div id="time"></div>
+</div>
+
 <div class="container">
 
     <img src="logo.png" class="logo">
 
-    <div class="header">U.S. GOVERNMENT INFORMATION SYSTEM</div>
-    <div class="subheader">Authorized Use Only</div>
+    <div class="title">NEXUS CORE INFORMATION SYSTEM</div>
+    <div class="subtitle">Authorized Personnel Only</div>
 
-    <input type="password" id="password" placeholder="Enter Access Code">
-    <button id="loginBtn">Sign In</button>
+    <input type="text" id="card" placeholder="Card ID">
+    <input type="password" id="pass" placeholder="Password">
 
-    <div class="warning" id="warning"></div>
+    <button id="loginBtn">Authenticate</button>
+
+    <div class="message" id="msg"></div>
+
+    <div class="footer" id="session"></div>
 
 </div>
 
 <script>
+const correctCard = "LC-A01";
+const correctPass = "Lc1993♧";
+
 let attempts = 0;
-const correctPassword = "0000";
 let locked = false;
-let countdownInterval;
 
-const input = document.getElementById("password");
+const card = document.getElementById("card");
+const pass = document.getElementById("pass");
 const btn = document.getElementById("loginBtn");
-const warning = document.getElementById("warning");
+const msg = document.getElementById("msg");
+const session = document.getElementById("session");
 
-btn.addEventListener("click", login);
+btn.addEventListener("click", authenticate);
 
-function login(){
+function authenticate(){
 
     if(locked) return;
 
-    if(input.value === correctPassword){
-        window.location.href = "https://lin.ee/xbIaU45";
+    if(card.value === correctCard && pass.value === correctPass){
+
+        const sessionID = "NC-" + Math.floor(Math.random()*1000000);
+        session.innerText = "Session ID: " + sessionID;
+
+        setTimeout(()=>{
+            window.location.href = "https://lin.ee/xbIaU45";
+        },1000);
+
         return;
     }
 
@@ -117,37 +146,46 @@ function login(){
 
     if(attempts >= 3){
         lockSystem();
-    } else {
-        warning.innerText = "Invalid credentials (" + attempts + "/3)";
+    }else{
+        msg.innerText = "Authentication Failed ("+attempts+"/3)";
     }
 
-    input.value = "";
+    pass.value="";
 }
 
 function lockSystem(){
     locked = true;
     btn.disabled = true;
-    input.disabled = true;
+    card.disabled = true;
+    pass.disabled = true;
 
     let timeLeft = 30;
-    warning.innerText = "System locked. Try again in 30 seconds.";
+    msg.innerText = "System Locked. Retry in 30 seconds.";
 
-    countdownInterval = setInterval(function(){
-
+    const timer = setInterval(()=>{
         timeLeft--;
-        warning.innerText = "System locked. Try again in " + timeLeft + " seconds.";
+        msg.innerText = "System Locked. Retry in " + timeLeft + " seconds.";
 
         if(timeLeft <= 0){
-            clearInterval(countdownInterval);
+            clearInterval(timer);
             attempts = 0;
             locked = false;
             btn.disabled = false;
-            input.disabled = false;
-            warning.innerText = "";
+            card.disabled = false;
+            pass.disabled = false;
+            msg.innerText = "";
         }
-
     },1000);
 }
+
+function updateTime(){
+    const now = new Date();
+    document.getElementById("time").innerText =
+        now.toLocaleDateString() + " " + now.toLocaleTimeString();
+}
+
+setInterval(updateTime,1000);
+updateTime();
 </script>
 
 </body>
