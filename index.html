@@ -1,4 +1,5 @@
 <script>
+
 const correctCard = "LC-A01";
 const correctPass = "Lc1993♧";
 
@@ -29,9 +30,7 @@ function authenticate(){
             const sessionID = "NC-" + Math.floor(Math.random()*1000000);
             session.innerText = "Session ID: " + sessionID;
             msg.style.color = "green";
-            msg.innerText = "อนุญาตการเข้าใช้งาน";
-
-            attempts = 0;
+            msg.innerText = "ยืนยันตัวตนสำเร็จ";
 
             setTimeout(()=>{
                 window.location.href = "https://lin.ee/xbIaU45";
@@ -41,58 +40,61 @@ function authenticate(){
         }
 
         attempts++;
-        pass.value="";
 
         if(attempts >= 9){
             activateHardLock();
+            return;
         }
-        else if(attempts >= 6){
-            lockSystem(300, true); // 5 นาที + alert
+
+        if(attempts >= 6){
+            activateLock(300, true); // 5 นาที + Alert
+            return;
         }
-        else if(attempts >= 3){
-            lockSystem(30, false);
+
+        if(attempts >= 3){
+            activateLock(30, false);
+            return;
         }
-        else{
-            msg.style.color = "#b00000";
-            msg.innerText = "ยืนยันตัวตนล้มเหลว ("+attempts+"/9)";
-            btn.disabled = false;
-        }
+
+        msg.style.color = "#b00000";
+        msg.innerText = "การยืนยันล้มเหลว ("+attempts+"/3)";
+        btn.disabled = false;
+        pass.value="";
 
     },1200);
 }
 
-function lockSystem(seconds, alertMode){
+function activateLock(seconds, alertMode){
 
     locked = true;
-    card.disabled = true;
-    pass.disabled = true;
-
     let timeLeft = seconds;
 
+    msg.style.color = alertMode ? "#8b0000" : "#b00000";
+
     if(alertMode){
-        msg.style.color = "#8B0000";
-        msg.innerText = "SECURITY ALERT: ระบบถูกตรวจพบความพยายามผิดปกติ";
+        msg.innerText = "SECURITY ALERT: ระบบระงับชั่วคราว 5 นาที";
     }else{
-        msg.style.color = "#b00000";
-        msg.innerText = "ระบบถูกระงับชั่วคราว";
+        msg.innerText = "ระบบถูกระงับชั่วคราว 30 วินาที";
     }
+
+    card.disabled = true;
+    pass.disabled = true;
 
     const timer = setInterval(()=>{
         timeLeft--;
 
-        msg.innerText = 
-        (alertMode ? 
-        "SECURITY ALERT: โปรดลองอีกครั้งใน " : 
-        "โปรดลองอีกครั้งใน ") 
-        + timeLeft + " วินาที";
+        msg.innerText = alertMode
+            ? "SECURITY ALERT: โปรดลองใหม่ใน "+timeLeft+" วินาที"
+            : "ระบบถูกระงับชั่วคราว โปรดลองอีกครั้งใน "+timeLeft+" วินาที";
 
         if(timeLeft <= 0){
             clearInterval(timer);
             locked = false;
+            btn.disabled = false;
             card.disabled = false;
             pass.disabled = false;
-            btn.disabled = false;
-            msg.innerText = "";
+            pass.value="";
+            msg.innerText="";
         }
 
     },1000);
@@ -102,7 +104,7 @@ function activateHardLock(){
 
     hardLocked = true;
 
-    msg.style.color = "#8B0000";
+    msg.style.color = "#8b0000";
     msg.innerText = "บัญชีถูกระงับ กรุณาติดต่อผู้ดูแลระบบ";
 
     card.disabled = true;
@@ -118,4 +120,5 @@ function updateTime(){
 
 setInterval(updateTime,1000);
 updateTime();
+
 </script>
