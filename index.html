@@ -3,135 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE - Secure Terminal</title>
+<title>Secure Access</title>
 
 <style>
 body{
     margin:0;
-    font-family:'Segoe UI',Arial,sans-serif;
-    background:radial-gradient(circle at center,#07121f 0%,#02060d 100%);
     height:100vh;
+    background:black;
     display:flex;
     justify-content:center;
     align-items:center;
-    color:#e0e6ed;
-    overflow:hidden;
+    font-family:Arial, sans-serif;
+    color:#00ffcc;
 }
 
 .container{
-    position:relative;
-    width:92%;
-    max-width:420px;
-    background:#0d1b2a;
+    background:#111;
     padding:40px;
-    border-radius:16px;
-    box-shadow:0 0 80px rgba(0,0,0,0.9);
-    border:1px solid rgba(255,215,0,0.3);
+    border-radius:15px;
     text-align:center;
-    overflow:hidden;
-}
-
-.container::after{
-    content:"";
-    position:absolute;
-    top:-100%;
-    left:0;
-    width:100%;
-    height:200%;
-    background:linear-gradient(to bottom,transparent 0%,rgba(255,215,0,0.05) 50%,transparent 100%);
-    animation:scan 6s linear infinite;
-}
-
-@keyframes scan{
-    0%{top:-100%;}
-    100%{top:100%;}
+    box-shadow:0 0 25px #00ffcc;
+    width:300px;
 }
 
 .logo{
-    width:110px;
-    margin-bottom:15px;
-    filter:drop-shadow(0 0 12px rgba(255,215,0,0.7));
-}
-
-h1{
-    margin:10px 0 5px 0;
-    letter-spacing:4px;
-}
-
-.subtitle{
-    font-size:12px;
-    opacity:0.6;
-    margin-bottom:30px;
+    width:120px;
+    margin-bottom:20px;
 }
 
 input{
     width:100%;
-    padding:14px;
-    margin:14px 0;
-    border-radius:10px;
-    border:1px solid #1f3a5a;
-    background:#081625;
-    color:white;
-    font-size:14px;
-    transition:0.3s;
-}
-
-input:focus{
-    outline:none;
-    border-color:gold;
-    box-shadow:0 0 8px rgba(255,215,0,0.6);
-}
-
-@keyframes shake{
-    0%,100%{transform:translateX(0);}
-    25%{transform:translateX(-5px);}
-    50%{transform:translateX(5px);}
-    75%{transform:translateX(-5px);}
-}
-
-.shake{
-    animation:shake 0.4s;
+    padding:10px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+    text-align:center;
+    font-size:18px;
 }
 
 button{
     width:100%;
-    padding:15px;
-    background:linear-gradient(90deg,#b8860b,#ffd700);
+    padding:10px;
     border:none;
-    border-radius:10px;
+    border-radius:8px;
+    background:#00ffcc;
     font-weight:bold;
     cursor:pointer;
-    margin-top:20px;
-    letter-spacing:1px;
-    transition:0.2s;
 }
-
-button:hover{opacity:0.9;}
-button:active{transform:scale(0.97);}
-
-.message{
-    margin-top:15px;
-    font-size:13px;
-    color:#ff4d4d;
-    min-height:18px;
-}
-
-.footer{
-    font-size:11px;
-    opacity:0.5;
-    margin-top:25px;
-}
-
-.locked{
-    background:black;
-    color:red;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    font-family:monospace;
-    letter-spacing:2px;
+button:hover{
+    background:#00ccaa;
 }
 </style>
 </head>
@@ -140,88 +60,30 @@ button:active{transform:scale(0.97);}
 
 <div class="container">
     <img src="logo.png" class="logo">
-    <h1>NEXUS CORE</h1>
-    <div class="subtitle">High Security Intelligence Network</div>
-
-    <input id="username" type="text" placeholder="Agent ID">
-    <input id="password" type="password" placeholder="Access Code">
-
-    <button onclick="login()">AUTHORIZED ACCESS</button>
-
-    <div id="msg" class="message"></div>
-
-    <div class="footer">
-        CLASSIFIED SYSTEM<br>
-        Unauthorized access will be logged.
-    </div>
+    <h2>SECURE LOGIN</h2>
+    <input type="password" id="password" placeholder="Enter Access Code">
+    <button onclick="login()">ENTER</button>
 </div>
 
-<!-- SOUND SYSTEM -->
-<audio id="bootSound" src="boot.mp3"></audio>
-<audio id="beepSound" src="beep.mp3"></audio>
-<audio id="alarmSound" src="alarm.mp3" loop></audio>
-<audio id="grantedSound" src="granted.mp3"></audio>
+<audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
 
 <script>
 let attempts = 0;
 
-// เล่นเสียง boot เมื่อผู้ใช้แตะหน้าจอครั้งแรก
-document.body.addEventListener("click",function init(){
-    document.getElementById("bootSound").play();
-    document.body.removeEventListener("click",init);
-});
-
 function login(){
-
-    const userInput = document.getElementById("username");
-    const passInput = document.getElementById("password");
-    const msg = document.getElementById("msg");
-
-    const beep = document.getElementById("beepSound");
+    const pass = document.getElementById("password").value;
     const alarm = document.getElementById("alarmSound");
-    const granted = document.getElementById("grantedSound");
 
-    const correctUser = "admin";
-    const correctPass = "1234";
-
-    if(userInput.value.trim() === correctUser &&
-       passInput.value.trim() === correctPass){
-
-        granted.play();
-
-        setTimeout(()=>{
-            window.location.href = "https://lin.ee/xbIaU45";
-        },1200);
-
+    if(pass === "1234"){
+        window.location.href = "https://lin.ee/xbIaU45";
     }else{
-
         attempts++;
 
-        beep.currentTime = 0;
-        beep.play();
-
-        userInput.classList.add("shake");
-        passInput.classList.add("shake");
-
-        setTimeout(()=>{
-            userInput.classList.remove("shake");
-            passInput.classList.remove("shake");
-        },400);
+        alarm.currentTime = 0;
+        alarm.play().catch(()=>{});
 
         if(attempts >= 3){
-
-            alarm.play();
-
-            document.body.innerHTML = `
-                <div class="locked">
-                    <h1>⚠ SECURITY BREACH DETECTED ⚠</h1>
-                    <p>Multiple unauthorized attempts detected.</p>
-                    <p>Terminal permanently locked.</p>
-                </div>
-            `;
-
-        }else{
-            msg.innerText = "Access denied (" + attempts + "/3)";
+            alert("⚠ SECURITY ALERT ⚠\nUnauthorized Access Attempt Detected");
         }
     }
 }
