@@ -1,70 +1,57 @@
-<body>
-
-<div class="topbar">
-<div>INTERNAL NETWORK</div>
-<div id="time"></div>
-</div>
-
-<div class="container">
-
-<div style="text-align:center;margin-bottom:20px;">
-<img src="logo.png" style="width:90px;">
-</div>
-
-<h3>IDENTITY VERIFICATION</h3>
-
-<input id="card" placeholder="Card ID">
-<input id="pass" type="password" placeholder="Password">
-<button id="loginBtn">Authenticate</button>
-<div class="message" id="msg"></div>
-
-</div>
-
 <script>
-document.addEventListener("DOMContentLoaded",function(){
+const correctCard = "LC-A01";
+const correctPass = "Lc1993♧";
 
-const correctCard="LC-A01";
-const correctPass="Lc1993♧";
+let failCount = 0;
+let lockUntil = 0;
+let timerInterval = null;
 
-let attempts=0;
+function authenticate() {
+    const now = Date.now();
+    const message = document.getElementById("message");
 
-const card=document.getElementById("card");
-const pass=document.getElementById("pass");
-const btn=document.getElementById("loginBtn");
-const msg=document.getElementById("msg");
+    if (now < lockUntil) {
+        return;
+    }
 
-btn.onclick=function(){
+    const card = document.getElementById("card").value.trim();
+    const pass = document.getElementById("pass").value.trim();
 
-if(card.value===correctCard && pass.value===correctPass){
-msg.style.color="lime";
-msg.innerText="ACCESS GRANTED";
-return;
+    if (card === correctCard && pass === correctPass) {
+        message.style.color = "lime";
+        message.innerText = "ยืนยันตัวตนสำเร็จ กำลังเข้าสู่ระบบ...";
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 1500);
+    } else {
+        failCount++;
+        message.style.color = "red";
+        message.innerText = "ข้อมูลไม่ถูกต้อง";
+
+        if (failCount === 3) lockSystem(30);
+        if (failCount === 6) lockSystem(60);
+        if (failCount === 9) lockSystem(180);
+    }
 }
 
-attempts++;
+function lockSystem(seconds) {
+    const message = document.getElementById("message");
+    const button = document.getElementById("loginBtn");
 
-if(attempts>=3){
-msg.style.color="red";
-msg.innerText="SYSTEM LOCKED";
-btn.disabled=true;
-return;
+    lockUntil = Date.now() + seconds * 1000;
+    button.disabled = true;
+
+    timerInterval = setInterval(() => {
+        const remaining = Math.ceil((lockUntil - Date.now()) / 1000);
+
+        if (remaining <= 0) {
+            clearInterval(timerInterval);
+            button.disabled = false;
+            message.innerText = "";
+        } else {
+            message.style.color = "orange";
+            message.innerText = `ระบบล็อกอยู่ โปรดลองใหม่อีกครั้งใน ${remaining} วินาที`;
+        }
+    }, 1000);
 }
-
-msg.style.color="red";
-msg.innerText="ACCESS DENIED ("+attempts+"/3)";
-pass.value="";
-};
-
-function updateTime(){
-const now=new Date();
-document.getElementById("time").innerText=
-now.toLocaleDateString()+" "+now.toLocaleTimeString();
-}
-setInterval(updateTime,1000);
-updateTime();
-
-});
 </script>
-
-</body>
-</html>
