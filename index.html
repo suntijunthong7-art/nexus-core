@@ -23,13 +23,13 @@ body{
     background:#0f2238;
     padding:30px;
     border-radius:12px;
-    box-shadow:0 0 30px rgba(0,0,0,0.8);
+    box-shadow:0 0 40px rgba(0,0,0,0.9);
     border-top:4px solid gold;
     text-align:center;
 }
 
 .logo{
-    width:80px;
+    width:85px;
     margin-bottom:15px;
 }
 
@@ -70,11 +70,19 @@ button:hover{
     opacity:0.9;
 }
 
+.message{
+    margin-top:10px;
+    font-size:13px;
+    color:#ff4d4d;
+    min-height:18px;
+}
+
 .footer{
     font-size:11px;
     opacity:0.6;
     margin-top:15px;
 }
+
 .locked{
     background:black;
     color:red;
@@ -84,6 +92,7 @@ button:hover{
     align-items:center;
     flex-direction:column;
     font-family:monospace;
+    text-align:center;
 }
 </style>
 </head>
@@ -93,12 +102,14 @@ button:hover{
 <div class="container">
     <img src="logo.png" class="logo">
     <h1>NEXUS CORE</h1>
-    <div class="subtitle">Federal Intelligence Division</div>
+    <div class="subtitle">Central Intelligence Division</div>
 
     <input id="username" type="text" placeholder="รหัสตัวแทน">
     <input id="password" type="password" placeholder="รหัสเข้าใช้งาน">
 
     <button onclick="login()">AUTHORIZED ACCESS</button>
+
+    <div id="msg" class="message"></div>
 
     <div class="footer">
         Official Use Only<br>
@@ -113,6 +124,7 @@ function login(){
 
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
+    const msg = document.getElementById("msg");
 
     const correctUser = "admin";
     const correctPass = "1234";
@@ -127,12 +139,12 @@ function login(){
             document.body.innerHTML = `
                 <div class="locked">
                     <h1>⚠ SECURITY BREACH DETECTED ⚠</h1>
-                    <p>Multiple failed login attempts.</p>
+                    <p>Multiple failed login attempts detected.</p>
                     <p>System locked.</p>
                 </div>
             `;
         }else{
-            alert("รหัสไม่ถูกต้อง (" + attempts + "/3)");
+            msg.innerText = "รหัสไม่ถูกต้อง (" + attempts + "/3)";
         }
     }
 }
