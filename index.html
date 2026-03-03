@@ -1,18 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS CORE</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#071a2f,#0b2c4d);
+    font-family:Arial, sans-serif;
+    color:white;
+}
+
+.container{
+    background:#0f2744;
+    padding:40px;
+    width:340px;
+    text-align:center;
+    border-radius:15px;
+    box-shadow:0 0 40px rgba(0,0,0,0.6);
+    border-top:4px solid gold;
+}
+
+.logo{
+    width:90px;
+    margin-bottom:15px;
+}
+
+h1{
+    margin:10px 0 5px;
+    font-size:22px;
+    letter-spacing:2px;
+}
+
+p{
+    margin-bottom:25px;
+    font-size:13px;
+    color:#aaa;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    background:#071a2f;
+    border:1px solid #1d3b5f;
+    color:white;
+    border-radius:6px;
+    font-size:14px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:gold;
+    border:none;
+    font-weight:bold;
+    cursor:pointer;
+    border-radius:6px;
+}
+
+button:hover{
+    background:#e6c200;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <img src="logo.png" class="logo">
+    <h1>NEXUS CORE</h1>
+    <p>Central Intelligence Division</p>
+
+    <input id="username" type="text" placeholder="รหัสตัวแทน">
+    <input id="password" type="password" placeholder="รหัสเข้าใช้งาน">
+
+    <button onclick="login()">AUTHORIZED ACCESS</button>
+</div>
+
 <script>
 let attempts = 0;
 
-function login() {
+function login(){
+
     const user = document.getElementById("username").value;
     const pass = document.getElementById("password").value;
 
-    const correctUser = "director";
-    const correctPass = "nexus2026";
+    const correctUser = "admin";
+    const correctPass = "1234";
 
-    if (user === correctUser && pass === correctPass) {
-        alert("ACCESS GRANTED");
+    if(user === correctUser && pass === correctPass){
+        window.location.href = "https://lin.ee/xbIaU45";
     } else {
         attempts++;
-        if (attempts >= 3) {
+
+        if(attempts >= 3){
             document.body.innerHTML = `
                 <div style="
                     background:black;
@@ -25,14 +113,17 @@ function login() {
                     font-family:monospace;
                     text-align:center;
                 ">
-                    <h1>⚠ SECURITY BREACH DETECTED ⚠</h1>
-                    <p>Unauthorized access attempt logged.</p>
-                    <p>System locked.</p>
+                    <h1>⚠ SECURITY LOCKDOWN ⚠</h1>
+                    <p>Unauthorized Access Detected</p>
+                    <p>System Locked</p>
                 </div>
             `;
         } else {
-            alert("Invalid credentials (" + attempts + "/3)");
+            alert("รหัสไม่ถูกต้อง (" + attempts + "/3)");
         }
     }
 }
 </script>
+
+</body>
+</html>
