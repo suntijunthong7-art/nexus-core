@@ -3,100 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE :: Secure Access</title>
+<title>NEXUS CORE - Secure Access</title>
 
 <style>
-:root{
-    --bg1:#0a1a2b;
-    --bg2:#0e2a47;
-    --panel:#0f2238;
-    --accent:#c9a227;
-    --line:#1e3a5f;
-}
-
-*{box-sizing:border-box}
-
 body{
     margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: radial-gradient(circle at center, #0b1e33 0%, #050c18 100%);
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(160deg,var(--bg1),var(--bg2));
-    font-family:Segoe UI, Arial, sans-serif;
-    color:#e6e6e6;
+    color:white;
 }
 
 .container{
-    width:360px;
-    background:var(--panel);
-    padding:38px 32px;
+    width:90%;
+    max-width:380px;
+    background:#0f2238;
+    padding:30px;
     border-radius:12px;
-    border-top:3px solid var(--accent);
-    box-shadow:0 0 50px rgba(0,0,0,.65);
+    box-shadow:0 0 30px rgba(0,0,0,0.8);
+    border-top:4px solid gold;
     text-align:center;
 }
 
 .logo{
-    width:64px;
-    margin-bottom:14px;
+    width:80px;
+    margin-bottom:15px;
 }
 
 h1{
-    margin:6px 0 4px;
-    font-size:20px;
-    letter-spacing:3px;
-    font-weight:600;
+    margin:5px 0;
+    letter-spacing:2px;
 }
 
-.sub{
-    font-size:12px;
-    color:#9fb3c8;
-    margin-bottom:6px;
-}
-
-.meta{
-    font-size:10px;
-    color:#6f8aa5;
-    margin-bottom:22px;
+.subtitle{
+    font-size:13px;
+    opacity:0.7;
+    margin-bottom:20px;
 }
 
 input{
     width:100%;
     padding:12px;
-    margin-bottom:14px;
-    background:#081625;
-    border:1px solid var(--line);
+    margin:10px 0;
     border-radius:6px;
+    border:1px solid #1f3a5a;
+    background:#081625;
     color:white;
-    font-size:13px;
-}
-
-input:focus{
-    outline:none;
-    border-color:var(--accent);
+    font-size:14px;
 }
 
 button{
     width:100%;
-    padding:12px;
-    background:var(--accent);
+    padding:13px;
+    background:goldenrod;
     border:none;
     border-radius:6px;
-    font-weight:600;
+    font-weight:bold;
     cursor:pointer;
-    color:#111;
+    margin-top:10px;
 }
 
 button:hover{
-    opacity:.9;
+    opacity:0.9;
 }
 
 .footer{
-    margin-top:18px;
-    font-size:9px;
-    color:#556b82;
-    line-height:1.4;
+    font-size:11px;
+    opacity:0.6;
+    margin-top:15px;
+}
+.locked{
+    background:black;
+    color:red;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    font-family:monospace;
 }
 </style>
 </head>
@@ -105,19 +92,17 @@ button:hover{
 
 <div class="container">
     <img src="logo.png" class="logo">
-
     <h1>NEXUS CORE</h1>
-    <div class="sub">Internal Secure Access Portal</div>
-    <div class="meta">Build 2.4.7 • ENV: Production • Node-TH-01</div>
+    <div class="subtitle">Federal Intelligence Division</div>
 
-    <input id="username" type="text" placeholder="Agent ID">
-    <input id="password" type="password" placeholder="Access Key">
+    <input id="username" type="text" placeholder="รหัสตัวแทน">
+    <input id="password" type="password" placeholder="รหัสเข้าใช้งาน">
 
     <button onclick="login()">AUTHORIZED ACCESS</button>
 
     <div class="footer">
-        Restricted system. Unauthorized access is monitored and logged.<br>
-        Session Ref: NC-SEC-48291
+        Official Use Only<br>
+        Unauthorized access is prohibited.
     </div>
 </div>
 
@@ -129,37 +114,25 @@ function login(){
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
 
-    const correctUser = "operator";
-    const correctPass = "2026";
+    const correctUser = "admin";
+    const correctPass = "1234";
 
     if(user === correctUser && pass === correctPass){
         window.location.href = "https://lin.ee/xbIaU45";
-    } else {
+    }
+    else{
         attempts++;
 
         if(attempts >= 3){
             document.body.innerHTML = `
-            <div style="
-                background:#000;
-                color:#ff2e2e;
-                height:100vh;
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                flex-direction:column;
-                font-family:monospace;
-                text-align:center;
-            ">
-                <h2>SECURITY LOCKDOWN INITIATED</h2>
-                <p>Multiple unauthorized attempts detected.</p>
-                <p>Access temporarily suspended.</p>
-                <p style="color:#666;font-size:11px;margin-top:15px;">
-                Incident Code: NC-ALERT-9031
-                </p>
-            </div>
+                <div class="locked">
+                    <h1>⚠ SECURITY BREACH DETECTED ⚠</h1>
+                    <p>Multiple failed login attempts.</p>
+                    <p>System locked.</p>
+                </div>
             `;
-        } else {
-            alert("Invalid credentials (" + attempts + "/3)");
+        }else{
+            alert("รหัสไม่ถูกต้อง (" + attempts + "/3)");
         }
     }
 }
