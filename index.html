@@ -31,9 +31,16 @@ body{
   margin-bottom:15px;
 }
 
+.company{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#6b7280;
+}
+
 h1{
   font-size:18px;
-  margin-bottom:25px;
+  margin:5px 0 25px;
+  color:#1f2937;
 }
 
 input{
@@ -42,7 +49,7 @@ input{
   margin-bottom:15px;
   border:1px solid #d1d5db;
   border-radius:6px;
-  background:#fff;
+  font-size:14px;
 }
 
 button{
@@ -64,7 +71,7 @@ button:disabled{
 .message{
   margin-top:10px;
   font-size:13px;
-  color:red;
+  color:#dc2626;
 }
 
 .footer{
@@ -74,90 +81,106 @@ button:disabled{
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-  <!-- ถ้า logo หาย ให้เช็คชื่อไฟล์ต้องตรง -->
-  <img src="logo.png" class="logo" alt="Logo">
+<img src="logo.png" class="logo" alt="Logo">
 
-  <h1>Secure Access Portal</h1>
+<div class="company">NEXUS CORE SYSTEM</div>
+<h1>Secure Access Portal</h1>
 
-  <input type="text" id="user" placeholder="User ID">
-  <input type="password" id="pass" placeholder="Password">
+<input type="text" id="user" placeholder="User ID">
+<input type="password" id="pass" placeholder="Password">
 
-  <button id="loginBtn" onclick="login()">SIGN IN</button>
+<button id="loginBtn" onclick="login()">SIGN IN</button>
 
-  <div class="message" id="message"></div>
+<div class="message" id="msg"></div>
 
-  <div class="footer">
-    © 2025 Nexus Core. All rights reserved.
-  </div>
+<div class="footer">
+© 2025 Nexus Core. All rights reserved.
+</div>
 
 </div>
 
 <script>
-const correctUser = "LC-A01";
-const correctPass = "Lc1993♧";
 
-let failCount = parseInt(localStorage.getItem("failCount")) || 0;
+const correctUser="admin";
+const correctPass="1234";
+
+let attempts = parseInt(localStorage.getItem("attempts")) || 0;
 let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
 
 const btn = document.getElementById("loginBtn");
-const msg = document.getElementById("message");
+const msg = document.getElementById("msg");
 
-function checkLock(){
-  const now = Date.now();
-  if(now < lockUntil){
-    const remain = Math.ceil((lockUntil - now)/1000);
-    btn.disabled = true;
-    btn.textContent = "LOCKED ("+remain+"s)";
-    setTimeout(checkLock,1000);
-  }else{
-    btn.disabled = false;
-    btn.textContent = "SIGN IN";
-    localStorage.removeItem("lockUntil");
-  }
-}
+checkLock();
 
 function login(){
-  const user = document.getElementById("user").value;
-  const pass = document.getElementById("pass").value;
 
   if(Date.now() < lockUntil){
     return;
   }
 
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
   if(user === correctUser && pass === correctPass){
     msg.style.color="green";
-    msg.textContent="Login successful";
-    failCount = 0;
-    localStorage.removeItem("failCount");
+    msg.innerText="Access Granted";
+    attempts = 0;
+    localStorage.removeItem("attempts");
+    localStorage.removeItem("lockUntil");
   }else{
-    failCount++;
-    localStorage.setItem("failCount", failCount);
+    attempts++;
+    localStorage.setItem("attempts", attempts);
     msg.style.color="red";
-    msg.textContent="Invalid credentials";
+    msg.innerText="Invalid credentials";
 
-    if(failCount === 3){
-      lock(30);
-    }
-    else if(failCount === 6){
-      lock(90);
-    }
-    else if(failCount === 9){
-      lock(180);
+    if(attempts===3){
+      lockAccount(30);
+    }else if(attempts===6){
+      lockAccount(90);
+    }else if(attempts===9){
+      lockAccount(180);
     }
   }
 }
 
-function lock(seconds){
+function lockAccount(seconds){
   lockUntil = Date.now() + seconds*1000;
   localStorage.setItem("lockUntil", lockUntil);
-  checkLock();
+  startCountdown(seconds);
 }
 
-checkLock();
+function startCountdown(seconds){
+  btn.disabled = true;
+  let remaining = seconds;
+
+  msg.innerText="Account locked: "+remaining+"s";
+
+  const timer = setInterval(()=>{
+    remaining--;
+    msg.innerText="Account locked: "+remaining+"s";
+    if(remaining<=0){
+      clearInterval(timer);
+      btn.disabled=false;
+      msg.innerText="";
+      attempts=0;
+      localStorage.removeItem("attempts");
+      localStorage.removeItem("lockUntil");
+    }
+  },1000);
+}
+
+function checkLock(){
+  if(Date.now() < lockUntil){
+    const remaining = Math.ceil((lockUntil - Date.now())/1000);
+    startCountdown(remaining);
+  }
+}
+
 </script>
 
 </body>
