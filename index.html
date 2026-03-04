@@ -161,4 +161,19 @@ checkLock();
 </script>
 
 </body>
+</html>      lock(180);
+    }
+  }
+}
+
+function lock(seconds){
+  lockUntil = Date.now() + seconds*1000;
+  localStorage.setItem("lockUntil", lockUntil);
+  checkLock();
+}
+
+checkLock();
+</script>
+
+</body>
 </html>
