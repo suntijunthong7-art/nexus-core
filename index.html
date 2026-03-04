@@ -15,30 +15,134 @@ body{
     color:#1f2933;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 .header{
     background:#1e2a34;
     color:#fff;
-    padding:16px 18px;
+    padding:16px 20px;
     display:flex;
     justify-content:space-between;
+    align-items:center;
     font-size:14px;
 }
 
-/* MAIN */
-.main{
-    padding:20px 14px 30px 14px;
+.header .time{
+    font-size:12px;
+    opacity:.85;
 }
 
-/* PANEL */
+/* ===== MAIN ===== */
+.main{
+    padding:24px 16px 40px 16px;
+}
+
+/* ===== PANEL ===== */
 .panel{
     width:100%;
+    max-width:480px;
+    margin:0 auto;
     background:#ffffff;
-    padding:28px</div>
+    padding:32px 22px 28px 22px;
+    border:1px solid #d7dde3;
+}
+
+.logo{
+    width:68px;
+    display:block;
+    margin:0 auto 18px auto;
+}
+
+h1{
+    text-align:center;
+    font-size:18px;
+    margin:0;
+    font-weight:600;
+}
+
+.subtitle{
+    text-align:center;
+    font-size:13px;
+    color:#6b7280;
+    margin:6px 0 24px 0;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:14px;
+    border:1px solid #cbd5e1;
+    font-size:14px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#1e2a34;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#1e2a34;
+    color:#fff;
+    border:none;
+    font-size:14px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#162028;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+#msg{
+    margin-top:12px;
+    font-size:12px;
+    min-height:18px;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+    margin-top:30px;
+    text-align:center;
+    font-size:11px;
+    padding:14px;
+    background:#f6f8fa;
+    border-top:1px solid #d7dde3;
+    color:#6b7280;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div>เน็กซัส คอร์</div>
+    <div class="time" id="datetime"></div>
+</div>
+
+<div class="main">
+<div class="panel">
+
+<img src="logo.png" class="logo" alt="logo">
+
+<h1>การตรวจสอบสิทธิ์ที่ปลอดภัย</h1>
+<div class="subtitle">เฉพาะบุคลากรที่ได้รับอนุญาตเท่านั้น</div>
+
+<input type="text" id="card" placeholder="รหัสประจำตัว">
+<input type="password" id="pass" placeholder="รหัสผ่าน">
+
+<button id="loginBtn">เข้าสู่ระบบ</button>
+
+<div id="msg"></div>
+
+</div>
 </div>
 
 <div class="footer">
-Unauthorized access is prohibited and subject to monitoring.
+การเข้าถึงโดยไม่ได้รับอนุญาตเป็นสิ่งต้องห้ามและอาจถูกตรวจสอบ
 </div>
 
 <script>
@@ -66,7 +170,7 @@ function checkLock(){
         btn.disabled=true;
         let remaining=Math.ceil((lockUntil-Date.now())/1000);
         msg.style.color="red";
-        msg.innerText="Account temporarily locked ("+remaining+"s)";
+        msg.innerText="บัญชีถูกล็อกชั่วคราว ("+remaining+" วินาที)";
         setTimeout(checkLock,1000);
         return true;
     }
@@ -84,7 +188,7 @@ let pass=document.getElementById("pass").value.trim();
 
 if(card===correctCard && pass===correctPass){
     msg.style.color="green";
-    msg.innerText="Authentication successful";
+    msg.innerText="เข้าสู่ระบบสำเร็จ";
     localStorage.removeItem("failCount");
     return;
 }
@@ -93,7 +197,7 @@ failCount++;
 localStorage.setItem("failCount",failCount);
 
 msg.style.color="red";
-msg.innerText="Invalid credentials";
+msg.innerText="ข้อมูลไม่ถูกต้อง";
 
 if(failCount===3) lockUntil=Date.now()+30000;
 if(failCount===6) lockUntil=Date.now()+60000;
