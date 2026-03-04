@@ -15,7 +15,6 @@ body{
   align-items:center;
   height:100vh;
 }
-
 .container{
   background:#fff;
   width:100%;
@@ -25,9 +24,6 @@ body{
   box-shadow:0 8px 20px rgba(0,0,0,0.08);
   text-align:center;
 }
-
-h1{margin-bottom:20px;}
-
 input{
   width:100%;
   padding:12px;
@@ -35,7 +31,6 @@ input{
   border:1px solid #ccc;
   border-radius:6px;
 }
-
 button{
   width:100%;
   padding:12px;
@@ -46,54 +41,101 @@ button{
   font-weight:600;
   cursor:pointer;
 }
-
-.error{
-  color:red;
+button:disabled{
+  background:#9ca3af;
+  cursor:not-allowed;
+}
+.message{
   font-size:13px;
-  display:none;
   margin-bottom:10px;
+  color:#dc2626;
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Internal Access Portal</h1>
-
-  <div class="error" id="errorMsg">Invalid credentials</div>
-
+  <h2>Internal Access Portal</h2>
+  <div class="message" id="msg"></div>
   <input type="text" id="empId" placeholder="Employee ID">
   <input type="password" id="password" placeholder="Password">
-
-  <button onclick="login()">SIGN IN</button>
+  <button id="loginBtn" onclick="login()">SIGN IN</button>
 </div>
 
 <script>
+const MAX_ATTEMPTS = 3;
+const LOCK_TIME = 60 * 1000; // 60 วิ
+
 function login(){
   const id = document.getElementById("empId").value.trim();
   const pass = document.getElementById("password").value.trim();
-  const error = document.getElementById("errorMsg");
+  const msg = document.getElementById("msg");
 
-  error.style.display="none";
-
-  if(id === "" || pass === ""){
-    error.textContent="Please enter credentials";
-    error.style.display="block";
+  if(isLocked()){
     return;
   }
 
   if(id === "admin" && pass === "1234"){
-    const sessionData = {
+    localStorage.setItem("session", JSON.stringify({
       user:id,
-      loginTime: Date.now()
-    };
-    localStorage.setItem("session", JSON.stringify(sessionData));
+      loginTime:Date.now()
+    }));
+    localStorage.removeItem("attempts");
+    localStorage.removeItem("lockUntil");
     window.location.href="dashboard.html";
   } else {
-    error.textContent="Invalid credentials";
-    error.style.display="block";
+    let attempts = Number(localStorage.getItem("attempts") || 0) + 1;
+    localStorage.setItem("attempts", attempts);
+
+    if(attempts >= MAX_ATTEMPTS){
+      const lockUntil = Date.now() + LOCK_TIME;
+      localStorage.setItem("lockUntil", lockUntil);
+      msg.textContent = "Too many attempts. Locked for 60 seconds.";
+      disableLogin();
+      startCountdown();
+    } else {
+      msg.textContent = "Invalid credentials (" + attempts + "/3)";
+    }
   }
 }
+
+function isLocked(){
+  const lockUntil = localStorage.getItem("lockUntil");
+  if(lockUntil && Date.now() < lockUntil){
+    disableLogin();
+    startCountdown();
+    return true;
+  }
+  return false;
+}
+
+function disableLogin(){
+  document.getElementById("loginBtn").disabled = true;
+}
+
+function startCountdown(){
+  const msg = document.getElementById("msg");
+  const interval = setInterval(()=>{
+    const lockUntil = localStorage.getItem("lockUntil");
+    if(!lockUntil){
+      clearInterval(interval);
+      return;
+    }
+
+    const remaining = Math.floor((lockUntil - Date.now())/1000);
+    if(remaining <= 0){
+      localStorage.removeItem("attempts");
+      localStorage.removeItem("lockUntil");
+      document.getElementById("loginBtn").disabled = false;
+      msg.textContent = "";
+      clearInterval(interval);
+    } else {
+      msg.textContent = "Locked. Try again in " + remaining + " seconds.";
+    }
+  },1000);
+}
+
+window.onload = isLocked;
 </script>
 
 </body>
