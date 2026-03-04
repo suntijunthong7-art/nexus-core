@@ -8,163 +8,169 @@
 <style>
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    background:#e9eef1;
+    font-family: Arial, sans-serif;
+    background:#d9d9d9;
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
 }
 
-.topbar{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    background:#23343c;
-    color:white;
-    padding:12px 20px;
-    font-size:14px;
-}
-
 .card{
     background:white;
-    width:90%;
-    max-width:380px;
     padding:30px;
+    width:340px;
     text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
     border-radius:6px;
 }
 
 .card img{
-    width:60px;
-    margin-bottom:15px;
+    width:70px;
+    margin-bottom:10px;
 }
 
 input{
     width:100%;
-    padding:12px;
+    padding:10px;
     margin:8px 0;
-    border:1px solid #ccc;
 }
 
 button{
     width:100%;
-    padding:12px;
-    background:#2f4752;
+    padding:10px;
+    background:#2f4f5f;
     color:white;
     border:none;
     cursor:pointer;
-    font-size:16px;
 }
 
 button:disabled{
-    background:#999;
+    background:gray;
+    cursor:not-allowed;
 }
 
-.error{
+#lockMessage{
     color:red;
-    font-size:14px;
     margin-top:10px;
-}
-
-.footer{
-    font-size:12px;
-    margin-top:15px;
-    color:#666;
 }
 </style>
 </head>
+
 <body>
 
-<div class="topbar">
-ศูนย์ควบคุมสิทธิการเข้าใช้งาน
-</div>
-
 <div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png">
-<h2>ระบบตรวจสอบสิทธิการเข้าใช้งาน</h2>
-<p>Access Control System</p>
+    <!-- โลโก้ (ไม่หายแน่นอน) -->
+    <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png">
 
-<input type="text" id="card" placeholder="รหัสประจำตัวเจ้าหน้าที่">
-<input type="password" id="pass" placeholder="รหัสผ่าน">
-<button onclick="login()" id="loginBtn">เข้าสู่ระบบ</button>
+    <h3>ระบบตรวจสอบสิทธิการเข้าใช้งาน</h3>
 
-<div class="error" id="error"></div>
+    <input type="text" id="card" placeholder="รหัสประจำตัวเจ้าหน้าที่">
+    <input type="password" id="pass" placeholder="รหัสผ่าน">
 
-<div class="footer">
-การเข้าสู่ระบบโดยไม่ได้รับอนุญาต อาจมีความผิดตามกฎหมายที่เกี่ยวข้อง
+    <button onclick="login()" id="loginBtn">เข้าสู่ระบบ</button>
+
+    <div id="lockMessage"></div>
 </div>
-</div>
-
-<noscript>
-<h2 style="color:red;text-align:center;">ระบบต้องเปิด JavaScript</h2>
-</noscript>
 
 <script>
+
+// =======================
+// 🔐 ข้อมูลถูกต้อง
+// =======================
 const correctCard="LC-A01";
 const correctPass="Lc1993♧";
 
-let attempts = localStorage.getItem("attempts") 
-    ? parseInt(localStorage.getItem("attempts")) : 0;
+// =======================
+// โหลดค่าการล็อคจาก localStorage (กันรีเฟรชหนี)
+// =======================
+let attempts = parseInt(localStorage.getItem("attempts")) || 0;
+let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
 
-let lockUntil = localStorage.getItem("lockUntil")
-    ? parseInt(localStorage.getItem("lockUntil")) : 0;
+const now = Date.now();
 
-const errorBox = document.getElementById("error");
-const loginBtn = document.getElementById("loginBtn");
-
-function checkLock(){
-    if(Date.now() < lockUntil){
-        loginBtn.disabled = true;
-        let seconds = Math.floor((lockUntil - Date.now())/1000);
-        errorBox.innerText = "ถูกล็อกระบบอีก " + seconds + " วินาที";
-        setTimeout(checkLock,1000);
-    }else{
-        loginBtn.disabled = false;
-        errorBox.innerText = "";
-    }
+if(now < lockUntil){
+    startLockCountdown();
 }
 
+// =======================
+// ฟังก์ชันล็อก
+// =======================
+function startLockCountdown(){
+    const btn = document.getElementById("loginBtn");
+    const msg = document.getElementById("lockMessage");
+
+    btn.disabled = true;
+
+    let interval = setInterval(()=>{
+        let remaining = Math.floor((lockUntil - Date.now())/1000);
+
+        if(remaining <= 0){
+            clearInterval(interval);
+            btn.disabled = false;
+            msg.innerHTML="";
+            localStorage.removeItem("lockUntil");
+            localStorage.setItem("attempts",0);
+            attempts=0;
+        }else{
+            msg.innerHTML="ระบบถูกล็อค กรุณารอ "+remaining+" วินาที";
+        }
+
+    },1000);
+}
+
+// =======================
+// Login
+// =======================
 function login(){
-    const card = document.getElementById("card").value;
-    const pass = document.getElementById("pass").value;
 
     if(Date.now() < lockUntil){
         return;
     }
 
-    if(card === correctCard && pass === correctPass){
+    const card = document.getElementById("card").value;
+    const pass = document.getElementById("pass").value;
+
+    if(card===correctCard && pass===correctPass){
         alert("เข้าสู่ระบบสำเร็จ");
-        attempts = 0;
-        localStorage.removeItem("attempts");
-        localStorage.removeItem("lockUntil");
+        localStorage.setItem("attempts",0);
+        attempts=0;
     }else{
+
         attempts++;
-        localStorage.setItem("attempts", attempts);
+        localStorage.setItem("attempts",attempts);
 
-        let lockTime = 0;
+        alert("รหัสไม่ถูกต้อง");
 
-        if(attempts >= 9){
-            lockTime = 300;
-        }else if(attempts >= 6){
-            lockTime = 60;
-        }else if(attempts >= 3){
-            lockTime = 30;
+        // 🔴 ล็อค 3-6-9 ครั้ง
+        if(attempts===3){
+            lock(30); // 30 วิ
         }
-
-        if(lockTime > 0){
-            lockUntil = Date.now() + lockTime*1000;
-            localStorage.setItem("lockUntil", lockUntil);
+        if(attempts===6){
+            lock(60); // 1 นาที
         }
-
-        errorBox.innerText = "รหัสไม่ถูกต้อง ("+attempts+" ครั้ง)";
-        checkLock();
+        if(attempts>=9){
+            lock(180); // 3 นาที
+        }
     }
 }
 
-checkLock();
+// =======================
+// ตั้งเวลาล็อค
+// =======================
+function lock(seconds){
+    lockUntil = Date.now() + (seconds*1000);
+    localStorage.setItem("lockUntil",lockUntil);
+    startLockCountdown();
+}
+
+// =======================
+// ป้องกันจอว่าง
+// =======================
+window.onerror=function(){
+    document.body.innerHTML="<h2 style='text-align:center;margin-top:40%;color:red'>เกิดข้อผิดพลาดระบบ</h2>";
+};
+
 </script>
 
 </body>
