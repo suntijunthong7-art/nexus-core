@@ -19,7 +19,7 @@ body{
 }
 
 .container{
-  background:#ffffff;
+  background:#fff;
   width:100%;
   max-width:360px;
   padding:40px 30px;
@@ -53,12 +53,7 @@ input{
   border:1px solid #d1d5db;
   border-radius:6px;
   font-size:14px;
-  background:#ffffff;
-}
-
-input:focus{
-  outline:none;
-  border:1px solid #2563eb;
+  background:#fff;
 }
 
 button{
@@ -67,7 +62,7 @@ button{
   border:none;
   border-radius:6px;
   background:#1f2937;
-  color:#ffffff;
+  color:#fff;
   font-weight:600;
   cursor:pointer;
 }
@@ -78,15 +73,10 @@ button:disabled{
 }
 
 .message{
+  margin-top:10px;
   font-size:13px;
-  margin-bottom:10px;
   color:#dc2626;
-}
-
-.timer{
-  font-size:13px;
-  color:#b91c1c;
-  margin-bottom:10px;
+  min-height:18px;
 }
 
 .footer{
@@ -101,92 +91,85 @@ button:disabled{
 
 <div class="container">
 
-  <!-- ใส่ไฟล์โลโก้ในโฟลเดอร์เดียวกัน -->
-  <img src="logo.png" class="logo" alt="Nexus Core Logo">
+<img src="logo.png" class="logo" alt="Nexus Core Logo">
 
-  <div class="company">NEXUS CORE SYSTEM</div>
-  <h1>Secure Access Portal</h1>
+<div class="company">NEXUS CORE SYSTEM</div>
+<h1>Secure Access Portal</h1>
 
-  <div class="message" id="message"></div>
-  <div class="timer" id="timer"></div>
+<input type="text" id="user" placeholder="User ID">
+<input type="password" id="pass" placeholder="Password">
 
-  <input type="text" id="user" placeholder="User ID">
-  <input type="password" id="pass" placeholder="Password">
+<button id="loginBtn">SIGN IN</button>
 
-  <button id="loginBtn">SIGN IN</button>
+<div class="message" id="message"></div>
 
-  <div class="footer">
-    © 2025 Nexus Core. All rights reserved.
-  </div>
+<div class="footer">
+© 2025 Nexus Core. All rights reserved.
+</div>
 
 </div>
 
 <script>
-const correctUser = "LC-A01";
-const correctPass = "Lc1993♧";
+const correctUser = "admin";
+const correctPass = "1234";
+
+let failedAttempts = parseInt(localStorage.getItem("failedAttempts")) || 0;
+let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
 
 const loginBtn = document.getElementById("loginBtn");
 const message = document.getElementById("message");
-const timerEl = document.getElementById("timer");
 
-let attempts = parseInt(localStorage.getItem("attempts")) || 0;
-let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
-
-function checkLock(){
+function checkLock() {
   const now = Date.now();
 
-  if(now < lockUntil){
-    loginBtn.disabled = true;
+  if (lockUntil > now) {
     const remaining = Math.ceil((lockUntil - now)/1000);
-    timerEl.innerText = "Account locked. Try again in " + remaining + " seconds.";
-
+    loginBtn.disabled = true;
+    message.innerText = "Account locked. Try again in " + remaining + "s";
     setTimeout(checkLock,1000);
-  }else{
+  } else {
     loginBtn.disabled = false;
-    timerEl.innerText = "";
-    localStorage.removeItem("lockUntil");
+    message.innerText = "";
   }
 }
 
-function getLockTime(attempts){
-  if(attempts >= 9) return 180;
-  if(attempts >= 6) return 90;
-  if(attempts >= 3) return 30;
-  return 0;
-}
+checkLock();
 
 loginBtn.addEventListener("click", function(){
 
-  if(Date.now() < lockUntil) return;
+  const now = Date.now();
+  if (lockUntil > now) return;
 
   const user = document.getElementById("user").value;
   const pass = document.getElementById("pass").value;
 
   if(user === correctUser && pass === correctPass){
-    message.style.color = "green";
-    message.innerText = "Login successful.";
-    localStorage.removeItem("attempts");
-    localStorage.removeItem("lockUntil");
-    return;
+    alert("Login successful");
+    failedAttempts = 0;
+    localStorage.clear();
+  }else{
+    failedAttempts++;
+    localStorage.setItem("failedAttempts", failedAttempts);
+
+    let lockTime = 0;
+
+    if(failedAttempts >= 9){
+      lockTime = 180;
+    } else if(failedAttempts >= 6){
+      lockTime = 90;
+    } else if(failedAttempts >= 3){
+      lockTime = 30;
+    }
+
+    if(lockTime > 0){
+      lockUntil = Date.now() + lockTime*1000;
+      localStorage.setItem("lockUntil", lockUntil);
+      checkLock();
+    } else {
+      message.innerText = "Invalid credentials ("+failedAttempts+")";
+    }
   }
-
-  attempts++;
-  localStorage.setItem("attempts", attempts);
-
-  message.style.color = "#dc2626";
-  message.innerText = "Invalid credentials.";
-
-  const lockTime = getLockTime(attempts);
-
-  if(lockTime > 0){
-    lockUntil = Date.now() + lockTime*1000;
-    localStorage.setItem("lockUntil", lockUntil);
-    checkLock();
-  }
-
 });
-
-checkLock();
 </script>
 
 </body>
