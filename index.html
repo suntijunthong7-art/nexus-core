@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Access Control System</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
@@ -14,8 +14,8 @@ html,body{
     margin:0;
     height:100%;
     font-family:'Sarabun',sans-serif;
-    background:linear-gradient(#e3e7ea,#d9dee2);
-    color:#222;
+    background:#e2e6ea;
+    color:#2b2b2b;
 }
 
 .wrapper{
@@ -26,9 +26,9 @@ html,body{
 
 /* HEADER */
 .header{
-    background:#22313b;
+    background:#24343d;
     color:#fff;
-    padding:12px 22px;
+    padding:12px 20px;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -39,30 +39,30 @@ html,body{
 .main{
     flex:1;
     display:flex;
-    align-items:flex-start;
     justify-content:center;
-    padding:40px 16px 20px 16px;
+    padding:30px 16px 10px 16px;
 }
 
 .panel{
     width:100%;
-    max-width:520px;
-    background:#fff;
-    border:2px solid #2f3e49;
-    padding:36px 30px;
+    max-width:500px;
+    background:#ffffff;
+    border:1px solid #4a5861;
+    padding:30px 26px 24px 26px;
 }
 
 /* LOGO */
 .logo{
-    width:68px;
+    width:60px;
     display:block;
-    margin:0 auto 18px auto;
+    margin:0 auto 16px auto;
+    opacity:0.9;              /* ลดความเด่น */
 }
 
 /* TITLES */
 h1{
     text-align:center;
-    font-size:18px;
+    font-size:17px;
     margin:0;
     font-weight:600;
 }
@@ -70,32 +70,32 @@ h1{
 .subtitle{
     text-align:center;
     font-size:13px;
-    margin:6px 0 20px 0;
-    color:#444;
+    margin:4px 0 18px 0;
+    color:#555;
 }
 
 /* INPUT */
 input{
     width:100%;
-    padding:10px;
-    margin-bottom:12px;
-    border:1.5px solid #444;
+    padding:9px 10px;
+    margin-bottom:10px;
+    border:1px solid #666;
     font-size:14px;
-    background:#f8f8f8;
-    transition:all .2s;
+    background:#f7f7f7;
+    transition:.15s;
 }
 
 input:focus{
     outline:none;
-    border-color:#000;
+    border-color:#2b2b2b;
     background:#fff;
 }
 
 /* BUTTON */
 button{
     width:100%;
-    padding:11px;
-    background:#22313b;
+    padding:10px;
+    background:#2c3e47;
     color:#fff;
     border:none;
     font-size:14px;
@@ -104,26 +104,27 @@ button{
 }
 
 button:hover{
-    background:#1a262e;
+    background:#22313a;
 }
 
+/* NOTICE */
 .notice{
-    margin-top:18px;
+    margin-top:16px;
     font-size:12px;
-    border-top:1px solid #ccc;
-    padding-top:12px;
-    line-height:1.6;
-    color:#333;
+    border-top:1px solid #d0d0d0;
+    padding-top:10px;
+    line-height:1.5;
+    color:#444;
 }
 
 /* FOOTER */
 .footer{
     text-align:center;
     font-size:11px;
-    padding:12px;
-    background:#f2f4f6;
-    border-top:1px solid #bbb;
-    color:#444;
+    padding:10px;
+    background:#f1f3f5;
+    border-top:1px solid #c4c8cc;
+    color:#555;
 }
 </style>
 </head>
@@ -151,7 +152,7 @@ button:hover{
 <button>เข้าสู่ระบบ</button>
 
 <div class="notice">
-การเข้าถึงโดยไม่ได้รับอนุญาตอาจมีความผิดตามกฎหมายที่เกี่ยวข้อง
+การเข้าถึงโดยไม่ได้รับอนุญาต อาจมีความผิดตามกฎหมายที่เกี่ยวข้อง
 </div>
 
 </div>
