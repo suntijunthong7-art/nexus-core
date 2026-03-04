@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Government Secure Information System</title>
+<title>ระบบสารสนเทศภายในหน่วยงาน</title>
 
 <style>
 *{box-sizing:border-box}
@@ -12,46 +12,51 @@ html,body{
     margin:0;
     height:100%;
     font-family:Tahoma, Arial, sans-serif;
-    background:#e6e9ed;
+    background:#e6e9ee;
     color:#222;
 }
 
-/* ===== HEADER ===== */
-.gov-header{
-    background:#1f2a44;
+/* แถบบน */
+.header{
+    background:#0f2a44;
     color:#fff;
-    padding:14px 25px;
+    padding:12px 20px;
     font-size:14px;
     display:flex;
     justify-content:space-between;
+}
+
+/* โครงสร้างหลัก */
+.container{
+    min-height:calc(100vh - 90px);
+    display:flex;
+    justify-content:center;
     align-items:center;
+    padding:40px 20px;
 }
 
-.gov-sub{
-    background:#2e3a59;
-    color:#d7dce6;
-    padding:6px 25px;
-    font-size:12px;
-}
-
-/* ===== MAIN AREA ===== */
-.content{
-    padding:60px 20px 40px 20px;
-}
-
+/* กล่องระบบ */
 .panel{
     width:100%;
     max-width:520px;
-    margin:auto;
     background:#ffffff;
     padding:40px;
-    border:1px solid #c8ced6;
+    border:1px solid #cfd6df;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08);
 }
 
+/* โลโก้ */
+.logo{
+    width:85px;
+    display:block;
+    margin:0 auto 15px auto;
+}
+
+/* หัวข้อ */
 h2{
     text-align:center;
-    margin:0 0 5px 0;
-    font-weight:normal;
+    margin:10px 0 5px 0;
+    font-weight:600;
 }
 
 .subtitle{
@@ -61,25 +66,33 @@ h2{
     margin-bottom:25px;
 }
 
+/* input */
 input{
     width:100%;
     padding:12px;
-    margin-bottom:12px;
-    border:1px solid #bfc6cf;
+    margin-bottom:14px;
+    border:1px solid #c4ccd6;
     font-size:14px;
 }
 
+input:focus{
+    outline:none;
+    border-color:#0f2a44;
+}
+
+/* ปุ่ม */
 button{
     width:100%;
     padding:12px;
-    background:#1f2a44;
-    color:#fff;
+    background:#0f2a44;
     border:none;
+    color:#fff;
+    font-size:14px;
     cursor:pointer;
 }
 
 button:hover{
-    background:#162033;
+    background:#163a5d;
 }
 
 button:disabled{
@@ -93,67 +106,70 @@ button:disabled{
     min-height:20px;
 }
 
-/* ===== NOTICE SECTION ===== */
-.notice{
-    max-width:900px;
-    margin:60px auto 0 auto;
-    font-size:13px;
-    line-height:1.7;
-    color:#444;
-}
-
-.footer{
-    margin-top:60px;
-    padding:15px;
-    text-align:center;
+/* ข้อมูลระบบ */
+.system-info{
+    margin-top:30px;
     font-size:12px;
     color:#555;
-    border-top:1px solid #c8ced6;
-    background:#f4f6f8;
+    border-top:1px solid #e0e5ec;
+    padding-top:20px;
+    line-height:1.6;
+}
+
+.secure{
+    color:#2e7d32;
+    font-weight:bold;
+}
+
+/* footer */
+.footer{
+    background:#f2f4f7;
+    text-align:center;
+    padding:15px;
+    font-size:11px;
+    color:#777;
+    border-top:1px solid #d5dbe3;
 }
 </style>
 </head>
 
 <body>
 
-<div class="gov-header">
-    <div>ศูนย์ระบบสารสนเทศส่วนกลาง</div>
+<div class="header">
+    <div>เครือข่ายภายในหน่วยงาน (Internal Network)</div>
     <div id="datetime"></div>
 </div>
 
-<div class="gov-sub">
-    เครือข่ายภายในหน่วยงานราชการ (Internal Government Network)
-</div>
-
-<div class="content">
-
+<div class="container">
 <div class="panel">
-<h2>ระบบสารสนเทศภายในหน่วยงาน</h2>
-<div class="subtitle">สำหรับเจ้าหน้าที่ที่ได้รับอนุญาตเท่านั้น</div>
 
-<input type="text" id="card" placeholder="รหัสบัตรเจ้าหน้าที่">
+<img src="logo.png" class="logo" alt="logo">
+
+<h2>ระบบสารสนเทศหลัก NEXUS</h2>
+<div class="subtitle">เฉพาะผู้ได้รับอนุญาตระดับ 3 เท่านั้น</div>
+
+<input type="text" id="card" placeholder="รหัสบัตรประจำตัว">
 <input type="password" id="pass" placeholder="รหัสผ่าน">
 <button id="loginBtn">เข้าสู่ระบบ</button>
 
 <div id="msg"></div>
-</div>
 
-<div class="notice">
-ระบบนี้เป็นทรัพย์สินของหน่วยงานราชการ การเข้าถึงโดยไม่ได้รับอนุญาต
-อาจมีความผิดตามกฎหมาย ข้อมูลการเข้าใช้งานทั้งหมดจะถูกบันทึก
-และตรวจสอบตามระเบียบด้านความมั่นคงปลอดภัยสารสนเทศของหน่วยงาน
+<div class="system-info">
+คำเตือน: ระบบนี้เป็นทรัพย์สินของหน่วยงาน การเข้าถึงโดยไม่ได้รับอนุญาต
+อาจถูกบันทึกและดำเนินการตามกฎหมาย
 
 <br><br>
-System Version: GOV-SIS 2.4.1<br>
+System Node: NX-CORE-ALPHA<br>
 Security Classification: Internal Use Only<br>
-Network Zone: Government Intranet<br>
-IT Service Desk: ext. 1024
+Session ID: <span id="sessionId"></span><br>
+Channel Status: <span class="secure">Secure Channel Established</span>
 </div>
 
+</div>
 </div>
 
 <div class="footer">
-© 2026 Government Information Technology Division
+© 2026 NEXUS Internal Infrastructure Division
 </div>
 
 <script>
@@ -170,7 +186,7 @@ const msg=document.getElementById("msg");
 const cardInput=document.getElementById("card");
 const passInput=document.getElementById("pass");
 
-/* CLOCK */
+/* เวลา */
 function updateTime(){
     const now=new Date();
     document.getElementById("datetime").innerText=
@@ -179,18 +195,22 @@ function updateTime(){
 setInterval(updateTime,1000);
 updateTime();
 
-/* LOCK SYSTEM */
-let countdown=null;
+/* session */
+function generateSession(){
+    return "NX-"+Math.random().toString(36).substring(2,10).toUpperCase();
+}
+document.getElementById("sessionId").innerText=generateSession();
 
-function startLock(){
+/* ล็อก */
+function startCountdown(){
     btn.disabled=true;
     cardInput.disabled=true;
     passInput.disabled=true;
 
-    countdown=setInterval(function(){
-        let remain=Math.ceil((lockUntil-Date.now())/1000);
-        if(remain<=0){
-            clearInterval(countdown);
+    const interval=setInterval(function(){
+        let remaining=Math.ceil((lockUntil-Date.now())/1000);
+        if(remaining<=0){
+            clearInterval(interval);
             btn.disabled=false;
             cardInput.disabled=false;
             passInput.disabled=false;
@@ -200,15 +220,14 @@ function startLock(){
             return;
         }
         msg.style.color="red";
-        msg.innerText="บัญชีถูกระงับชั่วคราว ("+remain+" วินาที)";
+        msg.innerText="ระบบถูกระงับชั่วคราว ("+remaining+" วินาที)";
     },1000);
 }
 
 if(Date.now()<lockUntil){
-    startLock();
+    startCountdown();
 }
 
-/* LOGIN */
 btn.addEventListener("click",function(){
 
     if(Date.now()<lockUntil) return;
@@ -217,7 +236,7 @@ btn.addEventListener("click",function(){
        passInput.value.trim()===correctPass){
 
         msg.style.color="green";
-        msg.innerText="เข้าสู่ระบบสำเร็จ";
+        msg.innerText="ยืนยันตัวตนสำเร็จ";
         localStorage.removeItem("failCount");
         return;
     }
@@ -226,7 +245,7 @@ btn.addEventListener("click",function(){
     localStorage.setItem("failCount",failCount);
 
     msg.style.color="red";
-    msg.innerText="รหัสไม่ถูกต้อง";
+    msg.innerText="ข้อมูลไม่ถูกต้อง";
 
     if(failCount===3) lockUntil=Date.now()+30000;
     if(failCount===6) lockUntil=Date.now()+60000;
@@ -234,7 +253,7 @@ btn.addEventListener("click",function(){
 
     if(failCount>=3){
         localStorage.setItem("lockUntil",lockUntil);
-        startLock();
+        startCountdown();
     }
 
 });
