@@ -30,7 +30,7 @@ body{
 
 .logo{
   width:90px;
-  margin-bottom:15px;
+  margin-bottom:10px;
 }
 
 .company{
@@ -53,6 +53,7 @@ input{
   border:1px solid #d1d5db;
   border-radius:6px;
   font-size:14px;
+  background:#ffffff;
 }
 
 button{
@@ -75,7 +76,7 @@ button:disabled{
   margin-top:15px;
   font-size:13px;
   color:#dc2626;
-  min-height:18px;
+  min-height:20px;
 }
 
 .footer{
@@ -109,65 +110,64 @@ button:disabled{
 </div>
 
 <script>
-let attempts = parseInt(localStorage.getItem("attempts")) || 0;
-let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
+let failCount = 0;
+let lockUntil = 0;
+let countdownInterval = null;
 
 const btn = document.getElementById("loginBtn");
-const msg = document.getElementById("message");
+const message = document.getElementById("message");
 
-function checkLock() {
-  const now = Date.now();
-  if (now < lockUntil) {
-    btn.disabled = true;
-    const remaining = Math.ceil((lockUntil - now) / 1000);
-    msg.textContent = "Account locked. Try again in " + remaining + " seconds.";
-    setTimeout(checkLock, 1000);
-  } else {
-    btn.disabled = false;
-    msg.textContent = "";
-    localStorage.removeItem("lockUntil");
-  }
-}
+btn.addEventListener("click", function(){
 
-btn.addEventListener("click", function() {
-
-  if (Date.now() < lockUntil) return;
-
-  const user = document.getElementById("user").value;
-  const pass = document.getElementById("pass").value;
-
-  // ตัวอย่างรหัสถูก
-  if (user === "admin" && pass === "1234") {
-    msg.style.color = "green";
-    msg.textContent = "Access Granted";
-    attempts = 0;
-    localStorage.removeItem("attempts");
+  if(Date.now() < lockUntil){
     return;
   }
 
-  attempts++;
-  localStorage.setItem("attempts", attempts);
+  // จำลองว่าล็อกอินผิดเสมอ
+  failCount++;
 
-  msg.style.color = "#dc2626";
-  msg.textContent = "Invalid credentials (" + attempts + " attempts)";
-
-  if (attempts === 3) {
+  if(failCount === 3){
     lockAccount(30);
-  } else if (attempts === 6) {
-    lockAccount(60);
-  } else if (attempts === 9) {
+  }
+  else if(failCount === 6){
+    lockAccount(90);
+  }
+  else if(failCount === 9){
     lockAccount(180);
   }
+  else{
+    message.textContent = "Invalid credentials.";
+  }
+
 });
 
-function lockAccount(seconds) {
+function lockAccount(seconds){
+
   lockUntil = Date.now() + (seconds * 1000);
-  localStorage.setItem("lockUntil", lockUntil);
-  msg.textContent = "Too many attempts. Locked for " + seconds + " seconds.";
-  checkLock();
+  btn.disabled = true;
+
+  updateCountdown(seconds);
+
+  countdownInterval = setInterval(function(){
+
+    let remaining = Math.ceil((lockUntil - Date.now())/1000);
+
+    if(remaining <= 0){
+      clearInterval(countdownInterval);
+      btn.disabled = false;
+      message.textContent = "";
+      return;
+    }
+
+    updateCountdown(remaining);
+
+  },1000);
 }
 
-checkLock();
+function updateCountdown(seconds){
+  message.textContent = 
+    "Account locked. Try again in " + seconds + " seconds.";
+}
 </script>
 
 </body>
