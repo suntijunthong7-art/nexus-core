@@ -3,77 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Core | Internal Access</title>
+<title>NEXUS CORE | Internal Access</title>
 
 <style>
 body{
   margin:0;
-  font-family:Segoe UI, sans-serif;
-  background:#f3f4f6;
+  font-family:Segoe UI, Arial, sans-serif;
+  background:#f2f4f7;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
 }
-.box{
+.card{
   background:#fff;
-  padding:40px;
-  width:350px;
-  border-radius:8px;
-  box-shadow:0 8px 24px rgba(0,0,0,0.08);
+  width:340px;
+  padding:40px 30px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
   text-align:center;
+}
+h1{
+  margin-bottom:25px;
+  font-size:18px;
 }
 input{
   width:100%;
   padding:12px;
-  margin:10px 0;
+  margin-bottom:15px;
   border:1px solid #ccc;
   border-radius:6px;
 }
 button{
   width:100%;
   padding:12px;
-  background:#1f2937;
+  background:#111827;
   color:#fff;
   border:none;
   border-radius:6px;
-  font-weight:600;
   cursor:pointer;
 }
 .error{
   color:#dc2626;
   font-size:13px;
+  margin-bottom:10px;
   display:none;
+}
+.footer{
+  margin-top:20px;
+  font-size:11px;
+  color:#6b7280;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h3>NEXUS CORE SYSTEM</h3>
-  <p>Internal Access Portal</p>
+<div class="card">
+  <h1>Internal Access Portal</h1>
 
-  <div class="error" id="error">Invalid credentials</div>
+  <div class="error" id="errorMsg"></div>
 
-  <input type="text" id="id" placeholder="Employee ID">
-  <input type="password" id="pass" placeholder="Password">
+  <input type="text" id="empId" placeholder="Employee ID">
+  <input type="password" id="password" placeholder="Password">
 
   <button onclick="login()">SIGN IN</button>
+
+  <div class="footer">© 2025 Nexus Core System · Internal Use Only</div>
 </div>
 
 <script>
-function login(){
-  const id = document.getElementById("id").value.trim();
-  const pass = document.getElementById("pass").value.trim();
-  const error = document.getElementById("error");
+const correctCard = "LC-A01";
+const correctPass = "Lc1993♧";
 
-  if(id === "admin" && pass === "1234"){
-      sessionStorage.setItem("auth","true");
-      sessionStorage.setItem("lastActivity", Date.now());
-      window.location.href="dashboard.html";
+function login(){
+  const id = document.getElementById("empId").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  const error = document.getElementById("errorMsg");
+
+  error.style.display="none";
+
+  if(id === "" || pass === ""){
+    error.textContent="Please enter Employee ID and Password";
+    error.style.display="block";
+    return;
+  }
+
+  if(id === correctCard && pass === correctPass){
+
+    const sessionData = {
+      user:id,
+      loginTime: Date.now(),
+      expireTime: Date.now() + (5 * 60 * 1000) // 5 นาที
+    };
+
+    localStorage.setItem("nexusSession", JSON.stringify(sessionData));
+    window.location.href="dashboard.html";
+
   }else{
-      error.style.display="block";
+    error.textContent="Invalid Credentials";
+    error.style.display="block";
   }
 }
 </script>
