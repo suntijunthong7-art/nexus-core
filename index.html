@@ -1,39 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Internal Access</title>
+<title>Nexus Core | Internal Access</title>
 
 <style>
+*{box-sizing:border-box}
+
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, Helvetica, sans-serif;
 background:#f3f4f6;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
 }
+
 .card{
-background:#fff;
+background:#ffffff;
 padding:40px;
-border-radius:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+border-radius:12px;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
 width:90%;
-max-width:360px;
+max-width:380px;
 text-align:center;
 }
+
 .logo{
-margin-bottom:15px;
+margin-bottom:20px;
 }
+
 input{
 width:100%;
 padding:12px;
 margin-bottom:12px;
-border:1px solid #ccc;
+border:1px solid #d1d5db;
 border-radius:6px;
+font-size:14px;
 }
+
 button{
 width:100%;
 padding:12px;
@@ -41,13 +48,25 @@ border:none;
 border-radius:6px;
 background:#111827;
 color:white;
-font-weight:bold;
+font-weight:600;
 cursor:pointer;
+transition:0.2s;
 }
+
+button:hover{
+background:#1f2937;
+}
+
 .message{
-margin-top:10px;
+margin-top:12px;
 font-size:13px;
 min-height:18px;
+}
+
+.footer{
+margin-top:25px;
+font-size:11px;
+color:#6b7280;
 }
 </style>
 </head>
@@ -56,10 +75,11 @@ min-height:18px;
 
 <div class="card">
 
+<!-- SVG LOGO (ฝังในไฟล์ ไม่พังแน่นอน) -->
 <div class="logo">
-<svg viewBox="0 0 100 100" width="60">
-<circle cx="50" cy="50" r="45" fill="#111827"/>
-<path d="M30 65 L50 30 L70 65 Z" fill="white"/>
+<svg viewBox="0 0 100 100" width="70">
+<circle cx="50" cy="50" r="48" fill="#111827"/>
+<polygon points="30,65 50,30 70,65" fill="white"/>
 </svg>
 </div>
 
@@ -67,16 +87,22 @@ min-height:18px;
 
 <input id="user" placeholder="Employee ID">
 <input id="pass" type="password" placeholder="Password">
+
 <button onclick="login()">SIGN IN</button>
 
 <div class="message" id="msg"></div>
+
+<div class="footer">
+© 2025 Nexus Core System · Internal Use Only
+</div>
 
 </div>
 
 <script>
 function login(){
-let u = document.getElementById("user").value;
-let p = document.getElementById("pass").value;
+
+let u = document.getElementById("user").value.trim();
+let p = document.getElementById("pass").value.trim();
 let m = document.getElementById("msg");
 
 if(u === "" || p === ""){
@@ -92,6 +118,7 @@ m.innerText = "Access Granted";
 m.style.color = "red";
 m.innerText = "Invalid credentials";
 }
+
 }
 </script>
 
