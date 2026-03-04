@@ -3,165 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Core | Secure Access</title>
+<title>Secure Access Portal</title>
 
 <style>
-*{box-sizing:border-box;}
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:#f4f6f8;
+  font-family:Arial, sans-serif;
+  background:#f3f4f6;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
 }
 
-.container{
+.card{
   background:#ffffff;
-  width:100%;
-  max-width:360px;
-  padding:40px 30px;
-  border-radius:8px;
-  box-shadow:0 8px 24px rgba(0,0,0,0.08);
+  padding:40px;
+  width:320px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
   text-align:center;
 }
 
-h1{
-  font-size:18px;
-  margin-bottom:25px;
-  color:#1f2937;
+h2{
+  margin-bottom:20px;
 }
 
 input{
   width:100%;
-  padding:12px;
+  padding:10px;
   margin-bottom:15px;
   border:1px solid #d1d5db;
   border-radius:6px;
-  font-size:14px;
 }
 
 button{
   width:100%;
-  padding:12px;
+  padding:10px;
+  background:#1f2937;
+  color:#fff;
   border:none;
   border-radius:6px;
-  background:#1f2937;
-  color:#ffffff;
-  font-weight:600;
+  font-weight:bold;
   cursor:pointer;
 }
 
 button:disabled{
   background:#9ca3af;
-  cursor:not-allowed;
 }
 
 .message{
   margin-top:15px;
-  font-size:13px;
-  color:#dc2626;
+  font-size:14px;
 }
-
-.success{
-  color:#16a34a;
-}
+.success{color:green;}
+.error{color:red;}
 </style>
 </head>
+
 <body>
 
-<div class="container">
+<div class="card">
+  <h2>Secure Access Portal</h2>
 
-<h1>Secure Access Portal</h1>
+  <input type="text" id="user" placeholder="User ID">
+  <input type="password" id="pass" placeholder="Password">
+  <button id="loginBtn">SIGN IN</button>
 
-<input type="text" id="user" placeholder="User ID">
-<input type="password" id="pass" placeholder="Password">
-<button onclick="login()" id="loginBtn">SIGN IN</button>
-
-<div class="message" id="message"></div>
-
+  <div id="msg" class="message"></div>
 </div>
 
 <script>
+
 let attempts = 0;
 let lockTime = 0;
-let countdown;
+let timer;
 
-function login(){
-  const correctUser = "admin";
-  const correctPass = "1234";
+const correctUser = "admin";
+const correctPass = "1234";
 
-  const user = document.getElementById("user").value;
-  const pass = document.getElementById("pass").value;
-  const message = document.getElementById("message");
+const btn = document.getElementById("loginBtn");
+const msg = document.getElementById("msg");
+
+btn.addEventListener("click", function(){
 
   if(lockTime > 0){
-    message.innerText = "Account locked. Please wait " + lockTime + " seconds.";
+    msg.textContent = "Locked. Wait " + lockTime + " sec.";
+    msg.className = "message error";
     return;
   }
 
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
   if(user === correctUser && pass === correctPass){
-    message.classList.remove("message");
-    message.classList.add("success");
-    message.innerText = "Access Granted";
+    msg.textContent = "Access Granted. Redirecting...";
+    msg.className = "message success";
+    setTimeout(()=>{
+      window.location.href = "dashboard.html";
+    },1000);
     attempts = 0;
   }else{
     attempts++;
-    message.innerText = "Invalid credentials (" + attempts + " attempts)";
-    
-    if(attempts === 3){
-      startLock(10);
-    }
-    if(attempts === 6){
-      startLock(20);
-    }
-    if(attempts >= 9){
-      startLock(30);
-    }
+    msg.textContent = "Invalid credentials ("+attempts+")";
+    msg.className = "message error";
+
+    if(attempts === 3) startLock(10);
+    if(attempts === 6) startLock(20);
+    if(attempts >= 9) startLock(30);
   }
-}
+
+});
 
 function startLock(seconds){
   lockTime = seconds;
-  const btn = document.getElementById("loginBtn");
-  const message = document.getElementById("message");
-
   btn.disabled = true;
-  message.innerText = "Too many attempts. Locked for " + lockTime + " seconds.";
 
-  countdown = setInterval(function(){
+  timer = setInterval(()=>{
     lockTime--;
-    message.innerText = "Account locked. Wait " + lockTime + " seconds.";
-    
+    msg.textContent = "Locked. Wait " + lockTime + " sec.";
     if(lockTime <= 0){
-      clearInterval(countdown);
+      clearInterval(timer);
       btn.disabled = false;
+      msg.textContent = "";
       attempts = 0;
-      message.innerText = "";
     }
   },1000);
 }
-</script>
 
-</body>
-</html>  btn.textContent = "Authenticating...";
-
-  setTimeout(() => {
-    if(user === correctUser && pass === correctPass){
-      msg.textContent = "Access Granted. Redirecting...";
-      msg.classList.add("success");
-      setTimeout(()=>{
-        window.location.href = "dashboard.html";
-      },1000);
-    }else{
-      msg.textContent = "Invalid credentials.";
-      msg.classList.add("error");
-      btn.disabled = false;
-      btn.textContent = "SIGN IN";
-    }
-  },1000);
-}
 </script>
 
 </body>
