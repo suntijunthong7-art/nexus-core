@@ -15,17 +15,17 @@ body{
     color:#222;
 }
 
-/* ===== TOP SYSTEM BAR ===== */
+/* ===== TOP BAR ===== */
 .topbar{
     background:#000;
     color:#fff;
-    padding:8px 15px;
+    padding:10px 15px;
     font-size:13px;
     display:flex;
     justify-content:space-between;
 }
 
-/* ===== MAIN WRAPPER FULL SCREEN ===== */
+/* ===== LAYOUT ===== */
 .wrapper{
     min-height:100vh;
     display:flex;
@@ -35,14 +35,14 @@ body{
 /* ===== CONTENT ===== */
 .content{
     flex:1;
-    padding:40px 25px;
     max-width:600px;
-    margin:auto;
+    margin:0 auto;
+    padding:60px 25px 40px 25px;
 }
 
 /* ===== LOGO ===== */
 .logo{
-    width:90px;
+    width:85px;
     display:block;
     margin:0 auto 15px auto;
 }
@@ -56,18 +56,18 @@ h2{
 .subtitle{
     text-align:center;
     margin-bottom:25px;
-    color:#444;
     font-size:14px;
+    color:#444;
 }
 
-/* ===== INPUTS ===== */
+/* ===== FORM ===== */
 input{
     width:100%;
     padding:14px;
     margin:10px 0;
     border:1px solid #888;
-    background:#fff;
     font-size:15px;
+    background:#fff;
 }
 
 button{
@@ -85,13 +85,14 @@ button:disabled{
     background:#999;
 }
 
+/* ===== MESSAGE ===== */
 #msg{
     margin-top:12px;
     font-weight:bold;
     min-height:22px;
 }
 
-/* ===== SYSTEM INFO ===== */
+/* ===== INFO ===== */
 .system-info{
     margin-top:40px;
     font-size:13px;
@@ -104,11 +105,12 @@ button:disabled{
 /* ===== FOOTER ===== */
 .footer{
     background:#e5e5e5;
-    padding:10px 15px;
+    padding:12px;
     font-size:12px;
     text-align:center;
     color:#444;
 }
+
 .secure{
     color:green;
     font-weight:bold;
@@ -127,6 +129,7 @@ button:disabled{
 
 <div class="content">
 
+    <!-- ใส่ไฟล์โลโก้ของคุณชื่อ logo.png -->
     <img src="logo.png" class="logo">
 
     <h2>ระบบสารสนเทศหลัก NEXUS</h2>
@@ -134,7 +137,6 @@ button:disabled{
 
     <input type="text" id="card" placeholder="รหัสบัตรประจำตัว">
     <input type="password" id="pass" placeholder="รหัสผ่าน">
-
     <button id="loginBtn">เข้าสู่ระบบ</button>
 
     <div id="msg"></div>
@@ -147,6 +149,113 @@ button:disabled{
         System Version: NX-SEC 3.4.1<br>
         Security Classification: Internal Use Only<br>
         Session ID: <span id="sessionId"></span><br>
+        Channel Status: <span class="secure">Secure Channel Established</span>
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 NEXUS Internal Infrastructure Division
+</div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+
+const correctCard="LC-A01";
+const correctPass="Lc1993♧";
+
+let failCount=parseInt(localStorage.getItem("failCount"))||0;
+let lockUntil=parseInt(localStorage.getItem("lockUntil"))||0;
+
+const btn=document.getElementById("loginBtn");
+const msg=document.getElementById("msg");
+const cardInput=document.getElementById("card");
+const passInput=document.getElementById("pass");
+
+/* ===== TIME ===== */
+function updateTime(){
+    const now=new Date();
+    document.getElementById("datetime").innerText=
+    now.toLocaleDateString()+" "+now.toLocaleTimeString();
+}
+setInterval(updateTime,1000);
+updateTime();
+
+/* ===== SESSION ===== */
+function generateSession(){
+    return "NX-"+Math.random().toString(36).substring(2,10).toUpperCase();
+}
+document.getElementById("sessionId").innerText=generateSession();
+
+/* ===== LOCK SYSTEM ===== */
+let countdownInterval=null;
+
+function startCountdown(){
+    btn.disabled=true;
+    cardInput.disabled=true;
+    passInput.disabled=true;
+
+    countdownInterval=setInterval(function(){
+        let remaining=Math.ceil((lockUntil-Date.now())/1000);
+
+        if(remaining<=0){
+            clearInterval(countdownInterval);
+            btn.disabled=false;
+            cardInput.disabled=false;
+            passInput.disabled=false;
+            msg.innerText="";
+            localStorage.removeItem("lockUntil");
+            localStorage.removeItem("failCount");
+            return;
+        }
+
+        msg.style.color="red";
+        msg.innerText="บัญชีถูกระงับชั่วคราว ("+remaining+" วินาที)";
+    },1000);
+}
+
+if(Date.now()<lockUntil){
+    startCountdown();
+}
+
+/* ===== LOGIN ===== */
+btn.addEventListener("click",function(){
+
+    if(Date.now()<lockUntil) return;
+
+    if(cardInput.value.trim()===correctCard &&
+       passInput.value.trim()===correctPass){
+
+        msg.style.color="green";
+        msg.innerText="ยืนยันตัวตนสำเร็จ";
+        localStorage.removeItem("failCount");
+        return;
+    }
+
+    failCount++;
+    localStorage.setItem("failCount",failCount);
+
+    msg.style.color="red";
+    msg.innerText="ข้อมูลไม่ถูกต้อง";
+
+    if(failCount===3) lockUntil=Date.now()+30000;
+    if(failCount===6) lockUntil=Date.now()+60000;
+    if(failCount>=9) lockUntil=Date.now()+180000;
+
+    if(failCount>=3){
+        localStorage.setItem("lockUntil",lockUntil);
+        startCountdown();
+    }
+
+});
+
+});
+</script>
+
+</body>
+</html>        Session ID: <span id="sessionId"></span><br>
         Channel Status: <span class="secure">Secure Channel Established</span>
     </div>
 
