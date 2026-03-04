@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Core | Internal Access</title>
+<title>Nexus Core | Secure Access</title>
 
 <style>
 *{box-sizing:border-box;}
@@ -11,7 +11,7 @@
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:#f3f4f6;
+  background:#f4f6f8;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -30,14 +30,14 @@ body{
 
 .logo{
   width:90px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .company{
-  font-size:12px;
+  font-size:13px;
   letter-spacing:2px;
   color:#6b7280;
-  margin-bottom:4px;
+  margin-bottom:5px;
 }
 
 h1{
@@ -53,12 +53,11 @@ input{
   border:1px solid #d1d5db;
   border-radius:6px;
   font-size:14px;
-  background:#ffffff;
 }
 
 input:focus{
   outline:none;
-  border:1px solid #1f2937;
+  border:1px solid #2563eb;
 }
 
 button{
@@ -79,7 +78,17 @@ button:hover{
 .footer{
   margin-top:25px;
   font-size:11px;
+  color:#9ca3af;
+}
+
+.footer a{
   color:#6b7280;
+  text-decoration:none;
+  margin:0 5px;
+}
+
+.footer a:hover{
+  text-decoration:underline;
 }
 </style>
 </head>
@@ -91,15 +100,17 @@ button:hover{
   <img src="logo.png" class="logo" alt="Nexus Core Logo">
 
   <div class="company">NEXUS CORE SYSTEM</div>
-  <h1>Internal Access Portal</h1>
+  <h1>Secure Access Portal</h1>
 
-  <input type="text" placeholder="Employee ID">
+  <input type="text" placeholder="User ID">
   <input type="password" placeholder="Password">
 
   <button>SIGN IN</button>
 
   <div class="footer">
-    © 2025 Nexus Core System · Internal Use Only
+    © 2025 Nexus Core. All rights reserved. <br>
+    <a href="#">Privacy Policy</a> | 
+    <a href="#">Terms of Service</a>
   </div>
 
 </div>
