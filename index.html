@@ -11,7 +11,6 @@ body{
     font-family:"Segoe UI",Tahoma,sans-serif;
     background:#dcdcdc;
 }
-
 .topbar{
     background:#000;
     color:#fff;
@@ -20,7 +19,6 @@ body{
     justify-content:space-between;
     font-size:14px;
 }
-
 .container{
     max-width:500px;
     margin:50px auto;
@@ -29,24 +27,20 @@ body{
     text-align:center;
     box-shadow:0 3px 15px rgba(0,0,0,0.25);
 }
-
 .logo{
     width:110px;
     margin-bottom:25px;
 }
-
 h2{
     margin:10px 0 5px 0;
     font-weight:700;
 }
-
 .subtitle{
     color:#555;
     font-size:14px;
     margin-bottom:35px;
     line-height:1.6;
 }
-
 input{
     width:100%;
     padding:14px;
@@ -56,11 +50,9 @@ input{
     font-size:15px;
     box-sizing:border-box;
 }
-
 input:disabled{
     background:#d0d0d0;
 }
-
 button{
     width:100%;
     padding:14px;
@@ -71,28 +63,24 @@ button{
     font-size:16px;
     cursor:pointer;
 }
-
 button:disabled{
     background:#b5b5b5;
 }
-
 #msg{
     margin-top:18px;
     font-weight:bold;
 }
-
 .footer{
     margin-top:25px;
     font-size:13px;
     color:#777;
 }
-
 @keyframes shake {
-0% { transform: translateX(0); }
-25% { transform: translateX(-5px); }
-50% { transform: translateX(5px); }
-75% { transform: translateX(-5px); }
-100% { transform: translateX(0); }
+0%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+50%{transform:translateX(5px);}
+75%{transform:translateX(-5px);}
+100%{transform:translateX(0);}
 }
 </style>
 </head>
@@ -105,7 +93,6 @@ button:disabled{
 </div>
 
 <div class="container">
-
     <img src="logo.png" class="logo">
 
     <h2>ระบบสารสนเทศหลัก NEXUS</h2>
@@ -125,131 +112,66 @@ button:disabled{
     <div class="footer">
         การเข้าถึงโดยไม่ได้รับอนุญาตอาจถูกตรวจสอบและดำเนินคดี
     </div>
-
 </div>
 
 <script>
-const correctCard = "LC-A01";
-const correctPass = "Lc1993♧";
+const correctCard="LC-A01";
+const correctPass="Lc1993♧";
 
-let failCount = 0;
-let lockUntil = 0;
-let timerInterval = null;
+let failCount=0;
+let lockUntil=0;
+let timerInterval=null;
 
 function updateTime(){
-    const now = new Date();
-    document.getElementById("datetime").innerText =
-        now.toLocaleDateString("en-GB") + " " +
-        now.toLocaleTimeString();
+    const now=new Date();
+    document.getElementById("datetime").innerText=
+    now.toLocaleDateString("en-GB")+" "+now.toLocaleTimeString();
 }
 setInterval(updateTime,1000);
 updateTime();
 
 function authenticate(){
 
-    const now = Date.now();
-    const message = document.getElementById("msg");
-    const button = document.getElementById("loginBtn");
+    const now=Date.now();
+    if(now<lockUntil) return;
 
-    if(now < lockUntil){
-        return;
-    }
+    const card=document.getElementById("card").value.trim();
+    const pass=document.getElementById("pass").value.trim();
+    const message=document.getElementById("msg");
 
-    const card = document.getElementById("card").value.trim();
-    const pass = document.getElementById("pass").value.trim();
-
-    if(card === correctCard && pass === correctPass){
+    if(card===correctCard && pass===correctPass){
 
         message.style.color="green";
         message.innerText="ยืนยันตัวตนสำเร็จ";
-
-        setTimeout(()=>{
-            window.location.href="dashboard.html";
-        },1500);
 
     }else{
 
         failCount++;
 
         document.querySelector(".container").style.animation="shake 0.3s";
-        setTimeout(()=>{
-            document.querySelector(".container").style.animation="";
-        },300);
+        setTimeout(()=>{document.querySelector(".container").style.animation="";},300);
 
         message.style.color="red";
         message.innerText="ข้อมูลไม่ถูกต้อง";
 
-        if(failCount === 3) lockSystem(30);
-        if(failCount === 6) lockSystem(60);
-        if(failCount === 9) lockSystem(180);
+        if(failCount===3) lockSystem(30);
+        if(failCount===6) lockSystem(60);
+        if(failCount===9) lockSystem(180);
     }
 }
 
 function lockSystem(seconds){
 
-    const message = document.getElementById("msg");
-    const button = document.getElementById("loginBtn");
-    const cardInput = document.getElementById("card");
-    const passInput = document.getElementById("pass");
+    const message=document.getElementById("msg");
+    const button=document.getElementById("loginBtn");
+    const cardInput=document.getElementById("card");
+    const passInput=document.getElementById("pass");
 
-    lockUntil = Date.now() + seconds*1000;
+    lockUntil=Date.now()+seconds*1000;
 
-    button.disabled = true;
-    cardInput.disabled = true;
-    passInput.disabled = true;
-
-    timerInterval = setInterval(()=>{
-
-        const remaining = Math.ceil((lockUntil - Date.now())/1000);
-
-        if(remaining <= 0){
-            clearInterval(timerInterval);
-
-            button.disabled = false;
-            cardInput.disabled = false;
-            passInput.disabled = false;
-
-            message.innerText = "";
-        }else{
-            message.style.color="red";
-            message.innerText =
-            "ระบบล็อกอยู่ โปรดลองใหม่อีกครั้งใน "
-            + remaining + " วินาที";
-        }
-
-    },1000);
-}
-</script>
-
-</body>
-</html>    if(card === correctCard && pass === correctPass){
-
-        message.style.color="green";
-        message.innerText="ยืนยันตัวตนสำเร็จ";
-
-        setTimeout(()=>{
-            window.location.href="dashboard.html";
-        },1500);
-
-    }else{
-
-        failCount++;
-        message.style.color="red";
-        message.innerText="ข้อมูลไม่ถูกต้อง";
-
-        if(failCount === 3) lockSystem(30);
-        if(failCount === 6) lockSystem(60);
-        if(failCount === 9) lockSystem(180);
-    }
-}
-
-function lockSystem(seconds){
-
-    const message = document.getElementById("msg");
-    const button = document.getElementById("loginBtn");
-
-    lockUntil = Date.now() + seconds*1000;
     button.disabled=true;
+    cardInput.disabled=true;
+    passInput.disabled=true;
 
     timerInterval=setInterval(()=>{
 
@@ -258,12 +180,13 @@ function lockSystem(seconds){
         if(remaining<=0){
             clearInterval(timerInterval);
             button.disabled=false;
+            cardInput.disabled=false;
+            passInput.disabled=false;
             message.innerText="";
         }else{
             message.style.color="red";
             message.innerText=
-            "ระบบล็อกอยู่ โปรดลองใหม่อีกครั้งใน "
-            + remaining + " วินาที";
+            "ระบบล็อกอยู่ โปรดลองใหม่อีกครั้งใน "+remaining+" วินาที";
         }
 
     },1000);
