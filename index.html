@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Access Portal</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f4f6f9;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.card{
+  width:350px;
+  background:white;
+  padding:30px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  text-align:center;
+}
+.logo{
+  width:90px;
+  margin-bottom:15px;
+}
+h2{margin:10px 0;}
+input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#1f2b3a;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:disabled{
+  background:#888;
+  cursor:not-allowed;
+}
+.error{
+  color:#d32f2f;
+  margin-top:10px;
+}
+.timer{
+  color:#ff6f00;
+  margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <img src="logo.png" class="logo">
+  <h2>พอร์ทัลการเข้าถึงที่ปลอดภัย</h2>
+
+  <input type="text" id="username" placeholder="รหัสประจำตัว">
+  <input type="password" id="password" placeholder="รหัสผ่าน">
+  <button onclick="login()" id="loginBtn">เข้าสู่ระบบ</button>
+
+  <div class="error" id="error"></div>
+  <div class="timer" id="timer"></div>
+</div>
+
+<script>
+const correctUser="LC-A01";
+const correctPass="Lc1993♧";
+
+let attempts=parseInt(localStorage.getItem("attempts"))||0;
+let lockUntil=parseInt(localStorage.getItem("lockUntil"))||0;
+
+function updateLock(){
+  const now=Date.now();
+  if(lockUntil>now){
+    const seconds=Math.ceil((lockUntil-now)/1000);
+    document.getElementById("loginBtn").disabled=true;
+    document.getElementById("timer").innerText=
+      "ระบบถูกล็อค กรุณารอ "+seconds+" วินาที";
+  }else{
+    document.getElementById("loginBtn").disabled=false;
+    document.getElementById("timer").innerText="";
+  }
+}
+
+function applyLock(){
+  let lockTime=0;
+
+  if(attempts>=9){
+    attempts=9;
+    lockTime=180;
+  }
+  else if(attempts>=6){
+    lockTime=90;
+  }
+  else if(attempts>=3){
+    lockTime=30;
+  }
+
+  if(lockTime>0){
+    lockUntil=Date.now()+(lockTime*1000);
+    localStorage.setItem("lockUntil",lockUntil);
+  }
+
+  localStorage.setItem("attempts",attempts);
+}
+
+function login(){
+  const user=document.getElementById("username").value;
+  const pass=document.getElementById("password").value;
+  const now=Date.now();
+
+  if(lockUntil>now){
+    return;
+  }
+
+  if(user===correctUser && pass===correctPass){
+    localStorage.removeItem("attempts");
+    localStorage.removeItem("lockUntil");
+    window.location.href="dashboard.html";
+  }
+  else{
+    attempts++;
+    applyLock();
+    document.getElementById("error").innerText=
+      "ข้อมูลประจำตัวไม่ถูกต้อง ("+attempts+"/9)";
+  }
+}
+
+setInterval(updateLock,1000);
+updateLock();
+</script>
+
+</body>
+</html>
