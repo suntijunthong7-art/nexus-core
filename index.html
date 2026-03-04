@@ -6,85 +6,90 @@
 <title>NEXUS CORE - Access Control</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Tahoma,sans-serif;}
 
 body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    background:linear-gradient(135deg,#1f2d3a,#2f4454);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .container{
-width:100%;
-max-width:400px;
-padding:20px;
+    width:100%;
+    max-width:400px;
+    padding:20px;
 }
 
 .card{
-background:#fff;
-border-radius:14px;
-padding:35px 25px;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
-text-align:center;
+    background:white;
+    padding:35px 25px;
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    text-align:center;
 }
 
 .logo{
-font-size:22px;
-font-weight:bold;
-color:#203a43;
-margin-bottom:10px;
+    width:90px;
+    margin-bottom:15px;
+}
+
+h2{
+    margin-bottom:5px;
 }
 
 .subtitle{
-color:#555;
-font-size:14px;
-margin-bottom:20px;
+    color:#777;
+    font-size:14px;
+    margin-bottom:25px;
 }
 
 input{
-width:100%;
-padding:12px;
-margin:8px 0;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:14px;
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
 }
 
 button{
-width:100%;
-padding:12px;
-margin-top:15px;
-border:none;
-border-radius:6px;
-background:#203a43;
-color:white;
-font-size:15px;
-cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-background:#162d38;
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:6px;
+    background:#2f4454;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
 button:disabled{
-background:#888;
-cursor:not-allowed;
+    background:#999;
+    cursor:not-allowed;
 }
 
-.error{
-color:red;
-font-size:13px;
-margin-top:10px;
-min-height:18px;
+button:hover:not(:disabled){
+    background:#1f2d3a;
 }
 
-.lock{
-color:#b30000;
-font-weight:bold;
-margin-top:10px;
+.message{
+    margin-top:15px;
+    font-size:14px;
+    min-height:20px;
+}
+
+.error{color:#d32f2f;}
+.success{color:#2e7d32;}
+.lock{color:#ff9800;}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:white;
+    font-size:13px;
 }
 </style>
 </head>
@@ -92,84 +97,95 @@ margin-top:10px;
 <body>
 
 <div class="container">
-<div class="card">
-<div class="logo">NEXUS CORE</div>
-<div class="subtitle">Access Control System</div>
+    <div class="card">
+        <!-- ใส่ไฟล์โลโก้ของคุณ -->
+        <img src="logo.png" class="logo" alt="NEXUS CORE Logo">
 
-<input type="text" id="card" placeholder="รหัสประจำตัวเจ้าหน้าที่">
-<input type="password" id="pass" placeholder="รหัสผ่าน">
-<button id="loginBtn" onclick="login()">เข้าสู่ระบบ</button>
+        <h2>NEXUS CORE</h2>
+        <div class="subtitle">Access Control System</div>
 
-<div class="error" id="errorMsg"></div>
-<div class="lock" id="lockMsg"></div>
+        <input type="text" id="card" placeholder="รหัสประจำตัวเจ้าหน้าที่">
+        <input type="password" id="pass" placeholder="รหัสผ่าน">
 
-</div>
+        <button id="loginBtn">เข้าสู่ระบบ</button>
+
+        <div class="message" id="msg"></div>
+    </div>
+
+    <div class="footer">
+        © 2026 NEXUS CORE Security Division
+    </div>
 </div>
 
 <script>
 const correctCard="LC-A01";
 const correctPass="Lc1993♧";
 
-let failCount = Number(sessionStorage.getItem("failCount")) || 0;
-let lockUntil = Number(sessionStorage.getItem("lockUntil")) || 0;
+let attempts=0;
+let lockUntil=0;
 
-function checkLock(){
-    if(Date.now() < lockUntil){
-        let remain = Math.ceil((lockUntil - Date.now())/1000);
-        document.getElementById("loginBtn").disabled=true;
-        document.getElementById("lockMsg").innerText=
-        "บัญชีถูกล็อก กรุณารอ "+remain+" วินาที";
-        setTimeout(checkLock,1000);
-    }else{
-        document.getElementById("loginBtn").disabled=false;
-        document.getElementById("lockMsg").innerText="";
-    }
-}
+const btn=document.getElementById("loginBtn");
+const msg=document.getElementById("msg");
 
-function login(){
+btn.addEventListener("click", function(){
 
-    if(Date.now() < lockUntil){
+    if(Date.now()<lockUntil){
         return;
     }
 
-    const card=document.getElementById("card").value.trim();
-    const pass=document.getElementById("pass").value.trim();
-    const error=document.getElementById("errorMsg");
+    const card=document.getElementById("card").value;
+    const pass=document.getElementById("pass").value;
 
     if(card===correctCard && pass===correctPass){
-        error.style.color="green";
-        error.innerText="ยืนยันตัวตนสำเร็จ";
-        failCount=0;
-        sessionStorage.setItem("failCount",0);
+        msg.className="message success";
+        msg.innerText="ยืนยันตัวตนสำเร็จ กำลังเข้าสู่ระบบ...";
+        btn.disabled=true;
+
         setTimeout(()=>{
-            document.body.innerHTML="<h1 style='color:white;text-align:center;margin-top:20%;'>ACCESS GRANTED</h1>";
-        },1000);
+            msg.innerText="เข้าสู่ระบบสำเร็จ";
+        },1500);
+
     }else{
-        failCount++;
-        sessionStorage.setItem("failCount",failCount);
+        attempts++;
+        msg.className="message error";
+        msg.innerText="รหัสไม่ถูกต้อง";
 
-        error.style.color="red";
-        error.innerText="รหัสไม่ถูกต้อง ("+failCount+" ครั้ง)";
-
-        if(failCount===3){
-            lock(30);
+        if(attempts===3){
+            lockSystem(30);
         }
-        else if(failCount===6){
-            lock(300);
+        if(attempts===6){
+            lockSystem(60);
         }
-        else if(failCount===9){
-            lock(1800);
+        if(attempts===9){
+            lockSystem(300);
         }
     }
+
+});
+
+function lockSystem(seconds){
+    lockUntil=Date.now()+(seconds*1000);
+    btn.disabled=true;
+    msg.className="message lock";
+    countdown(seconds);
 }
 
-function lock(seconds){
-    lockUntil = Date.now() + seconds*1000;
-    sessionStorage.setItem("lockUntil",lockUntil);
-    checkLock();
-}
+function countdown(sec){
+    let timer=setInterval(()=>{
+        let remain=Math.ceil((lockUntil-Date.now())/1000);
 
-checkLock();
+        if(remain<=0){
+            clearInterval(timer);
+            attempts=0;
+            btn.disabled=false;
+            msg.innerText="สามารถเข้าสู่ระบบได้อีกครั้ง";
+            msg.className="message";
+        }else{
+            msg.innerText="ระบบถูกล็อคชั่วคราว ("+remain+" วินาที)";
+        }
+
+    },1000);
+}
 </script>
 
 </body>
