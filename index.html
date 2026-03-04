@@ -164,4 +164,62 @@ btn.addEventListener("click", function(){
 </script>
 
 </body>
+</html>const msg = document.getElementById("message");
+
+function checkLock(){
+  const now = Date.now();
+
+  if(lockUntil > now){
+    const seconds = Math.ceil((lockUntil - now) / 1000);
+    btn.disabled = true;
+    msg.textContent = "Account locked. Try again in " + seconds + " seconds.";
+    setTimeout(checkLock,1000);
+  } else {
+    btn.disabled = false;
+    msg.textContent = "";
+  }
+}
+
+checkLock();
+
+btn.addEventListener("click", function(){
+
+  const now = Date.now();
+  if(lockUntil > now) return;
+
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  if(user === correctUser && pass === correctPass){
+    msg.style.color = "green";
+    msg.textContent = "Login Successful";
+    localStorage.removeItem("attempts");
+    localStorage.removeItem("lockUntil");
+  } else {
+    attempts++;
+    localStorage.setItem("attempts", attempts);
+
+    if(attempts === 3){
+      lockUntil = now + 30000;
+    }
+    else if(attempts === 6){
+      lockUntil = now + 90000;
+    }
+    else if(attempts >= 9){
+      lockUntil = now + 180000;
+    }
+
+    if(attempts >= 3){
+      localStorage.setItem("lockUntil", lockUntil);
+      checkLock();
+    }
+
+    msg.style.color = "#dc2626";
+    msg.textContent = "Invalid credentials (" + attempts + ")";
+  }
+
+});
+</script>
+
+</body>
 </html>
