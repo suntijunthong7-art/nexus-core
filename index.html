@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE | Secure Access</title>
+<title>ระบบตรวจสอบสิทธิ์ | หน่วยงานกลาง</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
@@ -11,82 +13,80 @@
 html,body{
     margin:0;
     height:100%;
-    font-family:Segoe UI, Arial, sans-serif;
-    background:#eef2f5;
-    color:#1f2933;
+    font-family:'Sarabun',sans-serif;
+    background:#dfe4e8;
+    color:#1a1a1a;
 }
 
-/* ===== Layout Structure ===== */
 .wrapper{
     min-height:100vh;
     display:flex;
     flex-direction:column;
 }
 
-/* ===== Header ===== */
+/* HEADER */
 .header{
-    background:#1e2a34;
+    background:#1f2f3a;
     color:#fff;
-    padding:16px 24px;
+    padding:14px 28px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    font-size:14px;
+    font-size:15px;
 }
 
-/* ===== Main Content ===== */
+/* MAIN */
 .main{
     flex:1;
-    padding:40px 16px 60px 16px;
+    padding:50px 16px 60px 16px;
 }
 
-/* ===== Panel ===== */
 .panel{
-    width:100%;
-    max-width:500px;
+    max-width:520px;
     margin:0 auto;
-    background:#fff;
-    padding:40px 32px;
-    border:1px solid #d7dde3;
+    background:#ffffff;
+    border:2px solid #2c3e50;
+    padding:36px 30px;
 }
 
 .logo{
-    width:70px;
+    width:72px;
     display:block;
-    margin:0 auto 20px auto;
+    margin:0 auto 18px auto;
 }
 
 h1{
     text-align:center;
-    font-size:18px;
+    font-size:19px;
     margin:0;
     font-weight:600;
 }
 
 .subtitle{
     text-align:center;
-    font-size:13px;
-    color:#6b7280;
-    margin:8px 0 26px 0;
+    font-size:14px;
+    margin:6px 0 22px 0;
+    color:#444;
 }
 
 input{
     width:100%;
-    padding:12px;
-    margin-bottom:14px;
-    border:1px solid #cbd5e1;
+    padding:10px;
+    margin-bottom:12px;
+    border:1.5px solid #444;
     font-size:14px;
+    background:#f9f9f9;
 }
 
 input:focus{
     outline:none;
-    border-color:#1e2a34;
+    border-color:#000;
 }
 
 button{
     width:100%;
-    padding:12px;
-    background:#1e2a34;
+    padding:11px;
+    background:#1f2f3a;
     color:#fff;
     border:none;
     font-size:14px;
@@ -97,14 +97,29 @@ button:hover{
     background:#162028;
 }
 
-/* ===== Footer ===== */
+.notice{
+    margin-top:18px;
+    font-size:12px;
+    line-height:1.6;
+    border-top:1px solid #bbb;
+    padding-top:12px;
+    color:#333;
+}
+
+/* FOOTER */
 .footer{
     text-align:center;
-    font-size:11px;
-    padding:16px;
-    border-top:1px solid #d7dde3;
-    background:#f6f8fa;
-    color:#6b7280;
+    font-size:12px;
+    padding:14px;
+    border-top:1px solid #aaa;
+    background:#f0f2f4;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+    .panel{
+        padding:28px 18px;
+    }
 }
 </style>
 </head>
@@ -114,28 +129,34 @@ button:hover{
 <div class="wrapper">
 
 <div class="header">
-    <div>เน็กซัส คอร์</div>
+    <div>ศูนย์ควบคุมสิทธิ์การเข้าถึง</div>
     <div id="datetime"></div>
 </div>
 
 <div class="main">
-    <div class="panel">
+<div class="panel">
 
-        <img src="logo.png" class="logo" alt="logo">
+<img src="logo.png" class="logo" alt="logo">
 
-        <h1>การตรวจสอบสิทธิ์ที่ปลอดภัย</h1>
-        <div class="subtitle">เฉพาะบุคลากรที่ได้รับอนุญาตเท่านั้น</div>
+<h1>ระบบตรวจสอบสิทธิ์การเข้าใช้งาน</h1>
+<div class="subtitle">เฉพาะบุคลากรที่ได้รับอนุญาตตามระเบียบหน่วยงานเท่านั้น</div>
 
-        <input type="text" placeholder="รหัสประจำตัว">
-        <input type="password" placeholder="รหัสผ่าน">
+<input type="text" placeholder="รหัสประจำตัวเจ้าหน้าที่">
+<input type="password" placeholder="รหัสผ่าน">
 
-        <button>เข้าสู่ระบบ</button>
+<button>เข้าสู่ระบบ</button>
 
-    </div>
+<div class="notice">
+ระบบนี้อยู่ภายใต้การกำกับดูแลของหน่วยงานรัฐ  
+การเข้าถึงหรือพยายามเข้าถึงโดยไม่ได้รับอนุญาต  
+อาจมีความผิดตามพระราชบัญญัติว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์
+</div>
+
+</div>
 </div>
 
 <div class="footer">
-การเข้าถึงโดยไม่ได้รับอนุญาตเป็นสิ่งต้องห้ามและอาจถูกตรวจสอบ
+© หน่วยงานกลางด้านความมั่นคงสารสนเทศ
 </div>
 
 </div>
@@ -144,9 +165,14 @@ button:hover{
 function updateTime(){
     const now=new Date();
     document.getElementById("datetime").innerText=
-        now.toLocaleDateString()+" "+now.toLocaleTimeString();
+        now.toLocaleDateString("th-TH")+" "+now.toLocaleTimeString("th-TH");
 }
 setInterval(updateTime,1000);
+updateTime();
+</script>
+
+</body>
+</html>setInterval(updateTime,1000);
 updateTime();
 </script>
 
