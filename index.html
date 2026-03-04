@@ -42,7 +42,7 @@ body{
 
 h1{
   font-size:18px;
-  margin:0 0 25px 0;
+  margin:0 0 20px 0;
   color:#1f2937;
 }
 
@@ -53,6 +53,7 @@ input{
   border:1px solid #d1d5db;
   border-radius:6px;
   font-size:14px;
+  background:#fff;
 }
 
 input:focus{
@@ -69,26 +70,36 @@ button{
   color:#ffffff;
   font-weight:600;
   cursor:pointer;
+  transition:0.2s;
 }
 
 button:hover{
   background:#111827;
 }
 
+button:disabled{
+  background:#9ca3af;
+  cursor:not-allowed;
+}
+
+.message{
+  font-size:13px;
+  margin-bottom:15px;
+  min-height:18px;
+}
+
+.error{
+  color:#dc2626;
+}
+
+.success{
+  color:#16a34a;
+}
+
 .footer{
   margin-top:25px;
   font-size:11px;
-  color:#9ca3af;
-}
-
-.footer a{
   color:#6b7280;
-  text-decoration:none;
-  margin:0 5px;
-}
-
-.footer a:hover{
-  text-decoration:underline;
 }
 </style>
 </head>
@@ -97,23 +108,62 @@ button:hover{
 
 <div class="container">
 
-  <img src="logo.png" class="logo" alt="Nexus Core Logo">
+  <img src="logo.png" class="logo" alt="Logo">
 
   <div class="company">NEXUS CORE SYSTEM</div>
   <h1>Secure Access Portal</h1>
 
-  <input type="text" placeholder="User ID">
-  <input type="password" placeholder="Password">
+  <div class="message" id="message"></div>
 
-  <button>SIGN IN</button>
+  <input type="text" id="userid" placeholder="User ID">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="login()" id="loginBtn">SIGN IN</button>
 
   <div class="footer">
-    © 2025 Nexus Core. All rights reserved. <br>
-    <a href="#">Privacy Policy</a> | 
-    <a href="#">Terms of Service</a>
+    © 2025 Nexus Core. All rights reserved.
   </div>
 
 </div>
+
+<script>
+function login(){
+  const user = document.getElementById("userid").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  const msg = document.getElementById("message");
+  const btn = document.getElementById("loginBtn");
+
+  msg.className = "message";
+
+  if(user === "" || pass === ""){
+    msg.textContent = "Please enter User ID and Password.";
+    msg.classList.add("error");
+    return;
+  }
+
+  // ตัวอย่างข้อมูลจำลอง
+  const correctUser = "admin";
+  const correctPass = "1234";
+
+  btn.disabled = true;
+  btn.textContent = "Authenticating...";
+
+  setTimeout(() => {
+    if(user === correctUser && pass === correctPass){
+      msg.textContent = "Access Granted. Redirecting...";
+      msg.classList.add("success");
+      setTimeout(()=>{
+        window.location.href = "dashboard.html";
+      },1000);
+    }else{
+      msg.textContent = "Invalid credentials.";
+      msg.classList.add("error");
+      btn.disabled = false;
+      btn.textContent = "SIGN IN";
+    }
+  },1000);
+}
+</script>
 
 </body>
 </html>
