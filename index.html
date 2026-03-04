@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Access Control</title>
+<title>ระบบควบคุมสิทธิ์การเข้าใช้งาน</title>
 
 <style>
 body{
     margin:0;
-    font-family:sans-serif;
-    background:#e9ecef;
+    font-family: sans-serif;
+    background:#eef1f4;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -17,21 +17,28 @@ body{
 }
 
 .card{
-    background:#fff;
-    width:340px;
+    background:white;
+    width:350px;
     padding:30px;
     border-radius:10px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
     text-align:center;
 }
 
 .logo{
-    font-size:50px;
+    font-size:60px;
     margin-bottom:10px;
 }
 
-h2{margin:5px 0;}
-.sub{color:#777;margin-bottom:20px;}
+h2{
+    margin:5px 0;
+}
+
+.subtitle{
+    color:gray;
+    font-size:14px;
+    margin-bottom:20px;
+}
 
 input{
     width:100%;
@@ -43,129 +50,134 @@ input{
 
 button{
     width:100%;
-    padding:10px;
-    background:#2f4858;
-    color:#fff;
+    padding:12px;
+    background:#2f4550;
+    color:white;
     border:none;
     border-radius:5px;
     cursor:pointer;
+    font-size:16px;
 }
 
 button:disabled{
-    background:#999;
+    background:gray;
     cursor:not-allowed;
 }
 
-.error{
-    color:red;
+.message{
     margin-top:10px;
     font-size:14px;
 }
 
-.lock{
-    color:#cc0000;
-    margin-top:10px;
-    font-size:14px;
+.footer{
+    margin-top:15px;
+    font-size:12px;
+    color:#888;
 }
 </style>
 </head>
-
 <body>
 
 <div class="card">
     <div class="logo">🔒</div>
-    <h2>ระบบตรวจสอบสิทธิการเข้าใช้งาน</h2>
-    <div class="sub">Access Control System</div>
+    <h2>ระบบตรวจสอบสิทธิ์การเข้าใช้งาน</h2>
+    <div class="subtitle">Access Control System</div>
 
     <form id="loginForm">
         <input type="text" id="card" placeholder="รหัสประจำตัวเจ้าหน้าที่" required>
         <input type="password" id="pass" placeholder="รหัสผ่าน" required>
         <button type="submit" id="loginBtn">เข้าสู่ระบบ</button>
+        <div id="messageBox" class="message"></div>
     </form>
 
-    <div class="error" id="errorMsg"></div>
-    <div class="lock" id="lockMsg"></div>
+    <div class="footer">
+        การเข้าใช้งานโดยไม่ได้รับอนุญาต อาจมีความผิดตามกฎหมาย
+    </div>
 </div>
 
 <script>
 const correctCard = "LC-A01";
 const correctPass = "Lc1993♧";
 
-let failCount = 0;
-let lockTime = 0;
-let lockInterval = null;
+let failCount = parseInt(localStorage.getItem("failCount")) || 0;
+let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
 
 const form = document.getElementById("loginForm");
-const errorMsg = document.getElementById("errorMsg");
-const lockMsg = document.getElementById("lockMsg");
+const messageBox = document.getElementById("messageBox");
 const loginBtn = document.getElementById("loginBtn");
 
-form.addEventListener("submit", function(e){
-    e.preventDefault(); // ❌ ห้ามรีเฟรช
+function showMessage(text,color="red"){
+    messageBox.innerText = text;
+    messageBox.style.color = color;
+}
 
-    if(lockTime > 0) return;
+function checkLock(){
+    const now = Date.now();
 
-    const card = document.getElementById("card").value;
-    const pass = document.getElementById("pass").value;
-
-    if(card === correctCard && pass === correctPass){
-        errorMsg.textContent = "";
-        alert("เข้าสู่ระบบสำเร็จ");
-        failCount = 0;
-    } else {
-        failCount++;
-        errorMsg.textContent = "รหัสไม่ถูกต้อง";
-
-        if(failCount === 3) startLock(30);
-        if(failCount === 6) startLock(60);
-        if(failCount === 9) startLock(180);
+    if(lockUntil > now){
+        const secondsLeft = Math.ceil((lockUntil - now)/1000);
+        loginBtn.disabled = true;
+        showMessage("ระบบถูกล็อก กรุณารอ " + secondsLeft + " วินาที", "red");
+        setTimeout(checkLock,1000);
+        return true;
+    }else{
+        loginBtn.disabled = false;
+        return false;
     }
+}
+
+function setLockTime(){
+    let lockTime = 0;
+
+    if(failCount >= 9){
+        lockTime = 5 * 60 * 1000;
+    }else if(failCount >= 6){
+        lockTime = 60 * 1000;
+    }else if(failCount >= 3){
+        lockTime = 30 * 1000;
+    }
+
+    if(lockTime > 0){
+        lockUntil = Date.now() + lockTime;
+        localStorage.setItem("lockUntil", lockUntil);
+    }
+}
+
+form.addEventListener("submit",function(e){
+    e.preventDefault();
+
+    if(checkLock()) return;
+
+    const card = document.getElementById("card").value.trim();
+    const pass = document.getElementById("pass").value.trim();
+
+    loginBtn.disabled = true;
+
+    setTimeout(()=>{
+
+        if(card === correctCard && pass === correctPass){
+            failCount = 0;
+            localStorage.removeItem("failCount");
+            localStorage.removeItem("lockUntil");
+            showMessage("เข้าสู่ระบบสำเร็จ","green");
+
+            setTimeout(()=>{
+                window.location.href="dashboard.html";
+            },1000);
+
+        }else{
+            failCount++;
+            localStorage.setItem("failCount",failCount);
+            setLockTime();
+            showMessage("รหัสไม่ถูกต้อง ครั้งที่ "+failCount,"red");
+            loginBtn.disabled = false;
+            checkLock();
+        }
+
+    },800);
 });
 
-function startLock(seconds){
-    lockTime = seconds;
-    loginBtn.disabled = true;
-    lockMsg.textContent = "ล็อคระบบ " + lockTime + " วินาที";
-
-    lockInterval = setInterval(()=>{
-        lockTime--;
-        lockMsg.textContent = "ล็อคระบบ " + lockTime + " วินาที";
-
-        if(lockTime <= 0){
-            clearInterval(lockInterval);
-            loginBtn.disabled = false;
-            lockMsg.textContent = "";
-        }
-    },1000);
-}
-</script>
-
-</body>
-</html>        if(attempts===6){
-            lock(60); // 1 นาที
-        }
-        if(attempts>=9){
-            lock(180); // 3 นาที
-        }
-    }
-}
-
-// =======================
-// ตั้งเวลาล็อค
-// =======================
-function lock(seconds){
-    lockUntil = Date.now() + (seconds*1000);
-    localStorage.setItem("lockUntil",lockUntil);
-    startLockCountdown();
-}
-
-// =======================
-// ป้องกันจอว่าง
-// =======================
-window.onerror=function(){
-    document.body.innerHTML="<h2 style='text-align:center;margin-top:40%;color:red'>เกิดข้อผิดพลาดระบบ</h2>";
-};
-
+checkLock();
 </script>
 
 </body>
