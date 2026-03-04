@@ -1,145 +1,192 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Access Portal</title>
+<title>Nexus Core | Secure Access</title>
 
 <style>
+*{box-sizing:border-box;}
+
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background:#f4f6f9;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:#f4f6f8;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
 }
-.card{
-  width:350px;
-  background:white;
-  padding:30px;
-  border-radius:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+
+.container{
+  background:#ffffff;
+  width:100%;
+  max-width:360px;
+  padding:40px 30px;
+  border-radius:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
   text-align:center;
 }
+
 .logo{
   width:90px;
-  margin-bottom:15px;
+  margin-bottom:10px;
 }
-h2{margin:10px 0;}
+
+.company{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#6b7280;
+  margin-bottom:5px;
+}
+
+h1{
+  font-size:18px;
+  margin:0 0 25px 0;
+  color:#1f2937;
+}
+
 input{
   width:100%;
   padding:12px;
-  margin:8px 0;
-  border-radius:8px;
-  border:1px solid #ccc;
+  margin-bottom:15px;
+  border:1px solid #d1d5db;
+  border-radius:6px;
+  font-size:14px;
+  background:#ffffff;
 }
+
+input:focus{
+  outline:none;
+  border:1px solid #2563eb;
+}
+
 button{
   width:100%;
   padding:12px;
   border:none;
-  border-radius:8px;
-  background:#1f2b3a;
-  color:white;
-  font-weight:bold;
+  border-radius:6px;
+  background:#1f2937;
+  color:#ffffff;
+  font-weight:600;
   cursor:pointer;
 }
+
 button:disabled{
-  background:#888;
+  background:#9ca3af;
   cursor:not-allowed;
 }
-.error{
-  color:#d32f2f;
-  margin-top:10px;
+
+.message{
+  font-size:13px;
+  margin-bottom:10px;
+  color:#dc2626;
 }
+
 .timer{
-  color:#ff6f00;
-  margin-top:8px;
+  font-size:13px;
+  color:#b91c1c;
+  margin-bottom:10px;
+}
+
+.footer{
+  margin-top:25px;
+  font-size:11px;
+  color:#6b7280;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <img src="logo.png" class="logo">
-  <h2>พอร์ทัลการเข้าถึงที่ปลอดภัย</h2>
+<div class="container">
 
-  <input type="text" id="username" placeholder="รหัสประจำตัว">
-  <input type="password" id="password" placeholder="รหัสผ่าน">
-  <button onclick="login()" id="loginBtn">เข้าสู่ระบบ</button>
+  <!-- ใส่ไฟล์โลโก้ในโฟลเดอร์เดียวกัน -->
+  <img src="logo.png" class="logo" alt="Nexus Core Logo">
 
-  <div class="error" id="error"></div>
+  <div class="company">NEXUS CORE SYSTEM</div>
+  <h1>Secure Access Portal</h1>
+
+  <div class="message" id="message"></div>
   <div class="timer" id="timer"></div>
+
+  <input type="text" id="user" placeholder="User ID">
+  <input type="password" id="pass" placeholder="Password">
+
+  <button id="loginBtn">SIGN IN</button>
+
+  <div class="footer">
+    © 2025 Nexus Core. All rights reserved.
+  </div>
+
 </div>
 
 <script>
-const correctUser="LC-A01";
-const correctPass="Lc1993♧";
+const correctUser = "LC-A01";
+const correctPass = "Lc1993♧";
 
-let attempts=parseInt(localStorage.getItem("attempts"))||0;
-let lockUntil=parseInt(localStorage.getItem("lockUntil"))||0;
+const loginBtn = document.getElementById("loginBtn");
+const message = document.getElementById("message");
+const timerEl = document.getElementById("timer");
 
-function updateLock(){
-  const now=Date.now();
-  if(lockUntil>now){
-    const seconds=Math.ceil((lockUntil-now)/1000);
-    document.getElementById("loginBtn").disabled=true;
-    document.getElementById("timer").innerText=
-      "ระบบถูกล็อค กรุณารอ "+seconds+" วินาที";
+let attempts = parseInt(localStorage.getItem("attempts")) || 0;
+let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
+
+function checkLock(){
+  const now = Date.now();
+
+  if(now < lockUntil){
+    loginBtn.disabled = true;
+    const remaining = Math.ceil((lockUntil - now)/1000);
+    timerEl.innerText = "Account locked. Try again in " + remaining + " seconds.";
+
+    setTimeout(checkLock,1000);
   }else{
-    document.getElementById("loginBtn").disabled=false;
-    document.getElementById("timer").innerText="";
+    loginBtn.disabled = false;
+    timerEl.innerText = "";
+    localStorage.removeItem("lockUntil");
   }
 }
 
-function applyLock(){
-  let lockTime=0;
-
-  if(attempts>=9){
-    attempts=9;
-    lockTime=180;
-  }
-  else if(attempts>=6){
-    lockTime=90;
-  }
-  else if(attempts>=3){
-    lockTime=30;
-  }
-
-  if(lockTime>0){
-    lockUntil=Date.now()+(lockTime*1000);
-    localStorage.setItem("lockUntil",lockUntil);
-  }
-
-  localStorage.setItem("attempts",attempts);
+function getLockTime(attempts){
+  if(attempts >= 9) return 180;
+  if(attempts >= 6) return 90;
+  if(attempts >= 3) return 30;
+  return 0;
 }
 
-function login(){
-  const user=document.getElementById("username").value;
-  const pass=document.getElementById("password").value;
-  const now=Date.now();
+loginBtn.addEventListener("click", function(){
 
-  if(lockUntil>now){
+  if(Date.now() < lockUntil) return;
+
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  if(user === correctUser && pass === correctPass){
+    message.style.color = "green";
+    message.innerText = "Login successful.";
+    localStorage.removeItem("attempts");
+    localStorage.removeItem("lockUntil");
     return;
   }
 
-  if(user===correctUser && pass===correctPass){
-    localStorage.removeItem("attempts");
-    localStorage.removeItem("lockUntil");
-    window.location.href="dashboard.html";
-  }
-  else{
-    attempts++;
-    applyLock();
-    document.getElementById("error").innerText=
-      "ข้อมูลประจำตัวไม่ถูกต้อง ("+attempts+"/9)";
-  }
-}
+  attempts++;
+  localStorage.setItem("attempts", attempts);
 
-setInterval(updateLock,1000);
-updateLock();
+  message.style.color = "#dc2626";
+  message.innerText = "Invalid credentials.";
+
+  const lockTime = getLockTime(attempts);
+
+  if(lockTime > 0){
+    lockUntil = Date.now() + lockTime*1000;
+    localStorage.setItem("lockUntil", lockUntil);
+    checkLock();
+  }
+
+});
+
+checkLock();
 </script>
 
 </body>
