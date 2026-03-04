@@ -14,7 +14,7 @@ html,body{
     margin:0;
     height:100%;
     font-family:'Sarabun',sans-serif;
-    background:#d7dbde;
+    background:#cfd5d9; /* นุ่มลง */
     color:#2b2b2b;
 }
 
@@ -35,47 +35,37 @@ html,body{
     letter-spacing:.3px;
 }
 
-/* MAIN LAYOUT (Hybrid A+B) */
+/* MAIN */
 .main{
     flex:1;
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    padding-top:8vh;
-    padding-bottom:40px;
-    padding-left:18px;
-    padding-right:18px;
-}
-
-@media (min-width:768px){
-    .main{
-        align-items:center;
-        padding-top:40px;
-    }
+    padding:30px 16px 30px 16px; /* ลดช่องว่างบน */
 }
 
 /* PANEL */
 .panel{
     width:100%;
-    max-width:480px;
+    max-width:520px;       /* ขยายให้แน่นขึ้น */
     background:#ffffff;
-    border:1px solid #59646b;
-    padding:34px 28px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    border:1px solid #5f6a72;
+    padding:38px 32px;
+    box-shadow:0 10px 28px rgba(0,0,0,0.08);
 }
 
 /* LOGO */
 .logo{
-    width:60px;
+    width:72px;   /* ใหญ่ขึ้น */
     display:block;
-    margin:0 auto 16px auto;
+    margin:0 auto 18px auto;
     opacity:.95;
 }
 
 /* TEXT */
 h1{
     text-align:center;
-    font-size:17px;
+    font-size:18px;
     margin:0;
     font-weight:600;
 }
@@ -83,18 +73,18 @@ h1{
 .subtitle{
     text-align:center;
     font-size:13px;
-    margin:6px 0 20px 0;
+    margin:6px 0 22px 0;
     color:#555;
 }
 
 /* INPUT */
 input{
     width:100%;
-    padding:10px 12px;
-    margin-bottom:12px;
-    border:1px solid #777;
+    padding:11px 12px;
+    margin-bottom:14px;
+    border:1px solid #7a848b;
     font-size:14px;
-    background:#f5f5f5;
+    background:#f2f4f5;
     transition:.2s;
 }
 
@@ -107,8 +97,8 @@ input:focus{
 /* BUTTON */
 button{
     width:100%;
-    padding:11px;
-    background:#2c3e47;
+    padding:12px;
+    background:#2f4a56;  /* มีมิติขึ้น */
     color:#fff;
     border:none;
     font-size:14px;
@@ -117,12 +107,12 @@ button{
 }
 
 button:hover{
-    background:#1f2d34;
+    background:#22363f;
 }
 
 /* STATUS */
 .status{
-    margin-top:12px;
+    margin-top:14px;
     font-size:13px;
     text-align:center;
 }
@@ -131,12 +121,12 @@ button:hover{
 .error{color:#b00020;}
 
 .notice{
-    margin-top:18px;
+    margin-top:20px;
     font-size:12px;
     border-top:1px solid #d6d6d6;
-    padding-top:12px;
+    padding-top:14px;
     color:#444;
-    line-height:1.5;
+    line-height:1.6;
 }
 
 /* FOOTER */
@@ -147,6 +137,77 @@ button:hover{
     background:#eef1f3;
     border-top:1px solid #c7cbd0;
     color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="header">
+    <div>ศูนย์ควบคุมสิทธิ์การเข้าถึง</div>
+    <div id="datetime"></div>
+</div>
+
+<div class="main">
+<div class="panel">
+
+<img src="logo.png" class="logo" alt="logo">
+
+<h1>ระบบตรวจสอบสิทธิการเข้าใช้งาน</h1>
+<div class="subtitle">Access Control System</div>
+
+<input type="text" id="card" placeholder="รหัสประจำตัวเจ้าหน้าที่">
+<input type="password" id="pass" placeholder="รหัสผ่าน">
+
+<button onclick="login()">เข้าสู่ระบบ</button>
+
+<div class="status" id="status"></div>
+
+<div class="notice">
+การเข้าถึงระบบโดยไม่ได้รับอนุญาต อาจมีความผิดตามกฎหมายที่เกี่ยวข้อง
+</div>
+
+</div>
+</div>
+
+<div class="footer">
+© 2569 หน่วยงานกลางด้านความมั่นคงสารสนเทศ | เวอร์ชันระบบ 1.0.3
+</div>
+
+</div>
+
+<script>
+const correctCard = "LC-A01";
+const correctPass = "Lc1993♧";
+
+function login(){
+    const card = document.getElementById("card").value.trim();
+    const pass = document.getElementById("pass").value.trim();
+    const status = document.getElementById("status");
+
+    if(card === correctCard && pass === correctPass){
+        status.innerHTML = "ยืนยันตัวตนสำเร็จ";
+        status.className = "status success";
+    }else{
+        status.innerHTML = "ข้อมูลไม่ถูกต้อง";
+        status.className = "status error";
+    }
+}
+
+function updateTime(){
+    const now = new Date();
+    document.getElementById("datetime").innerText =
+        now.toLocaleDateString("th-TH") + " " +
+        now.toLocaleTimeString("th-TH");
+}
+setInterval(updateTime,1000);
+updateTime();
+</script>
+
+</body>
+</html>    color:#555;
 }
 </style>
 </head>
