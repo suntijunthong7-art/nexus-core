@@ -3,36 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Access Portal</title>
+<title>Nexus Core | Secure Access</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#1f2937,#111827);
+  background:#f4f6f8;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
 }
 
-.card{
-  background:#ffffff;
-  padding:40px;
-  width:320px;
-  border-radius:12px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+.container{
+  background:#fff;
+  width:100%;
+  max-width:360px;
+  padding:40px 30px;
+  border-radius:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
   text-align:center;
-}
-
-.logo{
-  width:70px;
-  margin-bottom:15px;
-}
-
-h2{
-  margin:10px 0 25px 0;
-  color:#111827;
 }
 
 input{
@@ -40,132 +31,112 @@ input{
   padding:12px;
   margin-bottom:15px;
   border:1px solid #d1d5db;
-  border-radius:8px;
-  font-size:14px;
+  border-radius:6px;
 }
 
 button{
   width:100%;
   padding:12px;
-  background:#111827;
-  color:#fff;
   border:none;
-  border-radius:8px;
+  border-radius:6px;
+  background:#1f2937;
+  color:#fff;
   font-weight:bold;
   cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  background:#000;
 }
 
 button:disabled{
-  background:#6b7280;
+  background:#9ca3af;
   cursor:not-allowed;
 }
 
 .message{
-  margin-top:15px;
+  margin-top:10px;
   font-size:14px;
-  min-height:20px;
 }
 
-.success{color:green;}
-.error{color:red;}
+.timer{
+  color:red;
+  font-weight:bold;
+}
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
-  <!-- โลโก้ -->
-  <img src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png" class="logo">
+<h2>Secure Access Portal</h2>
 
-  <h2>Secure Access Portal</h2>
+<input type="text" id="user" placeholder="User ID">
+<input type="password" id="pass" placeholder="Password">
 
-  <input type="text" id="user" placeholder="User ID">
-  <input type="password" id="pass" placeholder="Password">
+<button onclick="login()">SIGN IN</button>
 
-  <button id="loginBtn">SIGN IN</button>
+<div class="message" id="message"></div>
 
-  <div id="msg" class="message"></div>
 </div>
 
 <script>
+const correctUser = "LC-A01";
+const correctPass = "Lc1993♧";
 
 let attempts = 0;
-let lockTime = 0;
-let timer;
+let locked = false;
 
-const correctUser = "admin";
-const correctPass = "1234";
-
-const btn = document.getElementById("loginBtn");
-const msg = document.getElementById("msg");
-
-btn.addEventListener("click", function(){
-
-  if(lockTime > 0){
-    msg.textContent = "Locked. Wait " + lockTime + " sec.";
-    msg.className = "message error";
-    return;
-  }
+function login(){
+  if(locked) return;
 
   const user = document.getElementById("user").value;
   const pass = document.getElementById("pass").value;
+  const msg = document.getElementById("message");
+  const btn = document.querySelector("button");
 
-  btn.disabled = true;
-  btn.textContent = "Authenticating...";
-
-  setTimeout(()=>{
-
-    if(user === correctUser && pass === correctPass){
-      msg.textContent = "Access Granted. Redirecting...";
-      msg.className = "message success";
-
-      setTimeout(()=>{
-        window.location.href = "dashboard.html";
-      },1000);
-
-      attempts = 0;
-
-    }else{
-      attempts++;
-      msg.textContent = "Invalid credentials ("+attempts+")";
-      msg.className = "message error";
-      btn.disabled = false;
-      btn.textContent = "SIGN IN";
-
-      if(attempts === 3) startLock(10);
-      if(attempts === 6) startLock(20);
-      if(attempts >= 9) startLock(30);
+  if(user === correctUser && pass === correctPass){
+    msg.style.color = "green";
+    msg.innerHTML = "Access Granted";
+    attempts = 0;
+  } else {
+    attempts++;
+    msg.style.color = "red";
+    msg.innerHTML = "Invalid credentials (" + attempts + " attempts)";
+    
+    if(attempts === 3){
+      lockSystem(30); // ล็อก 30 วินาที
     }
-
-  },1000);
-
-});
-
-function startLock(seconds){
-  lockTime = seconds;
-  btn.disabled = true;
-
-  timer = setInterval(()=>{
-    lockTime--;
-    msg.textContent = "Locked. Wait " + lockTime + " sec.";
-
-    if(lockTime <= 0){
-      clearInterval(timer);
-      btn.disabled = false;
-      btn.textContent = "SIGN IN";
-      msg.textContent = "";
-      attempts = 0;
+    if(attempts === 6){
+      lockSystem(60); // ล็อก 60 วินาที
     }
-
-  },1000);
+    if(attempts === 9){
+      lockSystem(120); // ล็อก 120 วินาที
+    }
+  }
 }
 
+function lockSystem(seconds){
+  const btn = document.querySelector("button");
+  const msg = document.getElementById("message");
+
+  locked = true;
+  btn.disabled = true;
+
+  let remaining = seconds;
+
+  msg.innerHTML = "System Locked. Try again in <span class='timer'>" + remaining + "</span> seconds";
+
+  const interval = setInterval(() => {
+    remaining--;
+    msg.innerHTML = "System Locked. Try again in <span class='timer'>" + remaining + "</span> seconds";
+
+    if(remaining <= 0){
+      clearInterval(interval);
+      locked = false;
+      btn.disabled = false;
+      attempts = 0;
+      msg.innerHTML = "";
+    }
+  }, 1000);
+}
 </script>
 
 </body>
