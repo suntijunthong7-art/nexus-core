@@ -3,55 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE | Secure Authentication</title>
+<title>NEXUS CORE | Identity & Access Management</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
     margin:0;
     font-family:Segoe UI, Arial, sans-serif;
-    background:#edf1f4;
+    background:#eef2f5;
     color:#1f2933;
 }
 
-/* ===== Header ===== */
+/* ===== HEADER ===== */
 .header{
     background:#1e2a34;
     color:#fff;
-    padding:16px 28px;
-    font-size:14px;
-    letter-spacing:.5px;
+    padding:16px 22px;
     display:flex;
     justify-content:space-between;
+    align-items:center;
 }
 
-/* ===== Layout ===== */
+.header .brand{
+    font-size:14px;
+    letter-spacing:.6px;
+    font-weight:600;
+}
+
+.header .time{
+    font-size:12px;
+    opacity:.8;
+}
+
+/* ===== MAIN AREA ===== */
 .main{
     min-height:calc(100vh - 60px);
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:40px 20px;
+    padding:30px 16px;
 }
 
-/* ===== Login Panel ===== */
+/* ===== PANEL ===== */
 .panel{
     width:100%;
-    max-width:420px;
-    background:#fff;
-    padding:40px;
-    border:1px solid #d5dce3;
+    max-width:440px;
+    background:#ffffff;
+    padding:36px 28px 32px 28px;
+    border:1px solid #d7dde3;
 }
 
 .logo{
-    width:70px;
+    width:64px;
     display:block;
-    margin:0 auto 20px auto;
+    margin:0 auto 18px auto;
 }
 
 h1{
-    font-size:18px;
     text-align:center;
+    font-size:18px;
     margin:0;
     font-weight:600;
 }
@@ -60,12 +71,12 @@ h1{
     text-align:center;
     font-size:13px;
     color:#6b7280;
-    margin:8px 0 28px 0;
+    margin:6px 0 26px 0;
 }
 
 input{
     width:100%;
-    padding:11px;
+    padding:12px;
     margin-bottom:14px;
     border:1px solid #cbd5e1;
     font-size:14px;
@@ -78,7 +89,7 @@ input:focus{
 
 button{
     width:100%;
-    padding:11px;
+    padding:12px;
     background:#1e2a34;
     color:#fff;
     border:none;
@@ -87,7 +98,12 @@ button{
 }
 
 button:hover{
-    background:#111820;
+    background:#162028;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 #msg{
@@ -96,13 +112,13 @@ button:hover{
     min-height:18px;
 }
 
-/* ===== Footer ===== */
+/* ===== FOOTER ===== */
 .footer{
     text-align:center;
     font-size:11px;
     padding:14px;
-    border-top:1px solid #d5dce3;
-    background:#f5f7f9;
+    border-top:1px solid #d7dde3;
+    background:#f6f8fa;
     color:#6b7280;
 }
 </style>
@@ -111,8 +127,8 @@ button:hover{
 <body>
 
 <div class="header">
-    <div>NEXUS CORE</div>
-    <div id="datetime"></div>
+    <div class="brand">NEXUS CORE</div>
+    <div class="time" id="datetime"></div>
 </div>
 
 <div class="main">
@@ -125,6 +141,7 @@ button:hover{
 
 <input type="text" id="card" placeholder="Identification Code">
 <input type="password" id="pass" placeholder="Password">
+
 <button id="loginBtn">Sign In</button>
 
 <div id="msg"></div>
@@ -133,7 +150,7 @@ button:hover{
 </div>
 
 <div class="footer">
-© 2026 NEXUS CORE. All access attempts are monitored.
+Unauthorized access is prohibited and subject to monitoring.
 </div>
 
 <script>
@@ -151,7 +168,7 @@ const msg=document.getElementById("msg");
 function updateTime(){
     const now=new Date();
     document.getElementById("datetime").innerText=
-    now.toLocaleDateString()+" "+now.toLocaleTimeString();
+        now.toLocaleDateString()+" "+now.toLocaleTimeString();
 }
 setInterval(updateTime,1000);
 updateTime();
