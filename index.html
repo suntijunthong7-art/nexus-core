@@ -3,102 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google" content="notranslate">
 <title>Nexus Core | Internal Access</title>
 
 <style>
 *{box-sizing:border-box;}
+
 body{
   margin:0;
-  font-family:Segoe UI,Arial;
-  background:#eef1f5;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:#f3f4f6;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
-  padding:16px;
 }
-.card{
-  background:#fff;
+
+.container{
+  background:#ffffff;
   width:100%;
-  max-width:420px;
-  padding:45px 30px;
-  border-radius:16px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.1);
+  max-width:360px;
+  padding:40px 30px;
+  border-radius:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
   text-align:center;
 }
-.logo{width:100px;margin-bottom:20px;}
-h1{margin-bottom:30px;font-size:20px;}
+
+.company{
+  font-size:12px;
+  letter-spacing:2px;
+  color:#6b7280;
+  margin-bottom:4px;
+}
+
+h1{
+  font-size:18px;
+  margin:0 0 25px 0;
+  color:#1f2937;
+}
+
 input{
   width:100%;
-  padding:14px;
-  margin-bottom:16px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:15px;
+  padding:12px;
+  margin-bottom:15px;
+  border:1px solid #d1d5db;
+  border-radius:6px;
+  font-size:14px;
 }
+
 button{
   width:100%;
-  padding:14px;
+  padding:12px;
   border:none;
-  border-radius:8px;
+  border-radius:6px;
   background:#1f2937;
-  color:#fff;
+  color:#ffffff;
   font-weight:600;
   cursor:pointer;
 }
+
+button:disabled{
+  background:#9ca3af;
+  cursor:not-allowed;
+}
+
 .error{
   color:#dc2626;
   font-size:13px;
-  margin-bottom:12px;
-  display:none;
+  margin-bottom:10px;
+  min-height:18px;
+}
+
+.footer{
+  margin-top:25px;
+  font-size:11px;
+  color:#4b5563;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
-<img src="logo.png" class="logo" onerror="this.style.display='none'">
+  <div class="company">NEXUS CORE SYSTEM</div>
+  <h1>Internal Access Portal</h1>
 
-<h1>Internal Access Portal</h1>
+  <div class="error" id="errorMsg"></div>
 
-<div id="errorMsg" class="error"></div>
+  <input type="text" id="user" placeholder="Employee ID">
+  <input type="password" id="pass" placeholder="Password">
 
-<input type="text" id="empId" placeholder="Employee ID">
-<input type="password" id="password" placeholder="Password">
+  <button onclick="login()" id="loginBtn">SIGN IN</button>
 
-<button id="loginBtn">SIGN IN</button>
+  <div class="footer">
+    © 2025 Nexus Core System · Internal Use Only
+  </div>
 
 </div>
 
 <script>
-const SESSION_DURATION = 5 * 60 * 1000;
+let attempts = 0;
+let locked = false;
 
-document.getElementById("loginBtn").addEventListener("click", function(){
+function login(){
 
-  const id = document.getElementById("empId").value.trim();
-  const pass = document.getElementById("password").value.trim();
+  if(locked) return;
+
+  const user = document.getElementById("user").value.trim();
+  const pass = document.getElementById("pass").value.trim();
   const error = document.getElementById("errorMsg");
+  const btn = document.getElementById("loginBtn");
 
-  error.style.display="none";
-
-  if(!id || !pass){
-    error.textContent="Please enter Employee ID and Password";
-    error.style.display="block";
+  if(!user || !pass){
+    error.innerText = "Please enter Employee ID and Password.";
     return;
   }
 
-  if(id==="admin" && pass==="1234"){
-    localStorage.setItem("sessionExpiry", Date.now()+SESSION_DURATION);
-    window.location.href="dashboard.html";
-  }else{
-    error.textContent="Invalid credentials";
-    error.style.display="block";
-  }
+  btn.innerText = "Authenticating...";
+  btn.disabled = true;
 
-});
+  setTimeout(() => {
+
+    if(user === "admin" && pass === "1234"){
+      error.style.color = "green";
+      error.innerText = "Access Granted.";
+      setTimeout(()=>{ window.location.href="dashboard.html"; },1000);
+    } else {
+      attempts++;
+      error.style.color = "#dc2626";
+      error.innerText = "Invalid credentials. Attempt " + attempts + " of 3.";
+
+      if(attempts >= 3){
+        lockSystem();
+      }
+    }
+
+    btn.innerText = "SIGN IN";
+    btn.disabled = false;
+
+  },1000);
+}
+
+function lockSystem(){
+  locked = true;
+  const error = document.getElementById("errorMsg");
+  const btn = document.getElementById("loginBtn");
+
+  let countdown = 15;
+  btn.disabled = true;
+
+  const interval = setInterval(() => {
+    error.innerText = "Too many failed attempts. Try again in " + countdown + " seconds.";
+    countdown--;
+
+    if(countdown < 0){
+      clearInterval(interval);
+      attempts = 0;
+      locked = false;
+      error.innerText = "";
+      btn.disabled = false;
+    }
+
+  },1000);
+}
 </script>
 
 </body>
