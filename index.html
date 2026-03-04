@@ -7,7 +7,6 @@
 
 <style>
 *{box-sizing:border-box;}
-
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
@@ -17,9 +16,8 @@ body{
   align-items:center;
   height:100vh;
 }
-
 .container{
-  background:#ffffff;
+  background:#fff;
   width:100%;
   max-width:360px;
   padding:40px 30px;
@@ -27,56 +25,36 @@ body{
   box-shadow:0 8px 24px rgba(0,0,0,0.08);
   text-align:center;
 }
-
-.company{
-  font-size:12px;
-  letter-spacing:2px;
-  color:#6b7280;
-  margin-bottom:4px;
-}
-
-h1{
-  font-size:18px;
-  margin:0 0 25px 0;
-  color:#1f2937;
-}
-
+h1{font-size:18px;margin-bottom:20px;}
 input{
   width:100%;
   padding:12px;
   margin-bottom:15px;
   border:1px solid #d1d5db;
   border-radius:6px;
-  font-size:14px;
 }
-
 button{
   width:100%;
   padding:12px;
   border:none;
   border-radius:6px;
   background:#1f2937;
-  color:#ffffff;
+  color:#fff;
   font-weight:600;
   cursor:pointer;
 }
-
 button:disabled{
   background:#9ca3af;
   cursor:not-allowed;
 }
-
-.error{
-  color:#dc2626;
+.message{
   font-size:13px;
-  margin-bottom:10px;
-  min-height:18px;
+  margin-top:10px;
 }
-
 .footer{
-  margin-top:25px;
+  margin-top:20px;
   font-size:11px;
-  color:#4b5563;
+  color:#6b7280;
 }
 </style>
 </head>
@@ -84,88 +62,89 @@ button:disabled{
 <body>
 
 <div class="container">
-
-  <div class="company">NEXUS CORE SYSTEM</div>
   <h1>Internal Access Portal</h1>
-
-  <div class="error" id="errorMsg"></div>
 
   <input type="text" id="user" placeholder="Employee ID">
   <input type="password" id="pass" placeholder="Password">
+  <button onclick="login()">SIGN IN</button>
 
-  <button onclick="login()" id="loginBtn">SIGN IN</button>
+  <div class="message" id="msg"></div>
 
   <div class="footer">
     © 2025 Nexus Core System · Internal Use Only
   </div>
-
 </div>
 
 <script>
-let attempts = 0;
-let locked = false;
+const MAX_ATTEMPTS = 3;
+const LOCK_TIME = 60000; // 60 วินาที
 
-function login(){
+let attempts = localStorage.getItem("attempts") 
+    ? parseInt(localStorage.getItem("attempts")) 
+    : 0;
 
-  if(locked) return;
+let lockUntil = localStorage.getItem("lockUntil")
+    ? parseInt(localStorage.getItem("lockUntil"))
+    : 0;
 
-  const user = document.getElementById("user").value.trim();
-  const pass = document.getElementById("pass").value.trim();
-  const error = document.getElementById("errorMsg");
-  const btn = document.getElementById("loginBtn");
+const button = document.querySelector("button");
+const msg = document.getElementById("msg");
 
-  if(!user || !pass){
-    error.innerText = "Please enter Employee ID and Password.";
-    return;
+function checkLock() {
+  if (Date.now() < lockUntil) {
+    button.disabled = true;
+    startCountdown();
+  } else {
+    button.disabled = false;
   }
+}
 
-  btn.innerText = "Authenticating...";
-  btn.disabled = true;
-
-  setTimeout(() => {
-
-    if(user === "admin" && pass === "1234"){
-      error.style.color = "green";
-      error.innerText = "Access Granted.";
-      setTimeout(()=>{ window.location.href="dashboard.html"; },1000);
+function startCountdown() {
+  let interval = setInterval(() => {
+    let remaining = Math.ceil((lockUntil - Date.now()) / 1000);
+    if (remaining > 0) {
+      msg.style.color = "red";
+      msg.innerText = "Account locked. Try again in " + remaining + "s";
     } else {
-      attempts++;
-      error.style.color = "#dc2626";
-      error.innerText = "Invalid credentials. Attempt " + attempts + " of 3.";
-
-      if(attempts >= 3){
-        lockSystem();
-      }
-    }
-
-    btn.innerText = "SIGN IN";
-    btn.disabled = false;
-
-  },1000);
-}
-
-function lockSystem(){
-  locked = true;
-  const error = document.getElementById("errorMsg");
-  const btn = document.getElementById("loginBtn");
-
-  let countdown = 15;
-  btn.disabled = true;
-
-  const interval = setInterval(() => {
-    error.innerText = "Too many failed attempts. Try again in " + countdown + " seconds.";
-    countdown--;
-
-    if(countdown < 0){
       clearInterval(interval);
+      localStorage.removeItem("lockUntil");
+      localStorage.removeItem("attempts");
       attempts = 0;
-      locked = false;
-      error.innerText = "";
-      btn.disabled = false;
+      button.disabled = false;
+      msg.innerText = "";
     }
-
-  },1000);
+  }, 1000);
 }
+
+function login() {
+  if (Date.now() < lockUntil) return;
+
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  // ตัวอย่างบัญชีทดสอบ
+  if (user === "admin" && pass === "1234") {
+    msg.style.color = "green";
+    msg.innerText = "Access Granted";
+    localStorage.removeItem("attempts");
+    localStorage.removeItem("lockUntil");
+    attempts = 0;
+  } else {
+    attempts++;
+    localStorage.setItem("attempts", attempts);
+
+    if (attempts >= MAX_ATTEMPTS) {
+      lockUntil = Date.now() + LOCK_TIME;
+      localStorage.setItem("lockUntil", lockUntil);
+      checkLock();
+    } else {
+      msg.style.color = "red";
+      msg.innerText = "Invalid credentials (" + attempts + "/" + MAX_ATTEMPTS + ")";
+    }
+  }
+}
+
+checkLock();
 </script>
 
 </body>
