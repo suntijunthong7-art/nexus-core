@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE | Internal Access</title>
+<title>Nexus Core | Internal Access</title>
 
 <style>
 body{
@@ -15,127 +15,67 @@ body{
   align-items:center;
   height:100vh;
 }
-.container{
+.box{
   background:#fff;
-  width:100%;
-  max-width:360px;
-  padding:40px 30px;
+  padding:40px;
+  width:350px;
   border-radius:8px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
   text-align:center;
 }
 input{
   width:100%;
   padding:12px;
-  margin-bottom:15px;
+  margin:10px 0;
   border:1px solid #ccc;
   border-radius:6px;
 }
 button{
   width:100%;
   padding:12px;
-  border:none;
-  border-radius:6px;
   background:#1f2937;
   color:#fff;
+  border:none;
+  border-radius:6px;
   font-weight:600;
   cursor:pointer;
 }
-button:disabled{
-  background:#9ca3af;
-  cursor:not-allowed;
-}
-.message{
-  font-size:13px;
-  margin-bottom:10px;
+.error{
   color:#dc2626;
+  font-size:13px;
+  display:none;
 }
 </style>
 </head>
+
 <body>
 
-<div class="container">
-  <h2>Internal Access Portal</h2>
-  <div class="message" id="msg"></div>
-  <input type="text" id="empId" placeholder="Employee ID">
-  <input type="password" id="password" placeholder="Password">
-  <button id="loginBtn" onclick="login()">SIGN IN</button>
+<div class="box">
+  <h3>NEXUS CORE SYSTEM</h3>
+  <p>Internal Access Portal</p>
+
+  <div class="error" id="error">Invalid credentials</div>
+
+  <input type="text" id="id" placeholder="Employee ID">
+  <input type="password" id="pass" placeholder="Password">
+
+  <button onclick="login()">SIGN IN</button>
 </div>
 
 <script>
-const MAX_ATTEMPTS = 3;
-const LOCK_TIME = 60 * 1000; // 60 วิ
-
 function login(){
-  const id = document.getElementById("empId").value.trim();
-  const pass = document.getElementById("password").value.trim();
-  const msg = document.getElementById("msg");
-
-  if(isLocked()){
-    return;
-  }
+  const id = document.getElementById("id").value.trim();
+  const pass = document.getElementById("pass").value.trim();
+  const error = document.getElementById("error");
 
   if(id === "admin" && pass === "1234"){
-    localStorage.setItem("session", JSON.stringify({
-      user:id,
-      loginTime:Date.now()
-    }));
-    localStorage.removeItem("attempts");
-    localStorage.removeItem("lockUntil");
-    window.location.href="dashboard.html";
-  } else {
-    let attempts = Number(localStorage.getItem("attempts") || 0) + 1;
-    localStorage.setItem("attempts", attempts);
-
-    if(attempts >= MAX_ATTEMPTS){
-      const lockUntil = Date.now() + LOCK_TIME;
-      localStorage.setItem("lockUntil", lockUntil);
-      msg.textContent = "Too many attempts. Locked for 60 seconds.";
-      disableLogin();
-      startCountdown();
-    } else {
-      msg.textContent = "Invalid credentials (" + attempts + "/3)";
-    }
+      sessionStorage.setItem("auth","true");
+      sessionStorage.setItem("lastActivity", Date.now());
+      window.location.href="dashboard.html";
+  }else{
+      error.style.display="block";
   }
 }
-
-function isLocked(){
-  const lockUntil = localStorage.getItem("lockUntil");
-  if(lockUntil && Date.now() < lockUntil){
-    disableLogin();
-    startCountdown();
-    return true;
-  }
-  return false;
-}
-
-function disableLogin(){
-  document.getElementById("loginBtn").disabled = true;
-}
-
-function startCountdown(){
-  const msg = document.getElementById("msg");
-  const interval = setInterval(()=>{
-    const lockUntil = localStorage.getItem("lockUntil");
-    if(!lockUntil){
-      clearInterval(interval);
-      return;
-    }
-
-    const remaining = Math.floor((lockUntil - Date.now())/1000);
-    if(remaining <= 0){
-      localStorage.removeItem("attempts");
-      localStorage.removeItem("lockUntil");
-      document.getElementById("loginBtn").disabled = false;
-      msg.textContent = "";
-      clearInterval(interval);
-    } else {
-      msg.textContent = "Locked. Try again in " + remaining + " seconds.";
-    }
-  },1000);
-}
-
-window.onload = isLocked;
 </script>
 
 </body>
