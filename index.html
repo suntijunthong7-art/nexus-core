@@ -6,101 +6,139 @@
 <title>Nexus Core | Internal Access</title>
 
 <style>
+*{box-sizing:border-box;}
+
 body{
   margin:0;
-  font-family:Segoe UI,Arial,sans-serif;
-  background:#f3f4f6;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:#eef1f5;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  min-height:100vh;
+  padding:20px;
 }
 
-.box{
-  background:#fff;
-  width:360px;
+.card{
+  background:#ffffff;
+  width:100%;
+  max-width:420px;
   padding:40px 30px;
-  border-radius:10px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  border-radius:14px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.08);
   text-align:center;
 }
 
 .logo{
-  width:80px;
-  margin-bottom:10px;
+  width:90px;
+  margin-bottom:15px;
 }
 
 h1{
-  font-size:18px;
-  margin-bottom:25px;
+  font-size:20px;
+  margin-bottom:30px;
+  color:#1f2937;
 }
 
 input{
   width:100%;
-  padding:12px;
-  margin-bottom:15px;
-  border:1px solid #ccc;
-  border-radius:6px;
+  padding:14px;
+  margin-bottom:16px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size:15px;
+}
+
+input:focus{
+  outline:none;
+  border-color:#1f2937;
 }
 
 button{
   width:100%;
-  padding:12px;
+  padding:14px;
   border:none;
+  border-radius:8px;
   background:#1f2937;
-  color:#fff;
-  border-radius:6px;
+  color:white;
+  font-weight:600;
+  font-size:15px;
   cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover{
+  opacity:0.9;
 }
 
 .error{
-  color:#dc2626;
   font-size:13px;
-  display:none;
+  color:#dc2626;
   margin-bottom:10px;
+  display:none;
+}
+
+.footer{
+  margin-top:25px;
+  font-size:12px;
+  color:#6b7280;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="card">
 
 <img src="logo.png" class="logo" onerror="this.style.display='none'">
 
 <h1>Internal Access Portal</h1>
 
-<div class="error" id="errorMsg"></div>
+<div id="errorMsg" class="error"></div>
 
 <input type="text" id="empId" placeholder="Employee ID">
 <input type="password" id="password" placeholder="Password">
 
-<button onclick="login()">SIGN IN</button>
+<button onclick="login()" id="btn">SIGN IN</button>
+
+<div class="footer">
+© 2025 Nexus Core System · Internal Use Only
+</div>
 
 </div>
 
 <script>
-const SESSION_TIME = 5 * 60 * 1000; // 5 นาที
+const SESSION_DURATION = 5 * 60 * 1000;
 
 function login(){
   const id = document.getElementById("empId").value.trim();
   const pass = document.getElementById("password").value.trim();
   const error = document.getElementById("errorMsg");
+  const btn = document.getElementById("btn");
 
-  if(id === "" || pass === ""){
-    error.textContent = "Please enter Employee ID and Password";
-    error.style.display = "block";
+  error.style.display="none";
+
+  if(!id || !pass){
+    error.textContent="Please enter Employee ID and Password";
+    error.style.display="block";
     return;
   }
 
-  if(id === "admin" && pass === "1234"){
-    const expiry = Date.now() + SESSION_TIME;
-    localStorage.setItem("sessionExpiry", expiry);
-    window.location.href = "dashboard.html";
-  } else {
-    error.textContent = "Invalid credentials";
-    error.style.display = "block";
-  }
+  btn.innerText="Signing in...";
+  btn.disabled=true;
+
+  setTimeout(()=>{
+    if(id==="admin" && pass==="1234"){
+      localStorage.setItem("sessionExpiry", Date.now()+SESSION_DURATION);
+      window.location.href="dashboard.html";
+    }else{
+      error.textContent="Invalid credentials";
+      error.style.display="block";
+      btn.innerText="SIGN IN";
+      btn.disabled=false;
+    }
+  },1000);
+
 }
 </script>
 
