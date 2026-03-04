@@ -11,7 +11,8 @@
 body{
     margin:0;
     font-family:Segoe UI, sans-serif;
-    background:#cfcfcf;
+    background:#dcdcdc;
+    min-height:100vh;
 }
 
 /* ===== Top Bar ===== */
@@ -24,27 +25,28 @@ body{
     font-size:13px;
 }
 
-/* ===== Container ===== */
+/* ===== Container Full Screen Mobile ===== */
 .container{
-    width:95%;
-    max-width:480px;
-    margin:20px auto;
+    width:100%;
+    max-width:500px;
+    margin:0 auto;
+    min-height:calc(100vh - 40px);
     background:#f4f4f4;
-    padding:30px 22px;
+    padding:35px 25px;
     text-align:center;
     box-shadow:0 4px 18px rgba(0,0,0,0.3);
 }
 
 /* ===== Logo ===== */
 .logo{
-    width:95px;
+    width:100px;
     margin-bottom:18px;
 }
 
 /* ===== Inputs ===== */
 input{
     width:100%;
-    padding:13px;
+    padding:14px;
     margin:10px 0;
     border:2px solid #888;
     background:#e5e5e5;
@@ -54,7 +56,7 @@ input{
 /* ===== Button ===== */
 button{
     width:100%;
-    padding:13px;
+    padding:14px;
     background:#6d6d6d;
     color:white;
     border:none;
@@ -69,11 +71,12 @@ button:disabled{
 #msg{
     margin-top:12px;
     font-weight:bold;
+    min-height:20px;
 }
 
 /* ===== Footer ===== */
 .footer{
-    margin-top:25px;
+    margin-top:30px;
     font-size:13px;
     color:#555;
     text-align:left;
@@ -87,17 +90,6 @@ button:disabled{
 
 hr{
     margin:20px 0;
-}
-
-/* ===== Mobile Full Height ===== */
-@media (max-width:600px){
-    body{
-        background:#e0e0e0;
-    }
-    .container{
-        margin:10px auto;
-        padding:25px 18px;
-    }
 }
 </style>
 </head>
@@ -185,6 +177,7 @@ function startCountdown(){
             passInput.disabled=false;
             msg.innerText="";
             localStorage.removeItem("lockUntil");
+            localStorage.removeItem("failCount");
             return;
         }
 
@@ -207,7 +200,6 @@ btn.addEventListener("click",function(){
 
         msg.style.color="green";
         msg.innerText="เข้าสู่ระบบสำเร็จ";
-        failCount=0;
         localStorage.removeItem("failCount");
         return;
     }
