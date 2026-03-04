@@ -2,53 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<!-- สำคัญมาก -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-<!-- ป้องกัน Google Translate popup -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google" content="notranslate">
-
 <title>Nexus Core | Internal Access</title>
 
 <style>
 *{box-sizing:border-box;}
-
-html,body{
+body{
   margin:0;
-  height:100%;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
   background:#eef1f5;
-}
-
-body{
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:16px;
+  min-height:100vh;
+  padding:20px;
 }
-
 .card{
   background:#fff;
   width:100%;
-  max-width:480px;   /* ขยายขึ้น */
-  padding:50px 35px; /* เพิ่มพื้นที่ */
+  max-width:480px;
+  padding:50px 35px;
   border-radius:18px;
   box-shadow:0 25px 60px rgba(0,0,0,0.12);
   text-align:center;
 }
-
 .logo{
-  width:110px; /* ขยายโลโก้ */
+  width:110px;
   margin-bottom:20px;
 }
-
 h1{
   font-size:22px;
-  margin-bottom:35px;
-  color:#1f2937;
+  margin-bottom:30px;
 }
-
 input{
   width:100%;
   padding:16px;
@@ -57,7 +43,6 @@ input{
   border-radius:10px;
   font-size:16px;
 }
-
 button{
   width:100%;
   padding:16px;
@@ -67,12 +52,13 @@ button{
   color:white;
   font-weight:600;
   font-size:16px;
+  cursor:pointer;
 }
-
-.footer{
-  margin-top:30px;
-  font-size:13px;
-  color:#6b7280;
+.error{
+  color:#dc2626;
+  font-size:14px;
+  margin-bottom:12px;
+  display:none;
 }
 </style>
 </head>
@@ -85,16 +71,38 @@ button{
 
 <h1>Internal Access Portal</h1>
 
-<input type="text" placeholder="Employee ID">
-<input type="password" placeholder="Password">
+<div id="error" class="error"></div>
 
-<button>SIGN IN</button>
+<input type="text" id="empId" placeholder="Employee ID">
+<input type="password" id="password" placeholder="Password">
 
-<div class="footer">
-© 2025 Nexus Core System · Internal Use Only
-</div>
+<button onclick="login()">SIGN IN</button>
 
 </div>
+
+<script>
+function login(){
+  const id = document.getElementById("empId").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  const error = document.getElementById("error");
+
+  error.style.display="none";
+
+  if(!id || !pass){
+    error.textContent="Please fill all fields";
+    error.style.display="block";
+    return;
+  }
+
+  if(id==="admin" && pass==="1234"){
+    localStorage.setItem("session","active");
+    window.location.href="dashboard.html";
+  }else{
+    error.textContent="Invalid Employee ID or Password";
+    error.style.display="block";
+  }
+}
+</script>
 
 </body>
 </html>
