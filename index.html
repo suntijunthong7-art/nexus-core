@@ -8,7 +8,7 @@
 <style>
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:#f4f6f8;
   display:flex;
   justify-content:center;
@@ -17,7 +17,7 @@ body{
 }
 
 .container{
-  background:#fff;
+  background:#ffffff;
   width:100%;
   max-width:360px;
   padding:40px 30px;
@@ -31,15 +31,9 @@ body{
   margin-bottom:15px;
 }
 
-.company{
-  font-size:13px;
-  letter-spacing:2px;
-  color:#6b7280;
-}
-
 h1{
   font-size:18px;
-  margin:5px 0 25px;
+  margin-bottom:25px;
   color:#1f2937;
 }
 
@@ -69,7 +63,7 @@ button:disabled{
 }
 
 .message{
-  margin-top:10px;
+  margin-top:15px;
   font-size:13px;
   color:#dc2626;
 }
@@ -86,101 +80,87 @@ button:disabled{
 
 <div class="container">
 
-<img src="logo.png" class="logo" alt="Logo">
+  <!-- ใส่โลโก้ไฟล์เดียวกับที่คุณใช้ -->
+  <img src="logo.png" class="logo" alt="Logo">
 
-<div class="company">NEXUS CORE SYSTEM</div>
-<h1>Secure Access Portal</h1>
+  <h1>Secure Access Portal</h1>
 
-<input type="text" id="user" placeholder="User ID">
-<input type="password" id="pass" placeholder="Password">
+  <input type="text" id="user">
+  <input type="password" id="pass">
 
-<button id="loginBtn" onclick="login()">SIGN IN</button>
+  <button id="loginBtn">SIGN IN</button>
 
-<div class="message" id="msg"></div>
+  <div class="message" id="message"></div>
 
-<div class="footer">
-© 2025 Nexus Core. All rights reserved.
-</div>
+  <div class="footer">
+    © 2025 Nexus Core. All rights reserved.
+  </div>
 
 </div>
 
 <script>
+const correctUser = "LC-A01";
+const correctPass = "Lc1993♧";
 
-const correctUser="admin";
-const correctPass="1234";
-
-let attempts = parseInt(localStorage.getItem("attempts")) || 0;
-let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
+let attempts = localStorage.getItem("attempts") ? parseInt(localStorage.getItem("attempts")) : 0;
+let lockUntil = localStorage.getItem("lockUntil") ? parseInt(localStorage.getItem("lockUntil")) : 0;
 
 const btn = document.getElementById("loginBtn");
-const msg = document.getElementById("msg");
+const msg = document.getElementById("message");
+
+function checkLock(){
+  const now = Date.now();
+
+  if(lockUntil > now){
+    const seconds = Math.ceil((lockUntil - now) / 1000);
+    btn.disabled = true;
+    msg.textContent = "Account locked. Try again in " + seconds + " seconds.";
+    setTimeout(checkLock,1000);
+  } else {
+    btn.disabled = false;
+    msg.textContent = "";
+  }
+}
 
 checkLock();
 
-function login(){
+btn.addEventListener("click", function(){
 
-  if(Date.now() < lockUntil){
-    return;
-  }
+  const now = Date.now();
+  if(lockUntil > now) return;
 
   const user = document.getElementById("user").value;
   const pass = document.getElementById("pass").value;
 
   if(user === correctUser && pass === correctPass){
-    msg.style.color="green";
-    msg.innerText="Access Granted";
-    attempts = 0;
+    msg.style.color = "green";
+    msg.textContent = "Login Successful";
     localStorage.removeItem("attempts");
     localStorage.removeItem("lockUntil");
-  }else{
+  } else {
     attempts++;
     localStorage.setItem("attempts", attempts);
-    msg.style.color="red";
-    msg.innerText="Invalid credentials";
 
-    if(attempts===3){
-      lockAccount(30);
-    }else if(attempts===6){
-      lockAccount(90);
-    }else if(attempts===9){
-      lockAccount(180);
+    if(attempts === 3){
+      lockUntil = now + 30000;
     }
-  }
-}
-
-function lockAccount(seconds){
-  lockUntil = Date.now() + seconds*1000;
-  localStorage.setItem("lockUntil", lockUntil);
-  startCountdown(seconds);
-}
-
-function startCountdown(seconds){
-  btn.disabled = true;
-  let remaining = seconds;
-
-  msg.innerText="Account locked: "+remaining+"s";
-
-  const timer = setInterval(()=>{
-    remaining--;
-    msg.innerText="Account locked: "+remaining+"s";
-    if(remaining<=0){
-      clearInterval(timer);
-      btn.disabled=false;
-      msg.innerText="";
-      attempts=0;
-      localStorage.removeItem("attempts");
-      localStorage.removeItem("lockUntil");
+    else if(attempts === 6){
+      lockUntil = now + 90000;
     }
-  },1000);
-}
+    else if(attempts >= 9){
+      lockUntil = now + 180000;
+    }
 
-function checkLock(){
-  if(Date.now() < lockUntil){
-    const remaining = Math.ceil((lockUntil - Date.now())/1000);
-    startCountdown(remaining);
+    if(attempts >= 3){
+      localStorage.setItem("lockUntil", lockUntil);
+      checkLock();
+    }
+
+    msg.style.color = "#dc2626";
+    msg.textContent = "Invalid credentials (" + attempts + ")";
   }
-}
 
+});
 </script>
 
 </body>
