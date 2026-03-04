@@ -6,9 +6,11 @@
 <title>Nexus Core | Secure Access</title>
 
 <style>
+*{box-sizing:border-box;}
+
 body{
   margin:0;
-  font-family:Segoe UI, Arial, sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:#f4f6f8;
   display:flex;
   justify-content:center;
@@ -17,22 +19,30 @@ body{
 }
 
 .container{
-  background:#fff;
-  width:350px;
-  padding:35px;
+  background:#ffffff;
+  width:100%;
+  max-width:360px;
+  padding:40px 30px;
   border-radius:8px;
   box-shadow:0 8px 24px rgba(0,0,0,0.08);
   text-align:center;
 }
 
 .logo{
-  width:80px;
-  margin-bottom:10px;
+  width:90px;
+  margin-bottom:15px;
+}
+
+.company{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#6b7280;
+  margin-bottom:5px;
 }
 
 h1{
   font-size:18px;
-  margin-bottom:20px;
+  margin:0 0 25px 0;
   color:#1f2937;
 }
 
@@ -42,6 +52,7 @@ input{
   margin-bottom:15px;
   border:1px solid #d1d5db;
   border-radius:6px;
+  font-size:14px;
 }
 
 button{
@@ -50,7 +61,7 @@ button{
   border:none;
   border-radius:6px;
   background:#1f2937;
-  color:white;
+  color:#ffffff;
   font-weight:600;
   cursor:pointer;
 }
@@ -64,10 +75,11 @@ button:disabled{
   margin-top:15px;
   font-size:13px;
   color:#dc2626;
+  min-height:18px;
 }
 
 .footer{
-  margin-top:20px;
+  margin-top:25px;
   font-size:11px;
   color:#6b7280;
 }
@@ -78,84 +90,84 @@ button:disabled{
 
 <div class="container">
 
-<img src="logo.png" class="logo" alt="Logo">
+  <img src="logo.png" class="logo" alt="Logo">
 
-<h1>Secure Access Portal</h1>
+  <div class="company">NEXUS CORE SYSTEM</div>
+  <h1>Secure Access Portal</h1>
 
-<input type="text" id="username" placeholder="User ID">
-<input type="password" id="password" placeholder="Password">
+  <input type="text" id="user" placeholder="User ID">
+  <input type="password" id="pass" placeholder="Password">
 
-<button onclick="login()" id="loginBtn">SIGN IN</button>
+  <button id="loginBtn">SIGN IN</button>
 
-<div class="message" id="message"></div>
+  <div class="message" id="message"></div>
 
-<div class="footer">
-© 2025 Nexus Core. All rights reserved.
-</div>
+  <div class="footer">
+    © 2025 Nexus Core. All rights reserved.
+  </div>
 
 </div>
 
 <script>
+let attempts = parseInt(localStorage.getItem("attempts")) || 0;
+let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
 
-let attempts = 0;
-let lockLevel = 0;
-let lockTimer = null;
+const btn = document.getElementById("loginBtn");
+const msg = document.getElementById("message");
 
-const correctUser = "admin";
-const correctPass = "1234";
+function checkLock() {
+  const now = Date.now();
+  if (now < lockUntil) {
+    btn.disabled = true;
+    const remaining = Math.ceil((lockUntil - now) / 1000);
+    msg.textContent = "Account locked. Try again in " + remaining + " seconds.";
+    setTimeout(checkLock, 1000);
+  } else {
+    btn.disabled = false;
+    msg.textContent = "";
+    localStorage.removeItem("lockUntil");
+  }
+}
 
-function login(){
+btn.addEventListener("click", function() {
 
-  const user = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
-  const msg = document.getElementById("message");
+  if (Date.now() < lockUntil) return;
 
-  if(user === correctUser && pass === correctPass){
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
+
+  // ตัวอย่างรหัสถูก
+  if (user === "admin" && pass === "1234") {
     msg.style.color = "green";
-    msg.innerText = "Access Granted";
+    msg.textContent = "Access Granted";
+    attempts = 0;
+    localStorage.removeItem("attempts");
     return;
   }
 
   attempts++;
+  localStorage.setItem("attempts", attempts);
 
-  if(attempts === 3){
+  msg.style.color = "#dc2626";
+  msg.textContent = "Invalid credentials (" + attempts + " attempts)";
+
+  if (attempts === 3) {
     lockAccount(30);
-  }
-  else if(attempts === 6){
+  } else if (attempts === 6) {
     lockAccount(60);
+  } else if (attempts === 9) {
+    lockAccount(180);
   }
-  else if(attempts === 9){
-    lockAccount(120);
-  }
-  else{
-    msg.innerText = "Invalid credentials (" + attempts + " attempts)";
-  }
+});
+
+function lockAccount(seconds) {
+  lockUntil = Date.now() + (seconds * 1000);
+  localStorage.setItem("lockUntil", lockUntil);
+  msg.textContent = "Too many attempts. Locked for " + seconds + " seconds.";
+  checkLock();
 }
 
-function lockAccount(seconds){
-
-  const btn = document.getElementById("loginBtn");
-  const msg = document.getElementById("message");
-
-  btn.disabled = true;
-
-  let remaining = seconds;
-
-  msg.innerText = "Account locked for " + remaining + " seconds";
-
-  lockTimer = setInterval(() => {
-    remaining--;
-    msg.innerText = "Account locked for " + remaining + " seconds";
-
-    if(remaining <= 0){
-      clearInterval(lockTimer);
-      btn.disabled = false;
-      attempts = 0;
-      msg.innerText = "You may try again.";
-    }
-  },1000);
-}
-
+checkLock();
 </script>
 
 </body>
