@@ -3,30 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE | Internal Access</title>
+<title>Nexus Core | Internal Access</title>
 
 <style>
 body{
   margin:0;
-  font-family:Segoe UI, Arial, sans-serif;
-  background:#f2f4f7;
+  font-family:Segoe UI,Arial,sans-serif;
+  background:#f3f4f6;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
 }
-.card{
+
+.box{
   background:#fff;
-  width:340px;
+  width:360px;
   padding:40px 30px;
   border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
   text-align:center;
 }
-h1{
-  margin-bottom:25px;
-  font-size:18px;
+
+.logo{
+  width:80px;
+  margin-bottom:10px;
 }
+
+h1{
+  font-size:18px;
+  margin-bottom:25px;
+}
+
 input{
   width:100%;
   padding:12px;
@@ -34,75 +42,64 @@ input{
   border:1px solid #ccc;
   border-radius:6px;
 }
+
 button{
   width:100%;
   padding:12px;
-  background:#111827;
-  color:#fff;
   border:none;
+  background:#1f2937;
+  color:#fff;
   border-radius:6px;
   cursor:pointer;
 }
+
 .error{
   color:#dc2626;
   font-size:13px;
-  margin-bottom:10px;
   display:none;
-}
-.footer{
-  margin-top:20px;
-  font-size:11px;
-  color:#6b7280;
+  margin-bottom:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Internal Access Portal</h1>
+<div class="box">
 
-  <div class="error" id="errorMsg"></div>
+<img src="logo.png" class="logo" onerror="this.style.display='none'">
 
-  <input type="text" id="empId" placeholder="Employee ID">
-  <input type="password" id="password" placeholder="Password">
+<h1>Internal Access Portal</h1>
 
-  <button onclick="login()">SIGN IN</button>
+<div class="error" id="errorMsg"></div>
 
-  <div class="footer">© 2025 Nexus Core System · Internal Use Only</div>
+<input type="text" id="empId" placeholder="Employee ID">
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">SIGN IN</button>
+
 </div>
 
 <script>
-const correctCard = "LC-A01";
-const correctPass = "Lc1993♧";
+const SESSION_TIME = 5 * 60 * 1000; // 5 นาที
 
 function login(){
   const id = document.getElementById("empId").value.trim();
   const pass = document.getElementById("password").value.trim();
   const error = document.getElementById("errorMsg");
 
-  error.style.display="none";
-
   if(id === "" || pass === ""){
-    error.textContent="Please enter Employee ID and Password";
-    error.style.display="block";
+    error.textContent = "Please enter Employee ID and Password";
+    error.style.display = "block";
     return;
   }
 
-  if(id === correctCard && pass === correctPass){
-
-    const sessionData = {
-      user:id,
-      loginTime: Date.now(),
-      expireTime: Date.now() + (5 * 60 * 1000) // 5 นาที
-    };
-
-    localStorage.setItem("nexusSession", JSON.stringify(sessionData));
-    window.location.href="dashboard.html";
-
-  }else{
-    error.textContent="Invalid Credentials";
-    error.style.display="block";
+  if(id === "admin" && pass === "1234"){
+    const expiry = Date.now() + SESSION_TIME;
+    localStorage.setItem("sessionExpiry", expiry);
+    window.location.href = "dashboard.html";
+  } else {
+    error.textContent = "Invalid credentials";
+    error.style.display = "block";
   }
 }
 </script>
