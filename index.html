@@ -1,73 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nexus Core System</title>
 
-<link rel="icon" href="logo.png">
-
 <style>
 
 body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-height:100vh;
+font-family: system-ui, Arial, sans-serif;
+background:#0f1e2e;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
 }
 
-.container{
-background:white;
-padding:40px;
-border-radius:20px;
+.card{
+background:#ffffff;
+width:340px;
+padding:30px;
+border-radius:12px;
+box-shadow:0 6px 20px rgba(0,0,0,0.25);
 text-align:center;
-width:320px;
-box-shadow:0 10px 40px rgba(0,0,0,0.3);
 }
 
 .logo{
-width:80px;
+width:70px;
 margin-bottom:10px;
-animation:spin 12s linear infinite;
-}
-
-@keyframes spin{
-0%{transform:rotate(0)}
-100%{transform:rotate(360deg)}
 }
 
 h1{
-font-size:16px;
-letter-spacing:2px;
-color:#555;
+font-size:18px;
+margin:5px 0;
+color:#2c3e50;
 }
 
 h2{
-margin-top:5px;
+font-size:22px;
 margin-bottom:20px;
+color:#1a1a1a;
 }
 
 input{
 width:100%;
 padding:12px;
-margin:10px 0;
-border-radius:8px;
+margin:8px 0;
 border:1px solid #ccc;
+border-radius:6px;
 font-size:14px;
 }
 
 button{
 width:100%;
-padding:14px;
-border:none;
-border-radius:8px;
-background:#1f2d3d;
+padding:12px;
+background:#1f2f45;
 color:white;
-font-size:16px;
+border:none;
+border-radius:6px;
+font-weight:600;
 cursor:pointer;
 }
 
@@ -75,123 +69,99 @@ button:disabled{
 background:#888;
 }
 
-.status{
-margin-top:15px;
-font-size:13px;
-color:red;
-}
-
-.security{
-margin-top:20px;
-font-size:11px;
-color:#777;
-}
-
-.loading{
-display:none;
+.message{
 margin-top:10px;
-color:#333;
 font-size:14px;
 }
 
+.footer{
+margin-top:20px;
+font-size:12px;
+color:#777;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="card">
 
 <img src="logo.png" class="logo">
 
 <h1>NEXUS CORE SYSTEM</h1>
 <h2>Secure Access Portal</h2>
 
-<input id="user" placeholder="User ID">
-<input id="pass" type="password" placeholder="Password">
+<input id="username" placeholder="User ID">
+<input id="password" type="password" placeholder="Password">
 
-<button onclick="login()" id="btn">SIGN IN</button>
+<button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div class="loading" id="loading">
-Authorizing...<br>
-Verifying credentials...<br>
-Connecting to secure gateway...
-</div>
+<div id="msg" class="message"></div>
 
-<div class="status" id="status"></div>
-
-<div class="security">
-System Status : SECURE<br>
-Network : Private Gateway<br>
-Access Level : Authorized Personnel Only<br><br>
-
-WARNING: Unauthorized access is prohibited and monitored.
+<div class="footer">
+© 2025 Nexus Core
 </div>
 
 </div>
 
 <script>
 
-let correctUser="admin"
-let correctPass="1234"
+const correctUser="admin"
+const correctPass="1234"
 
 let attempts=0
-let lockTime=0
 
 function login(){
 
-if(lockTime>0){
-return
-}
-
-let user=document.getElementById("user").value
-let pass=document.getElementById("pass").value
-let status=document.getElementById("status")
-let loading=document.getElementById("loading")
+let user=document.getElementById("username").value
+let pass=document.getElementById("password").value
+let msg=document.getElementById("msg")
+let btn=document.getElementById("loginBtn")
 
 if(user===correctUser && pass===correctPass){
 
-loading.style.display="block"
-status.innerHTML="Access Granted"
+msg.style.color="green"
+msg.innerText="Access granted. Redirecting..."
 
 setTimeout(()=>{
 window.location.href="https://lin.ee/lGGma6p"
-},2500)
+},1500)
 
-}else{
+}
+
+else{
 
 attempts++
+msg.style.color="red"
+msg.innerText="Invalid credentials"
 
-if(attempts==3){lock(30)}
-if(attempts==6){lock(90)}
-if(attempts>=9){lock(180)}
+if(attempts>=3){
 
-status.innerHTML="Invalid credentials"
-
-}
-
-}
-
-function lock(seconds){
-
-lockTime=seconds
-let btn=document.getElementById("btn")
 btn.disabled=true
 
-let status=document.getElementById("status")
+let time=30
+
+msg.innerText="Too many attempts. Try again in "+time+"s"
 
 let timer=setInterval(()=>{
 
-lockTime--
+time--
+msg.innerText="Too many attempts. Try again in "+time+"s"
 
-status.innerHTML="Account locked. Try again in "+lockTime+"s"
-
-if(lockTime<=0){
+if(time<=0){
 clearInterval(timer)
 btn.disabled=false
-status.innerHTML=""
+msg.innerText=""
+attempts=0
 }
 
 },1000)
+
+}
+
+}
 
 }
 
