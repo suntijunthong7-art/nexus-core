@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NEXUS CORE SYSTEM</title>
+<title>Nexus Core System</title>
+
+<link rel="icon" href="logo.png">
 
 <style>
 
 body{
 margin:0;
-font-family:Segoe UI,Arial;
+font-family:Arial, Helvetica, sans-serif;
 background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 height:100vh;
 display:flex;
@@ -19,92 +20,78 @@ align-items:center;
 justify-content:center;
 }
 
-.card{
-
+.container{
 background:white;
-width:340px;
-padding:35px;
-border-radius:14px;
-box-shadow:0 20px 60px rgba(0,0,0,0.3);
+padding:40px;
+border-radius:20px;
 text-align:center;
-animation:fade 0.8s;
-
+width:320px;
+box-shadow:0 10px 40px rgba(0,0,0,0.3);
 }
 
 .logo{
-
-width:90px;
-margin-bottom:15px;
-
+width:80px;
+margin-bottom:10px;
+animation:spin 12s linear infinite;
 }
 
-h3{
-margin:6px 0;
-font-weight:600;
-letter-spacing:1px;
-color:#444;
+@keyframes spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+
+h1{
+font-size:16px;
+letter-spacing:2px;
+color:#555;
 }
 
 h2{
-margin:5px 0 20px 0;
-font-weight:700;
-color:#1e293b;
+margin-top:5px;
+margin-bottom:20px;
 }
 
 input{
-
 width:100%;
-padding:13px;
-margin:8px 0;
+padding:12px;
+margin:10px 0;
 border-radius:8px;
-border:1px solid #ddd;
-font-size:15px;
-
-}
-
-button{
-
-width:100%;
-padding:14px;
-margin-top:10px;
-border:none;
-border-radius:8px;
-background:#1e293b;
-color:white;
-font-size:15px;
-font-weight:600;
-cursor:pointer;
-
-}
-
-button:disabled{
-background:#999;
-}
-
-.error{
-color:red;
-margin-top:12px;
+border:1px solid #ccc;
 font-size:14px;
 }
 
-.footer{
-margin-top:18px;
-font-size:12px;
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:8px;
+background:#1f2d3d;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:disabled{
+background:#888;
+}
+
+.status{
+margin-top:15px;
+font-size:13px;
+color:red;
+}
+
+.security{
+margin-top:20px;
+font-size:11px;
 color:#777;
 }
 
-@keyframes fade{
-
-from{
-opacity:0;
-transform:translateY(30px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
+.loading{
+display:none;
+margin-top:10px;
+color:#333;
+font-size:14px;
 }
 
 </style>
@@ -112,76 +99,73 @@ transform:translateY(0);
 
 <body>
 
-<div class="card">
+<div class="container">
 
-<img class="logo" src="logo.png">
+<img src="logo.png" class="logo">
 
-<h3>NEXUS CORE SYSTEM</h3>
+<h1>NEXUS CORE SYSTEM</h1>
 <h2>Secure Access Portal</h2>
 
 <input id="user" placeholder="User ID">
-
 <input id="pass" type="password" placeholder="Password">
 
-<button id="btn" onclick="login()">SIGN IN</button>
+<button onclick="login()" id="btn">SIGN IN</button>
 
-<div class="error" id="msg"></div>
+<div class="loading" id="loading">
+Authorizing...<br>
+Verifying credentials...<br>
+Connecting to secure gateway...
+</div>
 
-<div class="footer">
-© 2025 Nexus Core. All rights reserved
+<div class="status" id="status"></div>
+
+<div class="security">
+System Status : SECURE<br>
+Network : Private Gateway<br>
+Access Level : Authorized Personnel Only<br><br>
+
+WARNING: Unauthorized access is prohibited and monitored.
 </div>
 
 </div>
 
 <script>
 
-const correctCard="LC-A01";
-const correctPass="Lc1993♧";
+let correctUser="admin"
+let correctPass="1234"
 
-let attempts=0;
-let lockUntil=0;
+let attempts=0
+let lockTime=0
 
 function login(){
 
-let user=document.getElementById("user").value;
-let pass=document.getElementById("pass").value;
-let msg=document.getElementById("msg");
-let btn=document.getElementById("btn");
-
-let now=Date.now();
-
-if(now<lockUntil){
-
-let remain=Math.ceil((lockUntil-now)/1000);
-msg.innerText="Account locked. Try again in "+remain+"s";
-
-setTimeout(login,1000);
-return;
-
+if(lockTime>0){
+return
 }
 
-if(user===correctCard && pass===correctPass){
+let user=document.getElementById("user").value
+let pass=document.getElementById("pass").value
+let status=document.getElementById("status")
+let loading=document.getElementById("loading")
 
-btn.innerText="Verifying...";
-btn.disabled=true;
+if(user===correctUser && pass===correctPass){
 
-setTimeout(function(){
+loading.style.display="block"
+status.innerHTML="Access Granted"
 
-window.location.href="https://lin.ee/lGGma6p";
+setTimeout(()=>{
+window.location.href="https://lin.ee/lGGma6p"
+},2500)
 
-},1500);
+}else{
 
-}
+attempts++
 
-else{
+if(attempts==3){lock(30)}
+if(attempts==6){lock(90)}
+if(attempts>=9){lock(180)}
 
-attempts++;
-
-if(attempts==3) lock(30);
-if(attempts==6) lock(90);
-if(attempts>=9) lock(180);
-
-msg.innerText="Invalid credentials";
+status.innerHTML="Invalid credentials"
 
 }
 
@@ -189,50 +173,25 @@ msg.innerText="Invalid credentials";
 
 function lock(seconds){
 
-lockUntil=Date.now()+seconds*1000;
+lockTime=seconds
+let btn=document.getElementById("btn")
+btn.disabled=true
 
-let btn=document.getElementById("btn");
-btn.disabled=true;
+let status=document.getElementById("status")
 
-countdown();
+let timer=setInterval(()=>{
 
+lockTime--
+
+status.innerHTML="Account locked. Try again in "+lockTime+"s"
+
+if(lockTime<=0){
+clearInterval(timer)
+btn.disabled=false
+status.innerHTML=""
 }
 
-function countdown(){
-
-let now=Date.now();
-let msg=document.getElementById("msg");
-let btn=document.getElementById("btn");
-
-if(now>=lockUntil){
-
-btn.disabled=false;
-msg.innerText="";
-return;
-
-}
-
-let remain=Math.ceil((lockUntil-now)/1000);
-
-msg.innerText="Account locked. Try again in "+remain+"s";
-
-setTimeout(countdown,1000);
-
-}
-
-document.addEventListener("keypress",function(e){
-
-if(e.key==="Enter"){
-login();
-}
-
-});
-
-document.onkeydown=function(e){
-
-if(e.keyCode==123) return false;
-
-if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false;
+},1000)
 
 }
 
