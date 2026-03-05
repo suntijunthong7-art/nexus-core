@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Nexus Core System</title>
 
 <style>
-
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
@@ -89,7 +87,6 @@ margin-top:16px;
 font-size:11px;
 color:#888;
 }
-
 </style>
 </head>
 
@@ -105,7 +102,7 @@ color:#888;
 <input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
-<button id="loginBtn">SIGN IN</button>
+<button onclick="login()">SIGN IN</button>
 
 <div class="error" id="msg"></div>
 
@@ -126,54 +123,47 @@ const correctUser="admin"
 const correctPass="1234"
 
 let attempts=0
-let btn=document.getElementById("loginBtn")
-let msg=document.getElementById("msg")
+let lockTime=0
 
-btn.onclick=function(){
+function login(){
 
-let u=document.getElementById("user").value
-let p=document.getElementById("pass").value
+const now=Date.now()
 
-if(u===correctUser && p===correctPass){
+if(now < lockTime){
+let remain=Math.ceil((lockTime-now)/1000)
+document.getElementById("msg").innerText="Account locked. Try again in "+remain+"s"
+return
+}
 
-btn.innerText="Verifying..."
-btn.disabled=true
+let user=document.getElementById("user").value
+let pass=document.getElementById("pass").value
+
+if(user===correctUser && pass===correctPass){
+
+document.getElementById("msg").style.color="green"
+document.getElementById("msg").innerText="Access granted"
 
 setTimeout(()=>{
-
 window.location.href="https://lin.ee/lGGma6p"
-
-},1200)
+},1000)
 
 }else{
 
 attempts++
 
-msg.innerText="Invalid credentials"
+document.getElementById("msg").style.color="red"
+document.getElementById("msg").innerText="Invalid credentials"
 
-if(attempts>=3){
-
-let lock=30
-
-btn.disabled=true
-
-let timer=setInterval(()=>{
-
-msg.innerText="Account locked. Try again in "+lock+"s"
-
-lock--
-
-if(lock<0){
-
-clearInterval(timer)
-btn.disabled=false
-msg.innerText=""
-attempts=0
-
+if(attempts==3){
+lockTime=Date.now()+30000
 }
 
-},1000)
+if(attempts==6){
+lockTime=Date.now()+90000
+}
 
+if(attempts>=9){
+lockTime=Date.now()+180000
 }
 
 }
