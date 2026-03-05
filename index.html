@@ -4,86 +4,121 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Core System</title>
+<title>NEXUS CORE | OMEGA GATEWAY</title>
 
 <style>
-
-body{
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#0b2a36,#0f4c5c);
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-margin:0;
+/* สถาปัตยกรรมสี Matte Black & Gold */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #0a0a0a; /* ดำลึก */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
 }
 
-.card{
-background:#fff;
-padding:40px;
-width:340px;
-border-radius:16px;
-box-shadow:0 15px 35px rgba(0,0,0,0.35);
-text-align:center;
+.card {
+    background: linear-gradient(145deg, #121212, #1a1a1a); /* ดำด้านมีมิติ */
+    padding: 45px 40px;
+    width: 320px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.3); /* ขอบทองบางๆ */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.05);
+    text-align: center;
 }
 
-.logo{
-width:90px;
-margin-bottom:18px;
+.logo {
+    width: 85px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
 }
 
-.title{
-font-size:20px;
-font-weight:bold;
-letter-spacing:2px;
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #d4af37; /* ทอง */
+    text-transform: uppercase;
 }
 
-.subtitle{
-color:#666;
-font-size:14px;
-margin-bottom:22px;
+.subtitle {
+    color: #777;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
-input{
-width:100%;
-padding:11px;
-margin:7px 0;
-border-radius:7px;
-border:1px solid #ccc;
-font-size:14px;
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #0f0f0f;
+    color: #d4af37;
+    font-size: 14px;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
-button{
-width:100%;
-padding:12px;
-margin-top:12px;
-border:none;
-border-radius:7px;
-background:#2e3f55;
-color:white;
-font-weight:bold;
-letter-spacing:1px;
-cursor:pointer;
+input:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
 }
 
-button:disabled{
-background:#9aa3ad;
-cursor:not-allowed;
+input::placeholder {
+    color: #555;
 }
 
-#message{
-margin-top:12px;
-font-size:13px;
-color:#d11;
-min-height:18px;
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    background: transparent;
+    color: #d4af37;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
 }
 
-.footer{
-font-size:11px;
-margin-top:18px;
-color:#777;
+button:hover:not(:disabled) {
+    background: #d4af37;
+    color: #0a0a0a;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
+button:disabled {
+    border-color: #444;
+    color: #444;
+    cursor: not-allowed;
+    background: transparent;
+    box-shadow: none;
+}
+
+#message {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #e74c3c; /* แดงเตือนภัย */
+    min-height: 18px;
+    letter-spacing: 1px;
+}
+
+.footer {
+    font-size: 10px;
+    margin-top: 30px;
+    color: #444;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
 </style>
 </head>
 
@@ -91,124 +126,118 @@ color:#777;
 
 <div class="card">
 
-<img src="logo.png" class="logo">
+<img src="logo.png" class="logo" alt="NEXUS CORE LOGO">
 
-<div class="title">NEXUS CORE SYSTEM</div>
-<div class="subtitle">Secure Access Portal</div>
+<div class="title">NEXUS CORE</div>
+<div class="subtitle">OMEGA LEVEL ACCESS</div>
 
-<input id="user" placeholder="User ID">
-<input id="pass" type="password" placeholder="Password">
+<input id="user" placeholder="AUTHORIZATION ID" autocomplete="off">
+<input id="pass" type="password" placeholder="PASSCODE">
 
-<button id="loginBtn" onclick="login()">SIGN IN</button>
+<button id="loginBtn" onclick="login()">INITIATE LINK</button>
 
 <div id="message"></div>
 
 <div class="footer">
-Authorized personnel only. All access is logged and monitored.<br>
-© 2025 Nexus Core Systems
+RESTRICTED AREA. UNAUTHORIZED ACCESS IS A SEVERE OFFENSE.<br>
+TRACKED CONTINUOUSLY VIA SATELLITE.<br><br>
+© 2026 NEXUS CORE
 </div>
 
 </div>
 
 <script>
+// ==========================================
+// NEXUS CORE: FRONT-END SECURITY PROTOCOL
+// ==========================================
 
-const ADMIN_ID="admin"
-const ADMIN_PASS="1234"
-const LINE_URL="https://lin.ee/lGGma6p"
+const ADMIN_ID = "admin";
+const ADMIN_PASS = "1234";
+const LINE_URL = "https://lin.ee/lGGma6p";
 
-let attempts=parseInt(localStorage.getItem("attempts"))||0
-let lockUntil=parseInt(localStorage.getItem("lockUntil"))||0
+let attempts = parseInt(localStorage.getItem("attempts")) || 0;
+let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
 
-const msg=document.getElementById("message")
-const btn=document.getElementById("loginBtn")
-const user=document.getElementById("user")
-const pass=document.getElementById("pass")
+const msg = document.getElementById("message");
+const btn = document.getElementById("loginBtn");
+const user = document.getElementById("user");
+const pass = document.getElementById("pass");
 
-function login(){
+function login() {
+    let now = Date.now();
 
-let now=Date.now()
+    if (now < lockUntil) {
+        startCountdown();
+        return;
+    }
 
-if(now<lockUntil){
-startCountdown()
-return
+    let u = user.value;
+    let p = pass.value;
+
+    if (u === ADMIN_ID && p === ADMIN_PASS) {
+        localStorage.removeItem("attempts");
+        localStorage.removeItem("lockUntil");
+        
+        msg.style.color = "#d4af37";
+        msg.innerText = "ACCESS GRANTED. DIVERTING...";
+        
+        setTimeout(() => {
+            window.location.href = LINE_URL;
+        }, 800);
+        return;
+    }
+
+    attempts++;
+    localStorage.setItem("attempts", attempts);
+
+    let lockTime = 0;
+
+    if (attempts >= 9) lockTime = 180000;
+    else if (attempts >= 6) lockTime = 90000;
+    else if (attempts >= 3) lockTime = 30000;
+
+    if (lockTime > 0) {
+        lockUntil = Date.now() + lockTime;
+        localStorage.setItem("lockUntil", lockUntil);
+        startCountdown();
+    } else {
+        msg.style.color = "#e74c3c";
+        msg.innerText = "[DENIED] INVALID CREDENTIALS (" + attempts + ")";
+    }
 }
 
-let u=user.value
-let p=pass.value
+function startCountdown() {
+    btn.disabled = true;
+    user.disabled = true;
+    pass.disabled = true;
+    user.value = "";
+    pass.value = "";
 
-if(u===ADMIN_ID && p===ADMIN_PASS){
+    let timer = setInterval(() => {
+        let remaining = Math.ceil((lockUntil - Date.now()) / 1000);
 
-localStorage.removeItem("attempts")
-localStorage.removeItem("lockUntil")
+        if (remaining <= 0) {
+            clearInterval(timer);
+            btn.disabled = false;
+            user.disabled = false;
+            pass.disabled = false;
+            msg.innerText = "";
+            localStorage.removeItem("lockUntil");
+            return;
+        }
 
-window.location.href=LINE_URL
-return
+        msg.style.color = "#e74c3c";
+        msg.innerText = "SYSTEM LOCKED — RETRY IN " + remaining + "s";
+    }, 1000);
 }
 
-attempts++
-localStorage.setItem("attempts",attempts)
-
-let lockTime=0
-
-if(attempts>=9) lockTime=180000
-else if(attempts>=6) lockTime=90000
-else if(attempts>=3) lockTime=30000
-
-if(lockTime>0){
-
-lockUntil=Date.now()+lockTime
-localStorage.setItem("lockUntil",lockUntil)
-
-startCountdown()
-
-}else{
-
-msg.innerText="Invalid credentials ("+attempts+")"
-
+function checkLock() {
+    if (Date.now() < lockUntil) {
+        startCountdown();
+    }
 }
 
-}
-
-function startCountdown(){
-
-btn.disabled=true
-user.disabled=true
-pass.disabled=true
-
-let timer=setInterval(()=>{
-
-let remaining=Math.ceil((lockUntil-Date.now())/1000)
-
-if(remaining<=0){
-
-clearInterval(timer)
-
-btn.disabled=false
-user.disabled=false
-pass.disabled=false
-
-msg.innerText=""
-
-localStorage.removeItem("lockUntil")
-
-return
-}
-
-msg.innerText="Security Lock Active — Retry in "+remaining+"s"
-
-},1000)
-
-}
-
-function checkLock(){
-
-if(Date.now()<lockUntil){
-startCountdown()
-}
-
-}
-
-checkLock()
+checkLock();
 
 </script>
 
