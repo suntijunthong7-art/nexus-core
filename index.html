@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Core System</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(135deg,#0b3a42,#0f6b73);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.card{
+background:white;
+width:90%;
+max-width:420px;
+padding:40px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+
+.logo{
+width:120px;
+margin-bottom:10px;
+}
+
+h1{
+margin:10px 0 5px;
+font-size:26px;
+letter-spacing:2px;
+}
+
+.subtitle{
+color:#666;
+margin-bottom:25px;
+}
+
+input{
+width:100%;
+padding:14px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#3b4a5f;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:disabled{
+background:#9aa3ad;
+cursor:not-allowed;
+}
+
+.message{
+margin-top:15px;
+color:red;
+font-weight:bold;
+}
+
+.footer{
+margin-top:20px;
+font-size:12px;
+color:#666;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<img src="logo.png" class="logo">
+
+<h1>NEXUS CORE SYSTEM</h1>
+<div class="subtitle">Secure Access Portal</div>
+
+<input id="user" placeholder="User ID">
+<input id="pass" type="password" placeholder="Password">
+
+<button id="loginBtn" onclick="login()">SIGN IN</button>
+
+<div id="message" class="message"></div>
+
+<div class="footer">
+Authorized personnel only. All access is logged and monitored.<br>
+© 2025 Nexus Core Systems
+</div>
+
+</div>
+
+<script>
+
+const ADMIN_ID="admin";
+const ADMIN_PASS="1234";
+const LINE_URL="https://lin.ee/lGGma6p";
+
+let attempts=parseInt(localStorage.getItem("attempts"))||0;
+let lockUntil=parseInt(localStorage.getItem("lockUntil"))||0;
+
+const msg=document.getElementById("message");
+const btn=document.getElementById("loginBtn");
+
+function updateLock(){
+
+let now=Date.now();
+
+if(lockUntil>now){
+
+let remain=Math.floor((lockUntil-now)/1000);
+
+btn.disabled=true;
+
+msg.innerHTML="Security Lock Active – Retry in "+remain+"s";
+
+setTimeout(updateLock,1000);
+
+}else{
+
+btn.disabled=false;
+
+msg.innerHTML="";
+
+}
+
+}
+
+updateLock();
+
+function login(){
+
+let id=document.getElementById("user").value;
+let pass=document.getElementById("pass").value;
+
+if(Date.now()<lockUntil)return;
+
+if(id===ADMIN_ID && pass===ADMIN_PASS){
+
+attempts=0;
+
+localStorage.setItem("attempts",0);
+
+window.location.href=LINE_URL;
+
+}else{
+
+attempts++;
+
+localStorage.setItem("attempts",attempts);
+
+let lockTime=0;
+
+if(attempts>=9){
+
+lockTime=180;
+
+}else if(attempts>=6){
+
+lockTime=90;
+
+}else if(attempts>=3){
+
+lockTime=30;
+
+}
+
+if(lockTime>0){
+
+lockUntil=Date.now()+lockTime*1000;
+
+localStorage.setItem("lockUntil",lockUntil);
+
+}
+
+updateLock();
+
+msg.innerHTML="Invalid credentials";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
