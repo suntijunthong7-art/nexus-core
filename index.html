@@ -3,96 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Core System</title>
+
+<title>Secure Access Portal</title>
 
 <style>
 
 body{
-    margin:0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg,#0c3b46,#0a2d36);
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+font-family: Arial, Helvetica, sans-serif;
+background:#0b3a42;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
 }
-
-/* Login Card */
 
 .login-box{
-    background:#ffffff;
-    width:360px;
-    padding:40px 35px;
-    border-radius:12px;
-    text-align:center;
-    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+background:#ffffff;
+padding:35px;
+width:340px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+text-align:center;
 }
-
-/* Logo */
 
 .logo{
-    width:95px;
-    height:95px;
-    margin-bottom:15px;
-    filter:drop-shadow(0 3px 6px rgba(0,0,0,0.2));
+width:65px;
+margin-bottom:12px;
 }
 
-/* Title */
-
-.title{
-    font-size:22px;
-    font-weight:700;
-    letter-spacing:1px;
-    color:#1b1b1b;
+h2{
+margin:5px 0;
+font-size:18px;
+color:#222;
 }
 
-.subtitle{
-    font-size:14px;
-    color:#666;
-    margin-bottom:25px;
+.sub{
+font-size:13px;
+color:#555;
+margin-bottom:20px;
 }
-
-/* Input */
 
 input{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-    border-radius:6px;
-    border:1px solid #d2d2d2;
-    font-size:14px;
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:5px;
+font-size:14px;
 }
-
-/* Button */
 
 button{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    background:#2f3e4f;
-    border:none;
-    border-radius:6px;
-    color:white;
-    font-weight:600;
-    cursor:pointer;
+width:100%;
+padding:11px;
+background:#2f3f55;
+color:white;
+border:none;
+border-radius:6px;
+font-weight:bold;
+cursor:pointer;
 }
 
-button:hover{
-    background:#24313f;
+button:disabled{
+background:#9aa4b2;
+cursor:not-allowed;
 }
 
-.message{
-    margin-top:15px;
-    font-size:13px;
-    color:#b00020;
+#msg{
+margin-top:12px;
+font-size:13px;
+color:#c0392b;
 }
-
-/* Footer */
 
 .footer{
-    margin-top:15px;
-    font-size:11px;
-    color:#777;
+margin-top:18px;
+font-size:11px;
+color:#777;
 }
 
 </style>
@@ -104,42 +90,102 @@ button:hover{
 
 <img src="logo.png" class="logo">
 
-<div class="title">NEXUS CORE SYSTEM</div>
-<div class="subtitle">Secure Access Portal</div>
+<h2>Secure Access Portal</h2>
+<div class="sub">Authorized Personnel Only</div>
 
 <input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
-<button onclick="login()">SIGN IN</button>
+<button onclick="login()" id="loginBtn">SIGN IN</button>
 
-<div class="message" id="msg"></div>
+<div id="msg"></div>
 
 <div class="footer">
-Authorized personnel only. All access is logged and monitored.<br>
-© 2025 Nexus Core Systems<br>
-Internal Access Gateway v2.4.1
+Access is monitored and logged
 </div>
 
 </div>
 
 <script>
 
+const ADMIN_ID="admin"
+const ADMIN_PASS="1234"
+
+let fail = Number(localStorage.getItem("fail")) || 0
+let lockUntil = Number(localStorage.getItem("lockUntil")) || 0
+
+function updateLock(){
+
+let now = Date.now()
+
+if(now < lockUntil){
+
+let remain = Math.ceil((lockUntil-now)/1000)
+
+document.getElementById("loginBtn").disabled=true
+document.getElementById("msg").innerText="Security lock active : "+remain+"s"
+
+setTimeout(updateLock,1000)
+
+}else{
+
+document.getElementById("loginBtn").disabled=false
+document.getElementById("msg").innerText=""
+
+}
+
+}
+
 function login(){
 
 let u=document.getElementById("user").value
 let p=document.getElementById("pass").value
 
-if(u==="admin" && p==="1234"){
-    
-    window.location.href="https://lin.ee/lGGma6p"
+let now=Date.now()
+
+if(now < lockUntil){
+updateLock()
+return
+}
+
+if(u===ADMIN_ID && p===ADMIN_PASS){
+
+fail=0
+localStorage.removeItem("fail")
+
+window.location.href="https://lin.ee/lGGma6p"
 
 }else{
 
-document.getElementById("msg").innerText="Access Denied"
+fail++
+localStorage.setItem("fail",fail)
+
+let lockTime=0
+
+if(fail>=9){
+lockTime=180
+}else if(fail>=6){
+lockTime=90
+}else if(fail>=3){
+lockTime=30
+}
+
+if(lockTime>0){
+
+lockUntil=Date.now()+lockTime*1000
+localStorage.setItem("lockUntil",lockUntil)
+
+}
+
+document.getElementById("msg").innerText="Invalid credentials"
+
+updateLock()
 
 }
 
 }
+
+updateLock()
 
 </script>
 
