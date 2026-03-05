@@ -10,119 +10,121 @@
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:linear-gradient(135deg,#0c3b4a,#0e5566);
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
+font-family:Arial,Helvetica,sans-serif;
+
+background:linear-gradient(135deg,#0c3b47,#0b2e3a);
 }
 
 .card{
 
-background:white;
+background:#f4f4f4;
 width:340px;
 padding:35px;
-border-radius:16px;
-box-shadow:0 20px 40px rgba(0,0,0,0.25);
+border-radius:20px;
 text-align:center;
 
+box-shadow:
+0 20px 40px rgba(0,0,0,0.3);
 }
 
 .logo{
-width:60px;
+width:70px;
 margin-bottom:10px;
 }
 
 h1{
 font-size:22px;
-margin:5px 0;
 letter-spacing:2px;
+margin:5px 0;
 }
 
 .subtitle{
+font-size:14px;
 color:#555;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
 input{
 
 width:100%;
 padding:12px;
-margin:8px 0;
-border-radius:8px;
-border:1px solid #ccc;
-font-size:14px;
+margin:10px 0;
 
+border-radius:10px;
+border:1px solid #ccc;
+
+font-size:14px;
 }
 
 button{
 
 width:100%;
-padding:12px;
-margin-top:10px;
-border:none;
-border-radius:8px;
-background:#334155;
-color:white;
-font-weight:bold;
-letter-spacing:1px;
-cursor:pointer;
-transition:all .2s;
+padding:13px;
 
+border:none;
+border-radius:10px;
+
+background:#2e3f55;
+color:white;
+
+font-size:15px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.2s;
 }
 
 button:hover{
-background:#1e293b;
+background:#1e2d3f;
 }
 
 button:disabled{
+
 background:#9aa3af;
 cursor:not-allowed;
 }
 
 .lock{
-color:red;
-margin-top:12px;
+margin-top:15px;
+color:#d52c2c;
 font-size:14px;
 }
 
 .footer{
-margin-top:18px;
+margin-top:20px;
 font-size:12px;
-color:#666;
+color:#777;
 }
 
 </style>
 </head>
 
+
 <body>
 
 <div class="card">
 
-<img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="logo">
+<img src="logo.png" class="logo">
 
 <h1>NEXUS CORE SYSTEM</h1>
-
 <div class="subtitle">Secure Access Portal</div>
 
 <input id="user" placeholder="User ID">
-
 <input id="pass" type="password" placeholder="Password">
 
 <button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div id="lockmsg" class="lock"></div>
+<div id="lockMsg" class="lock"></div>
 
 <div class="footer">
-
-Authorized personnel only. Unauthorized access is strictly prohibited and monitored.
-
-<br><br>
-
-© 2025 Nexus Core Systems  
+Authorized personnel only. Unauthorized access is strictly prohibited and monitored.<br><br>
+© 2025 Nexus Core Systems<br>
 Internal Access Gateway v2.4.1
-
 </div>
 
 </div>
@@ -130,59 +132,64 @@ Internal Access Gateway v2.4.1
 <script>
 
 let attempts=0
-let lockTime=0
-let timer=null
+let lockTimes=[30,90,180]
+let locked=false
 
 function login(){
 
-if(lockTime>0) return
+if(locked)return
 
 let u=document.getElementById("user").value
 let p=document.getElementById("pass").value
 
 if(u==="admin" && p==="1234"){
 
-alert("Access Granted")
-
-attempts=0
-return
-
-}
-
-attempts++
-
-if(attempts>=3){
-
-if(attempts==3) lockTime=30
-else if(attempts==4) lockTime=90
-else lockTime=180
-
-startLock()
+alert("ACCESS GRANTED")
 
 }else{
 
-alert("Invalid credentials")
+attempts++
+
+if(attempts<=3){
+
+let time=lockTimes[attempts-1]
+
+lock(time)
+
+}else{
+
+lock(180)
 
 }
 
 }
 
-function startLock(){
+}
+
+function lock(seconds){
+
+locked=true
 
 let btn=document.getElementById("loginBtn")
-let msg=document.getElementById("lockmsg")
+let msg=document.getElementById("lockMsg")
 
 btn.disabled=true
 
-timer=setInterval(()=>{
+let t=seconds
 
-msg.innerHTML="Security Lock Active — Retry in "+lockTime+"s"
+msg.innerHTML="Security Lock Active — Retry in "+t+"s"
 
-lockTime--
+let timer=setInterval(()=>{
 
-if(lockTime<=0){
+t--
+
+msg.innerHTML="Security Lock Active — Retry in "+t+"s"
+
+if(t<=0){
 
 clearInterval(timer)
+
+locked=false
 
 btn.disabled=false
 
