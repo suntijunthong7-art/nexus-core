@@ -2,190 +2,258 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>NEXUS CORE | OMEGA GATEWAY</title>
 <style>
-/* สถาปัตยกรรมสี Matte Black & Gold */
+/* MATTE BLACK & GOLD ARCHITECTURE V2.0 */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background: #0a0a0a;
+    font-family: 'Courier New', Courier, monospace;
+    background: #050505;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
+    overflow: hidden;
+    color: #d4af37;
 }
 
 .card {
-    background: linear-gradient(145deg, #121212, #1a1a1a);
-    padding: 45px 40px;
+    background: linear-gradient(145deg, #0d0d0d, #141414);
+    padding: 40px 30px;
     width: 320px;
-    border-radius: 12px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(212, 175, 55, 0.05);
     text-align: center;
+    position: relative;
 }
 
-.logo {
-    width: 85px;
+/* Scanline Effect */
+.card::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.logo-container {
     margin-bottom: 20px;
-    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
+    position: relative;
+    z-index: 3;
+}
+
+.logo-svg {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0px 0px 5px rgba(212, 175, 55, 0.4));
 }
 
 .title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     color: #d4af37;
-    text-transform: uppercase;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 3;
 }
 
 .subtitle {
-    color: #777;
-    font-size: 12px;
-    letter-spacing: 2px;
-    margin-top: 5px;
-    margin-bottom: 30px;
-    text-transform: uppercase;
+    color: #666;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 3;
 }
 
 input {
     width: 100%;
-    padding: 14px;
-    margin: 8px 0;
-    border-radius: 6px;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 4px;
     border: 1px solid #333;
-    background: #0f0f0f;
+    background: #080808;
     color: #d4af37;
     font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
     box-sizing: border-box;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
+    letter-spacing: 2px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 3;
 }
 
 input:focus {
     outline: none;
     border-color: #d4af37;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
 }
 
 input::placeholder {
-    color: #555;
+    color: #444;
 }
 
 button {
     width: 100%;
     padding: 14px;
-    margin-top: 20px;
+    margin-top: 25px;
     border: 1px solid #d4af37;
-    border-radius: 6px;
+    border-radius: 4px;
     background: transparent;
     color: #d4af37;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
+    position: relative;
+    z-index: 3;
 }
 
 button:hover:not(:disabled) {
-    background: #d4af37;
-    color: #0a0a0a;
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 button:disabled {
-    border-color: #444;
-    color: #444;
+    border-color: #333;
+    color: #555;
     cursor: not-allowed;
-    background: transparent;
-    box-shadow: none;
 }
 
 #message {
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 12px;
-    color: #e74c3c;
-    min-height: 18px;
+    color: #d4af37;
+    min-height: 20px;
     letter-spacing: 1px;
+    font-weight: bold;
+    position: relative;
+    z-index: 3;
 }
 
 .footer {
-    font-size: 10px;
-    margin-top: 30px;
+    font-size: 9px;
+    margin-top: 35px;
     color: #444;
-    letter-spacing: 1px;
-    line-height: 1.5;
+    letter-spacing: 1.5px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 3;
 }
 </style>
 </head>
 <body>
 
 <div class="card">
-<img src="logo.png" class="logo" alt="NEXUS CORE LOGO">
-<div class="title">NEXUS CORE</div>
-<div class="subtitle">OMEGA LEVEL ACCESS</div>
+    <div class="logo-container">
+        <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="#d4af37" stroke-width="2"/>
+            <polygon points="50,15 85,50 50,85 15,50" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="4,4"/>
+            <path d="M 35 35 L 65 35 L 50 65 Z" fill="none" stroke="#d4af37" stroke-width="1.5"/>
+            <circle cx="50" cy="50" r="3" fill="#d4af37"/>
+        </svg>
+    </div>
 
-<input id="user" placeholder="AUTHORIZATION ID" autocomplete="off">
-<input id="pass" type="password" placeholder="PASSCODE">
+    <div class="title">NEXUS CORE</div>
+    <div class="subtitle">OMEGA LEVEL CLEARANCE</div>
 
-<button id="loginBtn" onclick="login()">INITIATE LINK</button>
-<div id="message"></div>
+    <input id="user" placeholder="AUTHORIZATION ID" autocomplete="off" spellcheck="false">
+    <input id="pass" type="password" placeholder="PASSCODE">
 
-<div class="footer">
-RESTRICTED AREA. UNAUTHORIZED ACCESS IS A SEVERE OFFENSE.<br>
-TRACKED CONTINUOUSLY VIA SATELLITE.<br><br>
-© 2026 NEXUS CORE
-</div>
+    <button id="loginBtn" onclick="initiateLink()">AUTHENTICATE</button>
+
+    <div id="message"></div>
+
+    <div class="footer">
+        AUTHORIZED PERSONNEL ONLY<br>
+        TRACKED VIA SATELLITE NETWORK<br><br>
+        © 2026 NEXUS CORE
+    </div>
 </div>
 
 <script>
-const ADMIN_ID = "admin";
-const ADMIN_PASS = "1234";
-const LINE_URL = "https://lin.ee/lGGma6p";
+// ==========================================
+// NEXUS CORE: ENHANCED PROTOCOL V2.0
+// ==========================================
 
-let attempts = parseInt(localStorage.getItem("attempts")) || 0;
-let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
+// Credentials converted to Base64 
+const AUTH_U = "YWRtaW4="; // ID
+const AUTH_P = "MTIzNA=="; // PASS
+const DESTINATION = "https://lin.ee/lGGma6p";
+
+let attempts = parseInt(localStorage.getItem("nc_attempts")) || 0;
+let lockUntil = parseInt(localStorage.getItem("nc_lock")) || 0;
 
 const msg = document.getElementById("message");
 const btn = document.getElementById("loginBtn");
 const user = document.getElementById("user");
 const pass = document.getElementById("pass");
 
-function login() {
+// Typewriter Effect
+function typeWriter(text, element, speed = 30) {
+    element.innerHTML = "";
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    type();
+}
+
+function initiateLink() {
     let now = Date.now();
     if (now < lockUntil) {
         startCountdown();
         return;
     }
 
-    let u = user.value;
-    let p = pass.value;
+    // Convert input to Base64 for matching
+    let u_input = btoa(user.value);
+    let p_input = btoa(pass.value);
 
-    if (u === ADMIN_ID && p === ADMIN_PASS) {
-        localStorage.removeItem("attempts");
-        localStorage.removeItem("lockUntil");
+    if (u_input === AUTH_U && p_input === AUTH_P) {
+        localStorage.removeItem("nc_attempts");
+        localStorage.removeItem("nc_lock");
+        
         msg.style.color = "#d4af37";
-        msg.innerText = "ACCESS GRANTED. DIVERTING...";
-        setTimeout(() => { window.location.href = LINE_URL; }, 800);
+        typeWriter("[ ✓ ] CLEARANCE ACCEPTED. ESTABLISHING LINK...", msg, 20);
+        
+        setTimeout(() => {
+            window.location.href = DESTINATION;
+        }, 1500);
         return;
     }
 
     attempts++;
-    localStorage.setItem("attempts", attempts);
-    let lockTime = 0;
+    localStorage.setItem("nc_attempts", attempts);
 
+    let lockTime = 0;
     if (attempts >= 9) lockTime = 180000;
     else if (attempts >= 6) lockTime = 90000;
     else if (attempts >= 3) lockTime = 30000;
 
     if (lockTime > 0) {
         lockUntil = Date.now() + lockTime;
-        localStorage.setItem("lockUntil", lockUntil);
+        localStorage.setItem("nc_lock", lockUntil);
         startCountdown();
     } else {
         msg.style.color = "#e74c3c";
-        msg.innerText = "[DENIED] INVALID CREDENTIALS (" + attempts + ")";
+        typeWriter("[ ✕ ] ACCESS DENIED (" + attempts + ")", msg, 20);
+        user.value = "";
+        pass.value = "";
     }
 }
 
@@ -195,6 +263,8 @@ function startCountdown() {
     pass.disabled = true;
     user.value = "";
     pass.value = "";
+    
+    msg.style.color = "#e74c3c";
 
     let timer = setInterval(() => {
         let remaining = Math.ceil((lockUntil - Date.now()) / 1000);
@@ -204,20 +274,21 @@ function startCountdown() {
             user.disabled = false;
             pass.disabled = false;
             msg.innerText = "";
-            localStorage.removeItem("lockUntil");
+            localStorage.removeItem("nc_lock");
             return;
         }
-        msg.style.color = "#e74c3c";
-        msg.innerText = "SYSTEM LOCKED — RETRY IN " + remaining + "s";
+        msg.innerText = "SYSTEM LOCKED. RETRY IN: " + remaining + "s";
     }, 1000);
 }
 
-function checkLock() {
+function checkStatus() {
     if (Date.now() < lockUntil) {
         startCountdown();
     }
 }
-checkLock();
+
+window.onload = checkStatus;
 </script>
+
 </body>
 </html>
