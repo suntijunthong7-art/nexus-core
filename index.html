@@ -3,43 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Secure Access Portal</title>
+<title>Nexus Core System</title>
 
 <style>
 
 body{
-font-family:Arial;
-background:#0b3c44;
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#0b2c36,#062028);
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
 margin:0;
+color:#333;
 }
 
 .login-box{
 background:white;
-padding:35px;
+padding:30px;
+border-radius:12px;
 width:320px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
 text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 .logo{
-width:65px;
-margin-bottom:10px;
+font-size:20px;
+font-weight:bold;
+margin-bottom:5px;
 }
 
-h2{
-margin:5px 0;
-font-size:18px;
-}
-
-p{
-font-size:13px;
-color:#666;
+.subtitle{
+font-size:12px;
+color:#777;
 margin-bottom:20px;
 }
 
@@ -47,35 +43,41 @@ input{
 width:100%;
 padding:10px;
 margin:6px 0;
-border-radius:5px;
+border-radius:6px;
 border:1px solid #ccc;
 }
 
 button{
 width:100%;
 padding:10px;
-background:#3a4a63;
-color:white;
 border:none;
-border-radius:5px;
+border-radius:6px;
+background:#2d3f50;
+color:white;
 font-weight:bold;
 cursor:pointer;
 }
 
 button:disabled{
-background:#888;
+background:#9aa3aa;
 }
 
-#msg{
-margin-top:12px;
-font-size:13px;
+.message{
+margin-top:10px;
+font-size:12px;
 color:#c0392b;
 }
 
-.footer{
-margin-top:15px;
+.security{
 font-size:11px;
-color:#777;
+margin-top:12px;
+color:#666;
+}
+
+.scan{
+font-size:11px;
+color:#888;
+margin-bottom:10px;
 }
 
 </style>
@@ -85,49 +87,64 @@ color:#777;
 
 <div class="login-box">
 
-<img src="logo.png" class="logo">
+<div class="logo">NEXUS CORE SYSTEM</div>
+<div class="subtitle">Secure Access Portal</div>
 
-<h2>NEXUS CORE SYSTEM</h2>
-<p>Secure Access Portal</p>
+<div class="scan" id="scanText">
+Initializing security modules...
+</div>
 
-<input id="id" placeholder="User ID">
-<input id="pw" type="password" placeholder="Password">
+<input id="user" placeholder="User ID">
+<input id="pass" type="password" placeholder="Password">
 
-<button onclick="login()" id="btn">SIGN IN</button>
+<button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div id="msg"></div>
+<div class="message" id="msg"></div>
 
-<div class="footer">
-Authorized personnel only.<br>
-All access logged and monitored.
+<div class="security">
+Authorized personnel only.  
+All access attempts are logged and monitored.  
+© 2025 Nexus Core Systems
 </div>
 
 </div>
 
 <script>
 
-let attempts = parseInt(localStorage.getItem("attempts")) || 0;
-let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
+const correctUser="admin"
+const correctPass="1234"
 
-function updateLock(){
+let attempts=localStorage.getItem("attempts") || 0
+let lockUntil=localStorage.getItem("lockUntil") || 0
 
-let now = Date.now();
+const msg=document.getElementById("msg")
+const btn=document.getElementById("loginBtn")
+const userInput=document.getElementById("user")
+const passInput=document.getElementById("pass")
 
-if(lockUntil > now){
+function checkLock(){
 
-let sec = Math.ceil((lockUntil-now)/1000);
+let now=Date.now()
 
-document.getElementById("msg").innerText =
-"Security Lock Active – Retry in "+sec+"s";
+if(lockUntil>now){
 
-document.getElementById("btn").disabled = true;
+btn.disabled=true
+userInput.disabled=true
+passInput.disabled=true
 
-setTimeout(updateLock,1000);
+let remaining=Math.ceil((lockUntil-now)/1000)
+
+msg.innerHTML="Security Lock Active — Retry in "+remaining+"s"
+
+setTimeout(checkLock,1000)
 
 }else{
 
-document.getElementById("btn").disabled=false;
-document.getElementById("msg").innerText="";
+btn.disabled=false
+userInput.disabled=false
+passInput.disabled=false
+
+msg.innerHTML=""
 
 }
 
@@ -135,50 +152,74 @@ document.getElementById("msg").innerText="";
 
 function login(){
 
-let id = document.getElementById("id").value;
-let pw = document.getElementById("pw").value;
+let u=userInput.value
+let p=passInput.value
 
-let now = Date.now();
+if(u===correctUser && p===correctPass){
 
-if(now < lockUntil){
-updateLock();
-return;
-}
+msg.style.color="green"
+msg.innerHTML="Access Granted — Redirecting..."
 
-if(id==="admin" && pw==="1234"){
+setTimeout(()=>{
+window.location.href="https://lin.ee/lGGma6p"
+},1200)
 
-attempts=0;
-localStorage.removeItem("attempts");
+}else{
 
-window.location.href="https://lin.ee/lGGma6p";
+attempts++
+localStorage.setItem("attempts",attempts)
 
-return;
+msg.style.color="#c0392b"
+msg.innerHTML="Authentication Failed"
 
-}
+if(attempts>=9){
 
-attempts++;
+lock(180)
 
-localStorage.setItem("attempts",attempts);
+}else if(attempts>=6){
 
-let lock=0;
+lock(60)
 
-if(attempts>=9) lock=180;
-else if(attempts>=6) lock=90;
-else if(attempts>=3) lock=30;
+}else if(attempts>=3){
 
-if(lock>0){
-
-lockUntil = now + lock*1000;
-
-localStorage.setItem("lockUntil",lockUntil);
+lock(20)
 
 }
 
-updateLock();
+}
 
 }
 
-updateLock();
+function lock(seconds){
+
+lockUntil=Date.now()+seconds*1000
+
+localStorage.setItem("lockUntil",lockUntil)
+
+checkLock()
+
+}
+
+document.addEventListener("keypress",function(e){
+if(e.key==="Enter") login()
+})
+
+checkLock()
+
+
+const scanMessages=[
+"Initializing security modules...",
+"Verifying session fingerprint...",
+"Checking device integrity...",
+"Establishing secure channel..."
+]
+
+let i=0
+
+setInterval(()=>{
+document.getElementById("scanText").innerText=scanMessages[i]
+i=(i+1)%scanMessages.length
+},2500)
 
 </script>
 
