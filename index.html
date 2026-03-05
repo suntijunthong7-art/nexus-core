@@ -3,77 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nexus Core System</title>
 
 <style>
 
 body{
-font-family:Arial, sans-serif;
-background:linear-gradient(180deg,#0b3b4a,#072f3b);
+margin:0;
 height:100vh;
 display:flex;
-align-items:center;
 justify-content:center;
-margin:0;
+align-items:center;
+background:linear-gradient(135deg,#0c3b46,#0a2e36);
+font-family:Arial,Helvetica,sans-serif;
 }
 
-.login-box{
+.portal{
 background:white;
+width:340px;
 padding:35px;
 border-radius:12px;
-width:320px;
 text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 .logo{
 width:60px;
-margin-bottom:10px;
+height:60px;
+object-fit:contain;
+margin-bottom:12px;
 }
 
-h2{
-margin:5px;
+h1{
 font-size:16px;
 letter-spacing:1px;
+margin:5px 0;
+color:#222;
 }
 
-p{
-margin-top:0;
-font-size:12px;
+.subtitle{
+font-size:13px;
 color:#666;
+margin-bottom:20px;
 }
 
 input{
 width:100%;
-padding:10px;
-margin:8px 0;
+padding:11px;
+margin:7px 0;
 border-radius:6px;
-border:1px solid #ccc;
+border:1px solid #ddd;
+font-size:14px;
 }
 
 button{
 width:100%;
-padding:10px;
-background:#2c3e50;
-color:white;
+padding:12px;
 border:none;
 border-radius:6px;
+background:#2f4058;
+color:white;
+font-weight:bold;
+margin-top:10px;
 cursor:pointer;
 }
 
 button:disabled{
-background:#999;
+background:#888;
+cursor:not-allowed;
 }
 
-.msg{
-margin-top:10px;
+.status{
+margin-top:12px;
 font-size:13px;
-color:red;
+color:#c33;
+min-height:18px;
 }
 
 .footer{
-margin-top:12px;
-font-size:10px;
+margin-top:15px;
+font-size:11px;
 color:#777;
 }
 
@@ -82,102 +91,104 @@ color:#777;
 
 <body>
 
-<div class="login-box">
+<div class="portal">
 
-<img src="logo.png" class="logo">
+<img src="logo.png" class="logo" onerror="this.style.display='none'">
 
-<h2>NEXUS CORE SYSTEM</h2>
-<p>Secure Access Portal</p>
+<h1>NEXUS CORE SYSTEM</h1>
+<div class="subtitle">Secure Access Portal</div>
 
 <input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
-<button onclick="login()" id="btn">SIGN IN</button>
+<button onclick="login()" id="loginBtn">SIGN IN</button>
 
-<div class="msg" id="msg"></div>
+<div class="status" id="status"></div>
 
 <div class="footer">
 Authorized personnel only. All access is logged and monitored.<br>
-© 2025 Nexus Core Systems v2.4.1
+© 2025 Nexus Core Systems<br>
+Internal Access Gateway v2.4.1
 </div>
 
 </div>
 
 <script>
 
-let attempts = localStorage.getItem("attempts") || 0
-let lockUntil = localStorage.getItem("lockUntil") || 0
-
-attempts = parseInt(attempts)
-lockUntil = parseInt(lockUntil)
-
-function updateLock(){
-
-let now = Date.now()
-
-if(now < lockUntil){
-
-let remaining = Math.ceil((lockUntil-now)/1000)
-
-document.getElementById("btn").disabled=true
-document.getElementById("msg").innerText=
-"Security Lock Active - Retry in "+remaining+"s"
-
-setTimeout(updateLock,1000)
-
-}else{
-
-document.getElementById("btn").disabled=false
-document.getElementById("msg").innerText=""
-
-}
-
-}
+let attempts = 0
+let lockUntil = 0
 
 function login(){
 
-let u=document.getElementById("user").value
-let p=document.getElementById("pass").value
+const user = document.getElementById("user").value
+const pass = document.getElementById("pass").value
+const status = document.getElementById("status")
 
-if(u==="admin" && p==="1234"){
+if(Date.now() < lockUntil){
+return
+}
 
-attempts=0
-localStorage.setItem("attempts",0)
+if(user==="admin" && pass==="1234"){
 
-document.getElementById("msg").style.color="green"
-document.getElementById("msg").innerText="Access Granted"
+status.style.color="green"
+status.innerText="Authentication successful"
 
 setTimeout(()=>{
 window.location.href="https://lin.ee/lGGma6p"
 },1000)
 
+}
+else{
+
+attempts++
+status.style.color="#c33"
+status.innerText="Authentication failed"
+
+let lockTime=0
+
+if(attempts>=9){
+lockTime=180
+}
+else if(attempts>=6){
+lockTime=90
+}
+else if(attempts>=3){
+lockTime=30
+}
+
+if(lockTime>0){
+lock(lockTime)
+}
+
+}
+
+}
+
+function lock(seconds){
+
+const btn=document.getElementById("loginBtn")
+const status=document.getElementById("status")
+
+lockUntil=Date.now()+seconds*1000
+
+btn.disabled=true
+
+let timer=setInterval(()=>{
+
+let remain=Math.ceil((lockUntil-Date.now())/1000)
+
+if(remain<=0){
+clearInterval(timer)
+btn.disabled=false
+status.innerText=""
 return
 }
 
-attempts++
-localStorage.setItem("attempts",attempts)
+status.innerText="Security Lock Active — Retry in "+remain+"s"
 
-let lock=0
-
-if(attempts>=9) lock=180
-else if(attempts>=6) lock=90
-else if(attempts>=3) lock=30
-
-if(lock>0){
-
-lockUntil=Date.now()+lock*1000
-localStorage.setItem("lockUntil",lockUntil)
+},1000)
 
 }
-
-document.getElementById("msg").innerText=
-"Authentication failed"
-
-updateLock()
-
-}
-
-updateLock()
 
 </script>
 
