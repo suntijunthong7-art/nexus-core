@@ -3,43 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nexus Core System</title>
 
 <style>
+
 body{
 margin:0;
-font-family: Arial, Helvetica, sans-serif;
-background:#0f4c4c;
-display:flex;
-justify-content:center;
-align-items:center;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(180deg,#0c4a52,#06383d);
 height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .card{
 background:white;
-padding:40px;
+width:340px;
+padding:40px 30px;
 border-radius:14px;
-width:320px;
 text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,0.25);
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
 .logo{
 width:90px;
-margin-bottom:15px;
+margin-bottom:10px;
 }
 
 h1{
 font-size:22px;
-margin:10px 0;
-letter-spacing:1px;
+margin:5px 0;
 }
 
-.subtitle{
+.sub{
 color:#666;
-margin-bottom:25px;
 font-size:14px;
+margin-bottom:20px;
 }
 
 input{
@@ -53,75 +54,147 @@ font-size:14px;
 
 button{
 width:100%;
-padding:12px;
-margin-top:12px;
+padding:13px;
 border:none;
 border-radius:8px;
-background:#2c3e50;
+background:#26374d;
 color:white;
 font-size:15px;
 cursor:pointer;
+margin-top:10px;
 }
 
 button:hover{
-background:#1f2c3a;
+background:#1e2d40;
 }
 
-.status{
+.msg{
 margin-top:15px;
-font-size:13px;
+font-size:14px;
+}
+
+.error{
+color:#d30000;
+}
+
+.lock{
 color:#c0392b;
 }
 
 .footer{
-margin-top:18px;
+margin-top:15px;
 font-size:11px;
 color:#777;
-line-height:1.4;
 }
-</style>
 
+</style>
 </head>
 
 <body>
 
 <div class="card">
 
-<img src="https://i.imgur.com/6o5VbQp.png" class="logo">
+<img src="logo.png" class="logo">
 
 <h1>NEXUS CORE SYSTEM</h1>
-<div class="subtitle">Internal Access Portal</div>
+<div class="sub">Secure Access Portal</div>
 
 <input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
 <button onclick="login()">SIGN IN</button>
 
-<div id="msg" class="status"></div>
+<div id="msg" class="msg"></div>
 
 <div class="footer">
-Authorized personnel only<br>
-Access is logged and monitored<br>
-© 2025 Nexus Core Systems
+Authorized personnel only. All access is logged and monitored.<br>
+© 2025 Nexus Core Systems<br>
+Internal Access Gateway v2.4.1
 </div>
 
 </div>
 
 <script>
 
+const ADMIN_USER="admin"
+const ADMIN_PASS="1234"
+
+let fail=0
+let locked=false
+
+if(localStorage.getItem("session")=="active"){
+location.href="https://lin.ee/lGGma6p"
+}
+
 function login(){
 
-let u=document.getElementById("user").value;
-let p=document.getElementById("pass").value;
+if(locked)return
 
-if(u==="admin" && p==="1234"){
-window.location.href="https://lin.ee/lGGma6p";
+let u=document.getElementById("user").value
+let p=document.getElementById("pass").value
+let msg=document.getElementById("msg")
+
+if(u===ADMIN_USER && p===ADMIN_PASS){
+
+localStorage.setItem("session","active")
+
+msg.innerHTML="Access granted..."
+msg.style.color="green"
+
+setTimeout(()=>{
+location.href="https://lin.ee/lGGma6p"
+},1200)
+
 }
+
 else{
-document.getElementById("msg").innerText="Invalid access credentials";
+
+fail++
+
+msg.innerHTML="Invalid access credentials"
+msg.className="msg error"
+
+if(fail>=3){
+lock()
 }
 
 }
+
+}
+
+function lock(){
+
+locked=true
+
+let time=30
+let msg=document.getElementById("msg")
+
+msg.className="msg lock"
+
+let timer=setInterval(()=>{
+
+msg.innerHTML="Security Lock Active — Retry in "+time+"s"
+
+time--
+
+if(time<0){
+clearInterval(timer)
+locked=false
+fail=0
+msg.innerHTML=""
+}
+
+},1000)
+
+}
+
+document.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+login()
+}
+
+})
 
 </script>
 
