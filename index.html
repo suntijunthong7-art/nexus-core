@@ -1,214 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nexus Core System</title>
+<title>Secure Access Portal</title>
 
 <style>
-
 body{
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#0b2a36,#0f4c5c);
+margin:0;
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-margin:0;
+background:#0f172a;
+font-family:Arial,Helvetica,sans-serif;
+color:#e2e8f0;
 }
 
-.card{
-background:#fff;
+.login-box{
+width:360px;
+background:#111827;
 padding:40px;
-width:340px;
-border-radius:16px;
-box-shadow:0 15px 35px rgba(0,0,0,0.35);
+border-radius:10px;
+box-shadow:0 0 25px rgba(0,0,0,.6);
 text-align:center;
 }
 
 .logo{
-width:90px;
-margin-bottom:18px;
+width:70px;
+margin-bottom:20px;
+opacity:.9;
 }
 
-.title{
-font-size:20px;
-font-weight:bold;
-letter-spacing:2px;
-}
-
-.subtitle{
-color:#666;
-font-size:14px;
-margin-bottom:22px;
+h1{
+font-size:18px;
+margin-bottom:25px;
+letter-spacing:1px;
 }
 
 input{
 width:100%;
-padding:11px;
-margin:7px 0;
-border-radius:7px;
-border:1px solid #ccc;
+padding:12px;
+margin-bottom:15px;
+background:#1f2937;
+border:none;
+border-radius:6px;
+color:#fff;
 font-size:14px;
 }
 
 button{
 width:100%;
 padding:12px;
-margin-top:12px;
+background:#2563eb;
 border:none;
-border-radius:7px;
-background:#2e3f55;
+border-radius:6px;
 color:white;
-font-weight:bold;
-letter-spacing:1px;
+font-size:14px;
 cursor:pointer;
 }
 
 button:disabled{
-background:#9aa3ad;
+background:#475569;
 cursor:not-allowed;
 }
 
-#message{
+.msg{
 margin-top:12px;
 font-size:13px;
-color:#d11;
-min-height:18px;
+color:#f87171;
 }
 
-.footer{
-font-size:11px;
-margin-top:18px;
-color:#777;
+.timer{
+margin-top:10px;
+font-size:13px;
+color:#fbbf24;
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="login-box">
 
 <img src="logo.png" class="logo">
 
-<div class="title">NEXUS CORE SYSTEM</div>
-<div class="subtitle">Secure Access Portal</div>
+<h1>SECURE SYSTEM ACCESS</h1>
 
 <input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
-<button id="loginBtn" onclick="login()">SIGN IN</button>
+<button id="loginBtn" onclick="login()">Login</button>
 
-<div id="message"></div>
-
-<div class="footer">
-Authorized personnel only. All access is logged and monitored.<br>
-© 2025 Nexus Core Systems
-</div>
+<div class="msg" id="msg"></div>
+<div class="timer" id="timer"></div>
 
 </div>
 
 <script>
 
-const ADMIN_ID="admin"
-const ADMIN_PASS="1234"
-const LINE_URL="https://lin.ee/lGGma6p"
-
-let attempts=parseInt(localStorage.getItem("attempts"))||0
-let lockUntil=parseInt(localStorage.getItem("lockUntil"))||0
-
-const msg=document.getElementById("message")
-const btn=document.getElementById("loginBtn")
-const user=document.getElementById("user")
-const pass=document.getElementById("pass")
+const USER="admin"
+const PASS="1234"
+const LOCK_TIME=30
 
 function login(){
 
-let now=Date.now()
+const u=document.getElementById("user").value
+const p=document.getElementById("pass").value
+const msg=document.getElementById("msg")
 
-if(now<lockUntil){
-startCountdown()
-return
-}
+if(u===USER && p===PASS){
 
-let u=user.value
-let p=pass.value
+msg.style.color="#4ade80"
+msg.innerText="Access granted"
 
-if(u===ADMIN_ID && p===ADMIN_PASS){
-
-localStorage.removeItem("attempts")
-localStorage.removeItem("lockUntil")
-
-window.location.href=LINE_URL
-return
-}
-
-attempts++
-localStorage.setItem("attempts",attempts)
-
-let lockTime=0
-
-if(attempts>=9) lockTime=180000
-else if(attempts>=6) lockTime=90000
-else if(attempts>=3) lockTime=30000
-
-if(lockTime>0){
-
-lockUntil=Date.now()+lockTime
-localStorage.setItem("lockUntil",lockUntil)
-
-startCountdown()
+setTimeout(()=>{
+window.location="home.html"
+},800)
 
 }else{
 
-msg.innerText="Invalid credentials ("+attempts+")"
+msg.innerText="Invalid credentials"
+
+let lockUntil=Date.now()+LOCK_TIME*1000
+localStorage.setItem("lockUntil",lockUntil)
+
+startLock()
 
 }
 
 }
 
-function startCountdown(){
+function startLock(){
+
+const btn=document.getElementById("loginBtn")
+const timer=document.getElementById("timer")
 
 btn.disabled=true
-user.disabled=true
-pass.disabled=true
 
-let timer=setInterval(()=>{
+let lockUntil=localStorage.getItem("lockUntil")
 
-let remaining=Math.ceil((lockUntil-Date.now())/1000)
+function update(){
+
+let remaining=Math.floor((lockUntil-Date.now())/1000)
 
 if(remaining<=0){
 
-clearInterval(timer)
-
 btn.disabled=false
-user.disabled=false
-pass.disabled=false
-
-msg.innerText=""
-
+timer.innerText=""
 localStorage.removeItem("lockUntil")
-
 return
-}
-
-msg.innerText="Security Lock Active — Retry in "+remaining+"s"
-
-},1000)
 
 }
 
-function checkLock(){
-
-if(Date.now()<lockUntil){
-startCountdown()
-}
+timer.innerText="Locked "+remaining+" sec"
+setTimeout(update,1000)
 
 }
 
-checkLock()
+update()
+
+}
+
+window.onload=function(){
+
+let lockUntil=localStorage.getItem("lockUntil")
+
+if(lockUntil && Date.now()<lockUntil){
+
+startLock()
+
+}
+
+}
 
 </script>
 
