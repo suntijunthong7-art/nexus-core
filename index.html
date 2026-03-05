@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,8 +9,8 @@
 <style>
 
 body{
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#0b2a36,#0f4c5c);
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#0b2a36,#0f4c5c);
 height:100vh;
 display:flex;
 justify-content:center;
@@ -25,44 +23,46 @@ background:#fff;
 padding:40px;
 width:340px;
 border-radius:16px;
-box-shadow:0 15px 40px rgba(0,0,0,0.35);
+box-shadow:0 15px 35px rgba(0,0,0,0.35);
 text-align:center;
 }
 
 .logo{
-width:100px;
-margin-bottom:15px;
+width:90px;
+margin-bottom:18px;
 }
 
 .title{
-font-weight:bold;
-letter-spacing:1px;
 font-size:20px;
+font-weight:bold;
+letter-spacing:2px;
 }
 
 .subtitle{
-color:#555;
+color:#666;
 font-size:14px;
-margin-bottom:20px;
+margin-bottom:22px;
 }
 
 input{
 width:100%;
 padding:11px;
 margin:7px 0;
-border-radius:6px;
+border-radius:7px;
 border:1px solid #ccc;
+font-size:14px;
 }
 
 button{
 width:100%;
 padding:12px;
-margin-top:10px;
+margin-top:12px;
 border:none;
-border-radius:6px;
+border-radius:7px;
 background:#2e3f55;
 color:white;
 font-weight:bold;
+letter-spacing:1px;
 cursor:pointer;
 }
 
@@ -74,17 +74,17 @@ cursor:not-allowed;
 #message{
 margin-top:12px;
 font-size:13px;
-color:red;
+color:#d11;
+min-height:18px;
 }
 
 .footer{
 font-size:11px;
-margin-top:15px;
+margin-top:18px;
 color:#777;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -116,25 +116,54 @@ const ADMIN_ID="admin"
 const ADMIN_PASS="1234"
 const LINE_URL="https://lin.ee/lGGma6p"
 
-let attempts = Number(localStorage.getItem("loginAttempts")) || 0
-let lockUntil = Number(localStorage.getItem("lockUntil")) || 0
+let attempts=parseInt(localStorage.getItem("attempts"))||0
+let lockUntil=parseInt(localStorage.getItem("lockUntil"))||0
 
 const msg=document.getElementById("message")
 const btn=document.getElementById("loginBtn")
 const user=document.getElementById("user")
 const pass=document.getElementById("pass")
 
-function checkLock(){
+function login(){
 
 let now=Date.now()
 
-if(lockUntil>now){
+if(now<lockUntil){
+startCountdown()
+return
+}
 
-btn.disabled=true
-user.disabled=true
-pass.disabled=true
+let u=user.value
+let p=pass.value
+
+if(u===ADMIN_ID && p===ADMIN_PASS){
+
+localStorage.removeItem("attempts")
+localStorage.removeItem("lockUntil")
+
+window.location.href=LINE_URL
+return
+}
+
+attempts++
+localStorage.setItem("attempts",attempts)
+
+let lockTime=0
+
+if(attempts>=9) lockTime=180000
+else if(attempts>=6) lockTime=90000
+else if(attempts>=3) lockTime=30000
+
+if(lockTime>0){
+
+lockUntil=Date.now()+lockTime
+localStorage.setItem("lockUntil",lockUntil)
 
 startCountdown()
+
+}else{
+
+msg.innerText="Invalid credentials ("+attempts+")"
 
 }
 
@@ -142,23 +171,25 @@ startCountdown()
 
 function startCountdown(){
 
+btn.disabled=true
+user.disabled=true
+pass.disabled=true
+
 let timer=setInterval(()=>{
 
-let now=Date.now()
-let remaining=Math.ceil((lockUntil-now)/1000)
+let remaining=Math.ceil((lockUntil-Date.now())/1000)
 
 if(remaining<=0){
 
 clearInterval(timer)
 
-msg.innerText=""
-
 btn.disabled=false
 user.disabled=false
 pass.disabled=false
 
-attempts=0
-localStorage.setItem("loginAttempts",0)
+msg.innerText=""
+
+localStorage.removeItem("lockUntil")
 
 return
 }
@@ -169,52 +200,10 @@ msg.innerText="Security Lock Active — Retry in "+remaining+"s"
 
 }
 
-function login(){
+function checkLock(){
 
-let id=user.value
-let pw=pass.value
-
-if(id===ADMIN_ID && pw===ADMIN_PASS){
-
-localStorage.removeItem("loginAttempts")
-localStorage.removeItem("lockUntil")
-
-window.location.href=LINE_URL
-return
-
-}
-
-attempts++
-
-localStorage.setItem("loginAttempts",attempts)
-
-let lockTime=0
-
-if(attempts>=9){
-
-lockTime=180
-
-}else if(attempts>=6){
-
-lockTime=90
-
-}else if(attempts>=3){
-
-lockTime=30
-
-}
-
-if(lockTime>0){
-
-lockUntil=Date.now()+lockTime*1000
-localStorage.setItem("lockUntil",lockUntil)
-
-checkLock()
-
-}else{
-
-msg.innerText="Invalid credentials"
-
+if(Date.now()<lockUntil){
+startCountdown()
 }
 
 }
