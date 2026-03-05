@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nexus Core System</title>
 
@@ -14,24 +14,22 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#0c3b43;
-font-family:Arial,Helvetica,sans-serif;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(135deg,#083a42,#0e5c63);
 }
 
-.login-box{
-background:white;
+.card{
+background:#fff;
+width:340px;
 padding:35px;
 border-radius:12px;
-width:320px;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
 text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
 .logo{
-width:70px;
-display:block;
-margin:auto;
-margin-bottom:10px;
+width:80px;
+margin-bottom:14px;
 }
 
 h1{
@@ -41,44 +39,45 @@ letter-spacing:1px;
 }
 
 .subtitle{
+color:#777;
 font-size:14px;
-color:#666;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
 input{
 width:100%;
 padding:12px;
-margin-bottom:12px;
-border:1px solid #ddd;
+margin-bottom:14px;
 border-radius:6px;
+border:1px solid #ddd;
 font-size:14px;
 }
 
 button{
 width:100%;
 padding:12px;
-background:#2d4059;
-color:white;
 border:none;
 border-radius:6px;
+background:#2e3f55;
+color:white;
 font-weight:bold;
 cursor:pointer;
 }
 
 button:disabled{
-background:#9aa3ad;
+background:#9aa1a9;
+cursor:not-allowed;
 }
 
-.lock-msg{
-color:#c0392b;
+.lock{
+margin-top:12px;
+color:#c43c3c;
 font-size:14px;
-margin-top:10px;
 }
 
 .footer{
-margin-top:15px;
-font-size:12px;
+margin-top:16px;
+font-size:11px;
 color:#777;
 }
 
@@ -87,9 +86,9 @@ color:#777;
 
 <body>
 
-<div class="login-box">
+<div class="card">
 
-<img src="logo.png" class="logo">
+<img src="https://i.imgur.com/5b6XGQp.png" class="logo">
 
 <h1>NEXUS CORE SYSTEM</h1>
 <div class="subtitle">Secure Access Portal</div>
@@ -99,7 +98,7 @@ color:#777;
 
 <button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div id="lockMsg" class="lock-msg"></div>
+<div id="lockMsg" class="lock"></div>
 
 <div class="footer">
 Authorized personnel only. All access is logged and monitored.<br>
@@ -111,73 +110,58 @@ Internal Access Gateway v2.4.1
 
 <script>
 
-const ADMIN_ID="admin"
-const ADMIN_PASS="1234"
-
-let attempts = localStorage.getItem("attempts") || 0
-let lockUntil = localStorage.getItem("lockUntil") || 0
-
-function updateLock(){
-
-const now = Date.now()
-
-if(now < lockUntil){
-
-let sec = Math.ceil((lockUntil-now)/1000)
-
-document.getElementById("loginBtn").disabled=true
-document.getElementById("lockMsg").innerText =
-"Security Lock Active — Retry in "+sec+"s"
-
-setTimeout(updateLock,1000)
-
-}else{
-
-document.getElementById("loginBtn").disabled=false
-document.getElementById("lockMsg").innerText=""
-
-}
-
-}
+let locked=false
 
 function login(){
 
-const user=document.getElementById("user").value
-const pass=document.getElementById("pass").value
+if(locked)return
 
-if(Date.now() < lockUntil) return
+let u=document.getElementById("user").value
+let p=document.getElementById("pass").value
 
-if(user===ADMIN_ID && pass===ADMIN_PASS){
+if(u==="admin" && p==="1234"){
 
-localStorage.setItem("attempts",0)
-window.location.href="https://lin.ee/lGGma6p"
+alert("Access Granted")
 
 }else{
 
-attempts++
-localStorage.setItem("attempts",attempts)
-
-let lockTime=0
-
-if(attempts==3) lockTime=30
-if(attempts==6) lockTime=90
-if(attempts>=9) lockTime=180
-
-if(lockTime>0){
-
-lockUntil = Date.now() + lockTime*1000
-
-localStorage.setItem("lockUntil",lockUntil)
-
-}
-
-updateLock()
+startLock()
 
 }
 
 }
 
-updateLock()
+function startLock(){
+
+locked=true
+let btn=document.getElementById("loginBtn")
+let msg=document.getElementById("lockMsg")
+
+let time=30
+
+btn.disabled=true
+
+msg.innerText="Security Lock Active — Retry in "+time+"s"
+
+let timer=setInterval(()=>{
+
+time--
+
+msg.innerText="Security Lock Active — Retry in "+time+"s"
+
+if(time<=0){
+
+clearInterval(timer)
+
+btn.disabled=false
+msg.innerText=""
+locked=false
+
+}
+
+},1000)
+
+}
 
 </script>
 
