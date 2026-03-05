@@ -1,97 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nexus Core System</title>
 
 <style>
 
 body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#0f4c4c,#1e7777);
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#0b2a36,#0f4c5c);
 height:100vh;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
+margin:0;
 }
 
-.login-box{
-background:white;
-padding:30px;
-width:320px;
-border-radius:14px;
+.card{
+background:#fff;
+padding:40px;
+width:340px;
+border-radius:16px;
+box-shadow:0 15px 40px rgba(0,0,0,0.35);
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 .logo{
-width:60px;
-margin-bottom:10px;
+width:100px;
+margin-bottom:15px;
 }
 
-h2{
-margin:5px 0;
-letter-spacing:2px;
+.title{
+font-weight:bold;
+letter-spacing:1px;
+font-size:20px;
+}
+
+.subtitle{
+color:#555;
+font-size:14px;
+margin-bottom:20px;
 }
 
 input{
 width:100%;
-padding:10px;
-margin:8px 0;
+padding:11px;
+margin:7px 0;
 border-radius:6px;
 border:1px solid #ccc;
 }
 
 button{
 width:100%;
-padding:10px;
+padding:12px;
+margin-top:10px;
 border:none;
 border-radius:6px;
-background:#7f8c8d;
+background:#2e3f55;
 color:white;
 font-weight:bold;
 cursor:pointer;
 }
 
-button:hover{
-background:#5d6d6d;
+button:disabled{
+background:#9aa3ad;
+cursor:not-allowed;
 }
 
-#lockMsg{
-margin-top:10px;
+#message{
+margin-top:12px;
 font-size:13px;
 color:red;
 }
 
 .footer{
-font-size:10px;
-margin-top:12px;
-color:#666;
+font-size:11px;
+margin-top:15px;
+color:#777;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="card">
 
 <img src="logo.png" class="logo">
 
-<h2>NEXUS CORE SYSTEM</h2>
-<p style="font-size:12px;color:#777">Secure Access Portal</p>
+<div class="title">NEXUS CORE SYSTEM</div>
+<div class="subtitle">Secure Access Portal</div>
 
-<input id="user" placeholder="Username">
+<input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
 <button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div id="lockMsg"></div>
+<div id="message"></div>
 
 <div class="footer">
-Authorized personnel only.  
-All access is logged and monitored.
+Authorized personnel only. All access is logged and monitored.<br>
+© 2025 Nexus Core Systems
 </div>
 
 </div>
@@ -100,59 +114,69 @@ All access is logged and monitored.
 
 const ADMIN_ID="admin"
 const ADMIN_PASS="1234"
-
 const LINE_URL="https://lin.ee/lGGma6p"
 
-let attempts=parseInt(localStorage.getItem("attempts"))||0
-let lockUntil=parseInt(localStorage.getItem("lockUntil"))||0
+let attempts = Number(localStorage.getItem("loginAttempts")) || 0
+let lockUntil = Number(localStorage.getItem("lockUntil")) || 0
 
+const msg=document.getElementById("message")
 const btn=document.getElementById("loginBtn")
-const msg=document.getElementById("lockMsg")
+const user=document.getElementById("user")
+const pass=document.getElementById("pass")
 
-function updateLock(){
+function checkLock(){
 
 let now=Date.now()
 
-if(now<lockUntil){
+if(lockUntil>now){
 
 btn.disabled=true
+user.disabled=true
+pass.disabled=true
 
-let sec=Math.ceil((lockUntil-now)/1000)
-
-msg.innerText="Security Lock Active – Retry in "+sec+"s"
-
-setTimeout(updateLock,1000)
-
-}else{
-
-btn.disabled=false
-msg.innerText=""
-
-localStorage.removeItem("lockUntil")
-localStorage.removeItem("attempts")
-
-attempts=0
+startCountdown()
 
 }
 
 }
 
-updateLock()
+function startCountdown(){
 
-function login(){
-
-let user=document.getElementById("user").value
-let pass=document.getElementById("pass").value
+let timer=setInterval(()=>{
 
 let now=Date.now()
+let remaining=Math.ceil((lockUntil-now)/1000)
 
-if(now<lockUntil){
+if(remaining<=0){
+
+clearInterval(timer)
+
+msg.innerText=""
+
+btn.disabled=false
+user.disabled=false
+pass.disabled=false
+
+attempts=0
+localStorage.setItem("loginAttempts",0)
+
 return
 }
 
-if(user===ADMIN_ID && pass===ADMIN_PASS){
+msg.innerText="Security Lock Active — Retry in "+remaining+"s"
 
-localStorage.removeItem("attempts")
+},1000)
+
+}
+
+function login(){
+
+let id=user.value
+let pw=pass.value
+
+if(id===ADMIN_ID && pw===ADMIN_PASS){
+
+localStorage.removeItem("loginAttempts")
 localStorage.removeItem("lockUntil")
 
 window.location.href=LINE_URL
@@ -161,31 +185,41 @@ return
 }
 
 attempts++
-localStorage.setItem("attempts",attempts)
+
+localStorage.setItem("loginAttempts",attempts)
 
 let lockTime=0
 
 if(attempts>=9){
+
 lockTime=180
-}
-else if(attempts>=6){
+
+}else if(attempts>=6){
+
 lockTime=90
-}
-else if(attempts>=3){
+
+}else if(attempts>=3){
+
 lockTime=30
+
 }
 
 if(lockTime>0){
 
 lockUntil=Date.now()+lockTime*1000
-
 localStorage.setItem("lockUntil",lockUntil)
 
+checkLock()
+
+}else{
+
+msg.innerText="Invalid credentials"
+
 }
 
-updateLock()
-
 }
+
+checkLock()
 
 </script>
 
