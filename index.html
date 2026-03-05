@@ -3,81 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nexus Core System</title>
+<title>NEXUS CORE SYSTEM</title>
 
 <style>
 
 body{
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#0b2a36,#0f4c5c);
+font-family:Arial;
+background:linear-gradient(135deg,#0a2a34,#0f4c5c);
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 margin:0;
 }
 
 .card{
-background:#fff;
-padding:35px;
-width:320px;
-border-radius:14px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+background:white;
+width:360px;
+padding:40px;
+border-radius:16px;
+box-shadow:0 15px 40px rgba(0,0,0,0.3);
 text-align:center;
 }
 
 .logo{
-width:70px;
-height:70px;
-margin-bottom:15px;
+width:110px;
+margin-bottom:20px;
 }
 
 .title{
+font-size:22px;
 font-weight:bold;
-letter-spacing:1px;
+letter-spacing:2px;
 }
 
 .subtitle{
-color:#555;
-font-size:14px;
-margin-bottom:20px;
+color:#666;
+margin-bottom:25px;
 }
 
 input{
 width:100%;
-padding:10px;
-margin:6px 0;
-border-radius:6px;
+padding:12px;
+margin:8px 0;
+border-radius:8px;
 border:1px solid #ccc;
+font-size:15px;
 }
 
 button{
 width:100%;
-padding:11px;
+padding:12px;
 margin-top:10px;
 border:none;
-border-radius:6px;
-background:#2e3f55;
+border-radius:8px;
+background:#354a63;
 color:white;
 font-weight:bold;
+font-size:15px;
 cursor:pointer;
 }
 
 button:disabled{
-background:#9aa3ad;
-cursor:not-allowed;
+background:#999;
 }
 
-#message{
+#msg{
 margin-top:10px;
-font-size:13px;
 color:red;
+font-size:13px;
 }
 
 .footer{
+margin-top:18px;
 font-size:11px;
-margin-top:15px;
 color:#777;
 }
 
@@ -96,9 +95,9 @@ color:#777;
 <input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
-<button id="loginBtn" onclick="login()">SIGN IN</button>
+<button onclick="login()" id="btn">SIGN IN</button>
 
-<div id="message"></div>
+<div id="msg"></div>
 
 <div class="footer">
 Authorized personnel only. All access is logged and monitored.<br>
@@ -109,103 +108,78 @@ Authorized personnel only. All access is logged and monitored.<br>
 
 <script>
 
-const ADMIN_ID="admin"
-const ADMIN_PASS="1234"
-const LINE_URL="https://lin.ee/lGGma6p"
-
-let attempts = localStorage.getItem("loginAttempts") || 0
+let failCount = localStorage.getItem("failCount") || 0
 let lockUntil = localStorage.getItem("lockUntil") || 0
 
-const msg=document.getElementById("message")
-const btn=document.getElementById("loginBtn")
-const user=document.getElementById("user")
-const pass=document.getElementById("pass")
+function updateLock(){
 
-function checkLock(){
+let now = Date.now()
 
-let now=Date.now()
+if(now < lockUntil){
 
-if(lockUntil>now){
+let remain = Math.ceil((lockUntil-now)/1000)
 
-startCountdown()
+document.getElementById("msg").innerText =
+"Security Lock Active — Retry in "+remain+"s"
 
-btn.disabled=true
-user.disabled=true
-pass.disabled=true
+document.getElementById("btn").disabled = true
 
-}
+setTimeout(updateLock,1000)
 
-}
+}else{
 
-function startCountdown(){
-
-let timer=setInterval(()=>{
-
-let now=Date.now()
-let remaining=Math.floor((lockUntil-now)/1000)
-
-if(remaining<=0){
-
-clearInterval(timer)
-
-btn.disabled=false
-user.disabled=false
-pass.disabled=false
-
-msg.innerHTML=""
-
-localStorage.removeItem("lockUntil")
-
-return
+document.getElementById("btn").disabled = false
+document.getElementById("msg").innerText=""
 
 }
-
-msg.innerHTML="Security Lock Active – Retry in "+remaining+"s"
-
-},1000)
 
 }
 
 function login(){
 
-let id=user.value
-let pw=pass.value
+let user=document.getElementById("user").value
+let pass=document.getElementById("pass").value
 
-if(id===ADMIN_ID && pw===ADMIN_PASS){
+if(Date.now() < lockUntil)return
 
-localStorage.removeItem("loginAttempts")
+if(user==="admin" && pass==="1234"){
 
-window.location.href=LINE_URL
+failCount=0
+localStorage.setItem("failCount",0)
 
-return
+window.location.href="https://lin.ee/lGGma6p"
 
-}
+}else{
 
-attempts++
+failCount++
 
-localStorage.setItem("loginAttempts",attempts)
+localStorage.setItem("failCount",failCount)
 
 let lockTime=0
 
-if(attempts>=9) lockTime=180
-else if(attempts>=6) lockTime=60
-else if(attempts>=3) lockTime=30
+if(failCount==3) lockTime=30
+if(failCount==6) lockTime=90
+if(failCount>=9) lockTime=180
 
 if(lockTime>0){
 
-lockUntil=Date.now()+(lockTime*1000)
+lockUntil=Date.now()+lockTime*1000
 
 localStorage.setItem("lockUntil",lockUntil)
 
-checkLock()
+updateLock()
+
+}else{
+
+document.getElementById("msg").innerText="Invalid credentials"
 
 }
 
-msg.innerHTML="Invalid credentials"
+}
 
 }
 
-checkLock()
+updateLock()
 
 </script>
 
