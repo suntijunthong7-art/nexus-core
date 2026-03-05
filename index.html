@@ -11,62 +11,69 @@
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
-background:#0d3b46;
+background:linear-gradient(135deg,#0c3b4a,#0e5566);
 height:100vh;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 }
 
-.container{
+.card{
+
 background:white;
 width:340px;
 padding:35px;
-border-radius:18px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+border-radius:16px;
+box-shadow:0 20px 40px rgba(0,0,0,0.25);
 text-align:center;
+
 }
 
 .logo{
-width:70px;
+width:60px;
 margin-bottom:10px;
 }
 
 h1{
 font-size:22px;
-letter-spacing:2px;
 margin:5px 0;
+letter-spacing:2px;
 }
 
 .subtitle{
-color:#666;
-margin-bottom:25px;
+color:#555;
+margin-bottom:20px;
 }
 
 input{
+
 width:100%;
 padding:12px;
 margin:8px 0;
-border-radius:10px;
-border:1px solid #ddd;
+border-radius:8px;
+border:1px solid #ccc;
 font-size:14px;
+
 }
 
 button{
+
 width:100%;
 padding:12px;
+margin-top:10px;
 border:none;
-border-radius:10px;
-background:#3a4b5c;
+border-radius:8px;
+background:#334155;
 color:white;
 font-weight:bold;
-margin-top:10px;
+letter-spacing:1px;
 cursor:pointer;
 transition:all .2s;
+
 }
 
 button:hover{
-background:#2e3c4b;
+background:#1e293b;
 }
 
 button:disabled{
@@ -74,22 +81,16 @@ background:#9aa3af;
 cursor:not-allowed;
 }
 
-.security{
+.lock{
 color:red;
-margin-top:10px;
+margin-top:12px;
 font-size:14px;
 }
 
 .footer{
-margin-top:20px;
+margin-top:18px;
 font-size:12px;
-color:#777;
-}
-
-#dashboard{
-display:none;
-color:white;
-text-align:center;
+color:#666;
 }
 
 </style>
@@ -97,133 +98,99 @@ text-align:center;
 
 <body>
 
-<div class="container" id="loginBox">
+<div class="card">
 
-<img class="logo" src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png">
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" class="logo">
 
 <h1>NEXUS CORE SYSTEM</h1>
 
 <div class="subtitle">Secure Access Portal</div>
 
 <input id="user" placeholder="User ID">
+
 <input id="pass" type="password" placeholder="Password">
 
 <button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div class="security" id="lockMsg"></div>
+<div id="lockmsg" class="lock"></div>
 
 <div class="footer">
-Authorized personnel only. Unauthorized access is strictly prohibited and monitored.<br><br>
-© 2025 Nexus Core Systems<br>
+
+Authorized personnel only. Unauthorized access is strictly prohibited and monitored.
+
+<br><br>
+
+© 2025 Nexus Core Systems  
 Internal Access Gateway v2.4.1
-</div>
 
 </div>
-
-<div id="dashboard">
-
-<h1>ACCESS GRANTED</h1>
-
-<p>Welcome Administrator</p>
-
-<p>Nexus Core Internal System</p>
-
-<button onclick="logout()">Logout</button>
 
 </div>
 
 <script>
 
 let attempts=0
-let locked=false
-let timer=0
+let lockTime=0
+let timer=null
 
 function login(){
 
-if(locked)return
+if(lockTime>0) return
 
 let u=document.getElementById("user").value
 let p=document.getElementById("pass").value
 
-let btn=document.getElementById("loginBtn")
-
-btn.innerText="Authenticating..."
-
-setTimeout(()=>{
-
 if(u==="admin" && p==="1234"){
 
-sessionStorage.setItem("login","true")
+alert("Access Granted")
 
-document.getElementById("loginBox").style.display="none"
-document.getElementById("dashboard").style.display="block"
+attempts=0
+return
 
 }
-
-else{
 
 attempts++
 
-btn.innerText="SIGN IN"
-
 if(attempts>=3){
 
-lockSystem()
+if(attempts==3) lockTime=30
+else if(attempts==4) lockTime=90
+else lockTime=180
+
+startLock()
 
 }else{
 
-alert("Access Denied")
+alert("Invalid credentials")
 
 }
 
 }
 
-},1000)
-
-}
-
-function lockSystem(){
-
-locked=true
-timer=30
+function startLock(){
 
 let btn=document.getElementById("loginBtn")
+let msg=document.getElementById("lockmsg")
+
 btn.disabled=true
 
-let msg=document.getElementById("lockMsg")
+timer=setInterval(()=>{
 
-let interval=setInterval(()=>{
+msg.innerHTML="Security Lock Active — Retry in "+lockTime+"s"
 
-msg.innerText="Security Lock Active — Retry in "+timer+"s"
+lockTime--
 
-timer--
+if(lockTime<=0){
 
-if(timer<0){
+clearInterval(timer)
 
-clearInterval(interval)
-
-locked=false
 btn.disabled=false
-msg.innerText=""
-attempts=0
+
+msg.innerHTML=""
 
 }
 
 },1000)
-
-}
-
-function logout(){
-
-sessionStorage.removeItem("login")
-location.reload()
-
-}
-
-if(sessionStorage.getItem("login")==="true"){
-
-document.getElementById("loginBox").style.display="none"
-document.getElementById("dashboard").style.display="block"
 
 }
 
