@@ -3,81 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE SYSTEM</title>
+<title>Nexus Core System</title>
 
 <style>
 
 body{
+margin:0;
 font-family:Arial, sans-serif;
-background:linear-gradient(135deg,#0a2a34,#0f4c5c);
+background:linear-gradient(180deg,#0b4c54,#083b41);
 height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-margin:0;
 }
 
-.card{
-background:white;
-width:360px;
-padding:40px;
-border-radius:18px;
-box-shadow:0 20px 40px rgba(0,0,0,0.35);
+.container{
+background:#fff;
+width:350px;
+padding:35px;
+border-radius:20px;
 text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
 .logo{
-width:110px;
-margin-bottom:15px;
+width:90px;
+margin-bottom:10px;
 }
 
-.title{
+h1{
 font-size:22px;
-font-weight:bold;
+margin:5px 0;
 letter-spacing:2px;
 }
 
-.subtitle{
-color:#666;
-margin-bottom:25px;
+.sub{
+color:#777;
+margin-bottom:20px;
 }
 
 input{
 width:100%;
 padding:12px;
 margin:8px 0;
-border-radius:8px;
+border-radius:10px;
 border:1px solid #ccc;
-font-size:15px;
+font-size:16px;
 }
 
 button{
 width:100%;
-padding:12px;
-margin-top:10px;
+padding:13px;
 border:none;
-border-radius:8px;
-background:#354a63;
-color:white;
-font-weight:bold;
-font-size:15px;
+border-radius:10px;
+background:#3d4f63;
+color:#fff;
+font-size:16px;
 cursor:pointer;
 }
 
 button:disabled{
 background:#9aa3ad;
-cursor:not-allowed;
 }
 
-#message{
-margin-top:10px;
+.lock{
 color:red;
-font-size:13px;
+margin-top:10px;
 }
 
 .footer{
-margin-top:18px;
-font-size:11px;
+margin-top:15px;
+font-size:12px;
 color:#777;
 }
 
@@ -86,19 +82,19 @@ color:#777;
 
 <body>
 
-<div class="card">
+<div class="container">
 
 <img src="logo.png" class="logo">
 
-<div class="title">NEXUS CORE SYSTEM</div>
-<div class="subtitle">Secure Access Portal</div>
+<h1>NEXUS CORE SYSTEM</h1>
+<div class="sub">Secure Access Portal</div>
 
 <input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
-<button id="loginBtn" onclick="login()">SIGN IN</button>
+<button onclick="login()" id="loginBtn">SIGN IN</button>
 
-<div id="message"></div>
+<div id="lockMsg" class="lock"></div>
 
 <div class="footer">
 Authorized personnel only. All access is logged and monitored.<br>
@@ -109,28 +105,29 @@ Authorized personnel only. All access is logged and monitored.<br>
 
 <script>
 
-let failCount = localStorage.getItem("failCount") || 0;
-let lockUntil = localStorage.getItem("lockUntil") || 0;
+let failCount = parseInt(localStorage.getItem("failCount")) || 0;
+let lockUntil = parseInt(localStorage.getItem("lockUntil")) || 0;
 
-function checkLock(){
+function updateLock(){
 
 let now = Date.now();
+let msg = document.getElementById("lockMsg");
+let btn = document.getElementById("loginBtn");
 
 if(lockUntil > now){
 
-let remain = Math.ceil((lockUntil-now)/1000);
+let sec = Math.floor((lockUntil-now)/1000);
 
-document.getElementById("message").innerHTML =
-"Security Lock Active – Retry in "+remain+"s";
+msg.innerHTML = "Security Lock Active – Retry in "+sec+"s";
 
-document.getElementById("loginBtn").disabled=true;
+btn.disabled=true;
 
-setTimeout(checkLock,1000);
+setTimeout(updateLock,1000);
 
 }else{
 
-document.getElementById("loginBtn").disabled=false;
-document.getElementById("message").innerHTML="";
+msg.innerHTML="";
+btn.disabled=false;
 
 }
 
@@ -138,8 +135,15 @@ document.getElementById("message").innerHTML="";
 
 function login(){
 
-let user=document.getElementById("user").value;
-let pass=document.getElementById("pass").value;
+let now = Date.now();
+
+if(lockUntil > now){
+updateLock();
+return;
+}
+
+let user = document.getElementById("user").value;
+let pass = document.getElementById("pass").value;
 
 if(user==="admin" && pass==="1234"){
 
@@ -153,35 +157,26 @@ window.location.href="https://lin.ee/lGGma6p";
 failCount++;
 localStorage.setItem("failCount",failCount);
 
-let lockTime=0;
+let lockTime = 0;
 
-if(failCount>=9){
-lockTime=180;
-}else if(failCount>=6){
-lockTime=90;
-}else if(failCount>=3){
-lockTime=30;
-}
+if(failCount==3) lockTime=30;
+if(failCount==6) lockTime=90;
+if(failCount>=9) lockTime=180;
 
 if(lockTime>0){
 
-lockUntil=Date.now()+lockTime*1000;
-
+lockUntil = Date.now()+lockTime*1000;
 localStorage.setItem("lockUntil",lockUntil);
 
-checkLock();
+}
 
-}else{
-
-document.getElementById("message").innerHTML="Invalid credentials";
+updateLock();
 
 }
 
 }
 
-}
-
-checkLock();
+updateLock();
 
 </script>
 
