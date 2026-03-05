@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,73 +11,100 @@
 
 body{
 margin:0;
-font-family:Arial,Helvetica,sans-serif;
+font-family:Segoe UI,Arial;
 background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 }
 
-.container{
+.card{
+
 background:white;
-padding:40px;
-border-radius:12px;
-width:320px;
+width:340px;
+padding:35px;
+border-radius:14px;
+box-shadow:0 20px 60px rgba(0,0,0,0.3);
 text-align:center;
-box-shadow:0 10px 40px rgba(0,0,0,0.3);
-animation:fadeIn 1s ease;
+animation:fade 0.8s;
+
 }
 
 .logo{
-width:80px;
-margin-bottom:10px;
+
+width:90px;
+margin-bottom:15px;
+
+}
+
+h3{
+margin:6px 0;
+font-weight:600;
+letter-spacing:1px;
+color:#444;
 }
 
 h2{
-margin:10px 0;
-letter-spacing:1px;
+margin:5px 0 20px 0;
+font-weight:700;
+color:#1e293b;
 }
 
 input{
+
 width:100%;
-padding:12px;
-margin-top:10px;
+padding:13px;
+margin:8px 0;
 border-radius:8px;
-border:1px solid #ccc;
+border:1px solid #ddd;
+font-size:15px;
+
 }
 
 button{
+
 width:100%;
-padding:12px;
-margin-top:15px;
+padding:14px;
+margin-top:10px;
 border:none;
 border-radius:8px;
-background:#1c2b3a;
+background:#1e293b;
 color:white;
-font-weight:bold;
+font-size:15px;
+font-weight:600;
 cursor:pointer;
+
 }
 
-button:hover{
-background:#0f1c29;
+button:disabled{
+background:#999;
 }
 
-#error{
+.error{
 color:red;
-margin-top:10px;
+margin-top:12px;
 font-size:14px;
 }
 
-@keyframes fadeIn{
+.footer{
+margin-top:18px;
+font-size:12px;
+color:#777;
+}
+
+@keyframes fade{
+
 from{
 opacity:0;
 transform:translateY(30px);
 }
+
 to{
 opacity:1;
 transform:translateY(0);
 }
+
 }
 
 </style>
@@ -84,7 +112,7 @@ transform:translateY(0);
 
 <body>
 
-<div class="container">
+<div class="card">
 
 <img class="logo" src="logo.png">
 
@@ -92,81 +120,121 @@ transform:translateY(0);
 <h2>Secure Access Portal</h2>
 
 <input id="user" placeholder="User ID">
+
 <input id="pass" type="password" placeholder="Password">
 
-<button onclick="login()" id="btn">SIGN IN</button>
+<button id="btn" onclick="login()">SIGN IN</button>
 
-<div id="error"></div>
+<div class="error" id="msg"></div>
+
+<div class="footer">
+© 2025 Nexus Core. All rights reserved
+</div>
 
 </div>
 
 <script>
 
-let attempts=0
-let lockTime=0
+const correctCard="LC-A01";
+const correctPass="Lc1993♧";
+
+let attempts=0;
+let lockUntil=0;
 
 function login(){
 
-let user=document.getElementById("user").value
-let pass=document.getElementById("pass").value
-let error=document.getElementById("error")
-let btn=document.getElementById("btn")
+let user=document.getElementById("user").value;
+let pass=document.getElementById("pass").value;
+let msg=document.getElementById("msg");
+let btn=document.getElementById("btn");
 
-if(Date.now()<lockTime){
-error.innerHTML="Account locked. Try again later."
-return
+let now=Date.now();
+
+if(now<lockUntil){
+
+let remain=Math.ceil((lockUntil-now)/1000);
+msg.innerText="Account locked. Try again in "+remain+"s";
+
+setTimeout(login,1000);
+return;
+
 }
 
-if(user==="admin" && pass==="1234"){
+if(user===correctCard && pass===correctPass){
 
-btn.innerHTML="Verifying..."
-btn.disabled=true
+btn.innerText="Verifying...";
+btn.disabled=true;
 
 setTimeout(function(){
 
-window.location.href="https://lin.ee/lGGma6p"
+window.location.href="https://lin.ee/lGGma6p";
 
-},1500)
+},1500);
 
 }
 
 else{
 
-attempts++
+attempts++;
 
-if(attempts==3){
-lock(30000)
-}
+if(attempts==3) lock(30);
+if(attempts==6) lock(90);
+if(attempts>=9) lock(180);
 
-if(attempts==6){
-lock(90000)
-}
-
-if(attempts==9){
-lock(180000)
-}
-
-error.innerHTML="Invalid credentials"
+msg.innerText="Invalid credentials";
 
 }
 
 }
 
-function lock(ms){
+function lock(seconds){
 
-lockTime=Date.now()+ms
+lockUntil=Date.now()+seconds*1000;
 
-document.getElementById("error").innerHTML="Account locked for "+ms/1000+" seconds"
+let btn=document.getElementById("btn");
+btn.disabled=true;
+
+countdown();
+
+}
+
+function countdown(){
+
+let now=Date.now();
+let msg=document.getElementById("msg");
+let btn=document.getElementById("btn");
+
+if(now>=lockUntil){
+
+btn.disabled=false;
+msg.innerText="";
+return;
+
+}
+
+let remain=Math.ceil((lockUntil-now)/1000);
+
+msg.innerText="Account locked. Try again in "+remain+"s";
+
+setTimeout(countdown,1000);
 
 }
 
 document.addEventListener("keypress",function(e){
 
 if(e.key==="Enter"){
-login()
+login();
 }
 
-})
+});
+
+document.onkeydown=function(e){
+
+if(e.keyCode==123) return false;
+
+if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false;
+
+}
 
 </script>
 
