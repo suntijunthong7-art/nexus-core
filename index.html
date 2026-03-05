@@ -4,26 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NEXUS CORE SYSTEM</title>
+<title>Nexus Core System</title>
 
 <style>
 
 body{
-font-family:Arial;
-background:linear-gradient(135deg,#0b2d36,#0f4f5f);
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#0a2a34,#0f4c5c);
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 margin:0;
 }
 
 .card{
 background:white;
+width:360px;
 padding:40px;
-width:340px;
 border-radius:16px;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
+box-shadow:0 15px 40px rgba(0,0,0,0.35);
 text-align:center;
 }
 
@@ -49,38 +49,40 @@ padding:12px;
 margin:8px 0;
 border-radius:8px;
 border:1px solid #ccc;
+font-size:15px;
 }
 
 button{
 width:100%;
 padding:12px;
-margin-top:10px;
+margin-top:12px;
 border:none;
 border-radius:8px;
-background:#394c63;
+background:#354a63;
 color:white;
 font-weight:bold;
+font-size:15px;
 cursor:pointer;
 }
 
 button:disabled{
-background:#999;
+background:#9aa3ad;
+cursor:not-allowed;
 }
 
-#msg{
+#message{
 margin-top:10px;
-font-size:13px;
 color:red;
+font-size:13px;
 }
 
 .footer{
-margin-top:15px;
+margin-top:18px;
 font-size:11px;
 color:#777;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -97,7 +99,7 @@ color:#777;
 
 <button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div id="msg"></div>
+<div id="message"></div>
 
 <div class="footer">
 Authorized personnel only. All access is logged and monitored.<br>
@@ -108,49 +110,50 @@ Authorized personnel only. All access is logged and monitored.<br>
 
 <script>
 
-let failCount = localStorage.getItem("failCount") || 0
-let lockUntil = localStorage.getItem("lockUntil") || 0
+const correctUser="admin"
+const correctPass="1234"
+const lineLink="https://lin.ee/lGGma6p"
+
+let failCount=localStorage.getItem("failCount")||0
+let lockUntil=localStorage.getItem("lockUntil")||0
 
 function checkLock(){
 
-let now = Date.now()
+let now=Date.now()
 
-if(now < lockUntil){
+if(now<lockUntil){
 
-let remain = Math.ceil((lockUntil-now)/1000)
+let remain=Math.ceil((lockUntil-now)/1000)
 
 document.getElementById("loginBtn").disabled=true
-document.getElementById("msg").innerText=
-"Security Lock Active — Retry in "+remain+"s"
+document.getElementById("message").innerText=
+"Security Lock Active – Retry in "+remain+"s"
 
 setTimeout(checkLock,1000)
 
 }else{
 
 document.getElementById("loginBtn").disabled=false
-document.getElementById("msg").innerText=""
+document.getElementById("message").innerText=""
 
 }
 
 }
-
-checkLock()
 
 function login(){
 
 let user=document.getElementById("user").value
 let pass=document.getElementById("pass").value
 
-if(user==="admin" && pass==="1234"){
+if(user===correctUser && pass===correctPass){
 
-localStorage.removeItem("failCount")
+localStorage.clear()
+window.location.href=lineLink
+return
 
-window.location.href="https://lin.ee/lGGma6p"
-
-}else{
+}
 
 failCount++
-
 localStorage.setItem("failCount",failCount)
 
 let lockTime=0
@@ -162,20 +165,18 @@ else if(failCount>=3) lockTime=30
 if(lockTime>0){
 
 lockUntil=Date.now()+lockTime*1000
-
 localStorage.setItem("lockUntil",lockUntil)
+
+}
+
+document.getElementById("message").innerText=
+"Access Denied"
 
 checkLock()
 
-}else{
-
-document.getElementById("msg").innerText="Invalid ID or Password"
-
 }
 
-}
-
-}
+checkLock()
 
 </script>
 
