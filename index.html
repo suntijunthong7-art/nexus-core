@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Core System</title>
+<title>NEXUS CORE SYSTEM</title>
 
 <style>
 
 body{
 margin:0;
+font-family:Arial,Helvetica,sans-serif;
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
-background:linear-gradient(135deg,#0c4a4a,#0f766e);
-font-family:Arial;
+justify-content:center;
+background:linear-gradient(135deg,#0f4c4c,#0a2e2e);
 }
 
 .card{
-width:340px;
 background:white;
-border-radius:16px;
-padding:35px;
+padding:40px;
+width:320px;
+border-radius:14px;
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+box-shadow:0 10px 40px rgba(0,0,0,0.3);
 }
 
 .logo{
@@ -33,11 +33,11 @@ margin-bottom:10px;
 }
 
 h2{
-margin:5px 0;
+margin:10px 0 5px 0;
 letter-spacing:2px;
 }
 
-.subtitle{
+.sub{
 font-size:12px;
 color:gray;
 margin-bottom:20px;
@@ -45,40 +45,40 @@ margin-bottom:20px;
 
 input{
 width:100%;
-padding:12px;
+padding:10px;
 margin:8px 0;
-border-radius:8px;
+border-radius:6px;
 border:1px solid #ccc;
 font-size:14px;
 }
 
 button{
 width:100%;
-padding:12px;
-margin-top:10px;
+padding:10px;
 border:none;
-border-radius:8px;
-background:#64748b;
+border-radius:6px;
+background:#88929b;
 color:white;
 font-weight:bold;
+margin-top:8px;
 cursor:pointer;
 }
 
 button:disabled{
-opacity:.6;
+background:#bbb;
 cursor:not-allowed;
 }
 
-.lock{
-color:red;
-font-size:13px;
+#lockMsg{
 margin-top:10px;
+font-size:13px;
+color:red;
 }
 
 .footer{
-margin-top:10px;
 font-size:10px;
-color:gray;
+color:#777;
+margin-top:15px;
 }
 
 </style>
@@ -91,17 +91,17 @@ color:gray;
 <img src="logo.png" class="logo">
 
 <h2>NEXUS CORE SYSTEM</h2>
-<div class="subtitle">Secure Access Portal</div>
+<div class="sub">Secure Access Portal</div>
 
 <input id="user" placeholder="Username">
 <input id="pass" type="password" placeholder="Password">
 
 <button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div id="lockMsg" class="lock"></div>
+<div id="lockMsg"></div>
 
 <div class="footer">
-Authorized personnel only.<br>
+Authorized personnel only. All access is logged and monitored.<br>
 © 2025 Nexus Core Systems
 </div>
 
@@ -129,7 +129,7 @@ btn.disabled=true
 
 let sec=Math.ceil((lockUntil-now)/1000)
 
-msg.innerText="Security Lock Active – Retry in "+sec+"s"
+msg.innerText="Security Lock Active — Retry in "+sec+"s"
 
 setTimeout(updateLock,1000)
 
