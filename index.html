@@ -3,41 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nexus Core System</title>
 
 <style>
+
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:linear-gradient(180deg,#0c3a47,#08313b);
+font-family:Roboto,Arial;
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#0a2a3a,#0c3b4f);
 }
 
-.container{
+.card{
 background:white;
-width:360px;
-padding:35px;
-border-radius:16px;
+width:320px;
+padding:30px;
+border-radius:14px;
 text-align:center;
-box-shadow:0 20px 40px rgba(0,0,0,0.3);
+box-shadow:0 10px 40px rgba(0,0,0,0.2);
 }
 
 .logo{
 width:70px;
-margin-bottom:15px;
+margin-bottom:10px;
 }
 
 h1{
-font-size:22px;
-margin:5px 0;
-letter-spacing:1px;
+font-size:18px;
+letter-spacing:2px;
+margin:0;
+color:#444;
 }
 
-.subtitle{
-color:#555;
+h2{
+font-size:16px;
+margin-top:5px;
 margin-bottom:20px;
 }
 
@@ -46,65 +50,60 @@ width:100%;
 padding:12px;
 margin:8px 0;
 border-radius:8px;
-border:1px solid #ccc;
+border:1.4px solid #cfd4da;
 font-size:14px;
 }
 
 button{
 width:100%;
-padding:13px;
-margin-top:12px;
+padding:12px;
+margin-top:10px;
 border:none;
 border-radius:8px;
-background:#3c4f63;
+background:#2c3e50;
 color:white;
 font-weight:bold;
-cursor:pointer;
-transition:0.2s;
-}
-
-button:hover{
-background:#2f4052;
+letter-spacing:1px;
 }
 
 button:disabled{
-background:#9aa3af;
-cursor:not-allowed;
-opacity:0.8;
+background:#9ca3af;
 }
 
-.lockmsg{
-margin-top:12px;
-color:#d22;
+.lock{
+margin-top:10px;
+color:#d33;
 font-size:14px;
 }
 
-.footer{
-margin-top:18px;
-font-size:12px;
+.small{
+font-size:11px;
+margin-top:10px;
 color:#666;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="card">
 
 <img src="logo.png" class="logo">
 
 <h1>NEXUS CORE SYSTEM</h1>
-<div class="subtitle">Secure Access Portal</div>
+<h2>Secure Access Portal</h2>
 
 <input id="user" placeholder="User ID">
 <input id="pass" type="password" placeholder="Password">
 
-<button id="loginBtn" onclick="login()">SIGN IN</button>
+<button id="loginBtn">SIGN IN</button>
 
-<div id="lockmsg" class="lockmsg"></div>
+<div class="lock" id="lockMsg"></div>
 
-<div class="footer">
-Authorized personnel only. Unauthorized access is strictly prohibited and monitored.<br><br>
+<div class="small">
+Authorized personnel only. All access is logged and monitored.
+<br>
 © 2025 Nexus Core Systems<br>
 Internal Access Gateway v2.4.1
 </div>
@@ -113,40 +112,91 @@ Internal Access Gateway v2.4.1
 
 <script>
 
-let failCount = localStorage.getItem("failCount") || 0
-let lockUntil = localStorage.getItem("lockUntil") || 0
+const correctUser="admin";
+const correctPass="1234";
+const lineURL="https://lin.ee/lGGma6p";
 
-const btn = document.getElementById("loginBtn")
-const msg = document.getElementById("lockmsg")
+let attempts=Number(localStorage.getItem("attempts"))||0;
+let lockUntil=Number(localStorage.getItem("lockUntil"))||0;
 
-function login(){
+const btn=document.getElementById("loginBtn");
+const msg=document.getElementById("lockMsg");
 
-if(Date.now() < lockUntil){
-return
+function checkLock(){
+
+let now=Date.now();
+
+if(now<lockUntil){
+
+let sec=Math.ceil((lockUntil-now)/1000);
+
+btn.disabled=true;
+
+msg.innerText="Security Lock Active — Retry in "+sec+"s";
+
+setTimeout(checkLock,1000);
+
+}else{
+
+btn.disabled=false;
+
+msg.innerText="";
+
 }
 
-let user = document.getElementById("user").value
-let pass = document.getElementById("pass").value
-
-if(user==="admin" && pass==="1234"){
-alert("Access Granted")
-failCount = 0
-localStorage.setItem("failCount",0)
-return
 }
 
-failCount++
-localStorage.setItem("failCount",failCount)
+checkLock();
 
-let lockTime = 0
+btn.onclick=function(){
 
-if(failCount==3) lockTime=30
-if(failCount==6) lockTime=90
-if(failCount==9) lockTime=180
+let now=Date.now();
+
+if(now<lockUntil) return;
+
+let user=document.getElementById("user").value;
+let pass=document.getElementById("pass").value;
+
+if(user===correctUser && pass===correctPass){
+
+localStorage.setItem("attempts",0);
+
+window.location.href=lineURL;
+
+return;
+
+}
+
+attempts++;
+
+localStorage.setItem("attempts",attempts);
+
+let lockTime=0;
+
+if(attempts%9===0) lockTime=180;
+else if(attempts%6===0) lockTime=90;
+else if(attempts%3===0) lockTime=30;
 
 if(lockTime>0){
-lockUntil = Date.now() + lockTime*1000
-localStorage.setItem("lockUntil",lockUntil)
+
+lockUntil=now+lockTime*1000;
+
+localStorage.setItem("lockUntil",lockUntil);
+
+checkLock();
+
+}else{
+
+msg.innerText="Access denied";
+
+}
+
+};
+
+</script>
+
+</body>
+</html>localStorage.setItem("lockUntil",lockUntil)
 }
 
 updateLock()
