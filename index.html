@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nexus Core System</title>
+<title>NEXUS CORE SYSTEM</title>
 
 <style>
 
@@ -22,8 +21,8 @@ margin:0;
 background:white;
 width:360px;
 padding:40px;
-border-radius:16px;
-box-shadow:0 15px 40px rgba(0,0,0,0.35);
+border-radius:18px;
+box-shadow:0 20px 40px rgba(0,0,0,0.35);
 text-align:center;
 }
 
@@ -55,7 +54,7 @@ font-size:15px;
 button{
 width:100%;
 padding:12px;
-margin-top:12px;
+margin-top:10px;
 border:none;
 border-radius:8px;
 background:#354a63;
@@ -110,31 +109,28 @@ Authorized personnel only. All access is logged and monitored.<br>
 
 <script>
 
-const correctUser="admin"
-const correctPass="1234"
-const lineLink="https://lin.ee/lGGma6p"
-
-let failCount=localStorage.getItem("failCount")||0
-let lockUntil=localStorage.getItem("lockUntil")||0
+let failCount = localStorage.getItem("failCount") || 0;
+let lockUntil = localStorage.getItem("lockUntil") || 0;
 
 function checkLock(){
 
-let now=Date.now()
+let now = Date.now();
 
-if(now<lockUntil){
+if(lockUntil > now){
 
-let remain=Math.ceil((lockUntil-now)/1000)
+let remain = Math.ceil((lockUntil-now)/1000);
 
-document.getElementById("loginBtn").disabled=true
-document.getElementById("message").innerText=
-"Security Lock Active – Retry in "+remain+"s"
+document.getElementById("message").innerHTML =
+"Security Lock Active – Retry in "+remain+"s";
 
-setTimeout(checkLock,1000)
+document.getElementById("loginBtn").disabled=true;
+
+setTimeout(checkLock,1000);
 
 }else{
 
-document.getElementById("loginBtn").disabled=false
-document.getElementById("message").innerText=""
+document.getElementById("loginBtn").disabled=false;
+document.getElementById("message").innerHTML="";
 
 }
 
@@ -142,41 +138,50 @@ document.getElementById("message").innerText=""
 
 function login(){
 
-let user=document.getElementById("user").value
-let pass=document.getElementById("pass").value
+let user=document.getElementById("user").value;
+let pass=document.getElementById("pass").value;
 
-if(user===correctUser && pass===correctPass){
+if(user==="admin" && pass==="1234"){
 
-localStorage.clear()
-window.location.href=lineLink
-return
+localStorage.removeItem("failCount");
+localStorage.removeItem("lockUntil");
 
+window.location.href="https://lin.ee/lGGma6p";
+
+}else{
+
+failCount++;
+localStorage.setItem("failCount",failCount);
+
+let lockTime=0;
+
+if(failCount>=9){
+lockTime=180;
+}else if(failCount>=6){
+lockTime=90;
+}else if(failCount>=3){
+lockTime=30;
 }
-
-failCount++
-localStorage.setItem("failCount",failCount)
-
-let lockTime=0
-
-if(failCount>=9) lockTime=180
-else if(failCount>=6) lockTime=90
-else if(failCount>=3) lockTime=30
 
 if(lockTime>0){
 
-lockUntil=Date.now()+lockTime*1000
-localStorage.setItem("lockUntil",lockUntil)
+lockUntil=Date.now()+lockTime*1000;
+
+localStorage.setItem("lockUntil",lockUntil);
+
+checkLock();
+
+}else{
+
+document.getElementById("message").innerHTML="Invalid credentials";
 
 }
 
-document.getElementById("message").innerText=
-"Access Denied"
-
-checkLock()
+}
 
 }
 
-checkLock()
+checkLock();
 
 </script>
 
