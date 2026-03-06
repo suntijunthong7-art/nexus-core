@@ -20,7 +20,6 @@ margin:0;
 
 .card{
 background: rgba(255,255,255,0.96);
-backdrop-filter: blur(6px);
 padding:40px;
 width:340px;
 border-radius:20px;
@@ -60,13 +59,6 @@ margin:8px 0;
 border-radius:10px;
 border:1px solid #dcdcdc;
 font-size:14px;
-transition:0.2s;
-}
-
-input:focus{
-border:1px solid #2d6cdf;
-outline:none;
-box-shadow:0 0 0 2px rgba(45,108,223,0.15);
 }
 
 button{
@@ -78,39 +70,29 @@ border-radius:10px;
 background:#3e516a;
 color:white;
 font-weight:bold;
-letter-spacing:1px;
 cursor:pointer;
-transition:0.25s;
-}
-
-button:hover{
-background:#2d3f58;
-transform:translateY(-1px);
-box-shadow:0 8px 18px rgba(0,0,0,0.25);
 }
 
 button:disabled{
 background:#9aa3ad;
-cursor:not-allowed;
-}
-
-.status{
-margin-top:18px;
-font-size:13px;
-color:#7a7a7a;
-line-height:1.5;
-}
-
-.footer{
-margin-top:18px;
-font-size:12px;
-color:#8c8c8c;
 }
 
 #message{
 margin-top:10px;
 font-size:13px;
 color:red;
+}
+
+.status{
+margin-top:18px;
+font-size:13px;
+color:#7a7a7a;
+}
+
+.footer{
+margin-top:18px;
+font-size:12px;
+color:#8c8c8c;
 }
 
 </style>
@@ -131,20 +113,16 @@ SECURITY LEVEL: OMEGA<br>
 NETWORK NODE: GLOBAL GRID
 </div>
 
-<input id="user" placeholder="User ID">
-<input id="pass" type="password" placeholder="Password">
+<input type="text" id="user" placeholder="User ID">
+<input type="password" id="pass" placeholder="Password">
 
-<button id="loginBtn" onclick="login()">SIGN IN</button>
+<button onclick="login()" id="loginBtn">SIGN IN</button>
 
 <div id="message"></div>
 
 <div class="status">
 SYSTEM STATUS: ONLINE<br>
-ENCRYPTION: AES-256<br>
-NODE AUTHENTICATION: VERIFIED<br>
-USER IP: <span id="ip">110.77.138.96</span><br>
-SESSION ID: <span id="session"></span><br>
-SERVER TIME: <span id="time"></span>
+ENCRYPTION: AES-256
 </div>
 
 <div class="footer">
@@ -158,63 +136,69 @@ All access is logged and monitored.<br>
 <script>
 
 let attempts = 0
-let lockTime = 0
-
-function randomSession(){
-return Math.random().toString(36).substring(2,10).toUpperCase()
-}
-
-function updateTime(){
-let now = new Date()
-document.getElementById("time").innerText =
-now.getHours().toString().padStart(2,"0")+":"+
-now.getMinutes().toString().padStart(2,"0")+":"+
-now.getSeconds().toString().padStart(2,"0")
-}
-
-setInterval(updateTime,1000)
-document.getElementById("session").innerText=randomSession()
+let lockTime = 20
 
 function login(){
+
+let user=document.getElementById("user").value
+let pass=document.getElementById("pass").value
+let msg=document.getElementById("message")
+
+if(user==="admin" && pass==="1234"){
+
+msg.style.color="green"
+msg.innerHTML="Access Granted..."
+
+setTimeout(()=>{
+window.location.href="https://lin.ee/lGGma6p"
+},1200)
+
+}else{
+
+attempts++
+
+if(attempts>=1){
+
+lockSystem()
+
+}else{
+
+msg.innerHTML="Access Denied"
+
+}
+
+}
+
+}
+
+function lockSystem(){
 
 let btn=document.getElementById("loginBtn")
 let msg=document.getElementById("message")
 
-if(lockTime>0){
-msg.innerText="System locked. Try again in "+lockTime+" seconds"
-return
-}
-
-let user=document.getElementById("user").value
-let pass=document.getElementById("pass").value
-
-if(user==="admin" && pass==="omega"){
-msg.style.color="green"
-msg.innerText="Access Granted"
-}
-else{
-attempts++
-msg.style.color="red"
-msg.innerText="Access Denied"
-
-if(attempts>=3){
-lockTime=30
 btn.disabled=true
 
-let timer=setInterval(()=>{
-lockTime--
-msg.innerText="System locked. Try again in "+lockTime+" seconds"
+let time=lockTime
 
-if(lockTime<=0){
+let timer=setInterval(()=>{
+
+msg.innerHTML="System locked. Try again in "+time+" seconds"
+
+time--
+
+if(time<0){
+
 clearInterval(timer)
+
 btn.disabled=false
+
+msg.innerHTML=""
+
 attempts=0
-msg.innerText=""
+
 }
 
 },1000)
-}
-}
 
 }
 
