@@ -8,65 +8,70 @@
 <style>
 
 body{
-    font-family: Arial, sans-serif;
-    background: linear-gradient(180deg,#0f2a2c,#0b1c1e);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
+font-family: Arial, sans-serif;
+background: linear-gradient(180deg,#0f2a2c,#0b1c1e);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
 .container{
-    background:white;
-    padding:40px;
-    border-radius:20px;
-    width:350px;
-    text-align:center;
+background:white;
+padding:40px;
+border-radius:20px;
+width:350px;
+text-align:center;
 }
 
 .logo{
-    width:70px;
-    margin-bottom:15px;
+width:70px;
+margin-bottom:15px;
 }
 
 h1{
-    letter-spacing:3px;
-    font-size:26px;
+letter-spacing:3px;
+font-size:26px;
 }
 
 .subtitle{
-    color:#777;
-    margin-bottom:20px;
+color:#777;
+margin-bottom:20px;
 }
 
 input{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-    border-radius:8px;
-    border:1px solid #ccc;
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:8px;
+border:1px solid #ccc;
 }
 
 button{
-    width:100%;
-    padding:14px;
-    background:#4b5f77;
-    color:white;
-    border:none;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
+width:100%;
+padding:14px;
+background:#4b5f77;
+color:white;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
 }
 
-button:hover{
-    background:#3a4c61;
+button:disabled{
+background:#888;
+}
+
+.status{
+margin-top:10px;
+font-size:14px;
+color:red;
 }
 
 .footer{
-    margin-top:20px;
-    font-size:12px;
-    color:#777;
+margin-top:20px;
+font-size:12px;
+color:#777;
 }
 
 </style>
@@ -90,7 +95,9 @@ NETWORK NODE: GLOBAL GRID
 <input type="text" id="user" placeholder="Username">
 <input type="password" id="pass" placeholder="Password">
 
-<button onclick="login()">SIGN IN</button>
+<button id="loginBtn" onclick="login()">SIGN IN</button>
+
+<div class="status" id="status"></div>
 
 <div class="footer">
 
@@ -113,20 +120,57 @@ Nexus Core Lab — Advanced Research Division<br>
 
 <script>
 
+let locked=false;
+let timeLeft=30;
+
 function login(){
 
-var user = document.getElementById("user").value;
-var pass = document.getElementById("pass").value;
+if(locked) return;
 
-if(user === "Shsn" && pass === "1234"){
+var user=document.getElementById("user").value;
+var pass=document.getElementById("pass").value;
+
+if(user==="Nc001" && pass==="1234"){
 
 window.location.href="https://lin.ee/lGGma6p";
 
 }else{
 
-alert("ACCESS DENIED");
+startLock();
 
 }
+
+}
+
+function startLock(){
+
+locked=true;
+
+document.getElementById("loginBtn").disabled=true;
+
+let status=document.getElementById("status");
+
+let timer=setInterval(function(){
+
+status.innerText="ACCESS DENIED — RETRY IN "+timeLeft+"s";
+
+timeLeft--;
+
+if(timeLeft<0){
+
+clearInterval(timer);
+
+locked=false;
+
+timeLeft=30;
+
+document.getElementById("loginBtn").disabled=false;
+
+status.innerText="";
+
+}
+
+},1000);
 
 }
 
