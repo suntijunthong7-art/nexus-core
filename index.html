@@ -10,7 +10,7 @@
 
 body{
 font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#06242e,#0f4c5c);
+background: linear-gradient(135deg,#0b2a36,#0f4c5c);
 height:100vh;
 display:flex;
 justify-content:center;
@@ -19,100 +19,89 @@ margin:0;
 }
 
 .card{
-background:#f5f6f7;
+background:#f4f6f8;
 padding:35px;
 width:340px;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,0.4);
+border-radius:18px;
+box-shadow:0 20px 60px rgba(0,0,0,0.45);
 text-align:center;
 }
 
 .logo{
-width:85px;
-margin-bottom:15px;
+width:80px;
+margin-bottom:10px;
 }
 
 .title{
 font-size:22px;
-font-weight:bold;
-letter-spacing:2px;
-color:#2b2b2b;
+font-weight:700;
+letter-spacing:1px;
+color:#1f2933;
 }
 
 .subtitle{
-color:#6d6d6d;
+color:#6b7280;
 font-size:14px;
 margin-bottom:15px;
 }
 
-.meta{
+.sysinfo{
 font-size:12px;
-color:#7a7a7a;
-margin-bottom:20px;
+color:#6b7280;
+margin-bottom:18px;
 line-height:1.6;
 }
 
 input{
 width:100%;
-padding:12px;
-margin:7px 0;
-border-radius:10px;
-border:1px solid #ccc;
+padding:11px;
+margin:6px 0;
+border-radius:8px;
+border:1px solid #cbd5e1;
 font-size:14px;
-}
-
-input:focus{
-outline:none;
-border-color:#2e3f55;
-box-shadow:0 0 4px rgba(0,0,0,0.2);
 }
 
 button{
 width:100%;
-padding:13px;
-margin-top:12px;
+padding:12px;
+margin-top:10px;
 border:none;
-border-radius:10px;
-background:#394b63;
+border-radius:8px;
+background:#334155;
 color:white;
 font-weight:bold;
-font-size:15px;
+letter-spacing:1px;
 cursor:pointer;
-transition:0.2s;
-}
-
-button:hover{
-background:#2f4056;
 }
 
 button:disabled{
-background:#9aa3ad;
-cursor:not-allowed;
+background:#94a3b8;
 }
 
 .status{
 font-size:12px;
-margin-top:10px;
-color:#666;
+margin-top:12px;
+color:#475569;
 }
 
-.console{
-background:black;
-color:#00ff6a;
-font-family:monospace;
-font-size:12px;
-text-align:left;
-padding:10px;
-border-radius:10px;
+.log{
+background:#1f2933;
+color:#d1d5db;
+font-size:11px;
+padding:12px;
 margin-top:15px;
-height:80px;
+border-radius:8px;
+text-align:left;
+height:70px;
 overflow:hidden;
+font-family:monospace;
+border:1px solid #374151;
 }
 
-.warning{
+.footer{
 font-size:11px;
 margin-top:15px;
-color:#777;
+color:#6b7280;
 }
 
 </style>
@@ -127,28 +116,25 @@ color:#777;
 <div class="title">NEXUS CORE SYSTEM</div>
 <div class="subtitle">Secure Access Portal</div>
 
-<div class="meta">
+<div class="sysinfo">
 SYSTEM ID: NX-CORE-771A<br>
 SECURITY LEVEL: OMEGA<br>
 NETWORK NODE: GLOBAL GRID
 </div>
 
-<input id="user" placeholder="รหัสผู้ใช้">
-<input id="pass" type="password" placeholder="รหัสผ่าน">
+<input id="user" placeholder="User ID">
+<input id="pass" type="password" placeholder="Password">
 
-<button id="loginBtn" onclick="login()">เข้าสู่ระบบ</button>
+<button id="loginBtn" onclick="login()">SIGN IN</button>
 
-<div class="status" id="status">
-สถานะระบบ: ออนไลน์ | การเข้ารหัส: AES-256
+<div class="status">
+System Status: ONLINE | Encryption: AES-256
 </div>
 
-<div class="console" id="console">
-[ระบบ] nexus core เริ่มทำงานแล้ว<br>
-</div>
+<div class="log" id="log"></div>
 
-<div class="warning">
-คำเตือน: เฉพาะบุคลากรที่ได้รับอนุญาตเท่านั้น<br>
-กิจกรรมทั้งหมดจะถูกตรวจสอบ<br>
+<div class="footer">
+Authorized personnel only. All access is logged and monitored.<br>
 © 2025 Nexus Core Systems
 </div>
 
@@ -160,98 +146,69 @@ const ADMIN_ID="admin"
 const ADMIN_PASS="1234"
 const LINE_URL="https://lin.ee/lGGma6p"
 
-let lockUntil = localStorage.getItem("lockUntil") || 0
+let attempts=0
+let lockUntil=0
 
-const btn=document.getElementById("loginBtn")
-const user=document.getElementById("user")
-const pass=document.getElementById("pass")
-const consoleBox=document.getElementById("console")
-const status=document.getElementById("status")
+const logBox=document.getElementById("log")
 
-function log(text){
-consoleBox.innerHTML += text+"<br>"
-consoleBox.scrollTop=consoleBox.scrollHeight
+function time(){
+let d=new Date()
+return d.toLocaleTimeString()
 }
 
-function checkLock(){
-
-let now=Date.now()
-
-if(lockUntil>now){
-
-btn.disabled=true
-user.disabled=true
-pass.disabled=true
-
-startCountdown()
-
+function addLog(text){
+logBox.innerHTML+="["+time()+"] "+text+"<br>"
+logBox.scrollTop=logBox.scrollHeight
 }
 
-}
+function boot(){
 
-function startCountdown(){
-
-let timer=setInterval(()=>{
-
-let now=Date.now()
-let remain=Math.floor((lockUntil-now)/1000)
-
-if(remain<=0){
-
-clearInterval(timer)
-
-btn.disabled=false
-user.disabled=false
-pass.disabled=false
-
-status.innerHTML="สถานะระบบ: ออนไลน์ | การเข้ารหัส: AES-256"
-localStorage.removeItem("lockUntil")
-
-log("[ระบบ] ปลดล็อคการเข้าสู่ระบบ")
-
-return
-}
-
-status.innerHTML="ล็อคความปลอดภัย "+remain+" วินาที"
-
-},1000)
+addLog("nexus core boot sequence initialized")
+setTimeout(()=>addLog("secure connection established"),800)
+setTimeout(()=>addLog("authentication service ready"),1600)
+setTimeout(()=>addLog("system monitoring active"),2300)
 
 }
 
 function login(){
 
-let id=user.value
-let pw=pass.value
+let id=document.getElementById("user").value
+let pw=document.getElementById("pass").value
 
-log("[AUTH] ตรวจสอบข้อมูลผู้ใช้")
+let now=Date.now()
+
+if(lockUntil>now){
+
+addLog("access temporarily locked")
+return
+
+}
 
 if(id===ADMIN_ID && pw===ADMIN_PASS){
 
-log("[AUTH] ยืนยันตัวตนสำเร็จ")
-log("[NODE] กำลังเชื่อมต่อระบบ")
-
+addLog("authentication successful")
 setTimeout(()=>{
 window.location.href=LINE_URL
-},800)
+},900)
 
 return
 
 }
 
-log("[SECURITY] รหัสไม่ถูกต้อง")
+attempts++
+
+addLog("invalid credentials attempt")
+
+if(attempts>=1){
 
 lockUntil=Date.now()+30000
-localStorage.setItem("lockUntil",lockUntil)
-
-checkLock()
+addLog("security lock engaged (30s)")
 
 }
 
-checkLock()
+}
 
-log("[NODE] เชื่อมต่อเครือข่ายสำเร็จ")
-log("[SECURITY] encryption module loaded")
-log("[SYSTEM] awaiting credentials")
+boot()
 
 </script>
 
