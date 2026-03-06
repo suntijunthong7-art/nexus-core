@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nexus Core Secure Portal</title>
 
 <style>
@@ -14,24 +15,27 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+margin:0;
 }
 
 .container{
 background:white;
 padding:40px;
 border-radius:20px;
-width:350px;
+width:380px;
 text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 .logo{
-width:70px;
+width:95px;
 margin-bottom:15px;
 }
 
 h1{
-letter-spacing:3px;
-font-size:26px;
+letter-spacing:4px;
+font-size:28px;
+margin:5px 0;
 }
 
 .subtitle{
@@ -45,6 +49,7 @@ padding:12px;
 margin:8px 0;
 border-radius:8px;
 border:1px solid #ccc;
+font-size:15px;
 }
 
 button{
@@ -55,23 +60,26 @@ color:white;
 border:none;
 border-radius:10px;
 font-weight:bold;
+font-size:15px;
 cursor:pointer;
 }
 
 button:disabled{
 background:#999;
-}
-
-.footer{
-margin-top:20px;
-font-size:12px;
-color:#777;
+cursor:not-allowed;
 }
 
 .lock{
-color:red;
-font-weight:bold;
 margin-top:10px;
+font-weight:bold;
+color:red;
+}
+
+.footer{
+margin-top:25px;
+font-size:12px;
+color:#777;
+line-height:1.6;
 }
 
 </style>
@@ -88,8 +96,7 @@ margin-top:10px;
 
 <p>
 SYSTEM ID: NX-CORE-771A<br>
-SECURITY LEVEL: OMEGA<br>
-NETWORK NODE: GLOBAL GRID
+SECURITY LEVEL: OMEGA
 </p>
 
 <input type="text" id="user" placeholder="Username">
@@ -101,12 +108,7 @@ NETWORK NODE: GLOBAL GRID
 
 <div class="footer">
 
-SYSTEM STATUS: ONLINE<br>
-ENCRYPTION: AES-256
-
-<br><br>
-
-WARNING: This system is restricted to authorized personnel only.<br>
+Unauthorized access is prohibited.<br>
 All access is logged and monitored.
 
 <br><br>
@@ -120,74 +122,78 @@ Nexus Core Lab — Advanced Research Division<br>
 
 <script>
 
-let failCount = localStorage.getItem("failCount") ? parseInt(localStorage.getItem("failCount")) : 0;
-let lockUntil = localStorage.getItem("lockUntil") ? parseInt(localStorage.getItem("lockUntil")) : 0;
+let failCount = localStorage.getItem("failCount") || 0
+let lockUntil = localStorage.getItem("lockUntil") || 0
 
-function checkLock(){
-
-let now = Date.now();
-
-if(now < lockUntil){
-
-let remaining = Math.ceil((lockUntil - now)/1000);
-
-document.getElementById("loginBtn").disabled = true;
-document.getElementById("lockMsg").innerText =
-"SECURITY LOCK ACTIVE ("+remaining+"s)";
-
-}else{
-
-document.getElementById("loginBtn").disabled = false;
-document.getElementById("lockMsg").innerText = "";
-
-}
-
-}
-
-setInterval(checkLock,1000);
+failCount = parseInt(failCount)
+lockUntil = parseInt(lockUntil)
 
 function login(){
 
-let now = Date.now();
+let now = Date.now()
 
 if(now < lockUntil){
-return;
+return
 }
 
-var user=document.getElementById("user").value;
-var pass=document.getElementById("pass").value;
+var user=document.getElementById("user").value
+var pass=document.getElementById("pass").value
 
 if(user==="Nc001" && pass==="1234"){
 
-localStorage.removeItem("failCount");
-localStorage.removeItem("lockUntil");
+localStorage.removeItem("failCount")
+localStorage.removeItem("lockUntil")
 
-window.location.href="https://lin.ee/lGGma6p";
+window.location.href="https://lin.ee/lGGma6p"
 
 }else{
 
-failCount++;
-localStorage.setItem("failCount",failCount);
+failCount++
+localStorage.setItem("failCount",failCount)
+
+alert("ACCESS DENIED")
 
 if(failCount%3===0){
 
-let level = failCount/3;
+let extraTime = (failCount/3) * 30
 
-let lockTime = level*30*1000;
+lockUntil = Date.now() + extraTime*1000
 
-lockUntil = Date.now()+lockTime;
+localStorage.setItem("lockUntil",lockUntil)
 
-localStorage.setItem("lockUntil",lockUntil);
-
-}
-
-checkLock();
+updateLock()
 
 }
 
 }
 
-checkLock();
+}
+
+function updateLock(){
+
+let now = Date.now()
+
+if(now < lockUntil){
+
+let seconds = Math.ceil((lockUntil-now)/1000)
+
+document.getElementById("lockMsg").innerHTML =
+"SECURITY LOCK ACTIVE ("+seconds+"s)"
+
+document.getElementById("loginBtn").disabled = true
+
+setTimeout(updateLock,1000)
+
+}else{
+
+document.getElementById("lockMsg").innerHTML = ""
+document.getElementById("loginBtn").disabled = false
+
+}
+
+}
+
+updateLock()
 
 </script>
 
