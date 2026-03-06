@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,8 +10,8 @@
 <style>
 
 body{
-font-family: Arial, sans-serif;
-background: linear-gradient(180deg,#0f2a2c,#0b1c1e);
+font-family:Arial, sans-serif;
+background:linear-gradient(180deg,#0f2a2c,#0b1c1e);
 display:flex;
 justify-content:center;
 align-items:center;
@@ -24,7 +25,6 @@ padding:40px;
 border-radius:20px;
 width:380px;
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 .logo{
@@ -35,12 +35,12 @@ margin-bottom:15px;
 h1{
 letter-spacing:4px;
 font-size:28px;
-margin:5px 0;
+margin-bottom:5px;
 }
 
 .subtitle{
 color:#777;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
 input{
@@ -49,7 +49,7 @@ padding:12px;
 margin:8px 0;
 border-radius:8px;
 border:1px solid #ccc;
-font-size:15px;
+font-size:14px;
 }
 
 button{
@@ -60,7 +60,6 @@ color:white;
 border:none;
 border-radius:10px;
 font-weight:bold;
-font-size:15px;
 cursor:pointer;
 }
 
@@ -70,9 +69,9 @@ cursor:not-allowed;
 }
 
 .lock{
-margin-top:10px;
-font-weight:bold;
 color:red;
+font-weight:bold;
+margin-top:15px;
 }
 
 .footer{
@@ -94,11 +93,6 @@ line-height:1.6;
 <h1>NEXUS CORE</h1>
 <div class="subtitle">Secure Access Portal</div>
 
-<p>
-SYSTEM ID: NX-CORE-771A<br>
-SECURITY LEVEL: OMEGA
-</p>
-
 <input type="text" id="user" placeholder="Username">
 <input type="password" id="pass" placeholder="Password">
 
@@ -109,11 +103,10 @@ SECURITY LEVEL: OMEGA
 <div class="footer">
 
 Unauthorized access is prohibited.<br>
-All access is logged and monitored.
+All activity is logged and monitored.
 
 <br><br>
 
-Nexus Core Lab — Advanced Research Division<br>
 © 2025 Nexus Core Systems
 
 </div>
@@ -122,11 +115,8 @@ Nexus Core Lab — Advanced Research Division<br>
 
 <script>
 
-let failCount = localStorage.getItem("failCount") || 0
-let lockUntil = localStorage.getItem("lockUntil") || 0
-
-failCount = parseInt(failCount)
-lockUntil = parseInt(lockUntil)
+let attempts = localStorage.getItem("attempts") ? parseInt(localStorage.getItem("attempts")) : 0
+let lockUntil = localStorage.getItem("lockUntil") ? parseInt(localStorage.getItem("lockUntil")) : 0
 
 function login(){
 
@@ -141,29 +131,28 @@ var pass=document.getElementById("pass").value
 
 if(user==="Nc001" && pass==="1234"){
 
-localStorage.removeItem("failCount")
+localStorage.removeItem("attempts")
 localStorage.removeItem("lockUntil")
 
 window.location.href="https://lin.ee/lGGma6p"
 
 }else{
 
-failCount++
-localStorage.setItem("failCount",failCount)
+attempts++
+localStorage.setItem("attempts",attempts)
 
 alert("ACCESS DENIED")
 
-if(failCount%3===0){
+if(attempts%3===0){
 
-let extraTime = (failCount/3) * 30
-
-lockUntil = Date.now() + extraTime*1000
+let addTime = (attempts/3)*30000
+lockUntil = Date.now()+addTime
 
 localStorage.setItem("lockUntil",lockUntil)
 
-updateLock()
-
 }
+
+updateLock()
 
 }
 
@@ -172,22 +161,22 @@ updateLock()
 function updateLock(){
 
 let now = Date.now()
+let btn=document.getElementById("loginBtn")
+let msg=document.getElementById("lockMsg")
 
 if(now < lockUntil){
 
-let seconds = Math.ceil((lockUntil-now)/1000)
+let sec=Math.ceil((lockUntil-now)/1000)
 
-document.getElementById("lockMsg").innerHTML =
-"SECURITY LOCK ACTIVE ("+seconds+"s)"
-
-document.getElementById("loginBtn").disabled = true
+btn.disabled=true
+msg.innerText="SECURITY LOCK ACTIVE ("+sec+"s)"
 
 setTimeout(updateLock,1000)
 
 }else{
 
-document.getElementById("lockMsg").innerHTML = ""
-document.getElementById("loginBtn").disabled = false
+btn.disabled=false
+msg.innerText=""
 
 }
 
