@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,7 @@ text-align:center;
 }
 
 .logo{
-width:95px;
+width:80px;
 margin-bottom:18px;
 }
 
@@ -43,11 +43,11 @@ color:#2b2b2b;
 .subtitle{
 color:#6a6a6a;
 font-size:14px;
-margin-bottom:20px;
+margin-bottom:18px;
 }
 
 .systeminfo{
-font-size:13px;
+font-size:12px;
 color:#8a8a8a;
 line-height:1.6;
 margin-bottom:20px;
@@ -58,7 +58,7 @@ width:100%;
 padding:12px;
 margin:8px 0;
 border-radius:10px;
-border:1px solid #dcdcdc;
+border:1px solid #c9c9c9;
 font-size:14px;
 transition:0.2s;
 }
@@ -75,7 +75,7 @@ padding:13px;
 margin-top:10px;
 border:none;
 border-radius:10px;
-background:#3e516a;
+background:#36495e;
 color:white;
 font-weight:bold;
 letter-spacing:1px;
@@ -84,35 +84,34 @@ transition:0.25s;
 }
 
 button:hover{
-background:#2d3f58;
+background:#273748;
 transform:translateY(-1px);
 box-shadow:0 8px 18px rgba(0,0,0,0.25);
 }
 
 button:disabled{
-background:#7d8793;
-opacity:0.85;
+background:#9aa3ad;
 cursor:not-allowed;
-}
-
-.status{
-margin-top:18px;
-font-size:13px;
-color:#7a7a7a;
-line-height:1.6;
-}
-
-.footer{
-margin-top:18px;
-font-size:12px;
-color:#8c8c8c;
 }
 
 #message{
 margin-top:12px;
 font-size:14px;
-font-weight:500;
 color:red;
+font-weight:bold;
+}
+
+.status{
+margin-top:20px;
+font-size:12px;
+color:#7a7a7a;
+line-height:1.6;
+}
+
+.footer{
+margin-top:20px;
+font-size:11px;
+color:#8c8c8c;
 }
 
 </style>
@@ -124,34 +123,34 @@ color:red;
 
 <img src="logo.png" class="logo">
 
-<div class="title">NEXUS CORE SYSTEM</div>
-<div class="subtitle">Secure Access Portal</div>
+<div class="title">ระบบหลักเน็กซัส</div>
+<div class="subtitle">พอร์ทัลการเข้าถึงที่ปลอดภัย</div>
 
 <div class="systeminfo">
-SYSTEM ID : NX-CORE-771A<br>
-SECURITY LEVEL : OMEGA<br>
-NETWORK NODE : GLOBAL GRID
+รหัสระบบ : NX-CORE-771A<br>
+ระดับความปลอดภัย : OMEGA<br>
+โหนดเครือข่าย : GLOBAL GRID
 </div>
 
-<input type="text" id="user" placeholder="User ID">
-<input type="password" id="pass" placeholder="Password">
+<input id="user" placeholder="User ID">
+<input id="pass" type="password" placeholder="Password">
 
-<button onclick="login()" id="loginBtn">SIGN IN</button>
+<button id="loginBtn" onclick="login()">เข้าสู่ระบบ</button>
 
 <div id="message"></div>
 
 <div class="status">
-SYSTEM STATUS : ONLINE<br>
-ENCRYPTION : AES-256<br>
-NODE AUTHENTICATION : VERIFIED<br>
-USER IP : <span id="ip">110.77.138.96</span><br>
-SESSION ID : <span id="session"></span><br>
-SERVER TIME : <span id="time"></span>
+สถานะระบบ: ออนไลน์<br>
+การเข้ารหัส: AES-256<br>
+การตรวจสอบสิทธิ์โหนด: ยืนยันแล้ว<br>
+IP ผู้ใช้: <span id="ip"></span><br>
+รหัสเซสชัน: <span id="session"></span><br>
+เวลาเซิร์ฟเวอร์: <span id="time"></span>
 </div>
 
 <div class="footer">
-WARNING: This system is restricted to authorized personnel only.<br>
-All access is logged and monitored.<br>
+คำเตือน: ระบบนี้จำกัดเฉพาะบุคลากรที่ได้รับอนุญาตเท่านั้น<br>
+การเข้าถึงทั้งหมดจะถูกบันทึกและตรวจสอบ<br>
 © 2025 Nexus Core Systems
 </div>
 
@@ -159,36 +158,72 @@ All access is logged and monitored.<br>
 
 <script>
 
-let attempts = 0
-let lockTime = 30
-let lockedUntil = localStorage.getItem("lockUntil")
+const ADMIN_ID="admin"
+const ADMIN_PASS="1234"
+const LINE_URL="https://lin.ee/lGGma6p"
 
-const btn = document.getElementById("loginBtn")
-const message = document.getElementById("message")
+let lockUntil=localStorage.getItem("lockUntil") || 0
 
-if(lockedUntil){
-checkLock()
+const msg=document.getElementById("message")
+const btn=document.getElementById("loginBtn")
+const user=document.getElementById("user")
+const pass=document.getElementById("pass")
+
+function randomSession(){
+return Math.random().toString(36).substring(2,10).toUpperCase()
+}
+
+document.getElementById("session").innerText=randomSession()
+
+function updateTime(){
+let now=new Date()
+document.getElementById("time").innerText=now.toLocaleTimeString()
+}
+setInterval(updateTime,1000)
+updateTime()
+
+function checkLock(){
+
+let now=Date.now()
+
+if(lockUntil>now){
+
+let seconds=Math.ceil((lockUntil-now)/1000)
+
+btn.disabled=true
+user.disabled=true
+pass.disabled=true
+
+msg.innerText="ระบบล็อคเพื่อความปลอดภัย โปรดลองใหม่ใน "+seconds+" วินาที"
+
+setTimeout(checkLock,1000)
+
+}else{
+
+btn.disabled=false
+user.disabled=false
+pass.disabled=false
+msg.innerText=""
+
+localStorage.removeItem("lockUntil")
+
+}
+
 }
 
 function login(){
 
-const user = document.getElementById("user").value
-const pass = document.getElementById("pass").value
+let u=user.value
+let p=pass.value
 
-if(Date.now() < lockedUntil){
-return
-}
+if(u===ADMIN_ID && p===ADMIN_PASS){
 
-if(user==="admin" && pass==="1234"){
-
-window.location.href="https://lin.ee/lGGma6p"
+window.location.href=LINE_URL
 
 }else{
 
-attempts++
-
-lockedUntil = Date.now() + (lockTime*1000)
-localStorage.setItem("lockUntil",lockedUntil)
+lockUntil=Date.now()+30000
+localStorage.setItem("lockUntil",lockUntil)
 
 checkLock()
 
@@ -196,58 +231,13 @@ checkLock()
 
 }
 
-function checkLock(){
+checkLock()
 
-btn.disabled = true
-
-let timer = setInterval(()=>{
-
-let remaining = Math.floor((lockedUntil - Date.now())/1000)
-
-if(remaining <=0){
-
-clearInterval(timer)
-btn.disabled=false
-message.innerHTML=""
-localStorage.removeItem("lockUntil")
-attempts=0
-
-}else{
-
-message.innerHTML="SECURITY LOCK ACTIVE<br>Retry in "+remaining+" seconds"
-
-}
-
-},1000)
-
-}
-
-function updateTime(){
-
-let now = new Date()
-document.getElementById("time").innerText =
-now.toLocaleTimeString()
-
-}
-
-setInterval(updateTime,1000)
-
-function generateSession(){
-
-let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-let id=""
-
-for(let i=0;i<10;i++){
-
-id += chars.charAt(Math.floor(Math.random()*chars.length))
-
-}
-
-document.getElementById("session").innerText=id
-
-}
-
-generateSession()
+fetch("https://api.ipify.org?format=json")
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("ip").innerText=data.ip
+})
 
 </script>
 
