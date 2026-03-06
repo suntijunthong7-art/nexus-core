@@ -9,92 +9,148 @@
 <style>
 
 body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:linear-gradient(160deg,#063d3d,#0a5c5c);
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#052c33,#0c4a54);
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
+margin:0;
+overflow:hidden;
 }
+
+/* CARD */
 
 .card{
-background:white;
-width:90%;
-max-width:420px;
+background: rgba(255,255,255,0.96);
+backdrop-filter: blur(8px);
 padding:40px;
-border-radius:30px;
+width:340px;
+border-radius:20px;
+box-shadow:0 30px 80px rgba(0,0,0,0.45);
 text-align:center;
-box-shadow:0 20px 40px rgba(0,0,0,0.2);
+
+animation:fadeIn 0.7s ease;
 }
+
+/* LOGO */
 
 .logo{
-width:95px;
-margin-bottom:10px;
+width:85px;
+margin-bottom:18px;
 }
 
-h1{
-margin:5px 0;
+/* TITLE */
+
+.title{
+font-size:24px;
+font-weight:bold;
 letter-spacing:2px;
-font-size:26px;
+color:#2b2b2b;
 }
+
+/* SUB */
 
 .subtitle{
-color:#777;
+color:#6a6a6a;
+font-size:14px;
 margin-bottom:20px;
 }
 
-.system-info{
-color:#999;
+/* SYSTEM INFO */
+
+.systeminfo{
 font-size:13px;
-margin-bottom:25px;
+color:#8a8a8a;
 line-height:1.6;
+margin-bottom:20px;
 }
+
+/* INPUT */
 
 input{
 width:100%;
-padding:15px;
+padding:12px;
 margin:8px 0;
-border-radius:12px;
-border:1px solid #ddd;
-font-size:15px;
+border-radius:10px;
+border:1px solid #dcdcdc;
+font-size:14px;
+transition:0.25s;
 }
+
+input:focus{
+border:1px solid #2d6cdf;
+outline:none;
+box-shadow:0 0 0 3px rgba(45,108,223,0.15);
+transform:scale(1.01);
+}
+
+/* BUTTON */
 
 button{
 width:100%;
-padding:15px;
+padding:13px;
 margin-top:10px;
 border:none;
-border-radius:12px;
-background:#455a75;
+border-radius:10px;
+background:#3e516a;
 color:white;
-font-size:16px;
+font-weight:bold;
 letter-spacing:1px;
-font-weight:600;
 cursor:pointer;
-transition:0.3s;
+transition:0.25s;
 }
 
 button:hover{
-background:#2f4159;
+background:#2d3f58;
+transform:translateY(-2px);
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
+
+button:active{
+transform:scale(0.98);
+}
+
+button:disabled{
+background:#9aa3ad;
+cursor:not-allowed;
+}
+
+/* STATUS */
 
 .status{
-margin-top:20px;
+margin-top:18px;
 font-size:13px;
-color:#777;
-line-height:1.7;
+color:#7a7a7a;
+line-height:1.5;
 }
 
+/* WARNING */
+
 .warning{
-margin-top:15px;
+margin-top:18px;
 font-size:12px;
-color:#999;
+color:#9a9a9a;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
 }
 
 </style>
 </head>
-
 
 <body>
 
@@ -102,65 +158,40 @@ color:#999;
 
 <img class="logo" src="logo.png">
 
-<h1>NEXUS CORE SYSTEM</h1>
-<div class="subtitle">Secure Access Portal</div>
+<div class="title">
+NEXUS CORE SYSTEM
+</div>
 
-<div class="system-info">
+<div class="subtitle">
+Secure Access Portal
+</div>
+
+<div class="systeminfo">
 SYSTEM ID: NX-CORE-771A<br>
 SECURITY LEVEL: OMEGA<br>
 NETWORK NODE: GLOBAL GRID
 </div>
 
 <input type="text" placeholder="User ID">
+
 <input type="password" placeholder="Password">
 
 <button>SIGN IN</button>
 
 <div class="status">
-
 SYSTEM STATUS: ONLINE<br>
 SECURE CHANNEL: AES-256<br>
 NODE AUTHENTICATION: VERIFIED<br>
-
-USER IP: <span id="ip">Loading...</span><br>
-SESSION ID: <span id="session"></span><br>
-SERVER TIME: <span id="time"></span>
-
+USER IP: 110.77.138.96
 </div>
 
 <div class="warning">
-
 WARNING: This system is restricted to authorized personnel only.<br>
 All access is logged and monitored.<br>
 © 2025 Nexus Core Systems
-
 </div>
 
 </div>
-
-
-<script>
-
-function randomSession(){
-return Math.random().toString(36).substring(2,12).toUpperCase()
-}
-
-document.getElementById("session").innerText=randomSession()
-
-function updateTime(){
-const now=new Date()
-document.getElementById("time").innerText=now.toLocaleTimeString()
-}
-
-setInterval(updateTime,1000)
-
-fetch("https://api.ipify.org?format=json")
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("ip").innerText=data.ip
-})
-
-</script>
 
 </body>
 </html>
