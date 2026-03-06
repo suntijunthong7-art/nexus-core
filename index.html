@@ -4,12 +4,13 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nexus Core Secure Portal</title>
 
 <style>
 
 body{
-font-family:Arial,sans-serif;
+font-family:Arial;
 background:linear-gradient(180deg,#0f2a2c,#0b1c1e);
 display:flex;
 justify-content:center;
@@ -57,7 +58,6 @@ color:white;
 border:none;
 border-radius:10px;
 font-weight:bold;
-cursor:pointer;
 }
 
 button:disabled{
@@ -70,43 +70,48 @@ font-weight:bold;
 margin-top:15px;
 }
 
-.footer{
-margin-top:25px;
-font-size:12px;
-color:#777;
-line-height:1.6;
-}
+/* MODAL */
 
-
-/* POPUP */
-
-.popup-bg{
+.modal{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.5);
+background:rgba(0,0,0,0.6);
 display:none;
 justify-content:center;
 align-items:center;
 }
 
-.popup{
+.modal-box{
 background:white;
 padding:25px;
 border-radius:12px;
-width:260px;
+width:300px;
 text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
-.popup h3{
-margin:0 0 10px 0;
+.modal-title{
+font-weight:bold;
+margin-bottom:10px;
 }
 
-.popup button{
-margin-top:15px;
-background:#4b5f77;
+.modal-text{
+color:#444;
+margin-bottom:20px;
+}
+
+.modal button{
+background:#2f3d50;
+}
+
+.footer{
+margin-top:25px;
+font-size:12px;
+color:#777;
+line-height:1.6;
 }
 
 </style>
@@ -121,8 +126,8 @@ background:#4b5f77;
 <h1>NEXUS CORE</h1>
 <div class="subtitle">Secure Access Portal</div>
 
-<input type="text" id="user" placeholder="Username">
-<input type="password" id="pass" placeholder="Password">
+<input id="user" placeholder="Username">
+<input id="pass" type="password" placeholder="Password">
 
 <button id="loginBtn" onclick="login()">SIGN IN</button>
 
@@ -130,8 +135,8 @@ background:#4b5f77;
 
 <div class="footer">
 
-Unauthorized access prohibited.<br>
-All activity monitored.
+Unauthorized access is prohibited.<br>
+All activity is logged and monitored.
 
 <br><br>
 
@@ -142,34 +147,29 @@ All activity monitored.
 </div>
 
 
-<!-- POPUP -->
+<!-- MODAL -->
 
-<div class="popup-bg" id="popupBg">
-<div class="popup">
+<div id="modal" class="modal">
 
-<h3>ACCESS DENIED</h3>
-<p>Invalid credentials</p>
+<div class="modal-box">
 
-<button onclick="closePopup()">OK</button>
+<div class="modal-title">ACCESS DENIED</div>
+
+<div class="modal-text">
+Invalid credentials detected.<br>
+Security event logged.
+</div>
+
+<button onclick="closeModal()">DISMISS</button>
 
 </div>
-</div>
 
+</div>
 
 <script>
 
 let attempts = localStorage.getItem("attempts") ? parseInt(localStorage.getItem("attempts")) : 0
 let lockUntil = localStorage.getItem("lockUntil") ? parseInt(localStorage.getItem("lockUntil")) : 0
-
-
-function showPopup(){
-document.getElementById("popupBg").style.display="flex"
-}
-
-function closePopup(){
-document.getElementById("popupBg").style.display="none"
-}
-
 
 function login(){
 
@@ -181,7 +181,6 @@ return
 
 var user=document.getElementById("user").value
 var pass=document.getElementById("pass").value
-
 
 if(user==="Nc001" && pass==="1234"){
 
@@ -195,7 +194,7 @@ window.location.href="https://lin.ee/lGGma6p"
 attempts++
 localStorage.setItem("attempts",attempts)
 
-showPopup()
+showModal()
 
 if(attempts%3===0){
 
@@ -211,7 +210,6 @@ updateLock()
 }
 
 }
-
 
 function updateLock(){
 
@@ -234,6 +232,18 @@ btn.disabled=false
 msg.innerText=""
 
 }
+
+}
+
+function showModal(){
+
+document.getElementById("modal").style.display="flex"
+
+}
+
+function closeModal(){
+
+document.getElementById("modal").style.display="none"
 
 }
 
