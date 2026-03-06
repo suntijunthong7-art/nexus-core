@@ -4,13 +4,12 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Nexus Core Secure Portal</title>
 
 <style>
 
 body{
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 background:linear-gradient(180deg,#0f2a2c,#0b1c1e);
 display:flex;
 justify-content:center;
@@ -35,7 +34,6 @@ margin-bottom:15px;
 h1{
 letter-spacing:4px;
 font-size:28px;
-margin-bottom:5px;
 }
 
 .subtitle{
@@ -49,7 +47,6 @@ padding:12px;
 margin:8px 0;
 border-radius:8px;
 border:1px solid #ccc;
-font-size:14px;
 }
 
 button{
@@ -65,7 +62,6 @@ cursor:pointer;
 
 button:disabled{
 background:#999;
-cursor:not-allowed;
 }
 
 .lock{
@@ -79,6 +75,38 @@ margin-top:25px;
 font-size:12px;
 color:#777;
 line-height:1.6;
+}
+
+
+/* POPUP */
+
+.popup-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.popup{
+background:white;
+padding:25px;
+border-radius:12px;
+width:260px;
+text-align:center;
+}
+
+.popup h3{
+margin:0 0 10px 0;
+}
+
+.popup button{
+margin-top:15px;
+background:#4b5f77;
 }
 
 </style>
@@ -102,11 +130,119 @@ line-height:1.6;
 
 <div class="footer">
 
-Unauthorized access is prohibited.<br>
-All activity is logged and monitored.
+Unauthorized access prohibited.<br>
+All activity monitored.
 
 <br><br>
 
+© 2025 Nexus Core Systems
+
+</div>
+
+</div>
+
+
+<!-- POPUP -->
+
+<div class="popup-bg" id="popupBg">
+<div class="popup">
+
+<h3>ACCESS DENIED</h3>
+<p>Invalid credentials</p>
+
+<button onclick="closePopup()">OK</button>
+
+</div>
+</div>
+
+
+<script>
+
+let attempts = localStorage.getItem("attempts") ? parseInt(localStorage.getItem("attempts")) : 0
+let lockUntil = localStorage.getItem("lockUntil") ? parseInt(localStorage.getItem("lockUntil")) : 0
+
+
+function showPopup(){
+document.getElementById("popupBg").style.display="flex"
+}
+
+function closePopup(){
+document.getElementById("popupBg").style.display="none"
+}
+
+
+function login(){
+
+let now = Date.now()
+
+if(now < lockUntil){
+return
+}
+
+var user=document.getElementById("user").value
+var pass=document.getElementById("pass").value
+
+
+if(user==="Shsn" && pass==="1234"){
+
+localStorage.removeItem("attempts")
+localStorage.removeItem("lockUntil")
+
+window.location.href="https://lin.ee/lGGma6p"
+
+}else{
+
+attempts++
+localStorage.setItem("attempts",attempts)
+
+showPopup()
+
+if(attempts%3===0){
+
+let addTime=(attempts/3)*30000
+lockUntil=Date.now()+addTime
+
+localStorage.setItem("lockUntil",lockUntil)
+
+}
+
+updateLock()
+
+}
+
+}
+
+
+function updateLock(){
+
+let now=Date.now()
+let btn=document.getElementById("loginBtn")
+let msg=document.getElementById("lockMsg")
+
+if(now<lockUntil){
+
+let sec=Math.ceil((lockUntil-now)/1000)
+
+btn.disabled=true
+msg.innerText="SECURITY LOCK ACTIVE ("+sec+"s)"
+
+setTimeout(updateLock,1000)
+
+}else{
+
+btn.disabled=false
+msg.innerText=""
+
+}
+
+}
+
+updateLock()
+
+</script>
+
+</body>
+</html>
 © 2025 Nexus Core Systems
 
 </div>
