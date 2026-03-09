@@ -1,156 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Red Queen AI Core</title>
+<meta charset="UTF-8">
+<title>RED QUEEN CORE</title>
 
 <style>
 
 body{
-background:#050505;
-color:#ff2a2a;
-font-family:Courier New;
+background:#0a0f18;
+color:#e6edf3;
+font-family:Arial;
 margin:0;
 }
 
-.header{
-background:#120000;
-padding:20px;
-font-size:22px;
-border-bottom:1px solid #ff0000;
+/* top bar */
+
+.top{
+background:#111827;
+padding:15px;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+letter-spacing:2px;
 }
+
+/* container */
 
 .container{
-padding:30px;
-max-width:900px;
-margin:auto;
+padding:20px;
 }
 
-.panel{
-border:1px solid #ff0000;
+/* ai panel */
+
+.ai{
+background:#111827;
 padding:20px;
+border-radius:10px;
 margin-bottom:20px;
-background:#0a0000;
 }
+
+.ai h2{
+margin-top:0;
+color:#ff4c4c;
+}
+
+/* system grid */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.card{
+background:#162333;
+padding:15px;
+border-radius:10px;
+}
+
+.card h3{
+margin-top:0;
+}
+
+/* console */
+
+.console{
+background:#000;
+color:#00ff9c;
+padding:15px;
+height:180px;
+overflow:auto;
+font-family:monospace;
+border-radius:10px;
+}
+
+/* buttons */
 
 button{
-
-width:260px;
+width:100%;
 padding:12px;
-margin:10px 0;
-
-background:#100000;
-color:#ff3c3c;
-
-border:1px solid #ff0000;
-
-cursor:pointer;
-font-family:Courier New;
-
+margin-top:10px;
+background:#1f2937;
+border:none;
+color:white;
+border-radius:6px;
+font-size:15px;
 }
 
 button:hover{
-
-background:#2a0000;
-
+background:#162333;
+cursor:pointer;
 }
 
-.popup{
-
-position:fixed;
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,0.8);
-
-display:none;
-align-items:center;
-justify-content:center;
-
+.status-green{
+color:#00ff9c;
 }
 
-.popup-box{
-
-background:#100000;
-border:1px solid red;
-padding:30px;
-text-align:center;
-
+.status-red{
+color:#ff4c4c;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="header">
-RED QUEEN AI CORE
+<div class="top">
+RED QUEEN CONTROL CORE
 </div>
 
 <div class="container">
 
-<div class="panel">
+<div class="ai">
+<h2>AI STATUS</h2>
 
-AI STATUS : ACTIVE  
-Facility Security : ONLINE  
-Containment System : STABLE  
-
-</div>
-
-<div class="panel">
-
-<button onclick="openPopup('Accessing Research Database')">
-Research Database
-</button>
-
-<button onclick="openPopup('Opening Experiment Logs')">
-Experiment Logs
-</button>
-
-<button onclick="openPopup('Security System Control')">
-Security System
-</button>
-
-<button onclick="openPopup('AI Core Diagnostics')">
-AI Diagnostics
-</button>
+<p>AI Unit : <span class="status-green">ONLINE</span></p>
+<p>Facility Control : <span class="status-green">ACTIVE</span></p>
+<p>Security Level : LEVEL 4</p>
 
 </div>
 
+<div class="grid">
+
+<div class="card">
+<h3>Facility Control</h3>
+
+<button onclick="log('Reactor system check... OK')">
+Check Reactor
+</button>
+
+<button onclick="log('Lab doors locked')">
+Lock Laboratory
+</button>
+
+<button onclick="log('Emergency protocol armed')">
+Emergency Protocol
+</button>
+
 </div>
 
-<div class="popup" id="popup">
+<div class="card">
+<h3>Security Systems</h3>
 
-<div class="popup-box">
+<button onclick="log('Camera network online')">
+Camera Network
+</button>
 
-<h3 id="title">SYSTEM</h3>
+<button onclick="log('Biometric scan enabled')">
+Biometric Scan
+</button>
 
-<p>Processing...</p>
+<button onclick="log('Security lockdown initiated')">
+Full Lockdown
+</button>
 
-<button onclick="closePopup()">Close</button>
+</div>
 
+</div>
+
+<br>
+
+<div class="card">
+<h3>Command Console</h3>
+
+<div class="console" id="console">
+> Red Queen AI Initialized<br>
+> Awaiting command...
+</div>
 </div>
 
 </div>
 
 <script>
 
-function openPopup(name){
+function log(text){
 
-document.getElementById("title").innerText=name
-document.getElementById("popup").style.display="flex"
+let consoleBox = document.getElementById("console");
 
-}
+consoleBox.innerHTML += "<br>> " + text;
 
-function closePopup(){
-
-document.getElementById("popup").style.display="none"
+consoleBox.scrollTop = consoleBox.scrollHeight;
 
 }
 
