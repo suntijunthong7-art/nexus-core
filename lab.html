@@ -5,18 +5,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>ห้องปฏิบัติการวิเคราะห์ไวรัส</title>
+<title>Viral Analysis Interface</title>
 
 <style>
 
 body{
+
 margin:0;
-font-family:sans-serif;
-background:#02141c;
-color:#d7f3ff;
+font-family:Arial;
+background:#020e14;
+color:#9edfff;
+
 }
 
-/* grid background */
+/* animated grid */
 
 body::before{
 
@@ -26,12 +28,21 @@ width:100%;
 height:100%;
 
 background-image:
-linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+linear-gradient(rgba(0,255,255,0.06) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,255,255,0.06) 1px, transparent 1px);
 
-background-size:40px 40px;
+background-size:50px 50px;
 
-z-index:-1;
+animation:gridmove 20s linear infinite;
+
+z-index:-2;
+
+}
+
+@keyframes gridmove{
+
+from{transform:translateY(0)}
+to{transform:translateY(50px)}
 
 }
 
@@ -39,38 +50,51 @@ z-index:-1;
 
 header{
 
-background:#06222c;
-padding:14px 20px;
+padding:15px 25px;
+
 display:flex;
 justify-content:space-between;
 align-items:center;
 
-border-bottom:1px solid #0f3c4b;
+border-bottom:1px solid #0f3945;
+
+background:#041921;
 
 }
 
+/* logo */
+
 .logo{
+
 display:flex;
 align-items:center;
 gap:10px;
+
 }
 
 .logo img{
-width:34px;
+
+width:36px;
+
 }
 
+/* status */
+
 .status{
+
 display:flex;
 align-items:center;
 gap:8px;
-font-size:14px;
+
 }
 
 .dot{
 
 width:10px;
 height:10px;
+
 border-radius:50%;
+
 background:#00ff9c;
 
 box-shadow:0 0 10px #00ff9c;
@@ -81,9 +105,9 @@ animation:pulse 2s infinite;
 
 @keyframes pulse{
 
-0%{opacity:.4}
+0%{opacity:.3}
 50%{opacity:1}
-100%{opacity:.4}
+100%{opacity:.3}
 
 }
 
@@ -92,51 +116,84 @@ animation:pulse 2s infinite;
 .container{
 
 width:95%;
-max-width:1200px;
+max-width:1300px;
+
 margin:auto;
-padding:25px 0;
 
-}
-
-/* cards */
-
-.grid{
+padding:30px 0;
 
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:18px;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:25px;
 
 }
+
+/* hud card */
 
 .card{
 
-background:#06222c;
-border:1px solid #0f3c4b;
-border-radius:10px;
+position:relative;
 
-padding:14px;
+background:#041821;
 
-transition:.3s;
+border:1px solid #0f3945;
+
+padding:18px;
+
+}
+
+/* corner frame */
+
+.card::before,
+.card::after{
+
+content:"";
+
+position:absolute;
+
+width:20px;
+height:20px;
+
+border-color:#2ac7ff;
+
+}
+
+.card::before{
+
+top:-1px;
+left:-1px;
+
+border-top:2px solid;
+border-left:2px solid;
+
+}
+
+.card::after{
+
+bottom:-1px;
+right:-1px;
+
+border-bottom:2px solid;
+border-right:2px solid;
 
 }
 
 .card:hover{
 
-border-color:#2ac7ff;
-box-shadow:0 0 15px rgba(0,180,255,.3);
-transform:translateY(-3px);
+box-shadow:0 0 25px rgba(0,255,255,.25);
+
+transform:translateY(-4px);
 
 }
 
-.card h3{
-margin:0;
-font-size:16px;
-}
+/* media */
 
 img,video{
 
 width:100%;
-border-radius:6px;
+
 margin-top:10px;
 
 }
@@ -145,38 +202,41 @@ margin-top:10px;
 
 .radar{
 
-width:200px;
-height:200px;
+width:220px;
+height:220px;
 
 border-radius:50%;
-border:2px solid #0f3c4b;
+
+border:1px solid #2ac7ff;
 
 margin:auto;
+
 position:relative;
+
+overflow:hidden;
 
 }
 
 .radar::after{
 
 content:"";
+
 position:absolute;
 
 width:100%;
 height:100%;
 
-border-radius:50%;
-
 background:conic-gradient(
 transparent 0deg,
-rgba(0,255,255,.3) 30deg,
-transparent 60deg
+rgba(0,255,255,.35) 40deg,
+transparent 70deg
 );
 
-animation:spin 3s linear infinite;
+animation:scan 3s linear infinite;
 
 }
 
-@keyframes spin{
+@keyframes scan{
 
 from{transform:rotate(0)}
 to{transform:rotate(360deg)}
@@ -187,19 +247,19 @@ to{transform:rotate(360deg)}
 
 .terminal{
 
-background:#000c12;
+background:#000a0f;
 
-border:1px solid #0f3c4b;
-
-font-family:monospace;
+border:1px solid #0f3945;
 
 padding:10px;
 
+font-family:monospace;
+
 font-size:13px;
 
-color:#7bd1ff;
+color:#5fe3ff;
 
-height:100px;
+height:110px;
 
 overflow:auto;
 
@@ -207,29 +267,25 @@ overflow:auto;
 
 /* graph */
 
-.chartbox{
+.graph{
 
-margin-top:30px;
+grid-column:1/-1;
 
-background:#06222c;
+background:#041821;
 
-border:1px solid #0f3c4b;
-
-border-radius:10px;
+border:1px solid #0f3945;
 
 padding:20px;
 
-}
-
-canvas{
-width:100%;
 }
 
 footer{
 
 text-align:center;
-padding:20px;
-color:#6fa8c0;
+
+padding:25px;
+
+color:#5a97a8;
 
 }
 
@@ -245,7 +301,7 @@ color:#6fa8c0;
 
 <img src="logo.png">
 
-<b>ห้องปฏิบัติการวิเคราะห์ไวรัส</b>
+<b>Viral Analysis Interface</b>
 
 </div>
 
@@ -253,7 +309,7 @@ color:#6fa8c0;
 
 <div class="dot"></div>
 
-ระบบทำงาน
+SYSTEM ACTIVE
 
 </div>
 
@@ -261,11 +317,9 @@ color:#6fa8c0;
 
 <div class="container">
 
-<div class="grid">
-
 <div class="card">
 
-<h3>การแสดงภาพดีเอ็นเอ</h3>
+<h3>DNA Visualization</h3>
 
 <video autoplay loop muted>
 <source src="dna.mp4">
@@ -275,7 +329,7 @@ color:#6fa8c0;
 
 <div class="card">
 
-<h3>แบบจำลองไวรัส</h3>
+<h3>Virus Model</h3>
 
 <img src="virus-3d.png">
 
@@ -283,7 +337,7 @@ color:#6fa8c0;
 
 <div class="card">
 
-<h3>การติดเชื้อเซลล์</h3>
+<h3>Cell Infection</h3>
 
 <img src="infected-cell.png">
 
@@ -291,7 +345,7 @@ color:#6fa8c0;
 
 <div class="card">
 
-<h3>โครงสร้างของไวรัส</h3>
+<h3>Virus Structure</h3>
 
 <video autoplay loop muted>
 <source src="virus-structure.mp4">
@@ -301,7 +355,7 @@ color:#6fa8c0;
 
 <div class="card">
 
-<h3>การตรวจจับอนุภาค</h3>
+<h3>Particle Scan</h3>
 
 <div class="radar"></div>
 
@@ -309,22 +363,20 @@ color:#6fa8c0;
 
 <div class="card">
 
-<h3>บันทึกระบบ</h3>
+<h3>System Log</h3>
 
 <div class="terminal">
 
-[09:21:03] เริ่มตรวจสอบไวรัส  
-[09:21:07] ตรวจพบพันธุกรรมดีเอ็นเอ  
-[09:21:11] กำลังวิเคราะห์เซลล์โฮสต์  
-[09:21:16] ความน่าจะเป็นการกลายพันธุ์ 0.72  
+[09:21:03] Virus scan started  
+[09:21:07] DNA structure detected  
+[09:21:11] Host cell analysis running  
+[09:21:16] Mutation probability 0.72  
 
 </div>
 
 </div>
 
-</div>
-
-<div class="chartbox">
+<div class="graph">
 
 <canvas id="chart"></canvas>
 
@@ -334,7 +386,7 @@ color:#6fa8c0;
 
 <footer>
 
-อินเทอร์เฟซการตรวจสอบโครงสร้างทางชีวภาพ
+Biological Monitoring Interface
 
 </footer>
 
@@ -355,8 +407,8 @@ datasets:[
 {
 label:"Viral Load",
 data:[2,8,20,38,57,70,90],
-borderColor:"#7bd1ff",
-backgroundColor:"rgba(123,209,255,.15)",
+borderColor:"#5fe3ff",
+backgroundColor:"rgba(95,227,255,.2)",
 fill:true
 },
 
@@ -364,7 +416,7 @@ fill:true
 label:"Cell Damage",
 data:[0,2,6,14,28,48,66],
 borderColor:"#ff7f7f",
-backgroundColor:"rgba(255,127,127,.15)",
+backgroundColor:"rgba(255,127,127,.2)",
 fill:true
 }
 
@@ -373,10 +425,10 @@ fill:true
 },
 
 options:{
-plugins:{legend:{labels:{color:"#d7f3ff"}}},
+plugins:{legend:{labels:{color:"#9edfff"}}},
 scales:{
-x:{ticks:{color:"#9fc6e3"}},
-y:{ticks:{color:"#9fc6e3"}}
+x:{ticks:{color:"#9edfff"}},
+y:{ticks:{color:"#9edfff"}}
 }
 }
 
