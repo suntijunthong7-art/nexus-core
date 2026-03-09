@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nexus Research Facility</title>
 
@@ -8,33 +11,48 @@
 
 body{
 font-family:Arial;
-background:#f2f4f7;
+background:#f4f6f8;
 margin:0;
-padding:40px;
+padding:0;
 }
 
-h1{
-color:#2c3e50;
+.header{
+background:#2e3f55;
+color:white;
+padding:20px;
+font-size:22px;
+}
+
+.container{
+padding:30px;
+max-width:900px;
+margin:auto;
 }
 
 .panel{
 background:white;
 border-radius:8px;
 padding:20px;
-margin-top:20px;
+margin-bottom:20px;
 box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.title{
+font-weight:bold;
+margin-bottom:10px;
 }
 
 .status{
 color:green;
+font-weight:bold;
 }
 
 button{
 background:#2e3f55;
 color:white;
 border:none;
-padding:10px 20px;
-margin-right:10px;
+padding:10px 18px;
+margin:5px;
 border-radius:5px;
 cursor:pointer;
 }
@@ -49,32 +67,45 @@ background:#162333;
 
 <body>
 
-<h1>Nexus Research Facility</h1>
+<div class="header">
+Nexus Research Facility
+</div>
+
+<div class="container">
 
 <div class="panel">
 
-Access Level : 4<br>
-User Status : Authorized<br>
+<div class="title">Session Information</div>
+
+User : Authorized Personnel<br>
+Access Level : Level 4<br>
 Location : Laboratory Core
 
 </div>
 
+
 <div class="panel">
 
-<b>Lab Systems</b><br><br>
+<div class="title">Facility Systems</div>
 
-Reactor Core : <span class="status">Online</span><br>
-Containment : Stable<br>
-AI Monitor : Active<br>
-Specimen Vault : Locked
+Reactor Core : <span class="status">Operational</span><br>
+Containment System : Stable<br>
+Specimen Storage : Locked<br>
+AI Monitoring : Active
 
 </div>
 
+
 <div class="panel">
 
-<button>Database</button>
-<button>Experiment Logs</button>
-<button>Security Panel</button>
+<div class="title">Laboratory Controls</div>
+
+<button onclick="alert('Research Database')">Research Database</button>
+<button onclick="alert('Experiment Logs')">Experiment Logs</button>
+<button onclick="alert('Personnel Records')">Personnel Records</button>
+<button onclick="alert('Security System')">Security System</button>
+
+</div>
 
 </div>
 
