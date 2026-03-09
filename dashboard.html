@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-<title>Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS CORE - Dashboard</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI,Tahoma,sans-serif;
+  background:linear-gradient(135deg,#1f2d3a,#2f4454);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  flex-direction:column;
+}
+button{
+  margin-top:20px;
+  padding:12px 25px;
+  border:none;
+  border-radius:8px;
+  background:white;
+  color:#2f4454;
+  cursor:pointer;
+}
+</style>
 </head>
-<body style="font-family:sans-serif;text-align:center;margin-top:100px;">
-<h1>Welcome to Nexus Core Dashboard</h1>
-<p>Secure access granted.</p>
+<body>
+
+<h1>WELCOME TO NEXUS CORE</h1>
+<p>Enterprise Secure Environment</p>
+
+<button onclick="logout()">ออกจากระบบ</button>
+
+<script>
+if(!localStorage.getItem("session")){
+  window.location.href="index.html";
+}
+
+function logout(){
+  localStorage.removeItem("session");
+  window.location.href="index.html";
+}
+</script>
+
 </body>
 </html>
