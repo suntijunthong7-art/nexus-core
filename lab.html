@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nexus Genomics Dashboard</title>
+<title>Nexus Genomics Lab</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Segoe UI;
-background:#0a1420;
-color:#e8eef5;
+background:#07121f;
+color:#e6edf5;
 }
+
+/* top bar */
 
 .topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:#101b2b;
+background:#0c1b2e;
 padding:12px 20px;
 }
 
@@ -31,44 +31,50 @@ gap:10px;
 }
 
 .logo img{
-width:34px;
+width:32px;
 }
 
 .menu{
 display:flex;
 gap:18px;
 font-size:14px;
-opacity:0.8;
+opacity:0.85;
 }
+
+/* dashboard */
 
 .dashboard{
 display:grid;
-grid-template-columns:260px 1fr 300px;
+grid-template-columns:260px 1fr 280px;
 gap:15px;
 padding:20px;
 }
 
+/* panel */
+
 .panel{
-background:#131f30;
+background:#0f2238;
 border-radius:10px;
 padding:15px;
 }
 
 .panel h3{
 margin-top:0;
-font-size:15px;
-border-bottom:1px solid #25374f;
+font-size:14px;
+border-bottom:1px solid #1e3b5d;
 padding-bottom:6px;
 }
 
-.metric{
-font-size:22px;
-font-weight:bold;
+/* graphs */
+
+.graph{
+height:100px;
+background:linear-gradient(180deg,#183450,#0c1d2f);
+border-radius:6px;
+margin-top:10px;
 }
 
-.low{
-color:#6ce38c;
-}
+/* DNA section */
 
 .center{
 display:flex;
@@ -77,26 +83,38 @@ align-items:center;
 }
 
 .dna{
-width:260px;
-animation:rotate 25s linear infinite;
+width:200px;
+height:350px;
+position:relative;
+animation:spin 12s linear infinite;
 }
 
-@keyframes rotate{
-
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
-
+@keyframes spin{
+from{transform:rotateY(0deg);}
+to{transform:rotateY(360deg);}
 }
 
-.graph{
-height:100px;
-background:linear-gradient(180deg,#1e2f46,#0f1c2b);
-border-radius:6px;
-margin-top:10px;
+.dna span{
+position:absolute;
+width:8px;
+height:8px;
+background:#6dd5ff;
+border-radius:50%;
+box-shadow:0 0 10px #3bbcff;
+}
+
+/* DNA ladder */
+
+.line{
+position:absolute;
+height:2px;
+background:#6dd5ff;
+width:90px;
+left:55px;
+box-shadow:0 0 6px #3bbcff;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -104,21 +122,16 @@ margin-top:10px;
 <div class="topbar">
 
 <div class="logo">
-
 <img src="logo.png">
-
 <div>Nexus Genomics Lab</div>
-
 </div>
 
 <div class="menu">
-
 <div>Overview</div>
 <div>Genome Lab</div>
 <div>Specimens</div>
 <div>Incubation</div>
 <div>Analytics</div>
-
 </div>
 
 </div>
@@ -126,6 +139,7 @@ margin-top:10px;
 
 <div class="dashboard">
 
+<!-- LEFT PANEL -->
 
 <div class="panel">
 
@@ -133,21 +147,56 @@ margin-top:10px;
 
 Specimen ID : VX-023
 
-<div class="metric">78%</div>
+<h2>78%</h2>
 
-AI Analysis : <span class="low">LOW RISK</span>
+AI Analysis : <span style="color:#6ce38c;">LOW RISK</span>
 
 <div class="graph"></div>
 
 </div>
 
 
+<!-- CENTER DNA -->
+
 <div class="panel center">
 
-<img src="dna.png" class="dna">
+<div class="dna">
+
+<span style="top:10px;left:40px;"></span>
+<span style="top:10px;left:150px;"></span>
+
+<span style="top:60px;left:60px;"></span>
+<span style="top:60px;left:140px;"></span>
+
+<span style="top:110px;left:40px;"></span>
+<span style="top:110px;left:150px;"></span>
+
+<span style="top:160px;left:60px;"></span>
+<span style="top:160px;left:140px;"></span>
+
+<span style="top:210px;left:40px;"></span>
+<span style="top:210px;left:150px;"></span>
+
+<span style="top:260px;left:60px;"></span>
+<span style="top:260px;left:140px;"></span>
+
+<span style="top:310px;left:40px;"></span>
+<span style="top:310px;left:150px;"></span>
+
+<div class="line" style="top:15px;"></div>
+<div class="line" style="top:65px;"></div>
+<div class="line" style="top:115px;"></div>
+<div class="line" style="top:165px;"></div>
+<div class="line" style="top:215px;"></div>
+<div class="line" style="top:265px;"></div>
+<div class="line" style="top:315px;"></div>
 
 </div>
 
+</div>
+
+
+<!-- RIGHT PANEL -->
 
 <div class="panel">
 
@@ -166,7 +215,6 @@ Mutation Index : 0.12
 Genome Stability : Stable
 
 </div>
-
 
 </div>
 
