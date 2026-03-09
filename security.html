@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security System</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f8;
+margin:0;
+}
+
+.header{
+background:#2e3f55;
+color:white;
+padding:20px;
+font-size:22px;
+}
+
+.nav{
+background:#e6eaee;
+padding:12px 20px;
+}
+
+.nav a{
+margin-right:20px;
+text-decoration:none;
+color:#2e3f55;
+font-weight:bold;
+}
+
+.container{
+padding:30px;
+max-width:900px;
+margin:auto;
+}
+
+.panel{
+background:white;
+padding:20px;
+border-radius:8px;
+margin-bottom:20px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.status{
+color:green;
+font-weight:bold;
+}
+
+.warning{
+color:#d68910;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+Nexus Research Facility
+</div>
+
+<div class="nav">
+
+<a href="lab.html">Dashboard</a>
+<a href="database.html">Database</a>
+<a href="logs.html">Experiment Logs</a>
+<a href="security.html">Security</a>
+
+</div>
+
+<div class="container">
+
+<div class="panel">
+
+<h3>Security Status</h3>
+
+Facility Security Level : Normal<br>
+Intrusion Detection : <span class="status">Active</span><br>
+Access Monitoring : <span class="status">Enabled</span><br>
+
+</div>
+
+<div class="panel">
+
+<h3>Camera Monitoring</h3>
+
+Camera Node 01 : <span class="status">Online</span><br>
+Camera Node 02 : <span class="status">Online</span><br>
+Camera Node 03 : <span class="warning">Maintenance</span><br>
+
+</div>
+
+<div class="panel">
+
+<h3>Access Control</h3>
+
+Laboratory Wing : Restricted<br>
+Research Archive : Level 4 Required<br>
+Containment Area : Authorized Personnel Only
+
+</div>
+
+</div>
+
+</body>
+</html>
