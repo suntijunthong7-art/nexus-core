@@ -6,23 +6,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Nexus Bio-Containment AI – T-Virus Lab</title>
+<title>Nexus Bio-Containment AI</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial,Segoe UI;
-background:#071a2c;
+font-family:Segoe UI;
+background:#041320;
 color:white;
+overflow-x:hidden;
 }
+
+/* HEADER */
 
 .header{
 background:#0b2a45;
 padding:18px;
 font-size:18px;
-font-weight:600;
 }
+
+/* BACKGROUND PARTICLES */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle,#0a4c6a 1px,transparent 1px);
+background-size:40px 40px;
+opacity:.15;
+animation:move 40s linear infinite;
+}
+
+@keyframes move{
+from{transform:translateY(0)}
+to{transform:translateY(-200px)}
+}
+
+/* CONTAINER */
 
 .container{
 padding:20px;
@@ -30,29 +55,65 @@ display:grid;
 gap:20px;
 }
 
+/* PANEL */
+
 .panel{
 background:#0e2f4a;
 border-radius:12px;
 padding:20px;
+box-shadow:0 0 25px rgba(0,150,255,.2);
+position:relative;
 }
 
+/* TITLE */
+
 .title{
+color:#8fb3d1;
 font-size:13px;
-color:#9abbd6;
 margin-bottom:12px;
 letter-spacing:.05em;
 }
+
+/* DNA VIDEO */
+
+.videoBox{
+position:relative;
+border-radius:12px;
+overflow:hidden;
+}
+
+video{
+width:100%;
+display:block;
+}
+
+/* SCAN LINE */
+
+.videoBox::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:4px;
+background:#4bd6ff;
+box-shadow:0 0 20px #4bd6ff;
+animation:scan 3s linear infinite;
+}
+
+@keyframes scan{
+0%{top:0}
+100%{top:100%}
+}
+
+/* VIRUS IMAGE */
 
 img{
 width:100%;
 max-width:350px;
 display:block;
 margin:auto;
-}
-
-video{
-width:100%;
-border-radius:10px;
+filter:drop-shadow(0 0 20px #2fd6ff);
 }
 
 </style>
@@ -62,7 +123,7 @@ border-radius:10px;
 <body>
 
 <div class="header">
-🧬 Nexus Bio-Containment AI — T-Virus Laboratory
+🧬 Nexus Bio-Containment AI — T-Virus Research
 </div>
 
 <div class="container">
@@ -71,11 +132,13 @@ border-radius:10px;
 
 <div class="title">DNA GENOME VISUALIZATION</div>
 
+<div class="videoBox">
+
 <video autoplay loop muted playsinline>
-
 <source src="dna.mp4" type="video/mp4">
-
 </video>
+
+</div>
 
 </div>
 
@@ -97,17 +160,6 @@ Specimen ID : TV-023<br>
 Virus Activity : 78%<br>
 Mutation Index : 0.92<br>
 Containment Level : BSL-4
-
-</div>
-
-
-<div class="panel">
-
-<div class="title">INCUBATION MONITOR</div>
-
-Heart Rate : 82 bpm<br>
-Temperature : 37.1°C<br>
-Cell Status : Stable
 
 </div>
 
