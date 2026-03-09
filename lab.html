@@ -2,67 +2,84 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Umbrella Research Lab Database</title>
+<title>Umbrella Comparison Research Lab</title>
 
 <style>
 
 body{
 background:#020b12;
-font-family:Arial;
-color:#9ff;
+color:#00ffc3;
+font-family:Arial, sans-serif;
 margin:0;
 }
 
 header{
 text-align:center;
-padding:25px;
-border-bottom:1px solid #00ffff;
+padding:20px;
+border-bottom:1px solid #00ffc3;
 }
 
-header h1{
-color:#00ffff;
+header img{
+width:90px;
+}
+
+h1{
+margin:10px;
+font-size:28px;
 letter-spacing:2px;
+}
+
+.subtitle{
+color:#7fffd4;
+font-size:14px;
+}
+
+.system-status{
+background:#04161f;
+padding:10px;
+text-align:center;
+font-size:13px;
+border-bottom:1px solid #00ffc3;
 }
 
 .container{
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:30px;
-padding:40px;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+padding:25px;
 }
 
 .card{
-border:1px solid #00ffff;
-padding:20px;
-border-radius:12px;
-box-shadow:0 0 20px rgba(0,255,255,0.2);
-background:#041821;
+background:#04161f;
+border:1px solid #00ffc3;
+border-radius:10px;
+padding:15px;
+box-shadow:0 0 15px #00ffc344;
 }
 
 .card img, .card video{
 width:100%;
-border-radius:10px;
-margin-bottom:10px;
+border-radius:6px;
 }
 
-.title{
-font-size:22px;
-color:#00ffff;
+.card h3{
+text-align:center;
 margin-top:10px;
 }
 
-.data{
-font-size:14px;
-line-height:1.6;
-color:#aee;
-}
-
-.status{
-margin-top:10px;
-padding:6px;
-background:#062f3f;
-border-left:4px solid #00ffff;
+.card p{
 font-size:13px;
+text-align:center;
+color:#9fe9d5;
+}
+
+footer{
+text-align:center;
+padding:15px;
+font-size:12px;
+border-top:1px solid #00ffc3;
+margin-top:20px;
+color:#66e0c2;
 }
 
 </style>
@@ -71,44 +88,49 @@ font-size:13px;
 <body>
 
 <header>
-<h1>ศูนย์ฐานข้อมูลห้องปฏิบัติการไวรัส T-Virus</h1>
-<p>Umbrella Research Laboratory Control System</p>
+
+<img src="logo.png">
+
+<h1>ศูนย์บัญชาการวิจัยไวรัสขั้นสูง</h1>
+
+<div class="subtitle">
+Umbrella Comparison Biohazard Research Division
+</div>
+
 </header>
+
+
+<div class="system-status">
+
+SYSTEM STATUS : ONLINE | BIOHAZARD LEVEL : BSL-4 | ACCESS : AUTHORIZED PERSONNEL ONLY
+
+</div>
+
 
 <div class="container">
 
 <div class="card">
+
 <video src="dna.mp4" autoplay loop muted></video>
-<div class="title">การวิเคราะห์ดีเอ็นเอ</div>
 
-<div class="data">
-Virus Type : T-Virus Prototype<br>
-Genome : RNA Recombinant<br>
-Mutation Rate : 12.7%<br>
-Host Compatibility : Human Cells
-</div>
+<h3>การวิเคราะห์ดีเอ็นเอ</h3>
 
-<div class="status">
-สถานะการทดลอง : กำลังวิเคราะห์โครงสร้างพันธุกรรม
-</div>
+<p>
+การจำลองโครงสร้าง DNA Helix สำหรับศึกษาการกลายพันธุ์ของไวรัส
+</p>
+
 </div>
 
 
 <div class="card">
+
 <img src="virus-3d.png">
 
-<div class="title">โมเดล 3 มิติของไวรัส</div>
+<h3>โมเดลไวรัส 3 มิติ</h3>
 
-<div class="data">
-Capsid Layer : Protein Shell<br>
-Spike Protein : Active<br>
-Viral Envelope : Detected<br>
-Stability Index : 89%
-</div>
-
-<div class="status">
-สถานะ : โมเดลจำลองไวรัสเสถียร
-</div>
+<p>
+แบบจำลองโครงสร้างไวรัสระดับโมเลกุลสำหรับการวิจัยและวิเคราะห์
+</p>
 
 </div>
 
@@ -117,18 +139,11 @@ Stability Index : 89%
 
 <img src="infected-cell.png">
 
-<div class="title">เซลล์ที่ติดเชื้อ</div>
+<h3>เซลล์ที่ติดเชื้อ</h3>
 
-<div class="data">
-Host Cell Type : Human Tissue<br>
-Infection Rate : 86%<br>
-Replication Speed : High<br>
-Cell Damage : Severe
-</div>
-
-<div class="status">
-สถานะ : พบการเพิ่มจำนวนไวรัส
-</div>
+<p>
+การจำลองการแพร่กระจายของไวรัสภายในเซลล์ของสิ่งมีชีวิต
+</p>
 
 </div>
 
@@ -137,22 +152,24 @@ Cell Damage : Severe
 
 <video src="virus-structure.mp4" autoplay loop muted></video>
 
-<div class="title">โครงสร้างไวรัส</div>
+<h3>โครงสร้างของไวรัส</h3>
 
-<div class="data">
-Protein Layer : Active<br>
-RNA Core : Stable<br>
-Mutation Pattern : Dynamic<br>
-Containment Level : Biohazard Level-4
-</div>
-
-<div class="status">
-สถานะ : อยู่ในห้องควบคุมความปลอดภัย
-</div>
+<p>
+การวิเคราะห์โครงสร้างภายในของไวรัสผ่านการสแกนแบบดิจิทัล
+</p>
 
 </div>
 
 </div>
+
+
+<footer>
+
+CLASSIFIED BIOHAZARD DATABASE  
+Umbrella Comparison Research Center  
+© Secure Bio Lab Network
+
+</footer>
 
 </body>
 </html>
