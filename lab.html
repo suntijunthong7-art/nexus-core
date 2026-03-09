@@ -28,7 +28,7 @@ gap:12px;
 }
 
 .logo{
-width:42px;
+width:40px;
 }
 
 .title{
@@ -38,14 +38,20 @@ font-weight:600;
 
 .subtitle{
 font-size:12px;
-opacity:0.7;
+opacity:0.75;
 }
 
 .classification{
 color:#ffcc66;
 font-size:11px;
-margin-top:4px;
+margin-top:3px;
 letter-spacing:1px;
+}
+
+.warning{
+color:#ff5a5a;
+font-size:11px;
+margin-top:2px;
 }
 
 .clock{
@@ -65,7 +71,7 @@ background:#162435;
 border-radius:10px;
 padding:18px;
 margin-bottom:16px;
-box-shadow:0 0 10px rgba(0,0,0,0.35);
+box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
 
 .panel h2{
@@ -141,6 +147,10 @@ Secure Biocontainment Infrastructure Control Network
 SYSTEM CLASSIFICATION : INTERNAL RESEARCH NETWORK
 </div>
 
+<div class="warning">
+AUTHORIZED PERSONNEL ONLY — UNAUTHORIZED ACCESS PROHIBITED
+</div>
+
 </div>
 
 </div>
@@ -172,7 +182,19 @@ Network Node : NX-BIO-LAB-01
 Containment Chamber : <span class="status-ok">Stable</span><br>
 Pathogen Archive : <span class="status-secure">Secured</span><br>
 Environmental Isolation : <span class="status-ok">Operational</span><br>
-Automated Monitoring Grid : <span class="status-ok">Active</span>
+Monitoring Grid : <span class="status-ok">Active</span>
+
+</div>
+
+
+<div class="panel">
+
+<h2>Biohazard Monitoring</h2>
+
+Biohazard Activity Level : <span class="status-warning">Low</span><br>
+Containment Level : <span class="status-secure">BSL-4</span><br>
+Specimen Integrity : <span class="status-ok">Verified</span><br>
+Genetic Analysis Systems : <span class="status-ok">Operational</span>
 
 </div>
 
@@ -193,7 +215,7 @@ Specimen Archive
 Personnel Registry
 </button>
 
-<button onclick="log('Launching Security Containment Control...')">
+<button onclick="log('Launching Containment Security Control...')">
 Containment Security Control
 </button>
 
@@ -208,6 +230,18 @@ NX-BIO-LAB-01 : <span class="status-ok">Online</span><br>
 NX-CONTAIN-02 : <span class="status-ok">Operational</span><br>
 NX-SECURITY-01 : <span class="status-secure">Secure</span><br>
 NX-AI-MONITOR : <span class="status-ok">Active</span>
+
+</div>
+
+
+<div class="panel">
+
+<h2>Security System Status</h2>
+
+Intrusion Detection : <span class="status-ok">Active</span><br>
+Surveillance Grid : <span class="status-ok">Online</span><br>
+Access Control System : <span class="status-ok">Operational</span><br>
+Security Protocol : <span class="status-secure">Enforced</span>
 
 </div>
 
@@ -236,9 +270,9 @@ function log(text){
 
 let consoleBox=document.getElementById("console");
 
-consoleBox.innerHTML+="<br>"+text;
+consoleBox.innerHTML += "<br>"+text;
 
-consoleBox.scrollTop=consoleBox.scrollHeight;
+consoleBox.scrollTop = consoleBox.scrollHeight;
 
 }
 
@@ -259,7 +293,9 @@ let autoLogs=[
 "Sensor grid synchronization complete",
 "Specimen archive access logged",
 "Security node handshake confirmed",
-"Laboratory sector integrity verified"
+"Laboratory sector integrity verified",
+"AI monitoring grid status verified",
+"Biocontainment protocol check complete"
 
 ];
 
@@ -274,5 +310,4 @@ log(logText);
 </script>
 
 </body>
-
 </html>
