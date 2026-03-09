@@ -2,73 +2,117 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DNA Rotation Demo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nexus Genomics – T-Virus Lab</title>
 
 <style>
 
 body{
 margin:0;
-background:#021421;
-font-family:Segoe UI;
-color:white;
+font-family:Segoe UI,Roboto;
+background:#020f1b;
+color:#d7e6f4;
+}
+
+/* top bar */
+
+.header{
+padding:16px;
+background:#071f33;
+border-bottom:1px solid #1e405d;
+font-weight:600;
+}
+
+/* dashboard grid */
+
+.dashboard{
+display:grid;
+grid-template-columns:1fr 1.2fr 1fr;
+gap:14px;
+padding:14px;
+}
+
+/* panels */
+
+.panel{
+background:#0c2438;
+border-radius:10px;
+padding:14px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.title{
+font-size:12px;
+color:#8fb3d1;
+margin-bottom:8px;
+}
+
+/* center DNA */
+
+.center{
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
 }
 
-/* container */
-
-.lab{
-text-align:center;
-}
-
-/* DNA helix */
+/* dna helix */
 
 .dna{
 position:relative;
 width:120px;
 height:260px;
-margin:auto;
 }
 
-/* nodes */
-
-.node{
+.strand{
 position:absolute;
-width:10px;
-height:10px;
+width:6px;
+height:100%;
+background:#35d6ff;
+border-radius:4px;
+animation:spin 4s linear infinite;
+}
+
+.strand:nth-child(2){
+left:60px;
+animation-delay:2s;
+}
+
+@keyframes spin{
+0%{transform:translateX(0)}
+50%{transform:translateX(60px)}
+100%{transform:translateX(0)}
+}
+
+/* virus card */
+
+.virus{
+width:70px;
+height:70px;
+background:radial-gradient(circle,#38d5ff,#0b3b5d);
 border-radius:50%;
-background:#37e0ff;
-left:50%;
-transform:translateX(-50%);
+margin:auto;
+box-shadow:0 0 25px #35d6ff;
 }
 
-/* positions */
+/* graphs */
 
-.node:nth-child(1){top:0;animation:left 4s infinite}
-.node:nth-child(2){top:25px;animation:right 4s infinite}
-.node:nth-child(3){top:50px;animation:left 4s infinite}
-.node:nth-child(4){top:75px;animation:right 4s infinite}
-.node:nth-child(5){top:100px;animation:left 4s infinite}
-.node:nth-child(6){top:125px;animation:right 4s infinite}
-.node:nth-child(7){top:150px;animation:left 4s infinite}
-.node:nth-child(8){top:175px;animation:right 4s infinite}
-.node:nth-child(9){top:200px;animation:left 4s infinite}
-
-/* animation */
-
-@keyframes left{
-0%{transform:translateX(-40px)}
-50%{transform:translateX(40px)}
-100%{transform:translateX(-40px)}
+.graph{
+height:80px;
+background:linear-gradient(#183a56,#081a2b);
+border-radius:6px;
+margin-top:8px;
 }
 
-@keyframes right{
-0%{transform:translateX(40px)}
-50%{transform:translateX(-40px)}
-100%{transform:translateX(40px)}
+@media(max-width:900px){
+
+.dashboard{
+grid-template-columns:1fr;
+}
+
+.center{
+order:-1;
+}
+
 }
 
 </style>
@@ -76,21 +120,75 @@ transform:translateX(-50%);
 
 <body>
 
-<div class="lab">
+<div class="header">
+🧬 Nexus Genomics – T-Virus Research Console
+</div>
 
-<h2>🧬 Nexus Genomics DNA Model</h2>
+<div class="dashboard">
+
+<!-- left panel -->
+
+<div class="panel">
+
+<div class="title">SPECIMEN DATA</div>
+
+Specimen : TV-023<br>
+Virus activity : 78%<br>
+Mutation index : 0.92<br>
+Containment level : BSL-4
+
+<div class="graph"></div>
+
+</div>
+
+<!-- center dna -->
+
+<div class="panel center">
 
 <div class="dna">
+<div class="strand"></div>
+<div class="strand"></div>
+</div>
 
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
+</div>
+
+<!-- right panel -->
+
+<div class="panel">
+
+<div class="title">INCUBATION MONITORING</div>
+
+Heart rate : 82 bpm<br>
+Temperature : 37.1°C<br>
+Cell response : Stable
+
+<div class="graph"></div>
+
+</div>
+
+<!-- bottom left -->
+
+<div class="panel">
+
+<div class="title">VIRAL STRUCTURE</div>
+
+<div class="virus"></div>
+
+<div class="graph"></div>
+
+</div>
+
+<!-- bottom right -->
+
+<div class="panel">
+
+<div class="title">GENOME ANALYTICS</div>
+
+Sequence integrity : 94%<br>
+Protein synthesis : Active<br>
+RNA chain status : Stable
+
+<div class="graph"></div>
 
 </div>
 
