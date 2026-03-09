@@ -1,91 +1,150 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
 <meta charset="UTF-8">
-<title>Umbrella Comparison Research Lab</title>
+<title>Nexus Biohazard Research Center</title>
 
 <style>
 
 body{
-background:#020b12;
-color:#00ffc3;
-font-family:Arial, sans-serif;
+background:#010b12;
+color:#00ffd5;
+font-family:Arial;
 margin:0;
 }
 
+/* grid background */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(#00ffc31a 1px, transparent 1px),
+linear-gradient(90deg,#00ffc31a 1px, transparent 1px);
+background-size:60px 60px;
+z-index:-1;
+}
+
+/* header */
+
 header{
 text-align:center;
-padding:20px;
-border-bottom:1px solid #00ffc3;
+padding:25px;
+border-bottom:1px solid #00ffd5;
 }
 
 header img{
-width:90px;
+width:80px;
 }
 
 h1{
-margin:10px;
 font-size:28px;
+margin:10px;
 letter-spacing:2px;
 }
 
 .subtitle{
-color:#7fffd4;
 font-size:14px;
+color:#7fffe3;
 }
 
-.system-status{
-background:#04161f;
-padding:10px;
+.system{
+background:#031720;
+padding:8px;
 text-align:center;
 font-size:13px;
-border-bottom:1px solid #00ffc3;
+border-bottom:1px solid #00ffd5;
 }
 
-.container{
+/* dashboard */
+
+.dashboard{
+
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:20px;
 padding:25px;
+
 }
 
 .card{
-background:#04161f;
-border:1px solid #00ffc3;
+
+background:#031720;
+border:1px solid #00ffd5;
 border-radius:10px;
 padding:15px;
-box-shadow:0 0 15px #00ffc344;
+box-shadow:0 0 20px #00ffd544;
+
 }
 
-.card img, .card video{
+.card img,
+.card video{
 width:100%;
 border-radius:6px;
 }
 
 .card h3{
 text-align:center;
-margin-top:10px;
+margin:12px 0;
 }
 
 .card p{
 font-size:13px;
 text-align:center;
-color:#9fe9d5;
+color:#9fffe6;
 }
 
+/* research data */
+
+.data{
+
+margin-top:10px;
+font-size:13px;
+
+}
+
+.data div{
+
+display:flex;
+justify-content:space-between;
+border-bottom:1px solid #00ffd522;
+padding:5px 0;
+
+}
+
+/* graph */
+
+.graph{
+
+height:80px;
+background:linear-gradient(180deg,#00ffd533,#00ffd500);
+border-radius:6px;
+margin-top:10px;
+
+}
+
+/* footer */
+
 footer{
+
 text-align:center;
-padding:15px;
 font-size:12px;
-border-top:1px solid #00ffc3;
-margin-top:20px;
-color:#66e0c2;
+padding:15px;
+border-top:1px solid #00ffd5;
+color:#7fffe3;
+
 }
 
 </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -94,33 +153,46 @@ color:#66e0c2;
 <h1>ศูนย์บัญชาการวิจัยไวรัสขั้นสูง</h1>
 
 <div class="subtitle">
+
 Umbrella Comparison Biohazard Research Division
+
 </div>
 
 </header>
 
 
-<div class="system-status">
+<div class="system">
 
 SYSTEM STATUS : ONLINE | BIOHAZARD LEVEL : BSL-4 | ACCESS : AUTHORIZED PERSONNEL ONLY
 
 </div>
 
 
-<div class="container">
+<div class="dashboard">
+
+
+<!-- DNA -->
 
 <div class="card">
 
-<video src="dna.mp4" autoplay loop muted></video>
+<video src="dna.mp4" autoplay muted loop></video>
 
-<h3>การวิเคราะห์ดีเอ็นเอ</h3>
+<h3>การวิเคราะห์จีโนม DNA</h3>
 
-<p>
-การจำลองโครงสร้าง DNA Helix สำหรับศึกษาการกลายพันธุ์ของไวรัส
-</p>
+<p>ระบบจำลองโครงสร้าง DNA Helix สำหรับตรวจสอบการกลายพันธุ์ของไวรัส</p>
+
+<div class="data">
+
+<div><span>Sequence Integrity</span><span>94%</span></div>
+<div><span>RNA Chain</span><span>Stable</span></div>
+<div><span>Protein Synthesis</span><span>Active</span></div>
 
 </div>
 
+</div>
+
+
+<!-- virus 3D -->
 
 <div class="card">
 
@@ -128,12 +200,20 @@ SYSTEM STATUS : ONLINE | BIOHAZARD LEVEL : BSL-4 | ACCESS : AUTHORIZED PERSONNEL
 
 <h3>โมเดลไวรัส 3 มิติ</h3>
 
-<p>
-แบบจำลองโครงสร้างไวรัสระดับโมเลกุลสำหรับการวิจัยและวิเคราะห์
-</p>
+<p>แบบจำลองโครงสร้างไวรัสระดับโมเลกุล</p>
+
+<div class="data">
+
+<div><span>Virus Activity</span><span>78%</span></div>
+<div><span>Mutation Index</span><span>0.92</span></div>
+<div><span>Containment</span><span>BSL-4</span></div>
 
 </div>
 
+</div>
+
+
+<!-- infected cell -->
 
 <div class="card">
 
@@ -141,24 +221,69 @@ SYSTEM STATUS : ONLINE | BIOHAZARD LEVEL : BSL-4 | ACCESS : AUTHORIZED PERSONNEL
 
 <h3>เซลล์ที่ติดเชื้อ</h3>
 
-<p>
-การจำลองการแพร่กระจายของไวรัสภายในเซลล์ของสิ่งมีชีวิต
-</p>
+<p>การจำลองการแพร่กระจายของไวรัสในเซลล์</p>
+
+<div class="data">
+
+<div><span>Cell Response</span><span>Stable</span></div>
+<div><span>Replication Rate</span><span>72%</span></div>
+<div><span>Host Integrity</span><span>Critical</span></div>
 
 </div>
 
+</div>
+
+
+<!-- virus structure -->
 
 <div class="card">
 
-<video src="virus-structure.mp4" autoplay loop muted></video>
+<video src="virus-structure.mp4" autoplay muted loop></video>
 
-<h3>โครงสร้างของไวรัส</h3>
+<h3>โครงสร้างไวรัส</h3>
 
-<p>
-การวิเคราะห์โครงสร้างภายในของไวรัสผ่านการสแกนแบบดิจิทัล
-</p>
+<p>การวิเคราะห์โครงสร้างภายในไวรัสด้วย AI</p>
+
+<div class="graph"></div>
 
 </div>
+
+
+<!-- AI MONITOR -->
+
+<div class="card">
+
+<h3>AI Research Monitor</h3>
+
+<div class="data">
+
+<div><span>Specimen</span><span>TV-023</span></div>
+<div><span>Genome Scan</span><span>Running</span></div>
+<div><span>Mutation Tracking</span><span>Active</span></div>
+<div><span>Simulation Load</span><span>67%</span></div>
+
+</div>
+
+</div>
+
+
+<!-- Data stream -->
+
+<div class="card">
+
+<h3>Data Stream</h3>
+
+<div class="data">
+
+<div><span>Sample</span><span>A-14</span></div>
+<div><span>Process</span><span>Sequencing</span></div>
+<div><span>Status</span><span>Running</span></div>
+<div><span>Nodes</span><span>12 Active</span></div>
+
+</div>
+
+</div>
+
 
 </div>
 
@@ -167,9 +292,10 @@ SYSTEM STATUS : ONLINE | BIOHAZARD LEVEL : BSL-4 | ACCESS : AUTHORIZED PERSONNEL
 
 CLASSIFIED BIOHAZARD DATABASE  
 Umbrella Comparison Research Center  
-© Secure Bio Lab Network
+Secure Bio Lab Network
 
 </footer>
+
 
 </body>
 </html>
