@@ -3,15 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Genomics Lab — T-Virus Research</title>
+
+<title>Nexus Genomics Lab</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 body{
 margin:0;
-font-family:Segoe UI, sans-serif;
-background:linear-gradient(#061320,#020c16);
-color:#e8edf4;
+font-family:Segoe UI;
+background:#04121f;
+color:#e6eef7;
 }
 
 /* HEADER */
@@ -20,11 +23,11 @@ color:#e8edf4;
 padding:18px;
 font-size:18px;
 font-weight:600;
-background:#0a1c2e;
-border-bottom:1px solid #1f3b55;
+background:#071c2f;
+border-bottom:1px solid #1b3b57;
 }
 
-/* CONTAINER */
+/* LAYOUT */
 
 .container{
 padding:15px;
@@ -36,11 +39,11 @@ gap:15px;
 /* PANEL */
 
 .panel{
-background:#0f2238;
+background:#0d243a;
 padding:18px;
 border-radius:12px;
-border:1px solid rgba(255,255,255,.06);
-box-shadow:0 0 20px rgba(0,0,0,.3);
+border:1px solid rgba(255,255,255,.05);
+box-shadow:0 0 20px rgba(0,0,0,.4);
 }
 
 /* TITLE */
@@ -49,59 +52,39 @@ box-shadow:0 0 20px rgba(0,0,0,.3);
 font-size:13px;
 color:#9fb5cf;
 margin-bottom:10px;
-letter-spacing:.05em;
-}
-
-/* DATA TEXT */
-
-.data{
-margin:3px 0;
-}
-
-/* GRAPH PLACEHOLDER */
-
-.graph{
-height:90px;
-border-radius:8px;
-margin-top:12px;
-background:linear-gradient(#1c3c5d,#0a1a2b);
 }
 
 /* VIRUS MODEL */
 
-.virus-box{
+.virusBox{
 display:flex;
 justify-content:center;
 align-items:center;
-height:220px;
+height:200px;
 }
 
 .virus{
 position:relative;
-width:130px;
-height:130px;
+width:120px;
+height:120px;
 animation:spin 14s linear infinite;
 }
-
-/* CORE */
 
 .core{
 width:100%;
 height:100%;
 border-radius:50%;
-background:radial-gradient(circle,#27c6ff,#0a3556);
-box-shadow:0 0 60px #27c6ff;
+background:radial-gradient(circle,#32d6ff,#0b3d61);
+box-shadow:0 0 50px #2dd6ff;
 }
-
-/* SPIKES */
 
 .spike{
 position:absolute;
 width:6px;
-height:32px;
-background:#7df1ff;
+height:30px;
+background:#79f1ff;
 left:50%;
-top:-20px;
+top:-18px;
 transform-origin:bottom;
 border-radius:3px;
 }
@@ -120,8 +103,39 @@ border-radius:3px;
 .s12{transform:rotate(330deg)}
 
 @keyframes spin{
-from{transform:rotate(0deg)}
+from{transform:rotate(0)}
 to{transform:rotate(360deg)}
+}
+
+/* DNA HELIX */
+
+.dna{
+display:flex;
+justify-content:center;
+height:120px;
+position:relative;
+}
+
+.bar{
+width:4px;
+height:120px;
+background:#2fd6ff;
+margin:0 6px;
+animation:wave 2s infinite ease-in-out;
+}
+
+.bar:nth-child(2){animation-delay:.2s}
+.bar:nth-child(3){animation-delay:.4s}
+.bar:nth-child(4){animation-delay:.6s}
+.bar:nth-child(5){animation-delay:.8s}
+
+@keyframes wave{
+0%,100%{transform:scaleY(.3)}
+50%{transform:scaleY(1)}
+}
+
+canvas{
+max-height:150px;
 }
 
 </style>
@@ -135,23 +149,24 @@ to{transform:rotate(360deg)}
 
 <div class="container">
 
-<!-- VIRAL ANALYSIS -->
+<!-- GENOME ANALYSIS -->
 
 <div class="panel">
 
 <div class="title">VIRAL GENOME ANALYSIS</div>
 
-<div class="data">ตัวอย่าง : TV-023</div>
-<div class="data">กิจกรรมของไวรัส : 78%</div>
-<div class="data">AI Risk Model : <span style="color:#63ff9a">LOW RISK</span></div>
+ตัวอย่าง : TV-023<br>
+กิจกรรมของไวรัส : 78%<br>
+AI Risk Model : <span style="color:#63ff9a">LOW RISK</span>
 
-<div class="graph"></div>
+<canvas id="virusChart"></canvas>
 
 </div>
 
+
 <!-- VIRUS MODEL -->
 
-<div class="panel virus-box">
+<div class="panel virusBox">
 
 <div class="virus">
 
@@ -174,54 +189,85 @@ to{transform:rotate(360deg)}
 
 </div>
 
-<!-- INCUBATION -->
+
+<!-- DNA ACTIVITY -->
+
+<div class="panel">
+
+<div class="title">GENOME SIGNAL</div>
+
+<div class="dna">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div>
+
+</div>
+
+
+<!-- INCUBATION DATA -->
 
 <div class="panel">
 
 <div class="title">INCUBATION MONITORING</div>
 
-<div class="data">อัตราการเต้นหัวใจ : 82 bpm</div>
-<div class="data">อุณหภูมิ : 37.1°C</div>
-<div class="data">กิจกรรมของเซลล์ : Stable</div>
+อัตราการเต้นหัวใจ : 82 bpm<br>
+อุณหภูมิ : 37.1°C<br>
+กิจกรรมของเซลล์ : Stable
 
-<div class="graph"></div>
-
-</div>
-
-</div>
-
-</body>
-</html><div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
-<div class="spike"></div>
+<canvas id="cellChart"></canvas>
 
 </div>
 
 </div>
 
-<!-- INCUBATION -->
 
-<div class="panel">
+<script>
 
-<div class="title">INCUBATION MONITORING</div>
+new Chart(document.getElementById("virusChart"),{
+type:"line",
+data:{
+labels:["0h","2h","4h","6h","8h","10h"],
+datasets:[{
+label:"Viral Activity",
+data:[12,25,38,52,63,78],
+borderColor:"#2dd6ff",
+fill:false
+}]
+},
+options:{
+plugins:{legend:{display:false}},
+scales:{
+x:{ticks:{color:"#9fb5cf"}},
+y:{ticks:{color:"#9fb5cf"}}
+}
+}
+});
 
-<div class="data">อัตราการเต้นหัวใจ : 82 bpm</div>
-<div class="data">อุณหภูมิ : 37.1°C</div>
-<div class="data">กิจกรรมของเซลล์ : Stable</div>
 
-<div class="graph"></div>
+new Chart(document.getElementById("cellChart"),{
+type:"line",
+data:{
+labels:["0","1","2","3","4","5"],
+datasets:[{
+label:"Cell Response",
+data:[40,48,52,50,55,60],
+borderColor:"#63ff9a",
+fill:false
+}]
+},
+options:{
+plugins:{legend:{display:false}},
+scales:{
+x:{ticks:{color:"#9fb5cf"}},
+y:{ticks:{color:"#9fb5cf"}}
+}
+}
+});
 
-</div>
-
-</div>
+</script>
 
 </body>
 </html>
