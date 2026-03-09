@@ -3,9 +3,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Nexus Genomics Lab</title>
+<title>Bio-Containment Laboratory Console</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -13,120 +13,100 @@
 
 body{
 margin:0;
-font-family:Segoe UI,Arial;
-background:#071a2c;
-color:#e4eef7;
+font-family:Segoe UI,Roboto;
+background:#050f1a;
+color:#d9e6f3;
 }
 
 /* HEADER */
 
 .header{
-background:#0b2740;
+background:#081e33;
 padding:16px;
 font-size:18px;
 font-weight:600;
-border-bottom:1px solid #1b4567;
+border-bottom:1px solid #1b3e5c;
 }
 
-/* GRID LAYOUT */
+/* DASHBOARD GRID */
 
 .dashboard{
-
 display:grid;
-
-grid-template-columns:
-260px
-1fr
-260px;
-
-grid-template-rows:auto auto;
-
-gap:14px;
-
-padding:14px;
-
+grid-template-columns:300px 1fr 300px;
+gap:16px;
+padding:16px;
 }
 
 /* PANELS */
 
 .panel{
-
-background:#0f2f49;
-
+background:#0c2438;
 border-radius:12px;
-
 padding:16px;
-
 border:1px solid rgba(255,255,255,.05);
-
 }
 
-/* CENTER LAB CORE */
+.title{
+font-size:12px;
+color:#9fb9d4;
+margin-bottom:8px;
+letter-spacing:.05em;
+}
+
+/* CENTER DNA */
 
 .center{
-
 display:flex;
-
-align-items:center;
-
 justify-content:center;
-
+align-items:center;
 }
 
 /* DNA HELIX */
 
 .dna{
-
 position:relative;
-
-width:120px;
-
+width:140px;
 height:300px;
-
 }
 
 .strand{
-
 position:absolute;
-
 width:6px;
-
 height:100%;
-
-background:#3dd7ff;
-
-border-radius:4px;
-
-animation:helix 4s infinite linear;
-
+background:#39d6ff;
+border-radius:3px;
+animation:spin 4s linear infinite;
 }
 
 .strand:nth-child(2){
-
-left:60px;
-
+left:70px;
 animation-delay:2s;
-
 }
 
-@keyframes helix{
+@keyframes spin{
 
 0%{transform:translateX(0)}
-
-50%{transform:translateX(60px)}
-
+50%{transform:translateX(70px)}
 100%{transform:translateX(0)}
 
 }
 
-/* VIRUS IMAGE */
+/* VIRUS MODEL */
 
-img{
+.virus{
+width:90px;
+height:90px;
+border-radius:50%;
+margin:auto;
+background:radial-gradient(circle,#2fd6ff,#083a58);
+box-shadow:0 0 35px #2fd6ff;
+}
 
-width:100%;
+/* CHART */
 
-border-radius:8px;
-
+canvas{
+margin-top:10px;
+max-height:120px;
 }
 
 /* MOBILE */
@@ -134,15 +114,11 @@ border-radius:8px;
 @media(max-width:900px){
 
 .dashboard{
-
 grid-template-columns:1fr;
-
 }
 
 .center{
-
 order:-1;
-
 }
 
 }
@@ -154,36 +130,34 @@ order:-1;
 <body>
 
 <div class="header">
-🧬 Nexus Genomics Laboratory — Research Console
+🧬 Bio-Containment Laboratory — Research Control Console
 </div>
 
 <div class="dashboard">
 
-<!-- SPECIMEN DATABASE -->
+<!-- SPECIMEN -->
 
 <div class="panel">
 
-<h3>Specimen Database</h3>
+<div class="title">SPECIMEN ANALYSIS</div>
 
 Sample ID : TV-023<br>
-Virus activity : 78%<br>
-Mutation index : 0.92<br>
-Containment : BSL-4
+Viral Activity : 78%<br>
+Mutation Index : 0.92<br>
+Containment : LEVEL-4
 
 <canvas id="chart1"></canvas>
 
 </div>
 
 
-<!-- LAB CORE -->
+<!-- CENTER DNA -->
 
 <div class="panel center">
 
 <div class="dna">
-
 <div class="strand"></div>
 <div class="strand"></div>
-
 </div>
 
 </div>
@@ -193,11 +167,11 @@ Containment : BSL-4
 
 <div class="panel">
 
-<h3>Incubation Monitor</h3>
+<div class="title">INCUBATION MONITOR</div>
 
-Heart rate : 82 bpm<br>
+Heart Rate : 82 bpm<br>
 Temperature : 37.1°C<br>
-Cell status : Stable
+Cell Status : Stable
 
 <canvas id="chart2"></canvas>
 
@@ -208,9 +182,9 @@ Cell status : Stable
 
 <div class="panel">
 
-<h3>Virus Structure</h3>
+<div class="title">VIRAL STRUCTURE</div>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Coronavirus_virion_structure.svg">
+<div class="virus"></div>
 
 </div>
 
@@ -219,11 +193,11 @@ Cell status : Stable
 
 <div class="panel">
 
-<h3>Genome Analytics</h3>
+<div class="title">GENOME ANALYTICS</div>
 
-RNA integrity : 94%<br>
-Protein synthesis : Active<br>
-Replication rate : 0.71
+RNA Integrity : 94%<br>
+Protein Synthesis : Active<br>
+Replication Rate : 0.71
 
 <canvas id="chart3"></canvas>
 
@@ -231,59 +205,46 @@ Replication rate : 0.71
 
 </div>
 
-
 <script>
 
 new Chart(document.getElementById("chart1"),{
-
 type:"line",
-
 data:{
 labels:["0h","2h","4h","6h","8h"],
 datasets:[{
-data:[10,25,40,60,78],
-borderColor:"#3dd7ff",
+data:[12,25,40,60,78],
+borderColor:"#39d6ff",
 fill:false
 }]
 },
-
 options:{plugins:{legend:{display:false}}}
-
-})
+});
 
 new Chart(document.getElementById("chart2"),{
-
 type:"line",
-
 data:{
 labels:["0","1","2","3","4"],
 datasets:[{
 data:[40,48,52,50,55],
-borderColor:"#7cffb3",
+borderColor:"#7cffb2",
 fill:false
 }]
 },
-
 options:{plugins:{legend:{display:false}}}
-
-})
+});
 
 new Chart(document.getElementById("chart3"),{
-
 type:"line",
-
 data:{
 labels:["A","T","C","G"],
 datasets:[{
 data:[22,18,30,24],
-borderColor:"#ffa24a",
+borderColor:"#ffb05a",
 fill:false
 }]
 },
-
 options:{plugins:{legend:{display:false}}}
-
-})
+});
 
 </script>
 
