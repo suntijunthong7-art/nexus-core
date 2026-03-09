@@ -4,116 +4,93 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nexus Bio-Containment AI</title>
+<title>Nexus Bio Lab</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Segoe UI;
-background:#041320;
+font-family:Segoe UI,Arial;
+background:linear-gradient(180deg,#041421,#071f33);
 color:white;
-overflow-x:hidden;
 }
 
 /* HEADER */
 
 .header{
-background:#0b2a45;
 padding:18px;
 font-size:18px;
+font-weight:600;
+background:#0b2a45;
+border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-/* BACKGROUND PARTICLES */
-
-body::before{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:
-radial-gradient(circle,#0a4c6a 1px,transparent 1px);
-background-size:40px 40px;
-opacity:.15;
-animation:move 40s linear infinite;
-}
-
-@keyframes move{
-from{transform:translateY(0)}
-to{transform:translateY(-200px)}
-}
-
-/* CONTAINER */
+/* LAYOUT */
 
 .container{
-padding:20px;
+padding:22px;
 display:grid;
-gap:20px;
+gap:24px;
 }
 
 /* PANEL */
 
 .panel{
-background:#0e2f4a;
-border-radius:12px;
+background:rgba(14,47,74,.8);
+border-radius:14px;
 padding:20px;
-box-shadow:0 0 25px rgba(0,150,255,.2);
-position:relative;
+box-shadow:
+0 0 30px rgba(0,0,0,.4),
+inset 0 0 40px rgba(0,150,255,.05);
 }
 
 /* TITLE */
 
 .title{
-color:#8fb3d1;
 font-size:13px;
-margin-bottom:12px;
-letter-spacing:.05em;
+letter-spacing:.08em;
+color:#9bbad4;
+margin-bottom:14px;
 }
 
-/* DNA VIDEO */
+/* VIDEO FRAME */
 
-.videoBox{
-position:relative;
+.videoFrame{
+
+background:black;
 border-radius:12px;
 overflow:hidden;
+
+box-shadow:
+0 0 30px rgba(0,180,255,.2);
+
+aspect-ratio:16/9;
+
 }
 
 video{
 width:100%;
-display:block;
+height:100%;
+object-fit:cover;
 }
 
-/* SCAN LINE */
+/* IMAGE */
 
-.videoBox::after{
-content:"";
-position:absolute;
-top:0;
-left:0;
+.virus{
 width:100%;
-height:4px;
-background:#4bd6ff;
-box-shadow:0 0 20px #4bd6ff;
-animation:scan 3s linear infinite;
-}
-
-@keyframes scan{
-0%{top:0}
-100%{top:100%}
-}
-
-/* VIRUS IMAGE */
-
-img{
-width:100%;
-max-width:350px;
+max-width:380px;
 display:block;
 margin:auto;
-filter:drop-shadow(0 0 20px #2fd6ff);
+filter:drop-shadow(0 0 25px rgba(0,200,255,.4));
+}
+
+/* DATA TEXT */
+
+.data{
+line-height:1.8;
+font-size:15px;
 }
 
 </style>
@@ -123,7 +100,7 @@ filter:drop-shadow(0 0 20px #2fd6ff);
 <body>
 
 <div class="header">
-🧬 Nexus Bio-Containment AI — T-Virus Research
+🧬 Nexus Bio-Containment AI — T-Virus Laboratory
 </div>
 
 <div class="container">
@@ -132,7 +109,7 @@ filter:drop-shadow(0 0 20px #2fd6ff);
 
 <div class="title">DNA GENOME VISUALIZATION</div>
 
-<div class="videoBox">
+<div class="videoFrame">
 
 <video autoplay loop muted playsinline>
 <source src="dna.mp4" type="video/mp4">
@@ -147,7 +124,7 @@ filter:drop-shadow(0 0 20px #2fd6ff);
 
 <div class="title">VIRUS STRUCTURE MODEL</div>
 
-<img src="virus-model-3d.png">
+<img class="virus" src="virus-3d.png">
 
 </div>
 
@@ -156,10 +133,29 @@ filter:drop-shadow(0 0 20px #2fd6ff);
 
 <div class="title">SPECIMEN ANALYSIS</div>
 
+<div class="data">
+
 Specimen ID : TV-023<br>
 Virus Activity : 78%<br>
 Mutation Index : 0.92<br>
 Containment Level : BSL-4
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">INCUBATION MONITOR</div>
+
+<div class="data">
+
+Heart Rate : 82 bpm<br>
+Temperature : 37.1°C<br>
+Cell Status : Stable
+
+</div>
 
 </div>
 
