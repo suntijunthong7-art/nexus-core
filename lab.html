@@ -1,76 +1,58 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Nexus Bio Lab – T-Virus Research</title>
+<title>Nexus Bio-Containment AI – T-Virus Lab</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Segoe UI;
-background:#071a2b;
+font-family:Arial,Segoe UI;
+background:#071a2c;
 color:white;
 }
 
 .header{
-background:#0a263f;
+background:#0b2a45;
 padding:18px;
 font-size:18px;
 font-weight:600;
 }
 
-/* DASHBOARD */
-
 .container{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
 padding:20px;
+display:grid;
+gap:20px;
 }
 
-/* PANELS */
-
 .panel{
-background:#0f2f4a;
+background:#0e2f4a;
 border-radius:12px;
 padding:20px;
-box-shadow:0 0 20px rgba(0,0,0,.4);
 }
 
 .title{
-font-size:14px;
-color:#8fb3d1;
-margin-bottom:10px;
+font-size:13px;
+color:#9abbd6;
+margin-bottom:12px;
+letter-spacing:.05em;
 }
 
-/* IMAGE */
-
-.virus{
+img{
 width:100%;
 max-width:350px;
 display:block;
 margin:auto;
 }
 
-/* VIDEO */
-
 video{
 width:100%;
 border-radius:10px;
-}
-
-/* MOBILE */
-
-@media(max-width:800px){
-
-.container{
-grid-template-columns:1fr;
-}
-
 }
 
 </style>
@@ -85,33 +67,27 @@ grid-template-columns:1fr;
 
 <div class="container">
 
-<!-- DNA VIDEO -->
-
 <div class="panel">
 
 <div class="title">DNA GENOME VISUALIZATION</div>
 
 <video autoplay loop muted playsinline>
 
-<source src="assets/dna.mp4" type="video/mp4">
+<source src="dna.mp4" type="video/mp4">
 
 </video>
 
 </div>
 
 
-<!-- VIRUS MODEL -->
-
 <div class="panel">
 
 <div class="title">VIRUS STRUCTURE MODEL</div>
 
-<img class="virus" src="assets/virus-model-3d.png">
+<img src="virus-model-3d.png">
 
 </div>
 
-
-<!-- SPECIMEN DATA -->
 
 <div class="panel">
 
@@ -124,8 +100,6 @@ Containment Level : BSL-4
 
 </div>
 
-
-<!-- INCUBATION -->
 
 <div class="panel">
 
