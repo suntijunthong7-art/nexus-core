@@ -1,117 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<title>Nexus Research Facility</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nexus Research Operations Console</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
-background:#0b1622;
-color:white;
+font-family:Segoe UI,Arial;
+background:#0c1623;
+color:#e4e8ed;
 }
 
 header{
-background:#1f3147;
-padding:20px;
-font-size:26px;
-font-weight:bold;
+background:#1b2b3c;
+padding:18px;
+font-size:20px;
+font-weight:600;
+letter-spacing:0.5px;
+}
+
+.system-id{
+font-size:13px;
+opacity:0.7;
 }
 
 .container{
 padding:20px;
+max-width:900px;
+margin:auto;
 }
 
-.card{
-background:#1b2736;
-padding:20px;
+.panel{
+background:#162435;
 border-radius:10px;
-margin-bottom:20px;
+padding:20px;
+margin-bottom:18px;
+box-shadow:0 0 10px rgba(0,0,0,0.4);
 }
 
-.card h2{
+.panel h2{
 margin-top:0;
+font-size:18px;
+border-bottom:1px solid #2b3e55;
+padding-bottom:8px;
 }
 
 .status-ok{
-color:#00ff9c;
+color:#4be38a;
+font-weight:600;
 }
 
-.status-warn{
-color:#ffcc00;
+.status-secure{
+color:#f4c542;
 }
 
 button{
 width:100%;
 padding:14px;
 margin-top:10px;
-background:#30445c;
 border:none;
+border-radius:6px;
+background:#2d3f56;
 color:white;
-border-radius:8px;
-font-size:16px;
+font-size:15px;
 }
 
 button:hover{
-background:#3c5878;
+background:#3b5676;
 cursor:pointer;
 }
 
 .console{
-background:black;
-color:#00ff90;
+background:#05080c;
 padding:15px;
+border-radius:6px;
 font-family:monospace;
-height:120px;
+font-size:13px;
+color:#6df5a4;
+height:150px;
 overflow:auto;
-border-radius:8px;
+}
+
+.clock{
+font-size:13px;
+opacity:0.7;
+margin-top:4px;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
-Nexus Research Facility Control System
+
+Nexus Research Directorate — Operations Console
+
+<div class="system-id">
+Secure Research Infrastructure Control Network
+</div>
+
+<div class="clock" id="clock"></div>
+
 </header>
 
 <div class="container">
 
-<div class="card">
-<h2>Session Information</h2>
-User : Authorized Personnel<br>
-Access Level : Level 4<br>
-Location : Laboratory Core
+<div class="panel">
+
+<h2>Operator Session</h2>
+
+Operator : Authorized Personnel<br>
+Access Tier : Level IV Clearance<br>
+Facility Sector : Laboratory Core<br>
+Network Node : NX-LAB-01
+
 </div>
 
-<div class="card">
-<h2>Facility Status</h2>
+
+<div class="panel">
+
+<h2>Facility Operations Status</h2>
+
 Reactor Core : <span class="status-ok">Operational</span><br>
 Containment Field : <span class="status-ok">Stable</span><br>
-Specimen Storage : <span class="status-warn">Secured</span><br>
-AI Monitoring : <span class="status-ok">Active</span>
-</div>
-
-<div class="card">
-<h2>Control Panel</h2>
-
-<button onclick="openDB()">Research Database</button>
-<button onclick="openLogs()">Experiment Logs</button>
-<button onclick="openPersonnel()">Personnel Records</button>
-<button onclick="openSecurity()">Security System</button>
+Specimen Archive : <span class="status-secure">Secured</span><br>
+AI Monitoring Grid : <span class="status-ok">Active</span>
 
 </div>
 
-<div class="card">
-<h2>System Console</h2>
+
+<div class="panel">
+
+<h2>Command Modules</h2>
+
+<button onclick="log('Accessing Research Database...')">
+Research Database
+</button>
+
+<button onclick="log('Opening Experiment Archive...')">
+Experiment Archive
+</button>
+
+<button onclick="log('Loading Personnel Registry...')">
+Personnel Registry
+</button>
+
+<button onclick="log('Launching Security Control Interface...')">
+Security Control
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<h2>System Event Log</h2>
+
 <div class="console" id="console">
-System boot sequence complete...<br>
-AI monitoring active...<br>
+
+System initialization complete...<br>
+Facility network handshake verified...<br>
+AI monitoring grid online...<br>
 Awaiting operator command...
+
 </div>
+
 </div>
 
 </div>
@@ -119,24 +179,34 @@ Awaiting operator command...
 <script>
 
 function log(text){
-document.getElementById("console").innerHTML += "<br>"+text;
+let consoleBox=document.getElementById("console");
+consoleBox.innerHTML+="<br>"+text;
+consoleBox.scrollTop=consoleBox.scrollHeight;
 }
 
-function openDB(){
-log("Accessing research database...");
-}
+setInterval(function(){
 
-function openLogs(){
-log("Opening experiment logs...");
-}
+let now=new Date();
+document.getElementById("clock").innerText=
+"Network Time : "+now.toLocaleString();
 
-function openPersonnel(){
-log("Loading personnel records...");
-}
+},1000);
 
-function openSecurity(){
-log("Security system interface opened...");
-}
+let autoLogs=[
+"Sensor grid synchronization complete",
+"Environmental monitoring stable",
+"Laboratory sector integrity verified",
+"Security node handshake confirmed",
+"Containment pressure within tolerance"
+];
+
+setInterval(function(){
+
+let logText=autoLogs[Math.floor(Math.random()*autoLogs.length)];
+
+log(logText);
+
+},5000);
 
 </script>
 
