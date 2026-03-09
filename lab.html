@@ -2,100 +2,73 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Nexus Genomics Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DNA Rotation Demo</title>
 
 <style>
 
 body{
 margin:0;
+background:#021421;
 font-family:Segoe UI;
-background:#02131f;
-color:#d6e5f5;
-}
-
-/* top bar */
-
-.topbar{
-height:60px;
-background:#061f32;
-display:flex;
-align-items:center;
-padding:0 20px;
-border-bottom:1px solid #12364f;
-}
-
-.topbar h1{
-font-size:16px;
-margin:0;
-}
-
-/* grid dashboard */
-
-.dashboard{
-display:grid;
-grid-template-columns:260px 1fr 260px;
-grid-template-rows:auto 1fr;
-gap:15px;
-padding:15px;
-height:calc(100vh - 60px);
-}
-
-/* panels */
-
-.panel{
-background:#0b2438;
-border-radius:10px;
-padding:15px;
-border:1px solid rgba(255,255,255,.05);
-}
-
-/* center dna */
-
-.center{
+color:white;
 display:flex;
 justify-content:center;
 align-items:center;
+height:100vh;
+}
+
+/* container */
+
+.lab{
+text-align:center;
 }
 
 /* DNA helix */
 
 .dna{
 position:relative;
-height:320px;
-width:140px;
+width:120px;
+height:260px;
+margin:auto;
 }
 
-.strand{
+/* nodes */
+
+.node{
 position:absolute;
-width:6px;
-height:100%;
-background:#35d6ff;
+width:10px;
+height:10px;
+border-radius:50%;
+background:#37e0ff;
 left:50%;
-transform-origin:center;
+transform:translateX(-50%);
 }
 
-.strand:nth-child(1){
-transform:rotateY(0deg);
-animation:spin 6s linear infinite;
+/* positions */
+
+.node:nth-child(1){top:0;animation:left 4s infinite}
+.node:nth-child(2){top:25px;animation:right 4s infinite}
+.node:nth-child(3){top:50px;animation:left 4s infinite}
+.node:nth-child(4){top:75px;animation:right 4s infinite}
+.node:nth-child(5){top:100px;animation:left 4s infinite}
+.node:nth-child(6){top:125px;animation:right 4s infinite}
+.node:nth-child(7){top:150px;animation:left 4s infinite}
+.node:nth-child(8){top:175px;animation:right 4s infinite}
+.node:nth-child(9){top:200px;animation:left 4s infinite}
+
+/* animation */
+
+@keyframes left{
+0%{transform:translateX(-40px)}
+50%{transform:translateX(40px)}
+100%{transform:translateX(-40px)}
 }
 
-.strand:nth-child(2){
-transform:rotateY(180deg);
-animation:spin 6s linear infinite reverse;
-}
-
-@keyframes spin{
-from{transform:rotateY(0deg)}
-to{transform:rotateY(360deg)}
-}
-
-/* stat */
-
-.stat{
-margin-top:10px;
-font-size:14px;
+@keyframes right{
+0%{transform:translateX(40px)}
+50%{transform:translateX(-40px)}
+100%{transform:translateX(40px)}
 }
 
 </style>
@@ -103,49 +76,21 @@ font-size:14px;
 
 <body>
 
-<div class="topbar">
-<h1>🧬 Nexus Genomics — T-Virus Research</h1>
-</div>
+<div class="lab">
 
-<div class="dashboard">
-
-<!-- LEFT PANEL -->
-
-<div class="panel">
-
-<h3>GENOME MAP</h3>
-
-<div class="stat">Specimen : TV-023</div>
-<div class="stat">Genome Activity : 78%</div>
-<div class="stat">Mutation Rate : 0.92</div>
-<div class="stat">AI Status : LOW RISK</div>
-
-</div>
-
-
-<!-- CENTER DNA -->
-
-<div class="panel center">
+<h2>🧬 Nexus Genomics DNA Model</h2>
 
 <div class="dna">
 
-<div class="strand"></div>
-<div class="strand"></div>
-
-</div>
-
-</div>
-
-
-<!-- RIGHT PANEL -->
-
-<div class="panel">
-
-<h3>INCUBATION DATA</h3>
-
-<div class="stat">Heart Rate : 82 bpm</div>
-<div class="stat">Temperature : 37.1°C</div>
-<div class="stat">Cell Activity : Stable</div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
 
 </div>
 
