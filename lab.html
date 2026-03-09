@@ -1,35 +1,16 @@
 <!DOCTYPE html>
-<html lang="th">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Viral Analysis System</title>
+<title>System Boot</title>
 
 <style>
+
 body{
 margin:0;
-font-family:Arial, sans-serif;
 background:#03141a;
-color:#8fe8ff;
-}
-
-/* background grid */
-
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-background-image:
-linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
-background-size:50px 50px;
-z-index:-1;
-}
-
-/* loading screen */
-
-#loading{
+color:#7fdfff;
+font-family:monospace;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -38,70 +19,16 @@ height:100vh;
 }
 
 .bar{
-width:280px;
-height:10px;
-background:#0d2b33;
+width:260px;
+height:8px;
+background:#0c2b34;
 margin-top:20px;
 }
 
 .progress{
 height:100%;
 width:0%;
-background:#1fd1ff;
-}
-
-/* dashboard */
-
-#dashboard{
-display:none;
-padding:20px;
-}
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-
-.status{
-display:flex;
-align-items:center;
-gap:8px;
-}
-
-.dot{
-width:10px;
-height:10px;
-border-radius:50%;
-background:#2cff9c;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:15px;
-}
-
-.card{
-background:#082028;
-padding:12px;
-border:1px solid #0f3a44;
-}
-
-img,video{
-width:100%;
-}
-
-.log{
-background:#000;
-color:#00ff9c;
-font-family:monospace;
-font-size:13px;
-height:120px;
-overflow:auto;
-padding:8px;
-margin-top:10px;
+background:#00d9ff;
 }
 
 </style>
@@ -109,127 +36,38 @@ margin-top:10px;
 
 <body>
 
-<!-- loading screen -->
-
-<div id="loading">
-
 <h1>VIRAL ANALYSIS SYSTEM</h1>
 
 <div class="bar">
-<div class="progress" id="progress"></div>
+<div class="progress" id="p"></div>
 </div>
 
-<p id="percent">Loading 0%</p>
-
-</div>
-
-
-<!-- dashboard -->
-
-<div id="dashboard">
-
-<header>
-
-<h2>Laboratory Monitoring</h2>
-
-<div class="status">
-<div class="dot"></div>
-System Active
-</div>
-
-</header>
-
-<div class="grid">
-
-<div class="card">
-<h3>DNA Visualization</h3>
-<video autoplay loop muted>
-<source src="dna.mp4">
-</video>
-</div>
-
-<div class="card">
-<h3>Virus Model</h3>
-<img src="virus-3d.png">
-</div>
-
-<div class="card">
-<h3>Infected Cell</h3>
-<img src="infected-cell.png">
-</div>
-
-<div class="card">
-<h3>Virus Structure</h3>
-<video autoplay loop muted>
-<source src="virus-structure.mp4">
-</video>
-</div>
-
-<div class="card">
-<h3>System Log</h3>
-<div class="log" id="log"></div>
-</div>
-
-</div>
-
-</div>
-
+<p id="t">System Loading 0%</p>
 
 <script>
 
-/* loading animation */
+let n=0
 
-let progress=0
-
-let bar=document.getElementById("progress")
-let text=document.getElementById("percent")
+let p=document.getElementById("p")
+let t=document.getElementById("t")
 
 let load=setInterval(()=>{
 
-progress++
+n++
 
-bar.style.width=progress+"%"
+p.style.width=n+"%"
 
-text.innerText="Loading "+progress+"%"
+t.innerText="System Loading "+n+"%"
 
-if(progress>=100){
+if(n>=100){
 
 clearInterval(load)
 
-document.getElementById("loading").style.display="none"
-
-document.getElementById("dashboard").style.display="block"
+window.location="dashboard.html"
 
 }
 
-},30)
-
-
-/* system log */
-
-let log=document.getElementById("log")
-
-let messages=[
-
-"Scanning virus particles",
-"DNA sequence detected",
-"Analyzing host cell",
-"Mutation probability calculated",
-"Protein structure processing"
-
-]
-
-setInterval(()=>{
-
-let time=new Date().toLocaleTimeString()
-
-let msg=messages[Math.floor(Math.random()*messages.length)]
-
-log.innerHTML+="["+time+"] "+msg+"<br>"
-
-log.scrollTop=log.scrollHeight
-
-},2500)
+},35)
 
 </script>
 
