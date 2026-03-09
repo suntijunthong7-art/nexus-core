@@ -2,126 +2,199 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>T-Virus Research Lab</title>
+<title>Umbrella Comparison Research Console</title>
 
 <style>
 
 body{
-background:#03171c;
-color:#00ffe1;
-font-family:Orbitron, sans-serif;
 margin:0;
+font-family:Arial;
+background:#020b12;
+color:#00ffc3;
 }
+
+/* background grid */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(#00ffc320 1px,transparent 1px),
+linear-gradient(90deg,#00ffc320 1px,transparent 1px);
+background-size:40px 40px;
+z-index:-1;
+}
+
+/* header */
 
 header{
 text-align:center;
 padding:25px;
-border-bottom:1px solid #00ffe1;
+border-bottom:1px solid #00ffc3;
 }
 
-header h1{
+header img{
+width:70px;
+margin-bottom:10px;
+}
+
+h1{
+margin:0;
 font-size:26px;
-letter-spacing:2px;
 }
 
-header p{
-color:#7df7e8;
+.subtitle{
 font-size:13px;
+color:#6fffd6;
 }
 
-.grid{
+.statusbar{
+margin-top:10px;
+font-size:12px;
+padding:6px;
+border-top:1px solid #00ffc3;
+border-bottom:1px solid #00ffc3;
+}
 
+/* dashboard */
+
+.dashboard{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
+gap:20px;
 padding:30px;
-
 }
 
+/* card */
+
 .card{
-
-background:#051f26;
-border:1px solid #00ffe1;
+background:#04161f;
+border:1px solid #00ffc3;
 border-radius:10px;
-box-shadow:0 0 15px #00ffe155;
 padding:15px;
+box-shadow:0 0 20px #00ffc344;
 transition:0.3s;
-
 }
 
 .card:hover{
-transform:scale(1.03);
-box-shadow:0 0 25px #00ffe1;
+transform:scale(1.02);
+box-shadow:0 0 30px #00ffc388;
 }
 
 .card img,
 .card video{
-
 width:100%;
 border-radius:6px;
-
 }
 
-h3{
-margin-top:10px;
+.card h3{
+text-align:center;
+margin:10px 0;
 }
 
-.data{
-
+.card p{
 font-size:13px;
-color:#7df7e8;
-line-height:1.7;
-
+text-align:center;
+color:#9fe9d5;
 }
+
+/* data panel */
+
+.data-panel{
+margin-top:10px;
+font-size:13px;
+line-height:1.8;
+}
+
+/* scan effect */
+
+.scan{
+position:relative;
+overflow:hidden;
+}
+
+.scan::after{
+content:"";
+position:absolute;
+top:-100%;
+left:0;
+width:100%;
+height:200%;
+background:linear-gradient(
+to bottom,
+transparent,
+#00ffc340,
+transparent
+);
+animation:scan 5s linear infinite;
+}
+
+@keyframes scan{
+0%{top:-100%}
+100%{top:100%}
+}
+
+/* footer */
 
 footer{
-
 text-align:center;
 font-size:12px;
-color:#5ed8c8;
 padding:20px;
-border-top:1px solid #00ffe1;
-
+border-top:1px solid #00ffc3;
+color:#6fffd6;
 }
 
 </style>
 </head>
 
-
 <body>
 
 <header>
 
+<img src="logo.png">
+
 <h1>ศูนย์บัญชาการวิจัยไวรัสขั้นสูง</h1>
 
-<p>Umbrella Comparison Biohazard Research Division</p>
+<div class="subtitle">
+Umbrella Comparison Biohazard Research Division
+</div>
+
+<div class="statusbar">
+
+SYSTEM STATUS : ONLINE |  
+BIOHAZARD LEVEL : BSL-4 |  
+AI MONITOR : ACTIVE |  
+ACCESS : AUTHORIZED PERSONNEL
+
+</div>
 
 </header>
 
+<div class="dashboard">
 
-<section class="grid">
+<!-- DNA -->
 
+<div class="card scan">
 
-<div class="card">
+<video src="dna.mp4" autoplay muted loop></video>
 
-<video autoplay muted loop>
-<source src="dna.mp4" type="video/mp4">
-</video>
+<h3>การวิเคราะห์ดีเอ็นเอ</h3>
 
-<h3>การวิเคราะห์จีโนม DNA</h3>
+<p>
+การจำลองโครงสร้าง DNA Helix สำหรับวิเคราะห์การกลายพันธุ์ของไวรัส
+</p>
 
-<div class="data">
-
-Sequence Integrity : 94% <br>
-RNA Chain : Stable <br>
-Protein Synthesis : Active
-
+<div class="data-panel">
+Sequence Integrity : 94%<br>
+Protein Synthesis : Active<br>
+RNA Chain Status : Stable
 </div>
 
 </div>
 
+<!-- virus model -->
 
 <div class="card">
 
@@ -129,66 +202,67 @@ Protein Synthesis : Active
 
 <h3>โมเดลไวรัส 3 มิติ</h3>
 
-<div class="data">
+<p>
+แบบจำลองโครงสร้างไวรัสระดับโมเลกุลสำหรับการวิจัย
+</p>
 
-Virus Activity : 78% <br>
-Mutation Index : 0.92 <br>
-Containment : BSL-4
-
+<div class="data-panel">
+Virus Activity : 78%<br>
+Mutation Index : 0.92<br>
+Containment Level : BSL-4
 </div>
 
 </div>
 
+<!-- infected cell -->
 
-
-<div class="card">
+<div class="card scan">
 
 <img src="infected-cell.png">
 
 <h3>เซลล์ที่ติดเชื้อ</h3>
 
-<div class="data">
+<p>
+การจำลองการแพร่กระจายของไวรัสภายในเซลล์
+</p>
 
-Cell Response : Stable <br>
-Replication Rate : 72% <br>
-Host Integrity : Critical
-
+<div class="data-panel">
+Cell Infection Rate : 82%<br>
+Replication Speed : High<br>
+Response Status : Stable
 </div>
 
 </div>
 
-
+<!-- virus structure -->
 
 <div class="card">
 
-<video autoplay muted loop>
-<source src="virus-structure.mp4" type="video/mp4">
-</video>
+<video src="virus-structure.mp4" autoplay muted loop></video>
 
 <h3>โครงสร้างไวรัส</h3>
 
-<div class="data">
+<p>
+การสแกนโครงสร้างไวรัสแบบดิจิทัล
+</p>
 
-Genome Scan : Running <br>
-Mutation Tracking : Active <br>
-Simulation Load : 67%
-
+<div class="data-panel">
+Genome Integrity : 91%<br>
+Protein Layer : Stable<br>
+RNA Activity : Active
 </div>
 
 </div>
 
-
-
-</section>
-
+</div>
 
 <footer>
 
 CLASSIFIED BIOHAZARD DATABASE  
-Umbrella Comparison Research Network
+Umbrella Comparison Research Center  
+Secure Bio Lab Network
 
 </footer>
-
 
 </body>
 </html>
