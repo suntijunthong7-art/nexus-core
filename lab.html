@@ -1,264 +1,156 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Umbrella Bio Lab Console</title>
+<title>Nexus Bio-Containment Research Console</title>
 
 <style>
 
-/* BACKGROUND */
+:root{
+--bg:#0b1d2b;
+--panel:#132f45;
+--border:#1f4c6b;
+--accent:#4fb6e6;
+--text:#e8f1f6;
+--muted:#9fb4c3;
+}
 
 body{
-
 margin:0;
-font-family:Segoe UI;
-color:white;
-
-background:
-radial-gradient(circle at 50% 30%,#0b3d5c,#020b12);
-
-overflow-x:hidden;
-
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+background:var(--bg);
+color:var(--text);
 }
 
-/* GRID OVERLAY */
+/* header */
 
-body::before{
-
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-
-background-image:
-linear-gradient(rgba(0,255,255,.05) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,255,255,.05) 1px, transparent 1px);
-
-background-size:40px 40px;
-
-pointer-events:none;
-
-}
-
-/* HEADER */
-
-.header{
-
-padding:20px;
-background:#081f33;
-
-box-shadow:0 0 30px rgba(0,200,255,.2);
-
+header{
+padding:16px 22px;
+background:#0f2b40;
+border-bottom:1px solid var(--border);
 font-weight:600;
-
+letter-spacing:.02em;
 }
 
-/* DASHBOARD */
+/* layout */
 
-.container{
-
-padding:24px;
-
+.main{
+padding:22px;
 display:grid;
-
-gap:25px;
-
+gap:22px;
+max-width:1100px;
+margin:auto;
 }
 
-/* PANEL */
+/* panels */
 
 .panel{
-
-background:rgba(10,35,55,.75);
-
-border-radius:14px;
-
-padding:22px;
-
-border:1px solid rgba(0,255,255,.15);
-
-box-shadow:
-
-0 0 20px rgba(0,200,255,.15),
-inset 0 0 20px rgba(0,150,255,.05);
-
-backdrop-filter:blur(6px);
-
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:10px;
+padding:18px;
 }
 
-/* TITLE */
-
-.title{
-
+.panel h2{
+margin:0 0 12px 0;
 font-size:13px;
-
 letter-spacing:.1em;
-
-color:#7ec9ff;
-
-margin-bottom:14px;
-
+color:var(--muted);
+font-weight:600;
 }
 
-/* VIDEO */
+/* media frame */
 
 .frame{
-
 aspect-ratio:16/9;
-
+background:#000;
+border-radius:6px;
 overflow:hidden;
-
-border-radius:10px;
-
-box-shadow:0 0 25px rgba(0,200,255,.25);
-
+border:1px solid var(--border);
 }
 
-video{
-
+.frame video,
+.frame img{
 width:100%;
 height:100%;
 object-fit:cover;
-
 }
 
-/* VIRUS IMAGE */
+/* data table */
 
-.virus{
-
+table{
 width:100%;
-
-max-width:420px;
-
-display:block;
-
-margin:auto;
-
-filter:
-
-drop-shadow(0 0 20px rgba(0,255,255,.6))
-
-drop-shadow(0 0 40px rgba(0,150,255,.4));
-
+border-collapse:collapse;
+font-size:14px;
 }
 
-/* DATA */
-
-.data{
-
-line-height:1.8;
-
-font-size:15px;
-
+td{
+padding:8px 4px;
+border-bottom:1px solid var(--border);
 }
 
-/* SCAN LINE */
-
-.scan{
-
-position:relative;
-
-overflow:hidden;
-
+td:first-child{
+color:var(--muted);
+width:55%;
 }
 
-.scan::after{
+/* responsive */
 
-content:"";
-
-position:absolute;
-
-width:100%;
-
-height:4px;
-
-background:rgba(0,255,255,.5);
-
-top:-10px;
-
-animation:scan 4s linear infinite;
-
+@media (min-width:900px){
+.main{
+grid-template-columns:1fr 1fr;
 }
-
-@keyframes scan{
-
-0%{top:-10px}
-
-100%{top:100%}
-
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="header">
+<header>
+🧬 Nexus Bio-Containment AI — Viral Research Console
+</header>
 
-🧬 Nexus Bio-Containment AI — T-Virus Research Console
+<div class="main">
 
-</div>
-
-<div class="container">
-
-<div class="panel scan">
-
-<div class="title">DNA GENOME SCAN</div>
-
+<div class="panel">
+<h2>DNA GENOME VISUALIZATION</h2>
 <div class="frame">
-
-<video autoplay loop muted playsinline>
-
+<video autoplay muted loop playsinline>
 <source src="dna.mp4" type="video/mp4">
-
 </video>
-
 </div>
-
 </div>
-
 
 <div class="panel">
-
-<div class="title">VIRUS STRUCTURE MODEL</div>
-
-<img class="virus" src="virus-model-3d.png">
-
+<h2>VIRAL STRUCTURE MODEL</h2>
+<div class="frame">
+<img src="virus-3d.png">
 </div>
-
+</div>
 
 <div class="panel">
+<h2>SPECIMEN ANALYSIS</h2>
 
-<div class="title">SPECIMEN ANALYSIS</div>
-
-<div class="data">
-
-Specimen ID : TV-023<br>
-Virus Activity : 78%<br>
-Mutation Index : 0.92<br>
-Containment Level : BSL-4
-
-</div>
+<table>
+<tr><td>Specimen ID</td><td>TV-023</td></tr>
+<tr><td>Virus Activity</td><td>78%</td></tr>
+<tr><td>Mutation Index</td><td>0.92</td></tr>
+<tr><td>Containment Level</td><td>BSL-4</td></tr>
+</table>
 
 </div>
-
 
 <div class="panel">
+<h2>INCUBATION MONITOR</h2>
 
-<div class="title">INCUBATION MONITOR</div>
-
-<div class="data">
-
-Heart Rate : 82 bpm<br>
-Temperature : 37.1°C<br>
-Cell Status : Stable
-
-</div>
+<table>
+<tr><td>Heart Rate</td><td>82 bpm</td></tr>
+<tr><td>Temperature</td><td>37.1 °C</td></tr>
+<tr><td>Cell Status</td><td>Stable</td></tr>
+</table>
 
 </div>
 
