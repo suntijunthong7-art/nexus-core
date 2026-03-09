@@ -5,25 +5,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Viral Analysis Interface</title>
+<title>Viral Laboratory System</title>
 
 <style>
 
 body{
 
 margin:0;
-font-family:Arial;
-background:#020e14;
-color:#9edfff;
+background:#020b10;
+color:#72e4ff;
+font-family:monospace;
+
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
 
 }
 
-/* animated grid */
+/* grid */
 
 body::before{
 
 content:"";
-position:fixed;
+position:absolute;
 width:100%;
 height:100%;
 
@@ -33,32 +39,15 @@ linear-gradient(90deg, rgba(0,255,255,0.06) 1px, transparent 1px);
 
 background-size:50px 50px;
 
-animation:gridmove 20s linear infinite;
-
-z-index:-2;
+z-index:-1;
 
 }
 
-@keyframes gridmove{
+/* main */
 
-from{transform:translateY(0)}
-to{transform:translateY(50px)}
+.system{
 
-}
-
-/* header */
-
-header{
-
-padding:15px 25px;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-border-bottom:1px solid #0f3945;
-
-background:#041921;
+text-align:center;
 
 }
 
@@ -66,226 +55,51 @@ background:#041921;
 
 .logo{
 
-display:flex;
-align-items:center;
-gap:10px;
+font-size:26px;
+letter-spacing:2px;
+margin-bottom:30px;
 
 }
 
-.logo img{
+/* scan bar */
 
-width:36px;
+.scan{
 
-}
-
-/* status */
-
-.status{
-
-display:flex;
-align-items:center;
-gap:8px;
-
-}
-
-.dot{
-
-width:10px;
-height:10px;
-
-border-radius:50%;
-
-background:#00ff9c;
-
-box-shadow:0 0 10px #00ff9c;
-
-animation:pulse 2s infinite;
-
-}
-
-@keyframes pulse{
-
-0%{opacity:.3}
-50%{opacity:1}
-100%{opacity:.3}
-
-}
-
-/* container */
-
-.container{
-
-width:95%;
-max-width:1300px;
-
+width:320px;
+height:6px;
+background:#031d25;
+border:1px solid #0e4958;
 margin:auto;
-
-padding:30px 0;
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-gap:25px;
-
-}
-
-/* hud card */
-
-.card{
-
-position:relative;
-
-background:#041821;
-
-border:1px solid #0f3945;
-
-padding:18px;
-
-}
-
-/* corner frame */
-
-.card::before,
-.card::after{
-
-content:"";
-
-position:absolute;
-
-width:20px;
-height:20px;
-
-border-color:#2ac7ff;
-
-}
-
-.card::before{
-
-top:-1px;
-left:-1px;
-
-border-top:2px solid;
-border-left:2px solid;
-
-}
-
-.card::after{
-
-bottom:-1px;
-right:-1px;
-
-border-bottom:2px solid;
-border-right:2px solid;
-
-}
-
-.card:hover{
-
-box-shadow:0 0 25px rgba(0,255,255,.25);
-
-transform:translateY(-4px);
-
-}
-
-/* media */
-
-img,video{
-
-width:100%;
-
-margin-top:10px;
-
-}
-
-/* radar */
-
-.radar{
-
-width:220px;
-height:220px;
-
-border-radius:50%;
-
-border:1px solid #2ac7ff;
-
-margin:auto;
-
-position:relative;
-
 overflow:hidden;
 
 }
 
-.radar::after{
+.scanbar{
 
-content:"";
-
-position:absolute;
-
-width:100%;
 height:100%;
+width:0%;
 
-background:conic-gradient(
-transparent 0deg,
-rgba(0,255,255,.35) 40deg,
-transparent 70deg
-);
+background:#00e1ff;
 
-animation:scan 3s linear infinite;
+box-shadow:0 0 10px #00e1ff;
 
-}
-
-@keyframes scan{
-
-from{transform:rotate(0)}
-to{transform:rotate(360deg)}
+animation:load 4s linear forwards;
 
 }
 
-/* terminal */
+@keyframes load{
 
-.terminal{
-
-background:#000a0f;
-
-border:1px solid #0f3945;
-
-padding:10px;
-
-font-family:monospace;
-
-font-size:13px;
-
-color:#5fe3ff;
-
-height:110px;
-
-overflow:auto;
+from{width:0}
+to{width:100%}
 
 }
 
-/* graph */
+/* percent */
 
-.graph{
+.percent{
 
-grid-column:1/-1;
-
-background:#041821;
-
-border:1px solid #0f3945;
-
-padding:20px;
-
-}
-
-footer{
-
-text-align:center;
-
-padding:25px;
-
-color:#5a97a8;
+margin-top:12px;
+font-size:14px;
 
 }
 
@@ -295,144 +109,53 @@ color:#5a97a8;
 
 <body>
 
-<header>
+<div class="system">
 
 <div class="logo">
 
-<img src="logo.png">
-
-<b>Viral Analysis Interface</b>
+VIRAL ANALYSIS SYSTEM
 
 </div>
 
-<div class="status">
+<div class="scan">
 
-<div class="dot"></div>
-
-SYSTEM ACTIVE
+<div class="scanbar"></div>
 
 </div>
 
-</header>
+<div class="percent" id="percent">
 
-<div class="container">
-
-<div class="card">
-
-<h3>DNA Visualization</h3>
-
-<video autoplay loop muted>
-<source src="dna.mp4">
-</video>
-
-</div>
-
-<div class="card">
-
-<h3>Virus Model</h3>
-
-<img src="virus-3d.png">
-
-</div>
-
-<div class="card">
-
-<h3>Cell Infection</h3>
-
-<img src="infected-cell.png">
-
-</div>
-
-<div class="card">
-
-<h3>Virus Structure</h3>
-
-<video autoplay loop muted>
-<source src="virus-structure.mp4">
-</video>
-
-</div>
-
-<div class="card">
-
-<h3>Particle Scan</h3>
-
-<div class="radar"></div>
-
-</div>
-
-<div class="card">
-
-<h3>System Log</h3>
-
-<div class="terminal">
-
-[09:21:03] Virus scan started  
-[09:21:07] DNA structure detected  
-[09:21:11] Host cell analysis running  
-[09:21:16] Mutation probability 0.72  
+Initializing...
 
 </div>
 
 </div>
-
-<div class="graph">
-
-<canvas id="chart"></canvas>
-
-</div>
-
-</div>
-
-<footer>
-
-Biological Monitoring Interface
-
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 
-new Chart(document.getElementById("chart"),{
+let p=0;
 
-type:"line",
+let timer=setInterval(()=>{
 
-data:{
+p++
 
-labels:["0h","4h","8h","12h","16h","20h","24h"],
+document.getElementById("percent").innerHTML="System Loading "+p+"%"
 
-datasets:[
+if(p>=100){
 
-{
-label:"Viral Load",
-data:[2,8,20,38,57,70,90],
-borderColor:"#5fe3ff",
-backgroundColor:"rgba(95,227,255,.2)",
-fill:true
-},
+clearInterval(timer)
 
-{
-label:"Cell Damage",
-data:[0,2,6,14,28,48,66],
-borderColor:"#ff7f7f",
-backgroundColor:"rgba(255,127,127,.2)",
-fill:true
+document.getElementById("percent").innerHTML="Accessing Laboratory Interface..."
+
+setTimeout(()=>{
+
+window.location.href="dashboard.html"
+
+},1000)
+
 }
 
-]
-
-},
-
-options:{
-plugins:{legend:{labels:{color:"#9edfff"}}},
-scales:{
-x:{ticks:{color:"#9edfff"}},
-y:{ticks:{color:"#9edfff"}}
-}
-}
-
-})
+},40)
 
 </script>
 
