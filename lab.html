@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Nexus Genomics — Viral Research Comparison</title>
+<title>Nexus BioLab Control System</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -13,78 +13,99 @@
 
 body{
 margin:0;
-font-family:Segoe UI;
-background:#031321;
-color:#d8e7f4;
+font-family:Segoe UI,Roboto;
+background:#010c16;
+color:#d9e6f2;
 }
 
 /* header */
 
 .header{
-background:#071f33;
+background:#071c2d;
 padding:16px;
 font-size:18px;
 font-weight:600;
-border-bottom:1px solid #173f5e;
+border-bottom:1px solid #183a55;
 }
 
-/* layout */
+/* console grid */
 
-.container{
-padding:16px;
-display:flex;
-flex-direction:column;
-gap:16px;
+.console{
+display:grid;
+grid-template-columns:1fr 1.2fr 1fr;
+gap:14px;
+padding:14px;
 }
 
-/* panel */
+/* panels */
 
 .panel{
-background:#0c2438;
-border-radius:12px;
-padding:16px;
+background:#0c2336;
+border-radius:10px;
+padding:14px;
 border:1px solid rgba(255,255,255,.05);
 }
 
 .title{
-font-size:13px;
-color:#8fb3d1;
-margin-bottom:10px;
+font-size:11px;
+color:#7fa9cc;
+margin-bottom:8px;
+letter-spacing:.1em;
 }
 
-/* virus visual */
+/* AI CORE */
 
-.virus{
+.aiCore{
+display:flex;
+justify-content:center;
+align-items:center;
+height:220px;
+position:relative;
+}
+
+.core{
 width:90px;
 height:90px;
 border-radius:50%;
+background:radial-gradient(circle,#3bd6ff,#0b3b5c);
+box-shadow:0 0 50px #3bd6ff;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+0%{box-shadow:0 0 20px #3bd6ff}
+50%{box-shadow:0 0 70px #3bd6ff}
+100%{box-shadow:0 0 20px #3bd6ff}
+
+}
+
+/* virus */
+
+.virus{
+width:70px;
+height:70px;
+background:radial-gradient(circle,#34d5ff,#0b3b5d);
+border-radius:50%;
 margin:auto;
-background:radial-gradient(circle,#32d6ff,#0a3555);
-box-shadow:0 0 40px #32d6ff;
+box-shadow:0 0 30px #34d5ff;
 }
 
-/* comparison table */
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:10px;
-}
-
-td,th{
-padding:8px;
-border-bottom:1px solid rgba(255,255,255,.05);
-text-align:left;
-font-size:14px;
-}
-
-th{
-color:#9fc1da;
-}
+/* graphs */
 
 canvas{
-max-height:150px;
-margin-top:10px;
+max-height:120px;
+margin-top:8px;
+}
+
+/* responsive */
+
+@media(max-width:900px){
+
+.console{
+grid-template-columns:1fr;
+}
+
 }
 
 </style>
@@ -94,79 +115,89 @@ margin-top:10px;
 <body>
 
 <div class="header">
-🧬 Nexus Genomics — Umbrella / Reed Queen Viral Comparison
+🧬 Nexus BioLab — AI Research Console
 </div>
 
-<div class="container">
+<div class="console">
 
-<!-- specimen -->
+<!-- genome scan -->
 
 <div class="panel">
 
-<div class="title">T-Virus Specimen</div>
+<div class="title">GENOME SCAN</div>
+
+Specimen : TV-023<br>
+RNA integrity : 94%<br>
+Mutation index : 0.92
+
+<canvas id="genomeChart"></canvas>
+
+</div>
+
+
+<!-- AI core -->
+
+<div class="panel aiCore">
+
+<div class="core"></div>
+
+</div>
+
+
+<!-- containment -->
+
+<div class="panel">
+
+<div class="title">CONTAINMENT STATUS</div>
+
+Security level : BSL-4<br>
+Airlock status : sealed<br>
+Biohazard risk : LOW
+
+<canvas id="containChart"></canvas>
+
+</div>
+
+
+<!-- virus model -->
+
+<div class="panel">
+
+<div class="title">VIRUS STRUCTURE</div>
 
 <div class="virus"></div>
 
-Specimen ID : TV-023<br>
-Virus Activity : 78%<br>
-Mutation Index : 0.92
+<canvas id="virusChart"></canvas>
 
 </div>
 
-<!-- comparison table -->
+
+<!-- system status -->
 
 <div class="panel">
 
-<div class="title">GENOME COMPARISON</div>
+<div class="title">SYSTEM STATUS</div>
 
-<table>
+AI analysis : ACTIVE<br>
+Genome scan : RUNNING<br>
+Database link : CONNECTED
 
-<tr>
-<th>Parameter</th>
-<th>Umbrella Reference</th>
-<th>Reed Queen Model</th>
-<th>T-Virus Sample</th>
-</tr>
-
-<tr>
-<td>RNA Integrity</td>
-<td>96%</td>
-<td>93%</td>
-<td>94%</td>
-</tr>
-
-<tr>
-<td>Replication Rate</td>
-<td>0.68</td>
-<td>0.74</td>
-<td>0.71</td>
-</tr>
-
-<tr>
-<td>Mutation Stability</td>
-<td>High</td>
-<td>Medium</td>
-<td>Stable</td>
-</tr>
-
-<tr>
-<td>Host Adaptation</td>
-<td>Moderate</td>
-<td>Advanced</td>
-<td>Developing</td>
-</tr>
-
-</table>
+<canvas id="sysChart"></canvas>
 
 </div>
 
-<!-- comparison chart -->
+
+<!-- biosignal -->
 
 <div class="panel">
 
-<div class="title">VIRAL MUTATION COMPARISON</div>
+<div class="title">BIO SIGNAL MONITOR</div>
 
-<canvas id="compareChart"></canvas>
+Heart rate : 82 bpm<br>
+Temperature : 37.1°C<br>
+Cell activity : stable
+
+<canvas id="bioChart"></canvas>
 
 </div>
 
@@ -174,38 +205,49 @@ Mutation Index : 0.92
 
 <script>
 
-new Chart(document.getElementById("compareChart"),{
-
+new Chart(genomeChart,{
 type:"line",
-
 data:{
-labels:["Stage1","Stage2","Stage3","Stage4","Stage5"],
-datasets:[
-
-{
-label:"Umbrella Reference",
-data:[20,32,45,60,68],
-borderColor:"#38d6ff",
-fill:false
+labels:["A","T","C","G"],
+datasets:[{data:[22,18,30,24],borderColor:"#3bd6ff"}]
 },
+options:{plugins:{legend:{display:false}}}
+})
 
-{
-label:"Reed Queen Model",
-data:[18,30,48,65,74],
-borderColor:"#ff6c6c",
-fill:false
+new Chart(containChart,{
+type:"line",
+data:{
+labels:["0","1","2","3"],
+datasets:[{data:[70,72,71,73],borderColor:"#63ff9a"}]
 },
+options:{plugins:{legend:{display:false}}}
+})
 
-{
-label:"T-Virus Sample",
-data:[15,25,40,58,71],
-borderColor:"#63ff9a",
-fill:false
-}
+new Chart(virusChart,{
+type:"bar",
+data:{
+labels:["Spike","Capsid","RNA"],
+datasets:[{data:[70,60,80],backgroundColor:"#3bd6ff"}]
+},
+options:{plugins:{legend:{display:false}}}
+})
 
-]
-}
+new Chart(sysChart,{
+type:"line",
+data:{
+labels:["1","2","3","4"],
+datasets:[{data:[60,65,68,72],borderColor:"#ffa74a"}]
+},
+options:{plugins:{legend:{display:false}}}
+})
 
+new Chart(bioChart,{
+type:"line",
+data:{
+labels:["0","1","2","3"],
+datasets:[{data:[40,48,52,55],borderColor:"#63ff9a"}]
+},
+options:{plugins:{legend:{display:false}}}
 })
 
 </script>
