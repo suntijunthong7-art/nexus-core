@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 
 <meta charset="UTF-8">
-<title>Viral Analysis Laboratory</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>ห้องปฏิบัติการวิเคราะห์ไวรัส</title>
 
 <style>
 
 body{
 margin:0;
-font-family:system-ui;
-background:#050e14;
-color:#cfe7ff;
-overflow-x:hidden;
+font-family:sans-serif;
+background:#02141c;
+color:#d7f3ff;
 }
 
 /* grid background */
@@ -30,33 +31,7 @@ linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
 
 background-size:40px 40px;
 
-z-index:-2;
-
-}
-
-/* animated glow */
-
-body::after{
-
-content:"";
-position:fixed;
-width:600px;
-height:600px;
-background:radial-gradient(circle,#00c8ff22,transparent 70%);
-top:30%;
-left:40%;
-
-animation:glowmove 10s infinite linear;
-
 z-index:-1;
-
-}
-
-@keyframes glowmove{
-
-0%{transform:translate(-100px,-50px)}
-50%{transform:translate(100px,50px)}
-100%{transform:translate(-100px,-50px)}
 
 }
 
@@ -64,37 +39,31 @@ z-index:-1;
 
 header{
 
-background:#081821;
-padding:18px;
-border-bottom:1px solid #15394d;
-
+background:#06222c;
+padding:14px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 
+border-bottom:1px solid #0f3c4b;
+
 }
 
 .logo{
-
 display:flex;
 align-items:center;
 gap:10px;
-
 }
 
 .logo img{
-width:38px;
+width:34px;
 }
 
-/* status */
-
 .status{
-
 display:flex;
 align-items:center;
 gap:8px;
-font-size:13px;
-
+font-size:14px;
 }
 
 .dot{
@@ -103,6 +72,7 @@ width:10px;
 height:10px;
 border-radius:50%;
 background:#00ff9c;
+
 box-shadow:0 0 10px #00ff9c;
 
 animation:pulse 2s infinite;
@@ -117,42 +87,50 @@ animation:pulse 2s infinite;
 
 }
 
-/* layout */
+/* container */
 
 .container{
 
-width:92%;
+width:95%;
 max-width:1200px;
 margin:auto;
-padding:40px 0;
+padding:25px 0;
 
 }
+
+/* cards */
 
 .grid{
 
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:24px;
+gap:18px;
 
 }
 
 .card{
 
-background:#081821;
-border:1px solid #15394d;
+background:#06222c;
+border:1px solid #0f3c4b;
 border-radius:10px;
-padding:18px;
 
-transition:.4s;
+padding:14px;
+
+transition:.3s;
 
 }
 
 .card:hover{
 
-border-color:#46b6ff;
-box-shadow:0 0 20px rgba(70,182,255,.25);
-transform:translateY(-4px);
+border-color:#2ac7ff;
+box-shadow:0 0 15px rgba(0,180,255,.3);
+transform:translateY(-3px);
 
+}
+
+.card h3{
+margin:0;
+font-size:16px;
 }
 
 img,video{
@@ -167,13 +145,14 @@ margin-top:10px;
 
 .radar{
 
-width:220px;
-height:220px;
+width:200px;
+height:200px;
 
-border:2px solid #1d445a;
 border-radius:50%;
-position:relative;
+border:2px solid #0f3c4b;
+
 margin:auto;
+position:relative;
 
 }
 
@@ -181,36 +160,26 @@ margin:auto;
 
 content:"";
 position:absolute;
+
 width:100%;
 height:100%;
 
+border-radius:50%;
+
 background:conic-gradient(
 transparent 0deg,
-rgba(0,255,255,.35) 40deg,
+rgba(0,255,255,.3) 30deg,
 transparent 60deg
 );
 
-border-radius:50%;
-
-animation:rotate 3s linear infinite;
+animation:spin 3s linear infinite;
 
 }
 
-@keyframes rotate{
+@keyframes spin{
 
 from{transform:rotate(0)}
 to{transform:rotate(360deg)}
-
-}
-
-/* graph */
-
-canvas{
-
-background:#07141c;
-border:1px solid #15394d;
-border-radius:8px;
-padding:10px;
 
 }
 
@@ -218,22 +187,49 @@ padding:10px;
 
 .terminal{
 
-background:#02090e;
-border:1px solid #15394d;
-padding:12px;
+background:#000c12;
+
+border:1px solid #0f3c4b;
+
 font-family:monospace;
+
+padding:10px;
+
 font-size:13px;
+
 color:#7bd1ff;
-height:120px;
+
+height:100px;
+
 overflow:auto;
 
+}
+
+/* graph */
+
+.chartbox{
+
+margin-top:30px;
+
+background:#06222c;
+
+border:1px solid #0f3c4b;
+
+border-radius:10px;
+
+padding:20px;
+
+}
+
+canvas{
+width:100%;
 }
 
 footer{
 
 text-align:center;
-padding:30px;
-color:#6ea4c4;
+padding:20px;
+color:#6fa8c0;
 
 }
 
@@ -249,14 +245,15 @@ color:#6ea4c4;
 
 <img src="logo.png">
 
-<b>Viral Analysis Laboratory</b>
+<b>ห้องปฏิบัติการวิเคราะห์ไวรัส</b>
 
 </div>
 
 <div class="status">
 
 <div class="dot"></div>
-System Active
+
+ระบบทำงาน
 
 </div>
 
@@ -268,7 +265,7 @@ System Active
 
 <div class="card">
 
-<h3>DNA Visualization</h3>
+<h3>การแสดงภาพดีเอ็นเอ</h3>
 
 <video autoplay loop muted>
 <source src="dna.mp4">
@@ -278,7 +275,7 @@ System Active
 
 <div class="card">
 
-<h3>Virus Model</h3>
+<h3>แบบจำลองไวรัส</h3>
 
 <img src="virus-3d.png">
 
@@ -286,7 +283,7 @@ System Active
 
 <div class="card">
 
-<h3>Cell Infection</h3>
+<h3>การติดเชื้อเซลล์</h3>
 
 <img src="infected-cell.png">
 
@@ -294,7 +291,7 @@ System Active
 
 <div class="card">
 
-<h3>Virus Structure</h3>
+<h3>โครงสร้างของไวรัส</h3>
 
 <video autoplay loop muted>
 <source src="virus-structure.mp4">
@@ -304,7 +301,7 @@ System Active
 
 <div class="card">
 
-<h3>Particle Detection</h3>
+<h3>การตรวจจับอนุภาค</h3>
 
 <div class="radar"></div>
 
@@ -312,14 +309,14 @@ System Active
 
 <div class="card">
 
-<h3>System Log</h3>
+<h3>บันทึกระบบ</h3>
 
 <div class="terminal">
 
-[09:21:03] Viral scan initiated  
-[09:21:07] DNA sequence detected  
-[09:21:11] Host cell analysis active  
-[09:21:16] Mutation probability 0.72  
+[09:21:03] เริ่มตรวจสอบไวรัส  
+[09:21:07] ตรวจพบพันธุกรรมดีเอ็นเอ  
+[09:21:11] กำลังวิเคราะห์เซลล์โฮสต์  
+[09:21:16] ความน่าจะเป็นการกลายพันธุ์ 0.72  
 
 </div>
 
@@ -327,15 +324,17 @@ System Active
 
 </div>
 
-<br><br>
+<div class="chartbox">
 
 <canvas id="chart"></canvas>
 
 </div>
 
+</div>
+
 <footer>
 
-Biological Structure Monitoring Interface
+อินเทอร์เฟซการตรวจสอบโครงสร้างทางชีวภาพ
 
 </footer>
 
@@ -374,9 +373,7 @@ fill:true
 },
 
 options:{
-plugins:{
-legend:{labels:{color:"#cfe7ff"}}
-},
+plugins:{legend:{labels:{color:"#d7f3ff"}}},
 scales:{
 x:{ticks:{color:"#9fc6e3"}},
 y:{ticks:{color:"#9fc6e3"}}
