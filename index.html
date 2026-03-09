@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexus Core Secure Portal</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:linear-gradient(180deg,#0b2a2e,#042226);
 display:flex;
 justify-content:center;
@@ -18,8 +20,9 @@ height:100vh;
 
 .login-box{
 background:white;
-width:340px;
-padding:35px;
+width:90%;
+max-width:360px;
+padding:30px;
 border-radius:20px;
 text-align:center;
 box-shadow:0 10px 30px rgba(0,0,0,0.4);
@@ -30,12 +33,18 @@ width:90px;
 margin-bottom:10px;
 }
 
+h2{
+margin:10px 0 20px 0;
+}
+
 input{
 width:100%;
-padding:12px;
+padding:14px;
 margin:10px 0;
 border-radius:8px;
 border:1px solid #ccc;
+font-size:16px;
+box-sizing:border-box;
 }
 
 button{
@@ -49,8 +58,9 @@ color:white;
 font-size:16px;
 }
 
-button:disabled{
-background:#888;
+button:hover{
+background:#1d2c3f;
+cursor:pointer;
 }
 
 .status{
@@ -66,6 +76,7 @@ font-size:14px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -77,10 +88,9 @@ font-size:14px;
 <h2>Nexus Core Secure Portal</h2>
 
 <input id="user" placeholder="Username">
-
 <input id="pass" type="password" placeholder="Password">
 
-<button id="loginBtn" onclick="login()">SIGN IN</button>
+<button onclick="login()">SIGN IN</button>
 
 <div id="error" class="error"></div>
 
@@ -91,9 +101,6 @@ System Status : Secure Connection Active
 </div>
 
 <script>
-
-let attempts = 0;
-let lockTime = 30;
 
 function login(){
 
@@ -106,46 +113,9 @@ location.href="lab.html";
 
 }else{
 
-attempts++;
-
-if(attempts>=3){
-
-lockSystem();
-
-}else{
-
-document.getElementById("error").innerText="ACCESS DENIED ("+attempts+"/3)";
+document.getElementById("error").innerText="ACCESS DENIED";
 
 }
-
-}
-
-}
-
-function lockSystem(){
-
-let btn=document.getElementById("loginBtn");
-btn.disabled=true;
-
-let timer=lockTime;
-
-let interval=setInterval(function(){
-
-document.getElementById("error").innerText="SYSTEM LOCKED "+timer+"s";
-
-timer--;
-
-if(timer<0){
-
-clearInterval(interval);
-
-attempts=0;
-btn.disabled=false;
-document.getElementById("error").innerText="";
-
-}
-
-},1000);
 
 }
 
