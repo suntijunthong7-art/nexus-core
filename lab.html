@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Nexus BioLab Control System</title>
+<title>Nexus Biotech Control System</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -14,95 +14,110 @@
 body{
 margin:0;
 font-family:Segoe UI,Roboto;
-background:#010c16;
-color:#d9e6f2;
+background:#020c16;
+color:#d6e6f3;
 }
 
-/* header */
+/* HEADER */
 
 .header{
-background:#071c2d;
+background:#071c2f;
 padding:16px;
 font-size:18px;
 font-weight:600;
-border-bottom:1px solid #183a55;
+border-bottom:1px solid #1a3c56;
 }
 
-/* console grid */
+/* GRID */
 
-.console{
+.dashboard{
 display:grid;
 grid-template-columns:1fr 1.2fr 1fr;
 gap:14px;
 padding:14px;
 }
 
-/* panels */
+/* PANELS */
 
 .panel{
 background:#0c2336;
-border-radius:10px;
-padding:14px;
+border-radius:12px;
+padding:16px;
 border:1px solid rgba(255,255,255,.05);
+box-shadow:0 0 20px rgba(0,0,0,.4);
 }
 
 .title{
-font-size:11px;
-color:#7fa9cc;
+font-size:12px;
+letter-spacing:.06em;
+color:#8fb3d1;
 margin-bottom:8px;
-letter-spacing:.1em;
 }
 
 /* AI CORE */
 
-.aiCore{
+.coreBox{
 display:flex;
 justify-content:center;
 align-items:center;
 height:220px;
-position:relative;
 }
 
 .core{
-width:90px;
-height:90px;
+width:120px;
+height:120px;
 border-radius:50%;
-background:radial-gradient(circle,#3bd6ff,#0b3b5c);
-box-shadow:0 0 50px #3bd6ff;
-animation:pulse 2s infinite;
+background:radial-gradient(circle,#2fd6ff,#0b3c5c);
+box-shadow:0 0 40px #2fd6ff;
+animation:pulse 3s infinite;
 }
 
 @keyframes pulse{
 
-0%{box-shadow:0 0 20px #3bd6ff}
-50%{box-shadow:0 0 70px #3bd6ff}
-100%{box-shadow:0 0 20px #3bd6ff}
+0%{transform:scale(1)}
+50%{transform:scale(1.15)}
+100%{transform:scale(1)}
 
 }
 
-/* virus */
+/* SCAN LINES */
 
-.virus{
-width:70px;
-height:70px;
-background:radial-gradient(circle,#34d5ff,#0b3b5d);
-border-radius:50%;
-margin:auto;
-box-shadow:0 0 30px #34d5ff;
+.scan{
+height:120px;
+display:flex;
+align-items:center;
+gap:6px;
 }
 
-/* graphs */
+.scan div{
+width:6px;
+height:20px;
+background:#2fd6ff;
+animation:scan 1.5s infinite;
+}
+
+.scan div:nth-child(2){animation-delay:.2s}
+.scan div:nth-child(3){animation-delay:.4s}
+.scan div:nth-child(4){animation-delay:.6s}
+.scan div:nth-child(5){animation-delay:.8s}
+
+@keyframes scan{
+
+0%,100%{height:20px}
+50%{height:100px}
+
+}
 
 canvas{
+margin-top:10px;
 max-height:120px;
-margin-top:8px;
 }
 
-/* responsive */
+/* MOBILE */
 
 @media(max-width:900px){
 
-.console{
+.dashboard{
 grid-template-columns:1fr;
 }
 
@@ -115,140 +130,127 @@ grid-template-columns:1fr;
 <body>
 
 <div class="header">
-🧬 Nexus BioLab — AI Research Console
+🧠 Nexus Bio-Containment AI — Research Control Interface
 </div>
 
-<div class="console">
+<div class="dashboard">
 
-<!-- genome scan -->
+<!-- SPECIMEN -->
 
 <div class="panel">
 
-<div class="title">GENOME SCAN</div>
+<div class="title">SPECIMEN ANALYSIS</div>
 
 Specimen : TV-023<br>
-RNA integrity : 94%<br>
-Mutation index : 0.92
-
-<canvas id="genomeChart"></canvas>
-
-</div>
-
-
-<!-- AI core -->
-
-<div class="panel aiCore">
-
-<div class="core"></div>
-
-</div>
-
-
-<!-- containment -->
-
-<div class="panel">
-
-<div class="title">CONTAINMENT STATUS</div>
-
-Security level : BSL-4<br>
-Airlock status : sealed<br>
-Biohazard risk : LOW
-
-<canvas id="containChart"></canvas>
-
-</div>
-
-
-<!-- virus model -->
-
-<div class="panel">
-
-<div class="title">VIRUS STRUCTURE</div>
-
-<div class="virus"></div>
+Virus activity : 78%<br>
+Mutation index : 0.92<br>
+Containment : LEVEL-4
 
 <canvas id="virusChart"></canvas>
 
 </div>
 
 
-<!-- system status -->
+<!-- AI CORE -->
 
-<div class="panel">
+<div class="panel coreBox">
 
-<div class="title">SYSTEM STATUS</div>
-
-AI analysis : ACTIVE<br>
-Genome scan : RUNNING<br>
-Database link : CONNECTED
-
-<canvas id="sysChart"></canvas>
+<div class="core"></div>
 
 </div>
 
 
-<!-- biosignal -->
+<!-- INCUBATION -->
 
 <div class="panel">
 
-<div class="title">BIO SIGNAL MONITOR</div>
+<div class="title">INCUBATION MONITOR</div>
 
 Heart rate : 82 bpm<br>
 Temperature : 37.1°C<br>
-Cell activity : stable
+Cell status : Stable
 
-<canvas id="bioChart"></canvas>
+<canvas id="cellChart"></canvas>
+
+</div>
+
+
+<!-- SYSTEM SCAN -->
+
+<div class="panel">
+
+<div class="title">GENOME SCAN</div>
+
+<div class="scan">
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</div>
+
+</div>
+
+
+<!-- GENOME ANALYTICS -->
+
+<div class="panel">
+
+<div class="title">GENOME ANALYTICS</div>
+
+RNA integrity : 94%<br>
+Protein synthesis : Active<br>
+Replication rate : 0.71
+
+<canvas id="genomeChart"></canvas>
 
 </div>
 
 </div>
+
 
 <script>
 
-new Chart(genomeChart,{
+new Chart(document.getElementById("virusChart"),{
+type:"line",
+data:{
+labels:["0h","2h","4h","6h","8h"],
+datasets:[{
+data:[10,25,40,60,78],
+borderColor:"#2fd6ff",
+fill:false
+}]
+},
+options:{plugins:{legend:{display:false}}}
+});
+
+
+new Chart(document.getElementById("cellChart"),{
+type:"line",
+data:{
+labels:["0","1","2","3","4"],
+datasets:[{
+data:[40,48,52,50,55],
+borderColor:"#63ff9a",
+fill:false
+}]
+},
+options:{plugins:{legend:{display:false}}}
+});
+
+
+new Chart(document.getElementById("genomeChart"),{
 type:"line",
 data:{
 labels:["A","T","C","G"],
-datasets:[{data:[22,18,30,24],borderColor:"#3bd6ff"}]
+datasets:[{
+data:[22,18,30,24],
+borderColor:"#ffa74a",
+fill:false
+}]
 },
 options:{plugins:{legend:{display:false}}}
-})
-
-new Chart(containChart,{
-type:"line",
-data:{
-labels:["0","1","2","3"],
-datasets:[{data:[70,72,71,73],borderColor:"#63ff9a"}]
-},
-options:{plugins:{legend:{display:false}}}
-})
-
-new Chart(virusChart,{
-type:"bar",
-data:{
-labels:["Spike","Capsid","RNA"],
-datasets:[{data:[70,60,80],backgroundColor:"#3bd6ff"}]
-},
-options:{plugins:{legend:{display:false}}}
-})
-
-new Chart(sysChart,{
-type:"line",
-data:{
-labels:["1","2","3","4"],
-datasets:[{data:[60,65,68,72],borderColor:"#ffa74a"}]
-},
-options:{plugins:{legend:{display:false}}}
-})
-
-new Chart(bioChart,{
-type:"line",
-data:{
-labels:["0","1","2","3"],
-datasets:[{data:[40,48,52,55],borderColor:"#63ff9a"}]
-},
-options:{plugins:{legend:{display:false}}}
-})
+});
 
 </script>
 
