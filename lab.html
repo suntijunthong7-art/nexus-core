@@ -3,9 +3,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nexus Biotech Control System</title>
+<title>Nexus Bio Lab</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -13,210 +13,88 @@
 
 body{
 margin:0;
-font-family:Segoe UI,Roboto;
-background:#020c16;
-color:#d6e6f3;
+font-family:Segoe UI;
+background:#03131f;
+color:#e2edf7;
 }
 
-/* HEADER */
-
 .header{
-background:#071c2f;
+background:#072034;
 padding:16px;
 font-size:18px;
 font-weight:600;
-border-bottom:1px solid #1a3c56;
 }
 
-/* GRID */
-
-.dashboard{
-display:grid;
-grid-template-columns:1fr 1.2fr 1fr;
-gap:14px;
-padding:14px;
+.container{
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:15px;
 }
-
-/* PANELS */
 
 .panel{
-background:#0c2336;
-border-radius:12px;
+background:#0b253a;
 padding:16px;
-border:1px solid rgba(255,255,255,.05);
-box-shadow:0 0 20px rgba(0,0,0,.4);
+border-radius:12px;
 }
 
-.title{
-font-size:12px;
-letter-spacing:.06em;
-color:#8fb3d1;
-margin-bottom:8px;
-}
-
-/* AI CORE */
-
-.coreBox{
-display:flex;
-justify-content:center;
-align-items:center;
-height:220px;
-}
-
-.core{
-width:120px;
-height:120px;
-border-radius:50%;
-background:radial-gradient(circle,#2fd6ff,#0b3c5c);
-box-shadow:0 0 40px #2fd6ff;
-animation:pulse 3s infinite;
-}
-
-@keyframes pulse{
-
-0%{transform:scale(1)}
-50%{transform:scale(1.15)}
-100%{transform:scale(1)}
-
-}
-
-/* SCAN LINES */
-
-.scan{
-height:120px;
-display:flex;
-align-items:center;
-gap:6px;
-}
-
-.scan div{
-width:6px;
-height:20px;
-background:#2fd6ff;
-animation:scan 1.5s infinite;
-}
-
-.scan div:nth-child(2){animation-delay:.2s}
-.scan div:nth-child(3){animation-delay:.4s}
-.scan div:nth-child(4){animation-delay:.6s}
-.scan div:nth-child(5){animation-delay:.8s}
-
-@keyframes scan{
-
-0%,100%{height:20px}
-50%{height:100px}
-
+img{
+width:100%;
+border-radius:10px;
 }
 
 canvas{
-margin-top:10px;
-max-height:120px;
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-.dashboard{
-grid-template-columns:1fr;
-}
-
+max-height:140px;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="header">
-🧠 Nexus Bio-Containment AI — Research Control Interface
+🧬 Nexus Bio-Containment Lab
 </div>
 
-<div class="dashboard">
-
-<!-- SPECIMEN -->
+<div class="container">
 
 <div class="panel">
 
-<div class="title">SPECIMEN ANALYSIS</div>
+<img src="images/virus.png">
+
+</div>
+
+<div class="panel">
 
 Specimen : TV-023<br>
 Virus activity : 78%<br>
 Mutation index : 0.92<br>
-Containment : LEVEL-4
+Containment : Level-4
 
-<canvas id="virusChart"></canvas>
-
-</div>
-
-
-<!-- AI CORE -->
-
-<div class="panel coreBox">
-
-<div class="core"></div>
+<canvas id="chart1"></canvas>
 
 </div>
-
-
-<!-- INCUBATION -->
 
 <div class="panel">
-
-<div class="title">INCUBATION MONITOR</div>
 
 Heart rate : 82 bpm<br>
 Temperature : 37.1°C<br>
 Cell status : Stable
 
-<canvas id="cellChart"></canvas>
-
-</div>
-
-
-<!-- SYSTEM SCAN -->
-
-<div class="panel">
-
-<div class="title">GENOME SCAN</div>
-
-<div class="scan">
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-</div>
-
-</div>
-
-
-<!-- GENOME ANALYTICS -->
-
-<div class="panel">
-
-<div class="title">GENOME ANALYTICS</div>
-
-RNA integrity : 94%<br>
-Protein synthesis : Active<br>
-Replication rate : 0.71
-
-<canvas id="genomeChart"></canvas>
+<canvas id="chart2"></canvas>
 
 </div>
 
 </div>
-
 
 <script>
 
-new Chart(document.getElementById("virusChart"),{
+new Chart(document.getElementById("chart1"),{
 type:"line",
 data:{
-labels:["0h","2h","4h","6h","8h"],
+labels:["0h","2h","4h","6h"],
 datasets:[{
-data:[10,25,40,60,78],
+data:[10,25,40,60],
 borderColor:"#2fd6ff",
 fill:false
 }]
@@ -224,28 +102,13 @@ fill:false
 options:{plugins:{legend:{display:false}}}
 });
 
-
-new Chart(document.getElementById("cellChart"),{
+new Chart(document.getElementById("chart2"),{
 type:"line",
 data:{
-labels:["0","1","2","3","4"],
+labels:["0","1","2","3"],
 datasets:[{
-data:[40,48,52,50,55],
+data:[40,48,52,50],
 borderColor:"#63ff9a",
-fill:false
-}]
-},
-options:{plugins:{legend:{display:false}}}
-});
-
-
-new Chart(document.getElementById("genomeChart"),{
-type:"line",
-data:{
-labels:["A","T","C","G"],
-datasets:[{
-data:[22,18,30,24],
-borderColor:"#ffa74a",
 fill:false
 }]
 },
