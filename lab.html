@@ -1,84 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Biotech Genomics Research Dashboard</title>
+<title>Nexus Genomics Dashboard</title>
 
 <style>
 
 body{
 margin:0;
-background:#0a0f16;
 font-family:Segoe UI;
-color:white;
+background:#0a1420;
+color:#e8eef5;
 }
 
-header{
-padding:15px 25px;
-background:#111827;
+.topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
+background:#101b2b;
+padding:12px 20px;
 }
 
-header h1{
-font-size:18px;
-margin:0;
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+width:34px;
+}
+
+.menu{
+display:flex;
+gap:18px;
+font-size:14px;
+opacity:0.8;
 }
 
 .dashboard{
 display:grid;
 grid-template-columns:260px 1fr 300px;
 gap:15px;
-padding:15px;
+padding:20px;
 }
 
-.card{
-background:#121a24;
+.panel{
+background:#131f30;
 border-radius:10px;
 padding:15px;
 }
 
-.card h3{
+.panel h3{
 margin-top:0;
-font-size:14px;
-opacity:.8;
+font-size:15px;
+border-bottom:1px solid #25374f;
+padding-bottom:6px;
 }
 
 .metric{
 font-size:22px;
-margin-top:10px;
+font-weight:bold;
 }
 
-.dna-panel{
+.low{
+color:#6ce38c;
+}
+
+.center{
 display:flex;
 justify-content:center;
 align-items:center;
-background:#0c131c;
-border-radius:10px;
 }
 
-.dna-panel img{
-max-width:80%;
+.dna{
+width:260px;
+animation:rotate 25s linear infinite;
 }
 
-.chart{
-height:120px;
-background:#0c131c;
-border-radius:8px;
+@keyframes rotate{
+
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+
+}
+
+.graph{
+height:100px;
+background:linear-gradient(180deg,#1e2f46,#0f1c2b);
+border-radius:6px;
 margin-top:10px;
-}
-
-.log{
-background:black;
-font-family:monospace;
-font-size:12px;
-padding:10px;
-height:120px;
-overflow:auto;
 }
 
 </style>
@@ -87,109 +101,74 @@ overflow:auto;
 
 <body>
 
-<header>
+<div class="topbar">
 
-<h1>Genome Research Monitoring System</h1>
+<div class="logo">
 
-<div>Operator: Lab Research Node</div>
+<img src="logo.png">
 
-</header>
+<div>Nexus Genomics Lab</div>
+
+</div>
+
+<div class="menu">
+
+<div>Overview</div>
+<div>Genome Lab</div>
+<div>Specimens</div>
+<div>Incubation</div>
+<div>Analytics</div>
+
+</div>
+
+</div>
 
 
 <div class="dashboard">
 
 
-<!-- LEFT PANEL -->
+<div class="panel">
 
-<div>
+<h3>Genome Map</h3>
 
-<div class="card">
+Specimen ID : VX-023
 
-<h3>Specimen Data</h3>
+<div class="metric">78%</div>
 
-Specimen ID<br>
-<b>VX-023</b>
+AI Analysis : <span class="low">LOW RISK</span>
 
-<div class="metric">AI Analysis: 78%</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>Environment</h3>
-
-Temperature: 37.1°C<br>
-Humidity: 61%<br>
-Pressure: Stable
-
-</div>
+<div class="graph"></div>
 
 </div>
 
 
-<!-- CENTER -->
+<div class="panel center">
 
-<div class="dna-panel">
-
-<img src="dna.png">
+<img src="dna.png" class="dna">
 
 </div>
 
 
-<!-- RIGHT PANEL -->
+<div class="panel">
 
-<div>
+<h3>Specimen Monitoring</h3>
 
-<div class="card">
+Heart Rate : 82 bpm  
+Temperature : 37.1°C  
+Cell Activity : Stable
 
-<h3>Genome Analytics</h3>
+<div class="graph"></div>
 
-<div class="chart"></div>
+<h3>DNA Analytics</h3>
 
-</div>
-
-<div class="card">
-
-<h3>DNA Structure</h3>
-
-<img src="dna-chart.png" style="width:100%">
-
-</div>
-
-<div class="card">
-
-<h3>Incubation Data</h3>
-
-Heart rate: 82 bpm<br>
-Cell growth: Stable
-
-</div>
+Sequence Match : 91%  
+Mutation Index : 0.12  
+Genome Stability : Stable
 
 </div>
 
 
 </div>
-
-
-<div style="padding:15px">
-
-<div class="card">
-
-<h3>System Event Log</h3>
-
-<div class="log">
-
-System boot complete<br>
-Genome analytics module ready<br>
-Specimen VX-023 loaded<br>
-
-</div>
-
-</div>
-
-</div>
-
 
 </body>
 </html>
