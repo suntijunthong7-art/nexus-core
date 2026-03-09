@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Research Operations Console</title>
+<title>Nexus Research Directorate</title>
 
 <style>
 
@@ -18,19 +18,38 @@ color:#e4e8ed;
 
 header{
 background:#1b2b3c;
-padding:18px;
-font-size:20px;
-font-weight:600;
-letter-spacing:0.5px;
+padding:16px;
 }
 
-.system-id{
-font-size:13px;
+.header-top{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo{
+width:40px;
+height:40px;
+}
+
+.title{
+font-size:20px;
+font-weight:600;
+}
+
+.subtitle{
+font-size:12px;
 opacity:0.7;
 }
 
+.clock{
+font-size:12px;
+opacity:0.7;
+margin-top:6px;
+}
+
 .container{
-padding:20px;
+padding:18px;
 max-width:900px;
 margin:auto;
 }
@@ -38,16 +57,16 @@ margin:auto;
 .panel{
 background:#162435;
 border-radius:10px;
-padding:20px;
-margin-bottom:18px;
-box-shadow:0 0 10px rgba(0,0,0,0.4);
+padding:18px;
+margin-bottom:16px;
+box-shadow:0 0 10px rgba(0,0,0,0.35);
 }
 
 .panel h2{
-margin-top:0;
-font-size:18px;
+margin:0 0 10px 0;
+font-size:17px;
 border-bottom:1px solid #2b3e55;
-padding-bottom:8px;
+padding-bottom:6px;
 }
 
 .status-ok{
@@ -72,24 +91,17 @@ font-size:15px;
 
 button:hover{
 background:#3b5676;
-cursor:pointer;
 }
 
 .console{
 background:#05080c;
-padding:15px;
+padding:14px;
 border-radius:6px;
 font-family:monospace;
 font-size:13px;
 color:#6df5a4;
-height:150px;
+height:160px;
 overflow:auto;
-}
-
-.clock{
-font-size:13px;
-opacity:0.7;
-margin-top:4px;
 }
 
 </style>
@@ -100,15 +112,26 @@ margin-top:4px;
 
 <header>
 
-Nexus Research Directorate — Operations Console
+<div class="header-top">
 
-<div class="system-id">
+<img src="logo.png" class="logo">
+
+<div>
+<div class="title">
+Nexus Research Directorate — Operations Console
+</div>
+
+<div class="subtitle">
 Secure Research Infrastructure Control Network
+</div>
+</div>
+
 </div>
 
 <div class="clock" id="clock"></div>
 
 </header>
+
 
 <div class="container">
 
@@ -166,7 +189,7 @@ Security Control
 <div class="console" id="console">
 
 System initialization complete...<br>
-Facility network handshake verified...<br>
+Secure network handshake verified...<br>
 AI monitoring grid online...<br>
 Awaiting operator command...
 
@@ -176,28 +199,37 @@ Awaiting operator command...
 
 </div>
 
+
 <script>
 
 function log(text){
+
 let consoleBox=document.getElementById("console");
-consoleBox.innerHTML+="<br>"+text;
-consoleBox.scrollTop=consoleBox.scrollHeight;
+
+consoleBox.innerHTML += "<br>"+text;
+
+consoleBox.scrollTop = consoleBox.scrollHeight;
+
 }
 
 setInterval(function(){
 
 let now=new Date();
+
 document.getElementById("clock").innerText=
 "Network Time : "+now.toLocaleString();
 
 },1000);
 
+
 let autoLogs=[
+
 "Sensor grid synchronization complete",
-"Environmental monitoring stable",
+"Containment pressure within tolerance",
 "Laboratory sector integrity verified",
 "Security node handshake confirmed",
-"Containment pressure within tolerance"
+"Environmental monitoring stable"
+
 ];
 
 setInterval(function(){
