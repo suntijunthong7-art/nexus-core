@@ -1,170 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8">
 <title>Nexus Research Facility</title>
 
 <style>
 
 body{
-font-family:Arial;
-background:#f4f6f8;
 margin:0;
+font-family:Arial;
+background:#0b1622;
+color:white;
 }
 
-.header{
-background:#2e3f55;
-color:white;
+header{
+background:#1f3147;
 padding:20px;
-font-size:22px;
+font-size:26px;
+font-weight:bold;
 }
 
 .container{
-padding:30px;
-max-width:900px;
-margin:auto;
-}
-
-.panel{
-background:white;
 padding:20px;
-border-radius:8px;
-margin-bottom:20px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-button{
-display:block;
-width:250px;
-padding:12px;
-margin:12px 0;
-background:#2e3f55;
-color:white;
-border:none;
-border-radius:6px;
-font-size:15px;
-cursor:pointer;
-}
-
-button:hover{
-background:#1e2c3d;
-}
-
-
-/* POPUP */
-
-.popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-display:none;
-align-items:center;
-justify-content:center;
-}
-
-.popup-box{
-background:white;
-padding:25px;
+.card{
+background:#1b2736;
+padding:20px;
 border-radius:10px;
-width:300px;
-text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
+margin-bottom:20px;
 }
 
-.popup-box h3{
+.card h2{
 margin-top:0;
 }
 
-.close{
-margin-top:15px;
-background:#2e3f55;
+.status-ok{
+color:#00ff9c;
+}
+
+.status-warn{
+color:#ffcc00;
+}
+
+button{
+width:100%;
+padding:14px;
+margin-top:10px;
+background:#30445c;
+border:none;
+color:white;
+border-radius:8px;
+font-size:16px;
+}
+
+button:hover{
+background:#3c5878;
+cursor:pointer;
+}
+
+.console{
+background:black;
+color:#00ff90;
+padding:15px;
+font-family:monospace;
+height:120px;
+overflow:auto;
+border-radius:8px;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="header">
-Nexus Research Facility
-</div>
+<header>
+Nexus Research Facility Control System
+</header>
 
 <div class="container">
 
-<div class="panel">
-
-<h3>Session Information</h3>
-
+<div class="card">
+<h2>Session Information</h2>
 User : Authorized Personnel<br>
 Access Level : Level 4<br>
 Location : Laboratory Core
+</div>
+
+<div class="card">
+<h2>Facility Status</h2>
+Reactor Core : <span class="status-ok">Operational</span><br>
+Containment Field : <span class="status-ok">Stable</span><br>
+Specimen Storage : <span class="status-warn">Secured</span><br>
+AI Monitoring : <span class="status-ok">Active</span>
+</div>
+
+<div class="card">
+<h2>Control Panel</h2>
+
+<button onclick="openDB()">Research Database</button>
+<button onclick="openLogs()">Experiment Logs</button>
+<button onclick="openPersonnel()">Personnel Records</button>
+<button onclick="openSecurity()">Security System</button>
 
 </div>
 
-<div class="panel">
-
-<h3>Facility Systems</h3>
-
-Reactor Core : <span style="color:green">Operational</span><br>
-Containment System : Stable<br>
-Specimen Storage : Locked<br>
-AI Monitoring : Active
-
+<div class="card">
+<h2>System Console</h2>
+<div class="console" id="console">
+System boot sequence complete...<br>
+AI monitoring active...<br>
+Awaiting operator command...
 </div>
-
-<div class="panel">
-
-<h3>Laboratory Controls</h3>
-
-<button onclick="openPopup('Research Database')">Research Database</button>
-
-<button onclick="openPopup('Experiment Logs')">Experiment Logs</button>
-
-<button onclick="openPopup('Personnel Records')">Personnel Records</button>
-
-<button onclick="openPopup('Security System')">Security System</button>
-
 </div>
 
 </div>
-
-
-<!-- POPUP -->
-
-<div class="popup" id="popup">
-
-<div class="popup-box">
-
-<h3 id="title">System</h3>
-
-<p>Accessing module...</p>
-
-<button class="close" onclick="closePopup()">Close</button>
-
-</div>
-
-</div>
-
 
 <script>
 
-function openPopup(name){
-
-document.getElementById("title").innerText=name;
-document.getElementById("popup").style.display="flex";
-
+function log(text){
+document.getElementById("console").innerHTML += "<br>"+text;
 }
 
-function closePopup(){
+function openDB(){
+log("Accessing research database...");
+}
 
-document.getElementById("popup").style.display="none";
+function openLogs(){
+log("Opening experiment logs...");
+}
 
+function openPersonnel(){
+log("Loading personnel records...");
+}
+
+function openSecurity(){
+log("Security system interface opened...");
 }
 
 </script>
