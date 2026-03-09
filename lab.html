@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nexus Genome Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Nexus Genome Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 body{
 margin:0;
-font-family:Segoe UI;
-background:#030f19;
+font-family:Segoe UI,Arial;
+background:#071a2c;
 color:white;
 }
 
 /* HEADER */
 
 .header{
-padding:15px;
-background:#071f33;
-border-bottom:1px solid #173c55;
+padding:18px;
+background:#0a253d;
+font-size:18px;
 }
 
-/* MAIN GRID */
+/* GRID LAYOUT */
 
 .dashboard{
-
 display:grid;
 grid-template-columns:280px 1fr 280px;
 gap:15px;
 padding:15px;
-
 }
 
-/* PANELS */
+/* PANEL */
 
 .panel{
-
-background:#0c2538;
-padding:15px;
+background:#0e2f4a;
 border-radius:10px;
-
+padding:15px;
 }
 
 /* CENTER DNA */
@@ -51,30 +51,26 @@ justify-content:center;
 align-items:center;
 }
 
+/* DNA HELIX */
+
 .dna{
-
-width:120px;
-height:260px;
 position:relative;
-
+width:120px;
+height:320px;
 }
 
-.strand{
-
+.line{
 position:absolute;
 width:6px;
 height:100%;
-background:#3dd8ff;
-border-radius:3px;
-animation:helix 4s linear infinite;
-
+background:#41d6ff;
+border-radius:4px;
+animation:helix 4s infinite linear;
 }
 
-.strand:nth-child(2){
-
+.line:nth-child(2){
 left:60px;
 animation-delay:2s;
-
 }
 
 @keyframes helix{
@@ -85,24 +81,12 @@ animation-delay:2s;
 
 }
 
-.title{
-
-font-size:13px;
-color:#8fb3d1;
-margin-bottom:10px;
-
-}
-
-/* GRAPH MOCK */
-
-.graph{
-
-height:70px;
-background:linear-gradient(#183a56,#081a2b);
-border-radius:6px;
+canvas{
 margin-top:10px;
-
+max-height:120px;
 }
+
+/* MOBILE */
 
 @media(max-width:900px){
 
@@ -117,86 +101,130 @@ order:-1;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="header">
-🧬 Nexus Genome Research Console
+🧬 Nexus Genomics Research Console
 </div>
 
 <div class="dashboard">
 
-<!-- LEFT -->
+<!-- LEFT PANEL -->
 
 <div class="panel">
 
-<div class="title">SPECIMEN DATA</div>
+<h3>Specimen Data</h3>
 
 Specimen : TV-023<br>
-Virus activity : 78%<br>
-Mutation index : 0.92
+Activity : 78%<br>
+Mutation : 0.92<br>
+Containment : BSL-4
 
-<div class="graph"></div>
+<canvas id="chart1"></canvas>
 
 </div>
 
-<!-- CENTER -->
+
+<!-- CENTER DNA -->
 
 <div class="panel center">
 
 <div class="dna">
-<div class="strand"></div>
-<div class="strand"></div>
+<div class="line"></div>
+<div class="line"></div>
 </div>
 
 </div>
 
-<!-- RIGHT -->
+
+<!-- RIGHT PANEL -->
 
 <div class="panel">
 
-<div class="title">INCUBATION DATA</div>
+<h3>Incubation Monitor</h3>
 
 Heart rate : 82 bpm<br>
 Temperature : 37.1°C<br>
-Cell response : Stable
+Cell status : Stable
 
-<div class="graph"></div>
+<canvas id="chart2"></canvas>
 
 </div>
 
-<!-- BOTTOM LEFT -->
+
+<!-- LEFT BOTTOM -->
 
 <div class="panel">
 
-<div class="title">GENOME ANALYTICS</div>
+<h3>Virus Structure</h3>
+
+<img width="100%" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Coronavirus_virion_structure.svg">
+
+</div>
+
+
+<!-- RIGHT BOTTOM -->
+
+<div class="panel">
+
+<h3>Genome Analytics</h3>
 
 RNA integrity : 94%<br>
-Protein synthesis : Active
+Replication : 0.71
 
-<div class="graph"></div>
-
-</div>
-
-<!-- BOTTOM RIGHT -->
-
-<div class="panel">
-
-<div class="title">VIRAL STRUCTURE</div>
-
-<div style="
-width:80px;
-height:80px;
-background:radial-gradient(circle,#38d6ff,#0a3555);
-border-radius:50%;
-margin:auto;
-box-shadow:0 0 30px #38d6ff;
-"></div>
+<canvas id="chart3"></canvas>
 
 </div>
 
 </div>
+
+<script>
+
+new Chart(document.getElementById("chart1"),{
+type:"line",
+data:{
+labels:["0h","2h","4h","6h","8h"],
+datasets:[{
+data:[10,25,40,60,78],
+borderColor:"#41d6ff",
+fill:false
+}]
+},
+options:{plugins:{legend:{display:false}}}
+})
+
+
+new Chart(document.getElementById("chart2"),{
+type:"line",
+data:{
+labels:["0","1","2","3","4"],
+datasets:[{
+data:[40,48,52,50,55],
+borderColor:"#7dffb2",
+fill:false
+}]
+},
+options:{plugins:{legend:{display:false}}}
+})
+
+
+new Chart(document.getElementById("chart3"),{
+type:"line",
+data:{
+labels:["A","T","C","G"],
+datasets:[{
+data:[22,18,30,24],
+borderColor:"#ffa94a",
+fill:false
+}]
+},
+options:{plugins:{legend:{display:false}}}
+})
+
+</script>
 
 </body>
 </html>
