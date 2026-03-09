@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Virus Analysis</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#081a20;
+color:#8feaff;
+}
+
+header{
+padding:15px;
+background:#0b2f38;
+display:flex;
+justify-content:space-between;
+}
+
+.container{
+padding:20px;
+}
+
+.log{
+background:#000;
+color:#00ff9c;
+font-family:monospace;
+height:200px;
+overflow:auto;
+padding:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div>Virus Analysis</div>
+
+<button onclick="location.href='dashboard.html'">Back</button>
+
+</header>
+
+<div class="container">
+
+<h3>System Log</h3>
+
+<div class="log" id="log"></div>
+
+</div>
+
+<script>
+
+let log=document.getElementById("log")
+
+let msgs=[
+"Scanning viral particles",
+"DNA mutation detected",
+"Protein analysis running",
+"Host cell mapping",
+"Genome sequencing"
+]
+
+setInterval(()=>{
+
+let time=new Date().toLocaleTimeString()
+
+let m=msgs[Math.floor(Math.random()*msgs.length)]
+
+log.innerHTML+="["+time+"] "+m+"<br>"
+
+log.scrollTop=log.scrollHeight
+
+},2000)
+
+</script>
+
+</body>
+</html>[10:41] AI Core Online<br>
+[10:42] Monitoring Systems Active<br>
+[10:44] Facility Scan Complete<br>
+[10:47] Security Protocol Verified<br>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
