@@ -1,152 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Genomics Lab</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<title>Nexus Genomics Research Interface</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Segoe UI;
-background:#050e18;
-color:white;
-overflow:hidden;
+background:#020b16;
+color:#e8f3ff;
 }
 
-/* TOP BAR */
+/* background */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:
+
+radial-gradient(circle at 30% 40%,#0b2740,transparent 60%),
+radial-gradient(circle at 70% 60%,#0a1e33,transparent 60%);
+
+z-index:-1;
+}
+
+/* topbar */
 
 .topbar{
-position:absolute;
-top:0;
-left:0;
-right:0;
-height:60px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:14px 40px;
+
+background:#061829;
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.logo{
 display:flex;
 align-items:center;
-justify-content:space-between;
-padding:0 30px;
-background:rgba(0,0,0,.4);
-border-bottom:1px solid rgba(255,255,255,.05);
+gap:10px;
+font-weight:600;
+}
+
+.logo img{
+width:28px;
 }
 
 .menu{
 display:flex;
-gap:20px;
+gap:25px;
 font-size:14px;
 opacity:.8;
 }
 
-/* PANELS */
+/* dashboard */
+
+.dashboard{
+
+display:grid;
+
+grid-template-columns:
+
+280px
+1fr
+300px;
+
+gap:20px;
+
+padding:30px;
+
+}
+
+/* panels */
 
 .panel{
-position:absolute;
-background:rgba(20,40,65,.7);
-border:1px solid rgba(255,255,255,.08);
-border-radius:10px;
-padding:15px;
+
+background:rgba(18,40,65,.6);
+border-radius:14px;
+padding:20px;
+
+border:1px solid rgba(120,170,220,.12);
+
 backdrop-filter:blur(6px);
+
+box-shadow:
+0 0 30px rgba(0,150,255,.05);
+
 }
 
-/* LEFT PANEL */
-
-.left{
-top:90px;
-left:20px;
-width:260px;
+.panel h3{
+margin-top:0;
+font-size:14px;
+border-bottom:1px solid rgba(255,255,255,.08);
+padding-bottom:8px;
 }
 
-/* RIGHT PANEL */
-
-.right{
-top:90px;
-right:20px;
-width:260px;
-}
-
-/* GRAPH */
+/* graphs */
 
 .graph{
-height:100px;
-margin-top:10px;
-background:linear-gradient(180deg,#1d3c5a,#081b2e);
-border-radius:6px;
+
+height:120px;
+
+border-radius:10px;
+
+background:
+
+linear-gradient(180deg,#1a3d5e,#081a2c);
+
+margin-top:12px;
+
 }
 
-canvas{
-position:absolute;
-top:0;
-left:0;
+/* DNA center */
+
+.center{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+/* DNA */
+
+.dna{
+
+width:260px;
+height:420px;
+
+animation:rotate 20s linear infinite;
+
+filter:drop-shadow(0 0 20px #2ecfff);
+
+}
+
+@keyframes rotate{
+
+0%{transform:rotateY(0deg)}
+100%{transform:rotateY(360deg)}
+
+}
+
+/* glow lines */
+
+.dna line{
+stroke:#4ad3ff;
+stroke-width:2;
+}
+
+.dna circle{
+fill:#4ad3ff;
+}
+
+/* small data */
+
+.data{
+font-size:13px;
+opacity:.8;
+margin-top:6px;
+}
+
+.big{
+font-size:30px;
+font-weight:600;
+}
+
+.green{
+color:#61ffa7;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="topbar">
 
+<div class="logo">
+
+<img src="logo.png">
+
 <div>Nexus Genomics Lab</div>
 
+</div>
+
 <div class="menu">
+
 <div>Overview</div>
 <div>Genome Lab</div>
-<div>Specimens</div>
 <div>Incubation</div>
 <div>Analytics</div>
-</div>
 
 </div>
 
-<div class="panel left">
+</div>
 
-<h3>Genome Map</h3>
+<div class="dashboard">
 
-Specimen ID : VX-023
 
-<h2>78%</h2>
+<!-- LEFT -->
 
-AI Analysis : <span style="color:#69ffb0;">LOW</span>
+<div class="panel">
+
+<h3>GENOME MAP</h3>
+
+<div class="data">Specimen ID : VX-023</div>
+
+<div class="big">78%</div>
+
+<div class="data">AI Analysis : <span class="green">LOW RISK</span></div>
 
 <div class="graph"></div>
 
 </div>
 
 
-<div class="panel right">
+<!-- CENTER DNA -->
 
-<h3>Specimen Monitoring</h3>
+<div class="panel center">
 
-Heart Rate : 82 bpm  
-Temperature : 37.1°C  
-Cell Activity : Stable
+<svg class="dna" viewBox="0 0 200 400">
 
-<div class="graph"></div>
+<circle cx="60" cy="20" r="4"/>
+<circle cx="140" cy="20" r="4"/>
 
-<h3>DNA Analytics</h3>
+<line x1="60" y1="20" x2="140" y2="20"/>
 
-Sequence Match : 91%  
-Mutation Index : 0.12  
-Genome Stability : Stable
+<circle cx="70" cy="60" r="4"/>
+<circle cx="130" cy="60" r="4"/>
+
+<line x1="70" y1="60" x2="130" y2="60"/>
+
+<circle cx="60" cy="100" r="4"/>
+<circle cx="140" cy="100" r="4"/>
+
+<line x1="60" y1="100" x2="140" y2="100"/>
+
+<circle cx="70" cy="140" r="4"/>
+<circle cx="130" cy="140" r="4"/>
+
+<line x1="70" y1="140" x2="130" y2="140"/>
+
+<circle cx="60" cy="180" r="4"/>
+<circle cx="140" cy="180" r="4"/>
+
+<line x1="60" y1="180" x2="140" y2="180"/>
+
+<circle cx="70" cy="220" r="4"/>
+<circle cx="130" cy="220" r="4"/>
+
+<line x1="70" y1="220" x2="130" y2="220"/>
+
+<circle cx="60" cy="260" r="4"/>
+<circle cx="140" cy="260" r="4"/>
+
+<line x1="60" y1="260" x2="140" y2="260"/>
+
+<circle cx="70" cy="300" r="4"/>
+<circle cx="130" cy="300" r="4"/>
+
+<line x1="70" y1="300" x2="130" y2="300"/>
+
+<circle cx="60" cy="340" r="4"/>
+<circle cx="140" cy="340" r="4"/>
+
+<line x1="60" y1="340" x2="140" y2="340"/>
+
+</svg>
 
 </div>
 
 
-<script>
+<!-- RIGHT -->
 
-/* THREE JS */
+<div class="panel">
 
-const scene = new THREE.Scene()
+<h3>SPECIMEN MONITORING</h3>
 
-const camera = new THREE.PerspectiveCamera(
-75,
-window.innerWidth/window.innerHeight,
-0.1,
-1000
+<div class="data">Heart Rate : 82 bpm</div>
+
+<div class="data">Temperature : 37.1°C</div>
+
+<div class="data">Cell Activity : Stable</div>
+
+<div class="graph"></div>
+
+<h3>DNA ANALYTICS</h3>
+
+<div class="data">Sequence Match : 91%</div>
+
+<div class="data">Mutation Index : 0.12</div>
+
+<div class="data">Genome Stability : Stable</div>
+
+</div>
+
+
+</div>
+
+</body>
+</html>1000
 )
 
 const renderer = new THREE.WebGLRenderer({alpha:true})
