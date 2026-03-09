@@ -1,176 +1,79 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Nexus Genomics Research Lab</title>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>Nexus Bio Lab</title>
 
 <style>
-
 body{
 margin:0;
-font-family:Segoe UI,Roboto;
-background:#031321;
-color:#e4edf5;
+font-family:Segoe UI;
+background:#02121c;
+color:#e6eef7;
 }
 
-/* header */
-
 .header{
-background:#08243b;
+background:#08263a;
 padding:16px;
 font-size:18px;
 font-weight:600;
 }
 
-/* layout */
-
 .container{
+padding:16px;
 display:flex;
 flex-direction:column;
 gap:16px;
-padding:16px;
 }
-
-/* panels */
 
 .panel{
-background:#0c2a42;
-padding:16px;
+background:#0d2a40;
 border-radius:12px;
-box-shadow:0 0 25px rgba(0,0,0,.4);
+padding:14px;
 }
-
-.title{
-font-size:12px;
-letter-spacing:.05em;
-color:#9ec5e8;
-margin-bottom:10px;
-}
-
-/* images */
 
 img{
 width:100%;
 border-radius:10px;
-margin-top:10px;
-}
-
-canvas{
-max-height:140px;
-margin-top:10px;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="header">
-🧬 Nexus Bio-Containment Research Laboratory
+🧬 Nexus Bio-Containment Lab
 </div>
 
 <div class="container">
 
-<!-- VIRUS IMAGE -->
+<div class="panel">
+
+<h3>Virus Microscopy</h3>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Coronavirus.00000.jpg">
+
+</div>
 
 <div class="panel">
 
-<div class="title">VIRUS MICROSCOPY</div>
+<h3>Virus Structure Model</h3>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/SARS-CoV-2_without_background.png">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Virus_structure.svg">
 
 </div>
-
-
-<!-- DNA STRUCTURE -->
 
 <div class="panel">
 
-<div class="title">GENOME STRUCTURE</div>
+<h3>Infected Cell</h3>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/87/DNA_Overview2.png">
-
-</div>
-
-
-<!-- INFECTED CELL -->
-
-<div class="panel">
-
-<div class="title">INFECTED CELL OBSERVATION</div>
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Influenza_virus_particle_colorized.png">
-
-</div>
-
-
-<!-- SPECIMEN DATA -->
-
-<div class="panel">
-
-<div class="title">SPECIMEN ANALYSIS</div>
-
-Specimen : TV-023<br>
-Virus activity : 78%<br>
-Mutation index : 0.92<br>
-Containment level : BSL-4
-
-<canvas id="virusChart"></canvas>
-
-</div>
-
-
-<!-- CELL MONITOR -->
-
-<div class="panel">
-
-<div class="title">CELL RESPONSE MONITOR</div>
-
-Heart rate : 82 bpm<br>
-Temperature : 37.1°C<br>
-Cell status : Stable
-
-<canvas id="cellChart"></canvas>
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Influenza_virus_particle_colorized.jpg">
 
 </div>
 
 </div>
-
-<script>
-
-new Chart(document.getElementById("virusChart"),{
-type:"line",
-data:{
-labels:["0h","2h","4h","6h","8h"],
-datasets:[{
-data:[10,25,40,60,78],
-borderColor:"#2fd6ff",
-fill:false
-}]
-},
-options:{plugins:{legend:{display:false}}}
-});
-
-new Chart(document.getElementById("cellChart"),{
-type:"line",
-data:{
-labels:["0","1","2","3","4"],
-datasets:[{
-data:[40,48,52,50,55],
-borderColor:"#63ff9a",
-fill:false
-}]
-},
-options:{plugins:{legend:{display:false}}}
-});
-
-</script>
 
 </body>
 </html>
