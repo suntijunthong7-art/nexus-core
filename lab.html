@@ -2,40 +2,118 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexus Bio Lab</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nexus Genome Lab</title>
 
 <style>
+
 body{
 margin:0;
 font-family:Segoe UI;
-background:#02121c;
-color:#e6eef7;
+background:#030f19;
+color:white;
 }
+
+/* HEADER */
 
 .header{
-background:#08263a;
-padding:16px;
-font-size:18px;
-font-weight:600;
+padding:15px;
+background:#071f33;
+border-bottom:1px solid #173c55;
 }
 
-.container{
-padding:16px;
-display:flex;
-flex-direction:column;
-gap:16px;
+/* MAIN GRID */
+
+.dashboard{
+
+display:grid;
+grid-template-columns:280px 1fr 280px;
+gap:15px;
+padding:15px;
+
 }
+
+/* PANELS */
 
 .panel{
-background:#0d2a40;
-border-radius:12px;
-padding:14px;
+
+background:#0c2538;
+padding:15px;
+border-radius:10px;
+
 }
 
-img{
-width:100%;
-border-radius:10px;
+/* CENTER DNA */
+
+.center{
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.dna{
+
+width:120px;
+height:260px;
+position:relative;
+
+}
+
+.strand{
+
+position:absolute;
+width:6px;
+height:100%;
+background:#3dd8ff;
+border-radius:3px;
+animation:helix 4s linear infinite;
+
+}
+
+.strand:nth-child(2){
+
+left:60px;
+animation-delay:2s;
+
+}
+
+@keyframes helix{
+
+0%{transform:translateX(0)}
+50%{transform:translateX(60px)}
+100%{transform:translateX(0)}
+
+}
+
+.title{
+
+font-size:13px;
+color:#8fb3d1;
+margin-bottom:10px;
+
+}
+
+/* GRAPH MOCK */
+
+.graph{
+
+height:70px;
+background:linear-gradient(#183a56,#081a2b);
+border-radius:6px;
+margin-top:10px;
+
+}
+
+@media(max-width:900px){
+
+.dashboard{
+grid-template-columns:1fr;
+}
+
+.center{
+order:-1;
+}
+
 }
 
 </style>
@@ -44,32 +122,77 @@ border-radius:10px;
 <body>
 
 <div class="header">
-🧬 Nexus Bio-Containment Lab
+🧬 Nexus Genome Research Console
 </div>
 
-<div class="container">
+<div class="dashboard">
+
+<!-- LEFT -->
 
 <div class="panel">
 
-<h3>Virus Microscopy</h3>
+<div class="title">SPECIMEN DATA</div>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Coronavirus.00000.jpg">
+Specimen : TV-023<br>
+Virus activity : 78%<br>
+Mutation index : 0.92
 
-</div>
-
-<div class="panel">
-
-<h3>Virus Structure Model</h3>
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Virus_structure.svg">
+<div class="graph"></div>
 
 </div>
 
+<!-- CENTER -->
+
+<div class="panel center">
+
+<div class="dna">
+<div class="strand"></div>
+<div class="strand"></div>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
 <div class="panel">
 
-<h3>Infected Cell</h3>
+<div class="title">INCUBATION DATA</div>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Influenza_virus_particle_colorized.jpg">
+Heart rate : 82 bpm<br>
+Temperature : 37.1°C<br>
+Cell response : Stable
+
+<div class="graph"></div>
+
+</div>
+
+<!-- BOTTOM LEFT -->
+
+<div class="panel">
+
+<div class="title">GENOME ANALYTICS</div>
+
+RNA integrity : 94%<br>
+Protein synthesis : Active
+
+<div class="graph"></div>
+
+</div>
+
+<!-- BOTTOM RIGHT -->
+
+<div class="panel">
+
+<div class="title">VIRAL STRUCTURE</div>
+
+<div style="
+width:80px;
+height:80px;
+background:radial-gradient(circle,#38d6ff,#0a3555);
+border-radius:50%;
+margin:auto;
+box-shadow:0 0 30px #38d6ff;
+"></div>
 
 </div>
 
