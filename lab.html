@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Genomics Lab — T-Virus Research</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Segoe UI;
+font-family:Segoe UI, sans-serif;
 background:linear-gradient(#061320,#020c16);
 color:#e8edf4;
 }
@@ -23,7 +24,7 @@ background:#0a1c2e;
 border-bottom:1px solid #1f3b55;
 }
 
-/* LAYOUT */
+/* CONTAINER */
 
 .container{
 padding:15px;
@@ -39,6 +40,7 @@ background:#0f2238;
 padding:18px;
 border-radius:12px;
 border:1px solid rgba(255,255,255,.06);
+box-shadow:0 0 20px rgba(0,0,0,.3);
 }
 
 /* TITLE */
@@ -47,15 +49,16 @@ border:1px solid rgba(255,255,255,.06);
 font-size:13px;
 color:#9fb5cf;
 margin-bottom:10px;
+letter-spacing:.05em;
 }
 
-/* DATA */
+/* DATA TEXT */
 
 .data{
 margin:3px 0;
 }
 
-/* GRAPH */
+/* GRAPH PLACEHOLDER */
 
 .graph{
 height:90px;
@@ -64,57 +67,64 @@ margin-top:12px;
 background:linear-gradient(#1c3c5d,#0a1a2b);
 }
 
-/* VIRUS */
+/* VIRUS MODEL */
 
 .virus-box{
 display:flex;
 justify-content:center;
 align-items:center;
-height:200px;
+height:220px;
 }
 
 .virus{
-width:110px;
-height:110px;
-border-radius:50%;
-background:radial-gradient(circle,#27c6ff,#0a3556);
-box-shadow:0 0 40px #27c6ff;
 position:relative;
-animation:rotate 12s linear infinite;
+width:130px;
+height:130px;
+animation:spin 14s linear infinite;
 }
 
-/* spikes */
+/* CORE */
+
+.core{
+width:100%;
+height:100%;
+border-radius:50%;
+background:radial-gradient(circle,#27c6ff,#0a3556);
+box-shadow:0 0 60px #27c6ff;
+}
+
+/* SPIKES */
 
 .spike{
 position:absolute;
-width:4px;
-height:28px;
-background:#5ee6ff;
+width:6px;
+height:32px;
+background:#7df1ff;
 left:50%;
-top:-18px;
+top:-20px;
 transform-origin:bottom;
+border-radius:3px;
 }
 
-.spike:nth-child(1){transform:rotate(0deg)}
-.spike:nth-child(2){transform:rotate(30deg)}
-.spike:nth-child(3){transform:rotate(60deg)}
-.spike:nth-child(4){transform:rotate(90deg)}
-.spike:nth-child(5){transform:rotate(120deg)}
-.spike:nth-child(6){transform:rotate(150deg)}
-.spike:nth-child(7){transform:rotate(180deg)}
-.spike:nth-child(8){transform:rotate(210deg)}
-.spike:nth-child(9){transform:rotate(240deg)}
-.spike:nth-child(10){transform:rotate(270deg)}
-.spike:nth-child(11){transform:rotate(300deg)}
-.spike:nth-child(12){transform:rotate(330deg)}
+.s1{transform:rotate(0deg)}
+.s2{transform:rotate(30deg)}
+.s3{transform:rotate(60deg)}
+.s4{transform:rotate(90deg)}
+.s5{transform:rotate(120deg)}
+.s6{transform:rotate(150deg)}
+.s7{transform:rotate(180deg)}
+.s8{transform:rotate(210deg)}
+.s9{transform:rotate(240deg)}
+.s10{transform:rotate(270deg)}
+.s11{transform:rotate(300deg)}
+.s12{transform:rotate(330deg)}
 
-@keyframes rotate{
-from{transform:rotate(0)}
+@keyframes spin{
+from{transform:rotate(0deg)}
 to{transform:rotate(360deg)}
 }
 
 </style>
-
 </head>
 
 <body>
@@ -125,7 +135,7 @@ to{transform:rotate(360deg)}
 
 <div class="container">
 
-<!-- ANALYSIS -->
+<!-- VIRAL ANALYSIS -->
 
 <div class="panel">
 
@@ -145,8 +155,43 @@ to{transform:rotate(360deg)}
 
 <div class="virus">
 
-<div class="spike"></div>
-<div class="spike"></div>
+<div class="core"></div>
+
+<div class="spike s1"></div>
+<div class="spike s2"></div>
+<div class="spike s3"></div>
+<div class="spike s4"></div>
+<div class="spike s5"></div>
+<div class="spike s6"></div>
+<div class="spike s7"></div>
+<div class="spike s8"></div>
+<div class="spike s9"></div>
+<div class="spike s10"></div>
+<div class="spike s11"></div>
+<div class="spike s12"></div>
+
+</div>
+
+</div>
+
+<!-- INCUBATION -->
+
+<div class="panel">
+
+<div class="title">INCUBATION MONITORING</div>
+
+<div class="data">อัตราการเต้นหัวใจ : 82 bpm</div>
+<div class="data">อุณหภูมิ : 37.1°C</div>
+<div class="data">กิจกรรมของเซลล์ : Stable</div>
+
+<div class="graph"></div>
+
+</div>
+
+</div>
+
+</body>
+</html><div class="spike"></div>
 <div class="spike"></div>
 <div class="spike"></div>
 <div class="spike"></div>
