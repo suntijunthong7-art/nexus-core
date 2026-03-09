@@ -1,178 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nexus Genomics</title>
+<title>T-Virus Research Lab</title>
 
 <style>
-
 body{
-margin:0;
-font-family:Segoe UI;
-background:#030a14;
-color:#d9f3ff;
-overflow:hidden;
+    background:#0a0f14;
+    color:#00ffcc;
+    font-family:Arial, sans-serif;
+    margin:0;
+    text-align:center;
 }
-
-/* background grid */
-
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-background-image:
-linear-gradient(rgba(0,255,255,.08) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,255,255,.08) 1px, transparent 1px);
-background-size:60px 60px;
-z-index:-1;
-}
-
-/* header */
 
 header{
-position:absolute;
-top:20px;
-left:40px;
-font-size:22px;
-letter-spacing:2px;
-color:#7beaff;
+    background:#05080c;
+    padding:20px;
+    border-bottom:2px solid #00ffcc;
 }
 
-/* container */
-
-.container{
-display:flex;
-height:100vh;
-align-items:center;
-justify-content:center;
+h1{
+    margin:0;
+    letter-spacing:3px;
 }
 
-/* DNA center */
-
-.dna{
-position:absolute;
-width:280px;
-animation:spin 18s linear infinite;
+.lab-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+    padding:40px;
 }
-
-@keyframes spin{
-0%{transform:rotateY(0deg)}
-100%{transform:rotateY(360deg)}
-}
-
-/* panels */
 
 .panel{
-position:absolute;
-width:260px;
-padding:18px;
-border:1px solid rgba(0,255,255,.3);
-background:rgba(10,20,35,.6);
-backdrop-filter:blur(8px);
-border-radius:8px;
-box-shadow:0 0 20px rgba(0,255,255,.2);
+    background:#0f1720;
+    border:1px solid #00ffcc;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 0 15px #00ffcc33;
 }
 
-.panel h3{
-margin-top:0;
-font-weight:400;
-color:#7de9ff;
+.panel img,
+.panel video{
+    width:100%;
+    border-radius:8px;
 }
 
-.left1{left:40px; top:140px;}
-.left2{left:40px; top:380px;}
-.left3{left:40px; bottom:80px;}
-
-.right1{right:40px; top:140px;}
-.right2{right:40px; top:380px;}
-.right3{right:40px; bottom:80px;}
-
-.stat{
-margin:8px 0;
-font-size:15px;
+.panel h2{
+    margin-top:10px;
 }
-
-.value{
-color:#6cffb7;
-}
-
-/* virus icon */
-
-.virus{
-width:120px;
-margin:auto;
-display:block;
-}
-
 </style>
 
 </head>
-
 <body>
 
-<header>NEXUS GENOMICS</header>
+<header>
+<h1>T-Virus Laboratory Database</h1>
+<p>Biological Research Interface</p>
+</header>
 
-<div class="container">
+<div class="lab-container">
 
-<img src="dna.mp4" class="dna">
-
-<div class="panel left1">
-
-<h3>SPECIMEN DATA</h3>
-
-<div class="stat">Specimen : <span class="value">TV-023</span></div>
-<div class="stat">Virus activity : <span class="value">78%</span></div>
-<div class="stat">Mutation index : <span class="value">0.92</span></div>
-
+<div class="panel">
+<video autoplay loop muted>
+<source src="dna.mp4" type="video/mp4">
+</video>
+<h2>DNA Analysis</h2>
+<p>Helix structure mutation sequence.</p>
 </div>
 
-<div class="panel left2">
-
-<h3>VIRAL STRUCTURE</h3>
-
-<img src="virus-3d.png" class="virus">
-
+<div class="panel">
+<img src="virus-3d.png">
+<h2>Virus 3D Model</h2>
+<p>Three dimensional virus simulation.</p>
 </div>
 
-<div class="panel left3">
-
-<h3>ANALYSIS STATUS</h3>
-
-<div class="stat">Replication : <span class="value">Active</span></div>
-<div class="stat">Mutation risk : <span class="value">Moderate</span></div>
-
+<div class="panel">
+<img src="infected-cell.png">
+<h2>Infected Cell</h2>
+<p>Cellular infection stage under microscope.</p>
 </div>
 
-<div class="panel right1">
-
-<h3>INCUBATION MONITOR</h3>
-
-<div class="stat">Heart rate : <span class="value">82 bpm</span></div>
-<div class="stat">Temperature : <span class="value">37.1°C</span></div>
-<div class="stat">Cell response : <span class="value">Stable</span></div>
-
-</div>
-
-<div class="panel right2">
-
-<h3>GENOME ANALYTICS</h3>
-
-<div class="stat">Sequence integrity : <span class="value">94%</span></div>
-<div class="stat">Protein synthesis : <span class="value">Active</span></div>
-<div class="stat">RNA chain status : <span class="value">Stable</span></div>
-
-</div>
-
-<div class="panel right3">
-
-<h3>DATA STREAM</h3>
-
-<div class="stat">Sample : <span class="value">A14</span></div>
-<div class="stat">Status : <span class="value">Running</span></div>
-
+<div class="panel">
+<video autoplay loop muted>
+<source src="virus-structure.mp4" type="video/mp4">
+</video>
+<h2>Virus Structure</h2>
+<p>Microscopic virus anatomy scan.</p>
 </div>
 
 </div>
