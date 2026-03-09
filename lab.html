@@ -2,51 +2,45 @@
 <html>
 <head>
 
-<title>Nexus Core Laboratory</title>
+<title>Nexus Research Facility</title>
 
 <style>
 
 body{
-background:#000;
-color:#00ffd0;
-font-family:monospace;
+font-family:Arial;
+background:#f2f4f7;
 margin:0;
 padding:40px;
 }
 
 h1{
-color:#00ffe0;
-letter-spacing:2px;
+color:#2c3e50;
 }
 
 .panel{
-border:1px solid #00ffd0;
+background:white;
+border-radius:8px;
 padding:20px;
 margin-top:20px;
-box-shadow:0 0 10px #00ffd033;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
 .status{
-color:#00ff7a;
+color:green;
 }
 
 button{
-background:#00ffd0;
+background:#2e3f55;
+color:white;
 border:none;
 padding:10px 20px;
-margin:5px;
-font-weight:bold;
+margin-right:10px;
+border-radius:5px;
 cursor:pointer;
 }
 
 button:hover{
-background:#00bfa0;
+background:#162333;
 }
 
 </style>
@@ -55,56 +49,32 @@ background:#00bfa0;
 
 <body>
 
-<h1>NEXUS RESEARCH FACILITY</h1>
+<h1>Nexus Research Facility</h1>
 
 <div class="panel">
 
-ACCESS LEVEL : 4<br>
-CLEARANCE : AUTHORIZED<br>
-SESSION ID : NX-7742
-
-</div>
-
-<div class="grid">
-
-<div class="panel">
-
-REACTOR CORE<br><br>
-
-Power Output : 82%<br>
-Temperature : 740°C<br>
-Containment : <span class="status">STABLE</span>
+Access Level : 4<br>
+User Status : Authorized<br>
+Location : Laboratory Core
 
 </div>
 
 <div class="panel">
 
-SPECIMEN VAULT<br><br>
+<b>Lab Systems</b><br><br>
 
-Vault Status : LOCKED<br>
-Bio Hazard Level : 3
-
-</div>
-
-<div class="panel">
-
-SECURITY CAMERAS<br><br>
-
-CAM-01 : ACTIVE<br>
-CAM-02 : ACTIVE<br>
-CAM-03 : OFFLINE
+Reactor Core : <span class="status">Online</span><br>
+Containment : Stable<br>
+AI Monitor : Active<br>
+Specimen Vault : Locked
 
 </div>
 
 <div class="panel">
 
-SYSTEM COMMAND<br><br>
-
-<button>OPEN DATABASE</button>
-<button>VIEW LAB LOGS</button>
-<button>SECURITY PANEL</button>
-
-</div>
+<button>Database</button>
+<button>Experiment Logs</button>
+<button>Security Panel</button>
 
 </div>
 
