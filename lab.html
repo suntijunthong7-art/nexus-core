@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,143 +9,150 @@
 <style>
 
 body{
-
-background-color:#050e14;
+background:#050e14;
 color:#cfe7ff;
 font-family:system-ui;
 margin:0;
-
-background-image:
-linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
-
-background-size:40px 40px;
-
 }
 
 header{
-
 background:#081821;
-padding:22px;
-text-align:center;
-font-size:22px;
 border-bottom:1px solid #1d445a;
-
+padding:15px 25px;
+display:flex;
+align-items:center;
+justify-content:space-between;
 }
 
-.container{
-
-width:92%;
-max-width:1200px;
-margin:auto;
-padding:30px 0;
-
+.header-left{
+display:flex;
+align-items:center;
+gap:12px;
 }
 
-.section{
-margin-bottom:50px;
+.logo{
+width:42px;
+height:42px;
+object-fit:contain;
 }
 
-h2{
+.title{
+font-size:20px;
+letter-spacing:1px;
 color:#79c9ff;
 }
 
-.grid{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:22px;
-
-}
-
-.card{
-
-background:#081821;
-border:1px solid #15394d;
-padding:16px;
-border-radius:10px;
-animation:fadein 1s ease;
-
-}
-
-.card:hover{
-
-border-color:#46b6ff;
-box-shadow:0 0 15px rgba(70,182,255,0.25);
-
-}
-
-img,video{
-
-width:100%;
-border-radius:6px;
-margin-top:10px;
-
-}
-
-table{
-
-width:100%;
-border-collapse:collapse;
-margin-top:15px;
-
-}
-
-th,td{
-
-border:1px solid #1d445a;
-padding:10px;
-font-size:13px;
-text-align:center;
-
-}
-
-th{
-background:#0b2634;
-color:#7bd1ff;
-}
-
-canvas{
-
-background:#07141c;
-border:1px solid #15394d;
-border-radius:8px;
-padding:10px;
-
-}
-
 .status{
-
 display:flex;
-gap:10px;
 align-items:center;
+gap:8px;
 font-size:13px;
-margin-top:10px;
-
 }
 
 .dot{
-
 width:10px;
 height:10px;
 border-radius:50%;
 background:#00ff9c;
 box-shadow:0 0 8px #00ff9c;
 animation:pulse 2s infinite;
-
 }
 
-.terminal{
+@keyframes pulse{
+0%{opacity:0.4;}
+50%{opacity:1;}
+100%{opacity:0.4;}
+}
 
-background:#02090e;
+.container{
+width:92%;
+max-width:1100px;
+margin:auto;
+padding:30px 0;
+}
+
+.card{
+background:#081821;
 border:1px solid #15394d;
-padding:15px;
-font-family:monospace;
-font-size:13px;
-color:#7bd1ff;
-height:130px;
-overflow:auto;
-margin-top:15px;
+border-radius:10px;
+padding:20px;
+margin-bottom:20px;
+}
+
+img,video{
+width:100%;
+border-radius:6px;
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header-left">
+
+<img src="logo.png" class="logo">
+
+<div class="title">
+Viral Structure Research Laboratory
+</div>
+
+</div>
+
+<div class="status">
+
+<div class="dot"></div>
+System Active
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>DNA Visualization</h2>
+
+<video autoplay loop muted>
+<source src="dna.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<div class="card">
+
+<h2>Virus Structure Model</h2>
+
+<img src="virus-3d.png">
+
+</div>
+
+<div class="card">
+
+<h2>Infected Cell Observation</h2>
+
+<img src="infected-cell.png">
+
+</div>
+
+<div class="card">
+
+<h2>Virus Structure Animation</h2>
+
+<video autoplay loop muted>
+<source src="virus-structure.mp4" type="video/mp4">
+</video>
+
+</div>
+
+</div>
+
+</body>
+</html>margin-top:15px;
 
 }
 
