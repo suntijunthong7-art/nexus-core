@@ -1,34 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>System Boot</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viral Analysis Control Panel</title>
 
 <style>
 
 body{
 margin:0;
-background:#03141a;
-color:#7fdfff;
-font-family:monospace;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height:100vh;
+font-family:system-ui, Arial;
+background:#05161c;
+color:#aeefff;
 }
 
-.bar{
-width:260px;
-height:8px;
-background:#0c2b34;
-margin-top:20px;
-}
+/* grid background */
 
-.progress{
+body::before{
+content:"";
+position:fixed;
+width:100%;
 height:100%;
-width:0%;
-background:#00d9ff;
+background-image:
+linear-gradient(rgba(0,255,255,.05) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,255,255,.05) 1px, transparent 1px);
+background-size:50px 50px;
+z-index:-1;
+}
+
+/* header */
+
+header{
+background:#08232c;
+padding:12px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #0f3a44;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+width:32px;
+}
+
+.status{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#32ff9a;
+}
+
+/* dashboard grid */
+
+.dashboard{
+padding:18px;
+display:grid;
+grid-template-columns:2fr 1fr;
+grid-template-rows:auto auto auto;
+gap:15px;
+}
+
+/* panel */
+
+.panel{
+background:#081e26;
+border:1px solid #0f3a44;
+padding:12px;
+}
+
+.panel h3{
+margin:0 0 10px 0;
+font-size:14px;
+color:#7fdfff;
+}
+
+/* media */
+
+video,img{
+width:100%;
+}
+
+/* system log */
+
+.log{
+background:#000;
+color:#00ff9c;
+font-family:monospace;
+font-size:13px;
+height:140px;
+overflow:auto;
+padding:8px;
+}
+
+/* radar */
+
+.radar{
+width:200px;
+height:200px;
+border-radius:50%;
+border:2px solid #0fa8c5;
+margin:auto;
+position:relative;
+overflow:hidden;
+}
+
+.scan{
+position:absolute;
+width:100%;
+height:100%;
+background:conic-gradient(
+transparent 0deg,
+rgba(0,255,255,.35) 40deg,
+transparent 70deg
+);
+animation:spin 3s linear infinite;
+}
+
+@keyframes spin{
+from{transform:rotate(0)}
+to{transform:rotate(360deg)}
+}
+
+/* graph */
+
+.graph{
+height:220px;
 }
 
 </style>
@@ -36,38 +144,169 @@ background:#00d9ff;
 
 <body>
 
-<h1>VIRAL ANALYSIS SYSTEM</h1>
+<header>
 
-<div class="bar">
-<div class="progress" id="p"></div>
+<div class="logo">
+<img src="logo.png">
+<b>Viral Analysis System</b>
 </div>
 
-<p id="t">System Loading 0%</p>
+<div class="status">
+<div class="dot"></div>
+System Active
+</div>
+
+</header>
+
+
+<div class="dashboard">
+
+<!-- DNA monitor -->
+
+<div class="panel">
+
+<h3>DNA Sequence Monitor</h3>
+
+<video autoplay loop muted>
+<source src="dna.mp4">
+</video>
+
+</div>
+
+
+<!-- radar -->
+
+<div class="panel">
+
+<h3>Particle Scanner</h3>
+
+<div class="radar">
+<div class="scan"></div>
+</div>
+
+</div>
+
+
+<!-- virus model -->
+
+<div class="panel">
+
+<h3>Virus Model</h3>
+
+<img src="virus-3d.png">
+
+</div>
+
+
+<!-- infected cell -->
+
+<div class="panel">
+
+<h3>Infected Cell Analysis</h3>
+
+<img src="infected-cell.png">
+
+</div>
+
+
+<!-- virus structure -->
+
+<div class="panel">
+
+<h3>Virus Structure</h3>
+
+<video autoplay loop muted>
+<source src="virus-structure.mp4">
+</video>
+
+</div>
+
+
+<!-- system log -->
+
+<div class="panel">
+
+<h3>System Log</h3>
+
+<div class="log" id="log"></div>
+
+</div>
+
+
+<!-- graph -->
+
+<div class="panel graph">
+
+<h3>Mutation Activity</h3>
+
+<canvas id="chart"></canvas>
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 
-let n=0
+/* graph */
 
-let p=document.getElementById("p")
-let t=document.getElementById("t")
+let data=[5,10,14,20,25,33]
 
-let load=setInterval(()=>{
+let chart=new Chart(document.getElementById("chart"),{
 
-n++
+type:"line",
 
-p.style.width=n+"%"
+data:{
+labels:["0h","2h","4h","6h","8h","10h"],
+datasets:[{
+label:"Mutation Index",
+data:data
+}]
+},
 
-t.innerText="System Loading "+n+"%"
+options:{animation:false}
 
-if(n>=100){
+})
 
-clearInterval(load)
+setInterval(()=>{
 
-window.location="dashboard.html"
+let v=Math.floor(Math.random()*40)+10
 
-}
+data.push(v)
+data.shift()
 
-},35)
+chart.update()
+
+},3000)
+
+
+/* log stream */
+
+let log=document.getElementById("log")
+
+let messages=[
+
+"Scanning viral genome",
+"Analyzing host cell interaction",
+"Protein structure processing",
+"Mutation probability updated",
+"Particle scan running"
+
+]
+
+setInterval(()=>{
+
+let time=new Date().toLocaleTimeString()
+
+let m=messages[Math.floor(Math.random()*messages.length)]
+
+log.innerHTML+="["+time+"] "+m+"<br>"
+
+log.scrollTop=log.scrollHeight
+
+},2500)
 
 </script>
 
