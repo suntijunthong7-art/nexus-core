@@ -21,7 +21,6 @@ background:#081821;
 padding:22px;
 text-align:center;
 font-size:24px;
-letter-spacing:1px;
 border-bottom:1px solid #1d445a;
 }
 
@@ -57,7 +56,7 @@ transition:0.3s;
 
 .card:hover{
 border-color:#46b6ff;
-box-shadow:0 0 15px rgba(70,182,255,0.25);
+box-shadow:0 0 12px rgba(70,182,255,0.25);
 }
 
 img,video{
@@ -115,8 +114,6 @@ Viral Structure Research Laboratory
 
 <div class="container">
 
-<!-- Research Objective -->
-
 <div class="section">
 
 <h2>Research Objective</h2>
@@ -124,15 +121,13 @@ Viral Structure Research Laboratory
 <div class="card">
 
 <p>
-This laboratory interface presents experimental visualization and structural analysis related to viral morphology, genomic organization, and host-cell infection dynamics. The dataset illustrates molecular structures, replication behavior, and cellular interaction during infection progression.
+Experimental visualization interface for viral morphology, genomic structure, and host-cell infection dynamics. The model demonstrates viral replication progression, cellular damage rate, and immune response behavior during infection phases.
 </p>
 
 </div>
 
 </div>
 
-
-<!-- DNA -->
 
 <div class="section">
 
@@ -151,7 +146,7 @@ This laboratory interface presents experimental visualization and structural ana
 <div class="card">
 
 <p>
-Animated molecular visualization of a DNA double helix. The model demonstrates rotational symmetry, nucleotide pairing alignment, and molecular stability used in structural genome studies.
+Molecular model of DNA double helix demonstrating nucleotide pairing, rotational symmetry, and structural integrity used in genomic analysis.
 </p>
 
 </div>
@@ -160,8 +155,6 @@ Animated molecular visualization of a DNA double helix. The model demonstrates r
 
 </div>
 
-
-<!-- Virus Structure -->
 
 <div class="section">
 
@@ -174,7 +167,7 @@ Animated molecular visualization of a DNA double helix. The model demonstrates r
 <img src="virus-3d.png">
 
 <p>
-Three-dimensional visualization of viral morphology illustrating capsid structure and external protein arrangement.
+Three-dimensional representation of viral capsid geometry and surface protein distribution.
 </p>
 
 </div>
@@ -186,7 +179,7 @@ Three-dimensional visualization of viral morphology illustrating capsid structur
 </video>
 
 <p>
-Dynamic viral structure scan showing particle surface composition and structural symmetry patterns.
+Dynamic structural scan of viral particles highlighting molecular surface structure.
 </p>
 
 </div>
@@ -195,8 +188,6 @@ Dynamic viral structure scan showing particle surface composition and structural
 
 </div>
 
-
-<!-- Infected Cell -->
 
 <div class="section">
 
@@ -213,7 +204,7 @@ Dynamic viral structure scan showing particle surface composition and structural
 <div class="card">
 
 <p>
-Microscopic representation of host-cell infection showing viral particle interaction with cellular membranes and replication regions inside the cytoplasm.
+Microscopic visualization of infected host cell displaying viral particle attachment and cytoplasmic replication regions.
 </p>
 
 </div>
@@ -222,8 +213,6 @@ Microscopic representation of host-cell infection showing viral particle interac
 
 </div>
 
-
-<!-- Database -->
 
 <div class="section">
 
@@ -272,11 +261,9 @@ Microscopic representation of host-cell infection showing viral particle interac
 </div>
 
 
-<!-- Infection Graph -->
-
 <div class="section">
 
-<h2>Cell Infection Rate</h2>
+<h2>Cell Infection Dynamics</h2>
 
 <div class="card">
 
@@ -298,31 +285,112 @@ Bio-Structural Visualization Interface
 
 <script>
 
-const ctx = document.getElementById('chart');
+const ctx=document.getElementById('chart');
 
 new Chart(ctx,{
+
 type:'line',
+
 data:{
-labels:['0h','6h','12h','18h','24h'],
-datasets:[{
-label:'Infection Progression',
-data:[5,18,38,55,72],
+
+labels:[
+'0h','3h','6h','9h','12h','15h','18h','21h','24h'
+],
+
+datasets:[
+
+{
+label:'Viral Load',
+data:[2,6,15,28,45,60,72,80,88],
 borderColor:'#7bd1ff',
-backgroundColor:'rgba(123,209,255,0.2)',
+backgroundColor:'rgba(123,209,255,0.15)',
 fill:true,
-tension:0.4
-}]
+tension:0.35,
+pointRadius:3
 },
+
+{
+label:'Cell Damage',
+data:[0,1,4,9,18,30,46,60,74],
+borderColor:'#ff7f7f',
+backgroundColor:'rgba(255,127,127,0.12)',
+fill:true,
+tension:0.35,
+pointRadius:3
+},
+
+{
+label:'Immune Response',
+data:[1,2,6,14,26,42,58,67,72],
+borderColor:'#7fffba',
+backgroundColor:'rgba(127,255,186,0.12)',
+fill:true,
+tension:0.35,
+pointRadius:3
+}
+
+]
+
+},
+
 options:{
+
+responsive:true,
+
 plugins:{
-legend:{labels:{color:'#cfe7ff'}}
+
+legend:{
+labels:{
+color:'#cfe7ff',
+font:{size:13}
+}
 },
+
+tooltip:{
+backgroundColor:'#081821',
+titleColor:'#7bd1ff',
+bodyColor:'#cfe7ff',
+borderColor:'#1d445a',
+borderWidth:1
+}
+
+},
+
 scales:{
-x:{ticks:{color:'#9fc6e3'}},
-y:{ticks:{color:'#9fc6e3'}}
+
+x:{
+title:{
+display:true,
+text:'Time (hours)',
+color:'#9fc6e3'
+},
+grid:{
+color:'rgba(50,90,120,0.25)'
+},
+ticks:{
+color:'#9fc6e3'
+}
+},
+
+y:{
+title:{
+display:true,
+text:'Relative Activity (%)',
+color:'#9fc6e3'
+},
+grid:{
+color:'rgba(50,90,120,0.25)'
+},
+ticks:{
+color:'#9fc6e3'
 }
 }
-})
+
+}
+
+}
+
+});
 
 </script>
 
