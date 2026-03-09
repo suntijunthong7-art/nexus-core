@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nexus Genomics Lab</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
 
 body{
 margin:0;
-font-family:Inter;
-background:#060f1b;
-color:#e8edf4;
+font-family:Segoe UI;
+background:#061320;
+color:#e9eef6;
 }
 
 /* TOP BAR */
@@ -23,108 +22,84 @@ color:#e8edf4;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:16px 28px;
-background:#0b1b2f;
-border-bottom:1px solid #1e334a;
+padding:14px 20px;
+background:#0a1c2e;
+border-bottom:1px solid #1f3b55;
 }
 
 .logo{
-display:flex;
-align-items:center;
-gap:10px;
 font-weight:600;
 }
 
 .menu{
 display:flex;
-gap:22px;
-font-size:14px;
-opacity:.85;
+gap:14px;
+font-size:13px;
+opacity:.8;
 }
 
 /* DASHBOARD */
 
 .dashboard{
 display:grid;
-grid-template-columns:260px 1fr 300px;
-gap:20px;
-padding:25px;
+grid-template-columns:1fr 1fr 1fr;
+gap:15px;
+padding:15px;
 }
 
-/* PANEL STYLE */
+/* PANEL */
 
 .panel{
-background:#0e1e32;
+background:#0f2238;
 border-radius:10px;
-padding:18px;
+padding:15px;
 border:1px solid rgba(255,255,255,.05);
 }
 
 .panel h3{
 margin-top:0;
 font-size:13px;
-letter-spacing:.05em;
-color:#8fa6c0;
+color:#9fb5cf;
 }
 
-/* DATA BOX */
-
-.data{
-display:flex;
-justify-content:space-between;
-margin-top:8px;
-font-size:14px;
-}
-
-/* GRAPH PLACEHOLDER */
+/* GRAPH */
 
 .graph{
-height:110px;
-background:linear-gradient(180deg,#1a3553,#0c1d31);
+height:100px;
+background:linear-gradient(#1d3c5a,#0a1a2b);
 border-radius:6px;
-margin-top:12px;
+margin-top:10px;
 }
 
-/* DNA CENTER */
+/* CENTER DNA */
 
 .center{
 display:flex;
-align-items:center;
 justify-content:center;
-position:relative;
+align-items:center;
 }
 
 .center img{
-width:300px;
-opacity:.95;
-filter:drop-shadow(0 0 20px #3bbcff55);
-}
-
-/* ANALYTICS GRID */
-
-.analytics{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:12px;
-}
-
-.card{
-background:#13263e;
-padding:12px;
-border-radius:6px;
-font-size:13px;
-}
-
-/* SMALL DNA GRAPH */
-
-.small-dna{
 width:100%;
-margin-top:10px;
-opacity:.85;
+max-width:260px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.dashboard{
+grid-template-columns:1fr;
+}
+
+.menu{
+display:none;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -154,45 +129,20 @@ opacity:.85;
 
 <h3>GENOME MAP</h3>
 
-<div class="data">
-<span>Specimen</span>
-<span>VX-023</span>
-</div>
-
-<div class="data">
-<span>Genome Activity</span>
-<span>78%</span>
-</div>
-
-<div class="data">
-<span>AI Analysis</span>
-<span style="color:#64ff9c">LOW RISK</span>
-</div>
+Specimen : VX-023<br>
+Genome Activity : 78%<br>
+AI Analysis : <span style="color:#63ff9a;">LOW RISK</span>
 
 <div class="graph"></div>
 
-<div class="analytics">
-
-<div class="card">
-Mutation Rate<br>
-<strong>0.12</strong>
-</div>
-
-<div class="card">
-Genome Stability<br>
-<strong>Stable</strong>
-</div>
-
-</div>
-
 </div>
 
 
-<!-- CENTER DNA -->
+<!-- CENTER -->
 
 <div class="panel center">
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/DNA_Overview.png">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/DNA_double_helix_horizontal.png/512px-DNA_double_helix_horizontal.png">
 
 </div>
 
@@ -203,26 +153,11 @@ Genome Stability<br>
 
 <h3>INCUBATION DATA</h3>
 
-<div class="data">
-<span>Heart Rate</span>
-<span>82 bpm</span>
-</div>
-
-<div class="data">
-<span>Temperature</span>
-<span>37.1°C</span>
-</div>
-
-<div class="data">
-<span>Cell Activity</span>
-<span>Stable</span>
-</div>
+Heart Rate : 82 bpm<br>
+Temperature : 37.1°C<br>
+Cell Activity : Stable
 
 <div class="graph"></div>
-
-<h3 style="margin-top:16px;">DNA ANALYTICS</h3>
-
-<img class="small-dna" src="https://upload.wikimedia.org/wikipedia/commons/4/4c/DNA_Structure%2BKey%2BLabelled.png">
 
 </div>
 
