@@ -2,140 +2,100 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Nexus Genomics Lab</title>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>Nexus Genomics Dashboard</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Segoe UI;
-background:#04121f;
-color:#e6eef7;
+background:#02131f;
+color:#d6e5f5;
 }
 
-/* HEADER */
+/* top bar */
 
-.header{
-padding:18px;
-font-size:18px;
-font-weight:600;
-background:#071c2f;
-border-bottom:1px solid #1b3b57;
-}
-
-/* LAYOUT */
-
-.container{
-padding:15px;
+.topbar{
+height:60px;
+background:#061f32;
 display:flex;
-flex-direction:column;
-gap:15px;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #12364f;
 }
 
-/* PANEL */
+.topbar h1{
+font-size:16px;
+margin:0;
+}
+
+/* grid dashboard */
+
+.dashboard{
+display:grid;
+grid-template-columns:260px 1fr 260px;
+grid-template-rows:auto 1fr;
+gap:15px;
+padding:15px;
+height:calc(100vh - 60px);
+}
+
+/* panels */
 
 .panel{
-background:#0d243a;
-padding:18px;
-border-radius:12px;
+background:#0b2438;
+border-radius:10px;
+padding:15px;
 border:1px solid rgba(255,255,255,.05);
-box-shadow:0 0 20px rgba(0,0,0,.4);
 }
 
-/* TITLE */
+/* center dna */
 
-.title{
-font-size:13px;
-color:#9fb5cf;
-margin-bottom:10px;
-}
-
-/* VIRUS MODEL */
-
-.virusBox{
+.center{
 display:flex;
 justify-content:center;
 align-items:center;
-height:200px;
 }
 
-.virus{
-position:relative;
-width:120px;
-height:120px;
-animation:spin 14s linear infinite;
-}
-
-.core{
-width:100%;
-height:100%;
-border-radius:50%;
-background:radial-gradient(circle,#32d6ff,#0b3d61);
-box-shadow:0 0 50px #2dd6ff;
-}
-
-.spike{
-position:absolute;
-width:6px;
-height:30px;
-background:#79f1ff;
-left:50%;
-top:-18px;
-transform-origin:bottom;
-border-radius:3px;
-}
-
-.s1{transform:rotate(0deg)}
-.s2{transform:rotate(30deg)}
-.s3{transform:rotate(60deg)}
-.s4{transform:rotate(90deg)}
-.s5{transform:rotate(120deg)}
-.s6{transform:rotate(150deg)}
-.s7{transform:rotate(180deg)}
-.s8{transform:rotate(210deg)}
-.s9{transform:rotate(240deg)}
-.s10{transform:rotate(270deg)}
-.s11{transform:rotate(300deg)}
-.s12{transform:rotate(330deg)}
-
-@keyframes spin{
-from{transform:rotate(0)}
-to{transform:rotate(360deg)}
-}
-
-/* DNA HELIX */
+/* DNA helix */
 
 .dna{
-display:flex;
-justify-content:center;
-height:120px;
 position:relative;
+height:320px;
+width:140px;
 }
 
-.bar{
-width:4px;
-height:120px;
-background:#2fd6ff;
-margin:0 6px;
-animation:wave 2s infinite ease-in-out;
+.strand{
+position:absolute;
+width:6px;
+height:100%;
+background:#35d6ff;
+left:50%;
+transform-origin:center;
 }
 
-.bar:nth-child(2){animation-delay:.2s}
-.bar:nth-child(3){animation-delay:.4s}
-.bar:nth-child(4){animation-delay:.6s}
-.bar:nth-child(5){animation-delay:.8s}
-
-@keyframes wave{
-0%,100%{transform:scaleY(.3)}
-50%{transform:scaleY(1)}
+.strand:nth-child(1){
+transform:rotateY(0deg);
+animation:spin 6s linear infinite;
 }
 
-canvas{
-max-height:150px;
+.strand:nth-child(2){
+transform:rotateY(180deg);
+animation:spin 6s linear infinite reverse;
+}
+
+@keyframes spin{
+from{transform:rotateY(0deg)}
+to{transform:rotateY(360deg)}
+}
+
+/* stat */
+
+.stat{
+margin-top:10px;
+font-size:14px;
 }
 
 </style>
@@ -143,131 +103,53 @@ max-height:150px;
 
 <body>
 
-<div class="header">
-🧬 ห้องปฏิบัติการ Nexus Genomics — โครงการวิจัย T-Virus
+<div class="topbar">
+<h1>🧬 Nexus Genomics — T-Virus Research</h1>
 </div>
 
-<div class="container">
+<div class="dashboard">
 
-<!-- GENOME ANALYSIS -->
+<!-- LEFT PANEL -->
 
 <div class="panel">
 
-<div class="title">VIRAL GENOME ANALYSIS</div>
+<h3>GENOME MAP</h3>
 
-ตัวอย่าง : TV-023<br>
-กิจกรรมของไวรัส : 78%<br>
-AI Risk Model : <span style="color:#63ff9a">LOW RISK</span>
-
-<canvas id="virusChart"></canvas>
-
-</div>
-
-
-<!-- VIRUS MODEL -->
-
-<div class="panel virusBox">
-
-<div class="virus">
-
-<div class="core"></div>
-
-<div class="spike s1"></div>
-<div class="spike s2"></div>
-<div class="spike s3"></div>
-<div class="spike s4"></div>
-<div class="spike s5"></div>
-<div class="spike s6"></div>
-<div class="spike s7"></div>
-<div class="spike s8"></div>
-<div class="spike s9"></div>
-<div class="spike s10"></div>
-<div class="spike s11"></div>
-<div class="spike s12"></div>
-
-</div>
+<div class="stat">Specimen : TV-023</div>
+<div class="stat">Genome Activity : 78%</div>
+<div class="stat">Mutation Rate : 0.92</div>
+<div class="stat">AI Status : LOW RISK</div>
 
 </div>
 
 
-<!-- DNA ACTIVITY -->
+<!-- CENTER DNA -->
 
-<div class="panel">
-
-<div class="title">GENOME SIGNAL</div>
+<div class="panel center">
 
 <div class="dna">
-<div class="bar"></div>
-<div class="bar"></div>
-<div class="bar"></div>
-<div class="bar"></div>
-<div class="bar"></div>
-</div>
+
+<div class="strand"></div>
+<div class="strand"></div>
 
 </div>
 
+</div>
 
-<!-- INCUBATION DATA -->
+
+<!-- RIGHT PANEL -->
 
 <div class="panel">
 
-<div class="title">INCUBATION MONITORING</div>
+<h3>INCUBATION DATA</h3>
 
-อัตราการเต้นหัวใจ : 82 bpm<br>
-อุณหภูมิ : 37.1°C<br>
-กิจกรรมของเซลล์ : Stable
-
-<canvas id="cellChart"></canvas>
+<div class="stat">Heart Rate : 82 bpm</div>
+<div class="stat">Temperature : 37.1°C</div>
+<div class="stat">Cell Activity : Stable</div>
 
 </div>
 
 </div>
-
-
-<script>
-
-new Chart(document.getElementById("virusChart"),{
-type:"line",
-data:{
-labels:["0h","2h","4h","6h","8h","10h"],
-datasets:[{
-label:"Viral Activity",
-data:[12,25,38,52,63,78],
-borderColor:"#2dd6ff",
-fill:false
-}]
-},
-options:{
-plugins:{legend:{display:false}},
-scales:{
-x:{ticks:{color:"#9fb5cf"}},
-y:{ticks:{color:"#9fb5cf"}}
-}
-}
-});
-
-
-new Chart(document.getElementById("cellChart"),{
-type:"line",
-data:{
-labels:["0","1","2","3","4","5"],
-datasets:[{
-label:"Cell Response",
-data:[40,48,52,50,55,60],
-borderColor:"#63ff9a",
-fill:false
-}]
-},
-options:{
-plugins:{legend:{display:false}},
-scales:{
-x:{ticks:{color:"#9fb5cf"}},
-y:{ticks:{color:"#9fb5cf"}}
-}
-}
-});
-
-</script>
 
 </body>
 </html>
