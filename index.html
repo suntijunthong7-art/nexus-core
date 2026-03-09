@@ -8,7 +8,7 @@
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
+font-family:Arial;
 background:linear-gradient(180deg,#0b2a2e,#042226);
 display:flex;
 justify-content:center;
@@ -30,18 +30,12 @@ width:90px;
 margin-bottom:10px;
 }
 
-h2{
-margin-top:10px;
-margin-bottom:20px;
-}
-
 input{
 width:100%;
 padding:12px;
 margin:10px 0;
 border-radius:8px;
 border:1px solid #ccc;
-font-size:15px;
 }
 
 button{
@@ -55,21 +49,14 @@ color:white;
 font-size:16px;
 }
 
-button:hover{
-background:#1d2c3f;
-cursor:pointer;
+button:disabled{
+background:#888;
 }
 
 .status{
 margin-top:15px;
 color:#1c7a3d;
 font-size:14px;
-}
-
-.footer{
-margin-top:15px;
-font-size:12px;
-color:#777;
 }
 
 .error{
@@ -93,7 +80,7 @@ font-size:14px;
 
 <input id="pass" type="password" placeholder="Password">
 
-<button onclick="login()">SIGN IN</button>
+<button id="loginBtn" onclick="login()">SIGN IN</button>
 
 <div id="error" class="error"></div>
 
@@ -101,20 +88,17 @@ font-size:14px;
 System Status : Secure Connection Active
 </div>
 
-<div class="footer">
-Unauthorized access is prohibited<br>
-All activity is logged and monitored<br>
-© Nexus Core Systems
-</div>
-
 </div>
 
 <script>
 
+let attempts = 0;
+let lockTime = 30;
+
 function login(){
 
-var u=document.getElementById("user").value;
-var p=document.getElementById("pass").value;
+let u=document.getElementById("user").value;
+let p=document.getElementById("pass").value;
 
 if(u=="admin" && p=="Lc1234"){
 
@@ -122,9 +106,46 @@ location.href="dashboard.html";
 
 }else{
 
-document.getElementById("error").innerText="ACCESS DENIED";
+attempts++;
+
+if(attempts>=3){
+
+lockSystem();
+
+}else{
+
+document.getElementById("error").innerText="ACCESS DENIED ("+attempts+"/3)";
 
 }
+
+}
+
+}
+
+function lockSystem(){
+
+let btn=document.getElementById("loginBtn");
+btn.disabled=true;
+
+let timer=lockTime;
+
+let interval=setInterval(function(){
+
+document.getElementById("error").innerText="SYSTEM LOCKED "+timer+"s";
+
+timer--;
+
+if(timer<0){
+
+clearInterval(interval);
+
+attempts=0;
+btn.disabled=false;
+document.getElementById("error").innerText="";
+
+}
+
+},1000);
 
 }
 
