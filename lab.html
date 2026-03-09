@@ -1,142 +1,118 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Viral Analysis Control Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>T-Virus Analysis System</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 body{
 margin:0;
-font-family:system-ui, Arial;
-background:#05161c;
-color:#aeefff;
-}
-
-/* grid background */
-
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-background-image:
-linear-gradient(rgba(0,255,255,.05) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,255,255,.05) 1px, transparent 1px);
-background-size:50px 50px;
-z-index:-1;
+font-family:Arial;
+background:#061a20;
+color:#8feaff;
 }
 
 /* header */
 
 header{
-background:#08232c;
-padding:12px 20px;
+
+background:#0b2f38;
+padding:14px 20px;
+
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:1px solid #0f3a44;
-}
 
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.logo img{
-width:32px;
 }
 
 .status{
+
 display:flex;
 align-items:center;
 gap:8px;
+
 }
 
 .dot{
+
 width:10px;
 height:10px;
+
 border-radius:50%;
-background:#32ff9a;
+
+background:#2cff9c;
+
 }
 
-/* dashboard grid */
+/* layout */
 
-.dashboard{
-padding:18px;
+.container{
+
+padding:20px;
+
 display:grid;
-grid-template-columns:2fr 1fr;
-grid-template-rows:auto auto auto;
-gap:15px;
+
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+gap:16px;
+
 }
 
-/* panel */
+.card{
 
-.panel{
-background:#081e26;
-border:1px solid #0f3a44;
-padding:12px;
+background:#0c2530;
+
+padding:14px;
+
+border:1px solid #10414e;
+
 }
 
-.panel h3{
-margin:0 0 10px 0;
-font-size:14px;
-color:#7fdfff;
-}
-
-/* media */
-
-video,img{
+img,video{
 width:100%;
-}
-
-/* system log */
-
-.log{
-background:#000;
-color:#00ff9c;
-font-family:monospace;
-font-size:13px;
-height:140px;
-overflow:auto;
-padding:8px;
-}
-
-/* radar */
-
-.radar{
-width:200px;
-height:200px;
-border-radius:50%;
-border:2px solid #0fa8c5;
-margin:auto;
-position:relative;
-overflow:hidden;
-}
-
-.scan{
-position:absolute;
-width:100%;
-height:100%;
-background:conic-gradient(
-transparent 0deg,
-rgba(0,255,255,.35) 40deg,
-transparent 70deg
-);
-animation:spin 3s linear infinite;
-}
-
-@keyframes spin{
-from{transform:rotate(0)}
-to{transform:rotate(360deg)}
 }
 
 /* graph */
 
 .graph{
-height:220px;
+
+grid-column:1/-1;
+
+background:#0c2530;
+
+padding:20px;
+
+}
+
+canvas{
+width:100%;
+height:300px;
+}
+
+/* log */
+
+.log{
+
+background:#000;
+
+color:#00ff9c;
+
+font-family:monospace;
+
+height:150px;
+
+overflow:auto;
+
+padding:10px;
+
+margin-top:10px;
+
 }
 
 </style>
@@ -146,26 +122,22 @@ height:220px;
 
 <header>
 
-<div class="logo">
-<img src="logo.png">
-<b>Viral Analysis System</b>
-</div>
+<div>T-Virus Monitoring System</div>
 
 <div class="status">
+
 <div class="dot"></div>
-System Active
+Active
+
 </div>
 
 </header>
 
+<div class="container">
 
-<div class="dashboard">
+<div class="card">
 
-<!-- DNA monitor -->
-
-<div class="panel">
-
-<h3>DNA Sequence Monitor</h3>
+<h3>DNA Structure</h3>
 
 <video autoplay loop muted>
 <source src="dna.mp4">
@@ -173,45 +145,23 @@ System Active
 
 </div>
 
+<div class="card">
 
-<!-- radar -->
-
-<div class="panel">
-
-<h3>Particle Scanner</h3>
-
-<div class="radar">
-<div class="scan"></div>
-</div>
-
-</div>
-
-
-<!-- virus model -->
-
-<div class="panel">
-
-<h3>Virus Model</h3>
+<h3>T-Virus Model</h3>
 
 <img src="virus-3d.png">
 
 </div>
 
+<div class="card">
 
-<!-- infected cell -->
-
-<div class="panel">
-
-<h3>Infected Cell Analysis</h3>
+<h3>Infected Cell</h3>
 
 <img src="infected-cell.png">
 
 </div>
 
-
-<!-- virus structure -->
-
-<div class="panel">
+<div class="card">
 
 <h3>Virus Structure</h3>
 
@@ -221,10 +171,7 @@ System Active
 
 </div>
 
-
-<!-- system log -->
-
-<div class="panel">
+<div class="card">
 
 <h3>System Log</h3>
 
@@ -232,77 +179,103 @@ System Active
 
 </div>
 
+<div class="graph">
 
-<!-- graph -->
+<h3>T-Virus Mutation Graph</h3>
 
-<div class="panel graph">
-
-<h3>Mutation Activity</h3>
-
-<canvas id="chart"></canvas>
+<canvas id="virusChart"></canvas>
 
 </div>
 
 </div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 
 /* graph */
 
-let data=[5,10,14,20,25,33]
+let ctx=document.getElementById("virusChart")
 
-let chart=new Chart(document.getElementById("chart"),{
+let data=[5,8,12,18,24,30]
+
+let chart=new Chart(ctx,{
 
 type:"line",
 
 data:{
+
 labels:["0h","2h","4h","6h","8h","10h"],
+
 datasets:[{
-label:"Mutation Index",
-data:data
+
+label:"T-Virus Activity",
+
+data:data,
+
+borderColor:"#2cc6ff",
+
+backgroundColor:"rgba(44,198,255,.2)",
+
+fill:true
+
 }]
+
 },
 
-options:{animation:false}
+options:{
+
+animation:false,
+
+plugins:{
+legend:{labels:{color:"#8feaff"}}
+},
+
+scales:{
+x:{ticks:{color:"#8feaff"}},
+y:{ticks:{color:"#8feaff"}}
+}
+
+}
 
 })
+
+/* realtime update */
 
 setInterval(()=>{
 
 let v=Math.floor(Math.random()*40)+10
 
 data.push(v)
+
 data.shift()
+
+chart.data.datasets[0].data=data
 
 chart.update()
 
 },3000)
 
 
-/* log stream */
+/* system log */
 
 let log=document.getElementById("log")
 
-let messages=[
+let msgs=[
 
-"Scanning viral genome",
-"Analyzing host cell interaction",
-"Protein structure processing",
-"Mutation probability updated",
-"Particle scan running"
+"Scanning T-Virus genome",
+"Analyzing mutation pattern",
+"Protein binding detected",
+"Host cell infection progressing",
+"Sequence alignment running"
 
 ]
 
 setInterval(()=>{
 
-let time=new Date().toLocaleTimeString()
+let t=new Date().toLocaleTimeString()
 
-let m=messages[Math.floor(Math.random()*messages.length)]
+let m=msgs[Math.floor(Math.random()*msgs.length)]
 
-log.innerHTML+="["+time+"] "+m+"<br>"
+log.innerHTML+="["+t+"] "+m+"<br>"
 
 log.scrollTop=log.scrollHeight
 
