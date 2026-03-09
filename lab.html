@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nexus Genomics Lab</title>
 
 <style>
@@ -10,71 +11,75 @@
 body{
 margin:0;
 font-family:Segoe UI;
-background:#07121f;
-color:#e6edf5;
+background:linear-gradient(180deg,#07121f,#020c16);
+color:white;
 }
 
-/* top bar */
+/* TOP BAR */
 
 .topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:#0c1b2e;
-padding:12px 20px;
+padding:14px 30px;
+background:#081a2e;
+border-bottom:1px solid #18324f;
 }
 
 .logo{
 display:flex;
 align-items:center;
 gap:10px;
+font-weight:600;
 }
 
 .logo img{
-width:32px;
+width:30px;
 }
 
 .menu{
 display:flex;
-gap:18px;
+gap:20px;
+opacity:.8;
 font-size:14px;
-opacity:0.85;
 }
 
-/* dashboard */
+/* DASHBOARD */
 
 .dashboard{
 display:grid;
 grid-template-columns:260px 1fr 280px;
-gap:15px;
-padding:20px;
+gap:18px;
+padding:25px;
 }
 
-/* panel */
+/* PANELS */
 
 .panel{
-background:#0f2238;
-border-radius:10px;
-padding:15px;
+background:rgba(20,40,65,.7);
+border:1px solid rgba(120,170,220,.1);
+border-radius:12px;
+padding:18px;
+backdrop-filter:blur(6px);
 }
 
 .panel h3{
 margin-top:0;
 font-size:14px;
-border-bottom:1px solid #1e3b5d;
-padding-bottom:6px;
+border-bottom:1px solid rgba(255,255,255,.08);
+padding-bottom:8px;
 }
 
-/* graphs */
+/* GRAPH PLACEHOLDER */
 
 .graph{
-height:100px;
-background:linear-gradient(180deg,#183450,#0c1d2f);
-border-radius:6px;
+height:110px;
+background:linear-gradient(180deg,#1d3c5a,#0a1b2e);
+border-radius:8px;
 margin-top:10px;
 }
 
-/* DNA section */
+/* CENTER */
 
 .center{
 display:flex;
@@ -82,11 +87,14 @@ justify-content:center;
 align-items:center;
 }
 
+/* DNA */
+
 .dna{
-width:200px;
-height:350px;
 position:relative;
-animation:spin 12s linear infinite;
+width:180px;
+height:340px;
+transform-style:preserve-3d;
+animation:spin 10s linear infinite;
 }
 
 @keyframes spin{
@@ -94,24 +102,34 @@ from{transform:rotateY(0deg);}
 to{transform:rotateY(360deg);}
 }
 
-.dna span{
+.node{
 position:absolute;
 width:8px;
 height:8px;
-background:#6dd5ff;
+background:#6fe3ff;
 border-radius:50%;
-box-shadow:0 0 10px #3bbcff;
+box-shadow:0 0 10px #2ecfff;
 }
 
-/* DNA ladder */
-
-.line{
+.bar{
 position:absolute;
 height:2px;
-background:#6dd5ff;
 width:90px;
-left:55px;
-box-shadow:0 0 6px #3bbcff;
+background:#6fe3ff;
+left:45px;
+box-shadow:0 0 6px #2ecfff;
+}
+
+/* glow */
+
+.dna::after{
+content:"";
+position:absolute;
+width:200px;
+height:360px;
+left:-10px;
+top:-10px;
+background:radial-gradient(circle,#1ea7ff22,transparent);
 }
 
 </style>
@@ -136,10 +154,9 @@ box-shadow:0 0 6px #3bbcff;
 
 </div>
 
-
 <div class="dashboard">
 
-<!-- LEFT PANEL -->
+<!-- LEFT -->
 
 <div class="panel">
 
@@ -149,12 +166,11 @@ Specimen ID : VX-023
 
 <h2>78%</h2>
 
-AI Analysis : <span style="color:#6ce38c;">LOW RISK</span>
+AI Analysis : <span style="color:#65ff9a;">LOW RISK</span>
 
 <div class="graph"></div>
 
 </div>
-
 
 <!-- CENTER DNA -->
 
@@ -162,41 +178,40 @@ AI Analysis : <span style="color:#6ce38c;">LOW RISK</span>
 
 <div class="dna">
 
-<span style="top:10px;left:40px;"></span>
-<span style="top:10px;left:150px;"></span>
+<div class="node" style="top:10px;left:20px"></div>
+<div class="node" style="top:10px;right:20px"></div>
 
-<span style="top:60px;left:60px;"></span>
-<span style="top:60px;left:140px;"></span>
+<div class="node" style="top:60px;left:40px"></div>
+<div class="node" style="top:60px;right:40px"></div>
 
-<span style="top:110px;left:40px;"></span>
-<span style="top:110px;left:150px;"></span>
+<div class="node" style="top:110px;left:20px"></div>
+<div class="node" style="top:110px;right:20px"></div>
 
-<span style="top:160px;left:60px;"></span>
-<span style="top:160px;left:140px;"></span>
+<div class="node" style="top:160px;left:40px"></div>
+<div class="node" style="top:160px;right:40px"></div>
 
-<span style="top:210px;left:40px;"></span>
-<span style="top:210px;left:150px;"></span>
+<div class="node" style="top:210px;left:20px"></div>
+<div class="node" style="top:210px;right:20px"></div>
 
-<span style="top:260px;left:60px;"></span>
-<span style="top:260px;left:140px;"></span>
+<div class="node" style="top:260px;left:40px"></div>
+<div class="node" style="top:260px;right:40px"></div>
 
-<span style="top:310px;left:40px;"></span>
-<span style="top:310px;left:150px;"></span>
+<div class="node" style="top:310px;left:20px"></div>
+<div class="node" style="top:310px;right:20px"></div>
 
-<div class="line" style="top:15px;"></div>
-<div class="line" style="top:65px;"></div>
-<div class="line" style="top:115px;"></div>
-<div class="line" style="top:165px;"></div>
-<div class="line" style="top:215px;"></div>
-<div class="line" style="top:265px;"></div>
-<div class="line" style="top:315px;"></div>
-
-</div>
+<div class="bar" style="top:14px"></div>
+<div class="bar" style="top:64px"></div>
+<div class="bar" style="top:114px"></div>
+<div class="bar" style="top:164px"></div>
+<div class="bar" style="top:214px"></div>
+<div class="bar" style="top:264px"></div>
+<div class="bar" style="top:314px"></div>
 
 </div>
 
+</div>
 
-<!-- RIGHT PANEL -->
+<!-- RIGHT -->
 
 <div class="panel">
 
