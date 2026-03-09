@@ -1,107 +1,113 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nexus Genomics – T-Virus Lab</title>
+
+<title>Nexus Genomics – T-Virus Research Console</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 body{
 margin:0;
 font-family:Segoe UI,Roboto;
-background:#020f1b;
-color:#d7e6f4;
+background:#020e18;
+color:#d8e7f3;
 }
 
-/* top bar */
+/* header */
 
 .header{
-padding:16px;
 background:#071f33;
-border-bottom:1px solid #1e405d;
+padding:16px;
+font-size:18px;
 font-weight:600;
+border-bottom:1px solid #163d5a;
 }
 
-/* dashboard grid */
+/* grid dashboard */
 
 .dashboard{
 display:grid;
-grid-template-columns:1fr 1.2fr 1fr;
-gap:14px;
-padding:14px;
+grid-template-columns:320px 1fr 320px;
+gap:16px;
+padding:16px;
 }
 
 /* panels */
 
 .panel{
 background:#0c2438;
-border-radius:10px;
-padding:14px;
+border-radius:12px;
+padding:16px;
 border:1px solid rgba(255,255,255,.05);
 }
 
 .title{
 font-size:12px;
 color:#8fb3d1;
-margin-bottom:8px;
+margin-bottom:10px;
+letter-spacing:.05em;
 }
 
-/* center DNA */
+/* dna center */
 
 .center{
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 }
-
-/* dna helix */
 
 .dna{
 position:relative;
-width:120px;
-height:260px;
+width:140px;
+height:300px;
 }
 
 .strand{
 position:absolute;
 width:6px;
 height:100%;
-background:#35d6ff;
-border-radius:4px;
-animation:spin 4s linear infinite;
+background:#38d6ff;
+border-radius:3px;
+animation:helix 4s linear infinite;
 }
 
 .strand:nth-child(2){
-left:60px;
+left:70px;
 animation-delay:2s;
 }
 
-@keyframes spin{
+@keyframes helix{
+
 0%{transform:translateX(0)}
-50%{transform:translateX(60px)}
+50%{transform:translateX(70px)}
 100%{transform:translateX(0)}
+
 }
 
-/* virus card */
+/* virus model */
 
 .virus{
-width:70px;
-height:70px;
-background:radial-gradient(circle,#38d5ff,#0b3b5d);
+width:80px;
+height:80px;
 border-radius:50%;
+background:radial-gradient(circle,#32d6ff,#0a3555);
+box-shadow:0 0 40px #32d6ff;
 margin:auto;
-box-shadow:0 0 25px #35d6ff;
 }
 
 /* graphs */
 
-.graph{
-height:80px;
-background:linear-gradient(#183a56,#081a2b);
-border-radius:6px;
-margin-top:8px;
+canvas{
+margin-top:10px;
+max-height:120px;
 }
+
+/* responsive */
 
 @media(max-width:900px){
 
@@ -116,17 +122,18 @@ order:-1;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="header">
-🧬 Nexus Genomics – T-Virus Research Console
+🧬 Nexus Genomics — T-Virus Research Interface
 </div>
 
 <div class="dashboard">
 
-<!-- left panel -->
+<!-- left top -->
 
 <div class="panel">
 
@@ -137,9 +144,10 @@ Virus activity : 78%<br>
 Mutation index : 0.92<br>
 Containment level : BSL-4
 
-<div class="graph"></div>
+<canvas id="specimenChart"></canvas>
 
 </div>
+
 
 <!-- center dna -->
 
@@ -152,7 +160,8 @@ Containment level : BSL-4
 
 </div>
 
-<!-- right panel -->
+
+<!-- right top -->
 
 <div class="panel">
 
@@ -162,11 +171,12 @@ Heart rate : 82 bpm<br>
 Temperature : 37.1°C<br>
 Cell response : Stable
 
-<div class="graph"></div>
+<canvas id="cellChart"></canvas>
 
 </div>
 
-<!-- bottom left -->
+
+<!-- left bottom -->
 
 <div class="panel">
 
@@ -174,25 +184,85 @@ Cell response : Stable
 
 <div class="virus"></div>
 
-<div class="graph"></div>
+<canvas id="virusChart"></canvas>
 
 </div>
 
-<!-- bottom right -->
+
+<!-- right bottom -->
 
 <div class="panel">
 
 <div class="title">GENOME ANALYTICS</div>
 
-Sequence integrity : 94%<br>
+RNA integrity : 94%<br>
 Protein synthesis : Active<br>
-RNA chain status : Stable
+Replication rate : 0.71
 
-<div class="graph"></div>
+<canvas id="genomeChart"></canvas>
+
+</div>
 
 </div>
 
-</div>
+
+<script>
+
+new Chart(document.getElementById("specimenChart"),{
+type:"line",
+data:{
+labels:["0h","2h","4h","6h","8h"],
+datasets:[{
+data:[10,25,40,60,78],
+borderColor:"#38d6ff",
+fill:false
+}]
+},
+options:{plugins:{legend:{display:false}}}
+});
+
+
+new Chart(document.getElementById("cellChart"),{
+type:"line",
+data:{
+labels:["0","1","2","3","4"],
+datasets:[{
+data:[40,48,52,50,55],
+borderColor:"#63ff9a",
+fill:false
+}]
+},
+options:{plugins:{legend:{display:false}}}
+});
+
+
+new Chart(document.getElementById("virusChart"),{
+type:"bar",
+data:{
+labels:["Spike","Capsid","RNA"],
+datasets:[{
+data:[70,60,80],
+backgroundColor:"#38d6ff"
+}]
+},
+options:{plugins:{legend:{display:false}}}
+});
+
+
+new Chart(document.getElementById("genomeChart"),{
+type:"line",
+data:{
+labels:["A","T","C","G"],
+datasets:[{
+data:[22,18,30,24],
+borderColor:"#ffa74a",
+fill:false
+}]
+},
+options:{plugins:{legend:{display:false}}}
+});
+
+</script>
 
 </body>
 </html>
