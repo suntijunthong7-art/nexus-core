@@ -1,135 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Genomics Lab</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Nexus Genomics System</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 body{
 margin:0;
 font-family:Segoe UI;
-background:linear-gradient(180deg,#07121f,#020c16);
-color:white;
+background:#020a14;
+color:#d9e7ff;
 }
 
-/* TOP BAR */
+/* topbar */
 
 .topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:14px 30px;
-background:#081a2e;
+padding:14px 28px;
+background:#07192c;
 border-bottom:1px solid #18324f;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-weight:600;
-}
-
-.logo img{
-width:30px;
 }
 
 .menu{
 display:flex;
 gap:20px;
 opacity:.8;
-font-size:14px;
 }
 
-/* DASHBOARD */
+/* layout */
 
 .dashboard{
+
 display:grid;
-grid-template-columns:260px 1fr 280px;
-gap:18px;
+grid-template-columns:280px 1fr 320px;
+gap:20px;
+
 padding:25px;
+
 }
 
-/* PANELS */
+/* panel */
 
 .panel{
-background:rgba(20,40,65,.7);
-border:1px solid rgba(120,170,220,.1);
-border-radius:12px;
+
+background:rgba(20,40,65,.55);
+
+border:1px solid rgba(120,170,220,.15);
+
+border-radius:14px;
+
 padding:18px;
-backdrop-filter:blur(6px);
+
+backdrop-filter:blur(8px);
+
 }
 
 .panel h3{
 margin-top:0;
 font-size:14px;
-border-bottom:1px solid rgba(255,255,255,.08);
-padding-bottom:8px;
+opacity:.9;
 }
 
-/* GRAPH PLACEHOLDER */
-
-.graph{
-height:110px;
-background:linear-gradient(180deg,#1d3c5a,#0a1b2e);
-border-radius:8px;
-margin-top:10px;
-}
-
-/* CENTER */
+/* center DNA */
 
 .center{
+
 display:flex;
 justify-content:center;
 align-items:center;
+
 }
 
-/* DNA */
-
 .dna{
-position:relative;
-width:180px;
-height:340px;
-transform-style:preserve-3d;
-animation:spin 10s linear infinite;
+
+font-size:180px;
+
+animation:spin 14s linear infinite;
+
+filter:drop-shadow(0 0 30px #2ea9ff);
+
 }
 
 @keyframes spin{
-from{transform:rotateY(0deg);}
-to{transform:rotateY(360deg);}
+
+from{transform:rotateY(0)}
+
+to{transform:rotateY(360deg)}
+
 }
 
-.node{
-position:absolute;
-width:8px;
-height:8px;
-background:#6fe3ff;
-border-radius:50%;
-box-shadow:0 0 10px #2ecfff;
+/* graph */
+
+canvas{
+
+background:#081a2e;
+
+border-radius:8px;
+
+margin-top:10px;
+
 }
 
-.bar{
-position:absolute;
-height:2px;
-width:90px;
-background:#6fe3ff;
-left:45px;
-box-shadow:0 0 6px #2ecfff;
+/* stats */
+
+.stat{
+
+font-size:26px;
+
+font-weight:600;
+
 }
 
-/* glow */
+.low{
 
-.dna::after{
-content:"";
-position:absolute;
-width:200px;
-height:360px;
-left:-10px;
-top:-10px;
-background:radial-gradient(circle,#1ea7ff22,transparent);
+color:#6bffa2;
+
 }
 
 </style>
@@ -139,14 +132,134 @@ background:radial-gradient(circle,#1ea7ff22,transparent);
 
 <div class="topbar">
 
-<div class="logo">
-<img src="logo.png">
 <div>Nexus Genomics Lab</div>
-</div>
 
 <div class="menu">
+
 <div>Overview</div>
+
 <div>Genome Lab</div>
+
+<div>Specimens</div>
+
+<div>Incubation</div>
+
+<div>Analytics</div>
+
+</div>
+
+</div>
+
+<div class="dashboard">
+
+<!-- LEFT -->
+
+<div class="panel">
+
+<h3>GENOME MAP</h3>
+
+Specimen ID : VX-023
+
+<div class="stat">78%</div>
+
+AI Analysis : <span class="low">LOW</span>
+
+<canvas id="chart1"></canvas>
+
+</div>
+
+<!-- CENTER DNA -->
+
+<div class="panel center">
+
+<div class="dna">🧬</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="panel">
+
+<h3>INCUBATION DATA</h3>
+
+Heart Rate : 82 bpm  
+Temperature : 37.1°C  
+
+<canvas id="chart2"></canvas>
+
+<h3>DNA ANALYTICS</h3>
+
+Sequence Match : 91%  
+Mutation Index : 0.12  
+
+</div>
+
+</div>
+
+<script>
+
+new Chart(
+
+document.getElementById("chart1"),
+
+{
+
+type:"line",
+
+data:{
+
+labels:["1","2","3","4","5"],
+
+datasets:[{
+
+data:[40,55,60,70,78],
+
+borderColor:"#3bbcff",
+
+fill:false
+
+}]
+
+},
+
+options:{plugins:{legend:{display:false}}}
+
+}
+
+)
+
+new Chart(
+
+document.getElementById("chart2"),
+
+{
+
+type:"bar",
+
+data:{
+
+labels:["A","B","C","D"],
+
+datasets:[{
+
+data:[12,19,10,14],
+
+backgroundColor:"#2ea9ff"
+
+}]
+
+},
+
+options:{plugins:{legend:{display:false}}}
+
+}
+
+)
+
+</script>
+
+</body>
+</html><div>Genome Lab</div>
 <div>Specimens</div>
 <div>Incubation</div>
 <div>Analytics</div>
