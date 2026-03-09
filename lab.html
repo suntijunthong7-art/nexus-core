@@ -3,87 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Viral Structure Research Laboratory</title>
 
 <style>
 
 body{
+background:#07141d;
+color:#cfe7ff;
+font-family:Arial, Helvetica, sans-serif;
 margin:0;
-font-family:Arial;
-background:#061521;
-color:white;
 }
 
 header{
-background:#081c2c;
+background:#0b1e2c;
 padding:20px;
-font-size:22px;
-font-weight:bold;
+text-align:center;
+font-size:24px;
+letter-spacing:2px;
+border-bottom:1px solid #16394f;
 }
 
 .container{
-width:90%;
+width:95%;
+max-width:1100px;
 margin:auto;
+padding:30px 0;
 }
 
 .section{
-margin-top:40px;
+margin-bottom:60px;
+}
+
+h2{
+color:#7cc7ff;
+margin-bottom:15px;
 }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:20px;
+gap:25px;
 }
 
 .card{
-background:#0b2235;
+background:#0b1e2c;
+border:1px solid #16394f;
 padding:15px;
-border-radius:10px;
-}
-
-.card img{
-width:100%;
 border-radius:8px;
 }
 
-.card video{
+img,video{
 width:100%;
-border-radius:8px;
+border-radius:6px;
 }
 
-h2{
-color:#7ecfff;
+p{
+font-size:14px;
+line-height:1.6;
+color:#a8c9e4;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:20px;
+margin-top:10px;
 }
 
-table th, table td{
-border-bottom:1px solid #1b3c55;
+th,td{
+border:1px solid #1e4d68;
 padding:10px;
 text-align:left;
+font-size:14px;
+}
+
+th{
+background:#0f2a3d;
+color:#7cc7ff;
 }
 
 .chart{
-height:200px;
-border-left:2px solid #1b3c55;
-border-bottom:2px solid #1b3c55;
-position:relative;
-}
-
-.line{
-position:absolute;
-bottom:20px;
-left:0;
-width:100%;
-height:2px;
-background:#63c8ff;
-transform:rotate(-15deg);
+height:250px;
+background:#0b1e2c;
+border:1px solid #16394f;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 </style>
@@ -91,76 +95,90 @@ transform:rotate(-15deg);
 
 <body>
 
-<header class="container">
+<header>
 Viral Structure Research Laboratory
 </header>
 
 <div class="container">
 
+<!-- Research Objective -->
 <div class="section">
 <h2>Research Objective</h2>
 <p>
-This laboratory simulates experimental data related to viral structure, genome organization,
-and host-cell infection dynamics. The research visualizes mutation behavior,
-structural stability, and cellular response during viral replication.
+This laboratory interface presents experimental data related to viral
+structure, genome organization, and host-cell infection dynamics.
+The research examines mutation behavior, structural stability,
+and cellular response during viral replication.
 </p>
 </div>
 
+<!-- DNA Visualization -->
 <div class="section">
 <h2>DNA Structure Visualization</h2>
 
 <div class="grid">
 
 <div class="card">
-<img src="dna.jpg">
+<video autoplay loop muted>
+<source src="dna.mp4" type="video/mp4">
+</video>
 </div>
 
 <div class="card">
 <p>
 DNA helix visualization used to illustrate genome organization
-and mutation sequencing patterns during viral replication studies.
+and nucleic acid sequencing patterns during viral replication studies.
+The animation demonstrates double helix structural rotation and
+molecular stability analysis.
 </p>
 </div>
 
 </div>
 </div>
 
+<!-- Virus Model -->
 <div class="section">
 <h2>Virus Structure Model</h2>
 
 <div class="grid">
 
 <div class="card">
-<img src="virus-model.jpg">
+<img src="virus-3d.png" alt="Virus 3D Structure">
 </div>
 
 <div class="card">
-<img src="microscope.jpg">
+<video autoplay loop muted>
+<source src="virus-structure.mp4" type="video/mp4">
+</video>
 </div>
 
 </div>
 </div>
 
+<!-- Infected Cell -->
 <div class="section">
 <h2>Infected Cell Observation</h2>
 
 <div class="grid">
 
 <div class="card">
-<img src="cell-infection.jpg">
+<img src="infected-cell.png">
 </div>
 
 <div class="card">
 <p>
-Microscopic illustration of host-cell infection.  
-The model shows viral particles interacting with cellular membranes
-and internal replication regions.
+Microscopic illustration of host-cell infection.
+The model shows viral particles interacting with
+cellular membranes and internal replication regions.
+Observed parameters include replication speed,
+mutation rate, and cytoplasmic response behavior.
 </p>
 </div>
 
 </div>
 </div>
 
+<!-- Virus Database -->
 <div class="section">
 <h2>Virus Sample Database</h2>
 
@@ -175,43 +193,79 @@ and internal replication regions.
 </tr>
 
 <tr>
-<td>VX-1032</td>
+<td>VX-102</td>
 <td>Human epithelial cell</td>
 <td>RNA</td>
-<td>0.8%</td>
+<td>0.85</td>
 <td>Active</td>
 </tr>
 
 <tr>
-<td>VX-2145</td>
-<td>Animal host</td>
+<td>VX-215</td>
+<td>Laboratory host</td>
 <td>DNA</td>
-<td>0.6%</td>
+<td>0.67</td>
 <td>Observed</td>
 </tr>
 
 <tr>
-<td>VX-3001</td>
+<td>VX-301</td>
 <td>Cell culture</td>
 <td>RNA</td>
-<td>0.7%</td>
+<td>0.72</td>
 <td>Stable</td>
 </tr>
 
 </table>
-
 </div>
 
+<!-- Infection Chart -->
 <div class="section">
 <h2>Cell Infection Rate</h2>
 
 <div class="chart">
-<div class="line"></div>
-</div>
+
+<canvas id="infectionChart"></canvas>
 
 </div>
 
 </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const ctx = document.getElementById('infectionChart');
+
+new Chart(ctx, {
+type:'line',
+data:{
+labels:['0h','6h','12h','18h','24h'],
+datasets:[{
+label:'Infection Progression',
+data:[5,12,35,60,82],
+borderColor:'#7cc7ff',
+backgroundColor:'rgba(124,199,255,0.2)',
+tension:0.4
+}]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{
+labels:{color:'#cfe7ff'}
+}
+},
+scales:{
+x:{ticks:{color:'#a8c9e4'}},
+y:{ticks:{color:'#a8c9e4'}}
+}
+}
+});
+
+</script>
 
 </body>
 </html>
