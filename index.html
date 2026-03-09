@@ -72,6 +72,12 @@ font-size:12px;
 color:#777;
 }
 
+.error{
+margin-top:10px;
+color:red;
+font-size:14px;
+}
+
 </style>
 </head>
 
@@ -88,6 +94,8 @@ color:#777;
 <input id="pass" type="password" placeholder="Password">
 
 <button onclick="login()">SIGN IN</button>
+
+<div id="error" class="error"></div>
 
 <div class="status">
 System Status : Secure Connection Active
@@ -114,7 +122,7 @@ location.href="dashboard.html";
 
 }else{
 
-alert("ACCESS DENIED");
+document.getElementById("error").innerText="ACCESS DENIED";
 
 }
 
