@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,11 +17,30 @@ margin:0;
 
 header{
 background:#081821;
-padding:22px;
+padding:20px;
 text-align:center;
-font-size:24px;
+font-size:22px;
 border-bottom:1px solid #1d445a;
 }
+
+/* STATUS BAR */
+
+.status-bar{
+background:#07131a;
+border-bottom:1px solid #123245;
+padding:6px;
+display:flex;
+justify-content:center;
+gap:25px;
+font-size:12px;
+color:#8fc8ff;
+}
+
+.status-online{
+color:#5cff9d;
+}
+
+/* CONTAINER */
 
 .container{
 width:92%;
@@ -32,31 +50,39 @@ padding:30px 0;
 }
 
 .section{
-margin-bottom:55px;
+margin-bottom:50px;
 }
 
 h2{
 color:#79c9ff;
-margin-bottom:18px;
+margin-bottom:15px;
 }
+
+/* GRID */
 
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:22px;
+gap:20px;
 }
+
+/* CARD */
 
 .card{
 background:#081821;
 border:1px solid #15394d;
-padding:16px;
+padding:15px;
 border-radius:10px;
+position:relative;
+overflow:hidden;
 transition:0.3s;
 }
 
 .card:hover{
+box-shadow:
+0 0 10px rgba(0,180,255,0.3),
+0 0 20px rgba(0,180,255,0.2);
 border-color:#46b6ff;
-box-shadow:0 0 12px rgba(70,182,255,0.25);
 }
 
 img,video{
@@ -65,21 +91,40 @@ border-radius:6px;
 margin-top:10px;
 }
 
-p{
-font-size:14px;
-line-height:1.6;
+/* SCAN EFFECT */
+
+.scan{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(
+transparent,
+rgba(0,255,255,0.2),
+transparent
+);
+animation:scanmove 3s infinite;
+pointer-events:none;
 }
+
+@keyframes scanmove{
+0%{transform:translateY(-100%)}
+100%{transform:translateY(100%)}
+}
+
+/* TABLE */
 
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:15px;
+margin-top:10px;
 }
 
 th,td{
 border:1px solid #1d445a;
-padding:10px;
-font-size:13px;
+padding:8px;
+font-size:12px;
 text-align:center;
 }
 
@@ -88,6 +133,8 @@ background:#0b2634;
 color:#7bd1ff;
 }
 
+/* GRAPH */
+
 canvas{
 background:#07141c;
 border:1px solid #15394d;
@@ -95,11 +142,29 @@ border-radius:8px;
 padding:10px;
 }
 
+/* LOADING BAR */
+
+.loading-bar{
+height:3px;
+background:linear-gradient(
+90deg,
+transparent,
+#00d4ff,
+transparent
+);
+animation:loadingmove 2s infinite;
+}
+
+@keyframes loadingmove{
+0%{transform:translateX(-100%)}
+100%{transform:translateX(100%)}
+}
+
 footer{
 text-align:center;
 padding:25px;
 color:#6ea4c4;
-font-size:13px;
+font-size:12px;
 }
 
 </style>
@@ -112,7 +177,17 @@ font-size:13px;
 Viral Structure Research Laboratory
 </header>
 
+<div class="status-bar">
+<span class="status-online">System Online</span>
+<span>Bio Node Active</span>
+<span>Data Stream Connected</span>
+</div>
+
+<div class="loading-bar"></div>
+
 <div class="container">
+
+<!-- Research -->
 
 <div class="section">
 
@@ -121,13 +196,15 @@ Viral Structure Research Laboratory
 <div class="card">
 
 <p>
-Experimental visualization interface for viral morphology, genomic structure, and host-cell infection dynamics. The model demonstrates viral replication progression, cellular damage rate, and immune response behavior during infection phases.
+Experimental interface for viral morphology, genomic structure,
+and host-cell infection dynamics monitoring.
 </p>
 
 </div>
 
 </div>
 
+<!-- DNA -->
 
 <div class="section">
 
@@ -141,12 +218,14 @@ Experimental visualization interface for viral morphology, genomic structure, an
 <source src="dna.mp4" type="video/mp4">
 </video>
 
+<div class="scan"></div>
+
 </div>
 
 <div class="card">
 
 <p>
-Molecular model of DNA double helix demonstrating nucleotide pairing, rotational symmetry, and structural integrity used in genomic analysis.
+Molecular visualization of DNA double helix structure used in genomic analysis.
 </p>
 
 </div>
@@ -155,6 +234,7 @@ Molecular model of DNA double helix demonstrating nucleotide pairing, rotational
 
 </div>
 
+<!-- Virus Model -->
 
 <div class="section">
 
@@ -166,9 +246,7 @@ Molecular model of DNA double helix demonstrating nucleotide pairing, rotational
 
 <img src="virus-3d.png">
 
-<p>
-Three-dimensional representation of viral capsid geometry and surface protein distribution.
-</p>
+<div class="scan"></div>
 
 </div>
 
@@ -178,16 +256,13 @@ Three-dimensional representation of viral capsid geometry and surface protein di
 <source src="virus-structure.mp4" type="video/mp4">
 </video>
 
-<p>
-Dynamic structural scan of viral particles highlighting molecular surface structure.
-</p>
-
 </div>
 
 </div>
 
 </div>
 
+<!-- Infected Cell -->
 
 <div class="section">
 
@@ -199,12 +274,14 @@ Dynamic structural scan of viral particles highlighting molecular surface struct
 
 <img src="infected-cell.png">
 
+<div class="scan"></div>
+
 </div>
 
 <div class="card">
 
 <p>
-Microscopic visualization of infected host cell displaying viral particle attachment and cytoplasmic replication regions.
+Microscopic observation of host cell infected by viral particles.
 </p>
 
 </div>
@@ -213,6 +290,7 @@ Microscopic visualization of infected host cell displaying viral particle attach
 
 </div>
 
+<!-- Database -->
 
 <div class="section">
 
@@ -223,32 +301,32 @@ Microscopic visualization of infected host cell displaying viral particle attach
 <table>
 
 <tr>
-<th>Sample ID</th>
+<th>ID</th>
 <th>Host</th>
 <th>Genome</th>
-<th>Mutation Rate</th>
+<th>Mutation</th>
 <th>Status</th>
 </tr>
 
 <tr>
-<td>VX-102</td>
-<td>Human epithelial</td>
+<td>VX102</td>
+<td>Human</td>
 <td>RNA</td>
 <td>0.85</td>
 <td>Active</td>
 </tr>
 
 <tr>
-<td>VX-215</td>
-<td>Laboratory host</td>
+<td>VX215</td>
+<td>Lab Host</td>
 <td>DNA</td>
 <td>0.67</td>
 <td>Observed</td>
 </tr>
 
 <tr>
-<td>VX-301</td>
-<td>Cell culture</td>
+<td>VX301</td>
+<td>Culture</td>
 <td>RNA</td>
 <td>0.72</td>
 <td>Stable</td>
@@ -260,6 +338,7 @@ Microscopic visualization of infected host cell displaying viral particle attach
 
 </div>
 
+<!-- Graph -->
 
 <div class="section">
 
@@ -275,11 +354,9 @@ Microscopic visualization of infected host cell displaying viral particle attach
 
 </div>
 
-
 <footer>
 Bio-Structural Visualization Interface
 </footer>
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -287,46 +364,32 @@ Bio-Structural Visualization Interface
 
 const ctx=document.getElementById('chart');
 
-new Chart(ctx,{
+const chart=new Chart(ctx,{
 
 type:'line',
 
 data:{
 
-labels:[
-'0h','3h','6h','9h','12h','15h','18h','21h','24h'
-],
+labels:['0h','3h','6h','9h','12h','15h','18h','21h','24h'],
 
 datasets:[
 
 {
 label:'Viral Load',
-data:[2,6,15,28,45,60,72,80,88],
+data:[3,7,15,25,40,55,70,82,90],
 borderColor:'#7bd1ff',
 backgroundColor:'rgba(123,209,255,0.15)',
-fill:true,
 tension:0.35,
-pointRadius:3
+fill:true
 },
 
 {
 label:'Cell Damage',
-data:[0,1,4,9,18,30,46,60,74],
+data:[0,2,5,10,18,30,48,60,75],
 borderColor:'#ff7f7f',
 backgroundColor:'rgba(255,127,127,0.12)',
-fill:true,
 tension:0.35,
-pointRadius:3
-},
-
-{
-label:'Immune Response',
-data:[1,2,6,14,26,42,58,67,72],
-borderColor:'#7fffba',
-backgroundColor:'rgba(127,255,186,0.12)',
-fill:true,
-tension:0.35,
-pointRadius:3
+fill:true
 }
 
 ]
@@ -338,59 +401,36 @@ options:{
 responsive:true,
 
 plugins:{
-
 legend:{
-labels:{
-color:'#cfe7ff',
-font:{size:13}
+labels:{color:'#cfe7ff'}
 }
-},
-
-tooltip:{
-backgroundColor:'#081821',
-titleColor:'#7bd1ff',
-bodyColor:'#cfe7ff',
-borderColor:'#1d445a',
-borderWidth:1
-}
-
 },
 
 scales:{
-
 x:{
-title:{
-display:true,
-text:'Time (hours)',
-color:'#9fc6e3'
+ticks:{color:'#9fc6e3'},
+grid:{color:'rgba(50,90,120,0.25)'}
 },
-grid:{
-color:'rgba(50,90,120,0.25)'
-},
-ticks:{
-color:'#9fc6e3'
-}
-},
-
 y:{
-title:{
-display:true,
-text:'Relative Activity (%)',
-color:'#9fc6e3'
-},
-grid:{
-color:'rgba(50,90,120,0.25)'
-},
-ticks:{
-color:'#9fc6e3'
+ticks:{color:'#9fc6e3'},
+grid:{color:'rgba(50,90,120,0.25)'}
 }
-}
-
 }
 
 }
 
 });
+
+/* LIVE DATA UPDATE */
+
+setInterval(()=>{
+
+chart.data.datasets[0].data.push(Math.random()*100)
+chart.data.datasets[0].data.shift()
+
+chart.update()
+
+},3000)
 
 </script>
 
