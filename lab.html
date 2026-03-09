@@ -9,21 +9,21 @@
 body{
 margin:0;
 font-family:Segoe UI;
-background:#061320;
-color:#e9eef6;
+background:linear-gradient(#061320,#020c16);
+color:#e8edf4;
 }
 
-/* header */
+/* HEADER */
 
 .header{
 padding:18px;
-font-size:20px;
+font-size:18px;
 font-weight:600;
 background:#0a1c2e;
 border-bottom:1px solid #1f3b55;
 }
 
-/* container */
+/* LAYOUT */
 
 .container{
 padding:15px;
@@ -32,25 +32,39 @@ flex-direction:column;
 gap:15px;
 }
 
-/* panel */
+/* PANEL */
 
 .panel{
 background:#0f2238;
 padding:18px;
 border-radius:12px;
-border:1px solid rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
 }
 
-/* graph */
+/* TITLE */
+
+.title{
+font-size:13px;
+color:#9fb5cf;
+margin-bottom:10px;
+}
+
+/* DATA */
+
+.data{
+margin:3px 0;
+}
+
+/* GRAPH */
 
 .graph{
-height:110px;
+height:90px;
 border-radius:8px;
-margin-top:10px;
-background:linear-gradient(#1d3c5a,#0a1a2b);
+margin-top:12px;
+background:linear-gradient(#1c3c5d,#0a1a2b);
 }
 
-/* virus model */
+/* VIRUS */
 
 .virus-box{
 display:flex;
@@ -60,40 +74,42 @@ height:200px;
 }
 
 .virus{
-width:120px;
-height:120px;
+width:110px;
+height:110px;
 border-radius:50%;
-background:radial-gradient(circle,#2fd1ff,#0b3a5e);
-box-shadow:
-0 0 25px #33d6ff,
-0 0 50px #0ea5e9;
+background:radial-gradient(circle,#27c6ff,#0a3556);
+box-shadow:0 0 40px #27c6ff;
 position:relative;
-animation:spin 10s linear infinite;
+animation:rotate 12s linear infinite;
 }
 
 /* spikes */
 
 .spike{
 position:absolute;
-width:6px;
-height:30px;
+width:4px;
+height:28px;
 background:#5ee6ff;
 left:50%;
-top:-20px;
+top:-18px;
 transform-origin:bottom;
 }
 
 .spike:nth-child(1){transform:rotate(0deg)}
-.spike:nth-child(2){transform:rotate(45deg)}
-.spike:nth-child(3){transform:rotate(90deg)}
-.spike:nth-child(4){transform:rotate(135deg)}
-.spike:nth-child(5){transform:rotate(180deg)}
-.spike:nth-child(6){transform:rotate(225deg)}
-.spike:nth-child(7){transform:rotate(270deg)}
-.spike:nth-child(8){transform:rotate(315deg)}
+.spike:nth-child(2){transform:rotate(30deg)}
+.spike:nth-child(3){transform:rotate(60deg)}
+.spike:nth-child(4){transform:rotate(90deg)}
+.spike:nth-child(5){transform:rotate(120deg)}
+.spike:nth-child(6){transform:rotate(150deg)}
+.spike:nth-child(7){transform:rotate(180deg)}
+.spike:nth-child(8){transform:rotate(210deg)}
+.spike:nth-child(9){transform:rotate(240deg)}
+.spike:nth-child(10){transform:rotate(270deg)}
+.spike:nth-child(11){transform:rotate(300deg)}
+.spike:nth-child(12){transform:rotate(330deg)}
 
-@keyframes spin{
-from{transform:rotate(0deg)}
+@keyframes rotate{
+from{transform:rotate(0)}
 to{transform:rotate(360deg)}
 }
 
@@ -104,23 +120,26 @@ to{transform:rotate(360deg)}
 <body>
 
 <div class="header">
-🧬 Nexus Genomics Lab — T-Virus Research
+🧬 ห้องปฏิบัติการ Nexus Genomics — โครงการวิจัย T-Virus
 </div>
 
 <div class="container">
 
+<!-- ANALYSIS -->
+
 <div class="panel">
 
-<b>VIRAL GENOME ANALYSIS</b><br><br>
+<div class="title">VIRAL GENOME ANALYSIS</div>
 
-Specimen : TV-023<br>
-Viral Activity : 78%<br>
-AI Risk Model : <span style="color:#63ff9a">LOW RISK</span>
+<div class="data">ตัวอย่าง : TV-023</div>
+<div class="data">กิจกรรมของไวรัส : 78%</div>
+<div class="data">AI Risk Model : <span style="color:#63ff9a">LOW RISK</span></div>
 
 <div class="graph"></div>
 
 </div>
 
+<!-- VIRUS MODEL -->
 
 <div class="panel virus-box">
 
@@ -134,46 +153,24 @@ AI Risk Model : <span style="color:#63ff9a">LOW RISK</span>
 <div class="spike"></div>
 <div class="spike"></div>
 <div class="spike"></div>
+<div class="spike"></div>
+<div class="spike"></div>
+<div class="spike"></div>
+<div class="spike"></div>
 
 </div>
 
 </div>
 
+<!-- INCUBATION -->
 
 <div class="panel">
 
-<b>INCUBATION DATA</b><br><br>
+<div class="title">INCUBATION MONITORING</div>
 
-Host Heart Rate : 82 bpm<br>
-Temperature : 37.1°C<br>
-Cellular Response : Stable
-
-<div class="graph"></div>
-
-</div>
-
-</div>
-
-</body>
-</html>Cell Activity : Stable
-
-<div class="graph"></div>
-
-</div>
-
-</div>
-
-</body>
-</html>
-<!-- RIGHT -->
-
-<div class="panel">
-
-<h3>INCUBATION DATA</h3>
-
-Heart Rate : 82 bpm<br>
-Temperature : 37.1°C<br>
-Cell Activity : Stable
+<div class="data">อัตราการเต้นหัวใจ : 82 bpm</div>
+<div class="data">อุณหภูมิ : 37.1°C</div>
+<div class="data">กิจกรรมของเซลล์ : Stable</div>
 
 <div class="graph"></div>
 
