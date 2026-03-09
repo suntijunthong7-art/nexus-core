@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nexus Genome Dashboard</title>
+<title>Nexus Genomics Lab</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -15,75 +15,118 @@ body{
 margin:0;
 font-family:Segoe UI,Arial;
 background:#071a2c;
-color:white;
+color:#e4eef7;
 }
 
 /* HEADER */
 
 .header{
-padding:18px;
-background:#0a253d;
+background:#0b2740;
+padding:16px;
 font-size:18px;
+font-weight:600;
+border-bottom:1px solid #1b4567;
 }
 
 /* GRID LAYOUT */
 
 .dashboard{
+
 display:grid;
-grid-template-columns:280px 1fr 280px;
-gap:15px;
-padding:15px;
+
+grid-template-columns:
+260px
+1fr
+260px;
+
+grid-template-rows:auto auto;
+
+gap:14px;
+
+padding:14px;
+
 }
 
-/* PANEL */
+/* PANELS */
 
 .panel{
-background:#0e2f4a;
-border-radius:10px;
-padding:15px;
+
+background:#0f2f49;
+
+border-radius:12px;
+
+padding:16px;
+
+border:1px solid rgba(255,255,255,.05);
+
 }
 
-/* CENTER DNA */
+/* CENTER LAB CORE */
 
 .center{
+
 display:flex;
-justify-content:center;
+
 align-items:center;
+
+justify-content:center;
+
 }
 
 /* DNA HELIX */
 
 .dna{
+
 position:relative;
+
 width:120px;
-height:320px;
+
+height:300px;
+
 }
 
-.line{
+.strand{
+
 position:absolute;
+
 width:6px;
+
 height:100%;
-background:#41d6ff;
+
+background:#3dd7ff;
+
 border-radius:4px;
+
 animation:helix 4s infinite linear;
+
 }
 
-.line:nth-child(2){
+.strand:nth-child(2){
+
 left:60px;
+
 animation-delay:2s;
+
 }
 
 @keyframes helix{
 
 0%{transform:translateX(0)}
+
 50%{transform:translateX(60px)}
+
 100%{transform:translateX(0)}
 
 }
 
-canvas{
-margin-top:10px;
-max-height:120px;
+/* VIRUS IMAGE */
+
+img{
+
+width:100%;
+
+border-radius:8px;
+
 }
 
 /* MOBILE */
@@ -91,11 +134,15 @@ max-height:120px;
 @media(max-width:900px){
 
 .dashboard{
+
 grid-template-columns:1fr;
+
 }
 
 .center{
+
 order:-1;
+
 }
 
 }
@@ -107,20 +154,20 @@ order:-1;
 <body>
 
 <div class="header">
-🧬 Nexus Genomics Research Console
+🧬 Nexus Genomics Laboratory — Research Console
 </div>
 
 <div class="dashboard">
 
-<!-- LEFT PANEL -->
+<!-- SPECIMEN DATABASE -->
 
 <div class="panel">
 
-<h3>Specimen Data</h3>
+<h3>Specimen Database</h3>
 
-Specimen : TV-023<br>
-Activity : 78%<br>
-Mutation : 0.92<br>
+Sample ID : TV-023<br>
+Virus activity : 78%<br>
+Mutation index : 0.92<br>
 Containment : BSL-4
 
 <canvas id="chart1"></canvas>
@@ -128,19 +175,21 @@ Containment : BSL-4
 </div>
 
 
-<!-- CENTER DNA -->
+<!-- LAB CORE -->
 
 <div class="panel center">
 
 <div class="dna">
-<div class="line"></div>
-<div class="line"></div>
-</div>
+
+<div class="strand"></div>
+<div class="strand"></div>
 
 </div>
 
+</div>
 
-<!-- RIGHT PANEL -->
+
+<!-- INCUBATION -->
 
 <div class="panel">
 
@@ -155,25 +204,26 @@ Cell status : Stable
 </div>
 
 
-<!-- LEFT BOTTOM -->
+<!-- VIRUS STRUCTURE -->
 
 <div class="panel">
 
 <h3>Virus Structure</h3>
 
-<img width="100%" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Coronavirus_virion_structure.svg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Coronavirus_virion_structure.svg">
 
 </div>
 
 
-<!-- RIGHT BOTTOM -->
+<!-- GENOME ANALYTICS -->
 
 <div class="panel">
 
 <h3>Genome Analytics</h3>
 
 RNA integrity : 94%<br>
-Replication : 0.71
+Protein synthesis : Active<br>
+Replication rate : 0.71
 
 <canvas id="chart3"></canvas>
 
@@ -181,47 +231,58 @@ Replication : 0.71
 
 </div>
 
+
 <script>
 
 new Chart(document.getElementById("chart1"),{
+
 type:"line",
+
 data:{
 labels:["0h","2h","4h","6h","8h"],
 datasets:[{
 data:[10,25,40,60,78],
-borderColor:"#41d6ff",
+borderColor:"#3dd7ff",
 fill:false
 }]
 },
+
 options:{plugins:{legend:{display:false}}}
+
 })
 
-
 new Chart(document.getElementById("chart2"),{
+
 type:"line",
+
 data:{
 labels:["0","1","2","3","4"],
 datasets:[{
 data:[40,48,52,50,55],
-borderColor:"#7dffb2",
+borderColor:"#7cffb3",
 fill:false
 }]
 },
+
 options:{plugins:{legend:{display:false}}}
+
 })
 
-
 new Chart(document.getElementById("chart3"),{
+
 type:"line",
+
 data:{
 labels:["A","T","C","G"],
 datasets:[{
 data:[22,18,30,24],
-borderColor:"#ffa94a",
+borderColor:"#ffa24a",
 fill:false
 }]
 },
+
 options:{plugins:{legend:{display:false}}}
+
 })
 
 </script>
