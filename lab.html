@@ -1,128 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Genomics System</title>
+<title>Nexus Genomics Lab</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <style>
 
 body{
 margin:0;
 font-family:Segoe UI;
-background:#020a14;
-color:#d9e7ff;
+background:#050e18;
+color:white;
+overflow:hidden;
 }
 
-/* topbar */
+/* TOP BAR */
 
 .topbar{
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:60px;
 display:flex;
-justify-content:space-between;
 align-items:center;
-padding:14px 28px;
-background:#07192c;
-border-bottom:1px solid #18324f;
+justify-content:space-between;
+padding:0 30px;
+background:rgba(0,0,0,.4);
+border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .menu{
 display:flex;
 gap:20px;
+font-size:14px;
 opacity:.8;
 }
 
-/* layout */
-
-.dashboard{
-
-display:grid;
-grid-template-columns:280px 1fr 320px;
-gap:20px;
-
-padding:25px;
-
-}
-
-/* panel */
+/* PANELS */
 
 .panel{
-
-background:rgba(20,40,65,.55);
-
-border:1px solid rgba(120,170,220,.15);
-
-border-radius:14px;
-
-padding:18px;
-
-backdrop-filter:blur(8px);
-
+position:absolute;
+background:rgba(20,40,65,.7);
+border:1px solid rgba(255,255,255,.08);
+border-radius:10px;
+padding:15px;
+backdrop-filter:blur(6px);
 }
 
-.panel h3{
-margin-top:0;
-font-size:14px;
-opacity:.9;
+/* LEFT PANEL */
+
+.left{
+top:90px;
+left:20px;
+width:260px;
 }
 
-/* center DNA */
+/* RIGHT PANEL */
 
-.center{
-
-display:flex;
-justify-content:center;
-align-items:center;
-
+.right{
+top:90px;
+right:20px;
+width:260px;
 }
 
-.dna{
+/* GRAPH */
 
-font-size:180px;
-
-animation:spin 14s linear infinite;
-
-filter:drop-shadow(0 0 30px #2ea9ff);
-
+.graph{
+height:100px;
+margin-top:10px;
+background:linear-gradient(180deg,#1d3c5a,#081b2e);
+border-radius:6px;
 }
-
-@keyframes spin{
-
-from{transform:rotateY(0)}
-
-to{transform:rotateY(360deg)}
-
-}
-
-/* graph */
 
 canvas{
-
-background:#081a2e;
-
-border-radius:8px;
-
-margin-top:10px;
-
-}
-
-/* stats */
-
-.stat{
-
-font-size:26px;
-
-font-weight:600;
-
-}
-
-.low{
-
-color:#6bffa2;
-
+position:absolute;
+top:0;
+left:0;
 }
 
 </style>
@@ -135,131 +93,8 @@ color:#6bffa2;
 <div>Nexus Genomics Lab</div>
 
 <div class="menu">
-
 <div>Overview</div>
-
 <div>Genome Lab</div>
-
-<div>Specimens</div>
-
-<div>Incubation</div>
-
-<div>Analytics</div>
-
-</div>
-
-</div>
-
-<div class="dashboard">
-
-<!-- LEFT -->
-
-<div class="panel">
-
-<h3>GENOME MAP</h3>
-
-Specimen ID : VX-023
-
-<div class="stat">78%</div>
-
-AI Analysis : <span class="low">LOW</span>
-
-<canvas id="chart1"></canvas>
-
-</div>
-
-<!-- CENTER DNA -->
-
-<div class="panel center">
-
-<div class="dna">🧬</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="panel">
-
-<h3>INCUBATION DATA</h3>
-
-Heart Rate : 82 bpm  
-Temperature : 37.1°C  
-
-<canvas id="chart2"></canvas>
-
-<h3>DNA ANALYTICS</h3>
-
-Sequence Match : 91%  
-Mutation Index : 0.12  
-
-</div>
-
-</div>
-
-<script>
-
-new Chart(
-
-document.getElementById("chart1"),
-
-{
-
-type:"line",
-
-data:{
-
-labels:["1","2","3","4","5"],
-
-datasets:[{
-
-data:[40,55,60,70,78],
-
-borderColor:"#3bbcff",
-
-fill:false
-
-}]
-
-},
-
-options:{plugins:{legend:{display:false}}}
-
-}
-
-)
-
-new Chart(
-
-document.getElementById("chart2"),
-
-{
-
-type:"bar",
-
-data:{
-
-labels:["A","B","C","D"],
-
-datasets:[{
-
-data:[12,19,10,14],
-
-backgroundColor:"#2ea9ff"
-
-}]
-
-},
-
-options:{plugins:{legend:{display:false}}}
-
-}
-
-)
-
-</script>
-
-</body>
-</html><div>Genome Lab</div>
 <div>Specimens</div>
 <div>Incubation</div>
 <div>Analytics</div>
@@ -267,11 +102,7 @@ options:{plugins:{legend:{display:false}}}
 
 </div>
 
-<div class="dashboard">
-
-<!-- LEFT -->
-
-<div class="panel">
+<div class="panel left">
 
 <h3>Genome Map</h3>
 
@@ -279,54 +110,14 @@ Specimen ID : VX-023
 
 <h2>78%</h2>
 
-AI Analysis : <span style="color:#65ff9a;">LOW RISK</span>
+AI Analysis : <span style="color:#69ffb0;">LOW</span>
 
 <div class="graph"></div>
 
 </div>
 
-<!-- CENTER DNA -->
 
-<div class="panel center">
-
-<div class="dna">
-
-<div class="node" style="top:10px;left:20px"></div>
-<div class="node" style="top:10px;right:20px"></div>
-
-<div class="node" style="top:60px;left:40px"></div>
-<div class="node" style="top:60px;right:40px"></div>
-
-<div class="node" style="top:110px;left:20px"></div>
-<div class="node" style="top:110px;right:20px"></div>
-
-<div class="node" style="top:160px;left:40px"></div>
-<div class="node" style="top:160px;right:40px"></div>
-
-<div class="node" style="top:210px;left:20px"></div>
-<div class="node" style="top:210px;right:20px"></div>
-
-<div class="node" style="top:260px;left:40px"></div>
-<div class="node" style="top:260px;right:40px"></div>
-
-<div class="node" style="top:310px;left:20px"></div>
-<div class="node" style="top:310px;right:20px"></div>
-
-<div class="bar" style="top:14px"></div>
-<div class="bar" style="top:64px"></div>
-<div class="bar" style="top:114px"></div>
-<div class="bar" style="top:164px"></div>
-<div class="bar" style="top:214px"></div>
-<div class="bar" style="top:264px"></div>
-<div class="bar" style="top:314px"></div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="panel">
+<div class="panel right">
 
 <h3>Specimen Monitoring</h3>
 
@@ -344,7 +135,61 @@ Genome Stability : Stable
 
 </div>
 
-</div>
+
+<script>
+
+/* THREE JS */
+
+const scene = new THREE.Scene()
+
+const camera = new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+)
+
+const renderer = new THREE.WebGLRenderer({alpha:true})
+
+renderer.setSize(window.innerWidth,window.innerHeight)
+
+document.body.appendChild(renderer.domElement)
+
+camera.position.z = 30
+
+/* DNA HELIX */
+
+const material = new THREE.MeshBasicMaterial({color:0x4fc3ff})
+
+for(let i=0;i<50;i++){
+
+const geometry = new THREE.SphereGeometry(.4)
+
+const sphere = new THREE.Mesh(geometry,material)
+
+const angle = i * 0.3
+
+sphere.position.x = Math.cos(angle)*5
+sphere.position.y = i*0.5 -10
+sphere.position.z = Math.sin(angle)*5
+
+scene.add(sphere)
+
+}
+
+function animate(){
+
+requestAnimationFrame(animate)
+
+scene.rotation.y += .003
+
+renderer.render(scene,camera)
+
+}
+
+animate()
+
+</script>
 
 </body>
 </html>
