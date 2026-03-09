@@ -2,90 +2,154 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>T-Virus Research Lab</title>
+<title>Umbrella Research Lab Database</title>
 
 <style>
+
 body{
-    background:#0a0f14;
-    color:#00ffcc;
-    font-family:Arial, sans-serif;
-    margin:0;
-    text-align:center;
+background:#020b12;
+font-family:Arial;
+color:#9ff;
+margin:0;
 }
 
 header{
-    background:#05080c;
-    padding:20px;
-    border-bottom:2px solid #00ffcc;
+text-align:center;
+padding:25px;
+border-bottom:1px solid #00ffff;
 }
 
-h1{
-    margin:0;
-    letter-spacing:3px;
+header h1{
+color:#00ffff;
+letter-spacing:2px;
 }
 
-.lab-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:30px;
-    padding:40px;
+.container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+padding:40px;
 }
 
-.panel{
-    background:#0f1720;
-    border:1px solid #00ffcc;
-    border-radius:10px;
-    padding:20px;
-    box-shadow:0 0 15px #00ffcc33;
+.card{
+border:1px solid #00ffff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 0 20px rgba(0,255,255,0.2);
+background:#041821;
 }
 
-.panel img,
-.panel video{
-    width:100%;
-    border-radius:8px;
+.card img, .card video{
+width:100%;
+border-radius:10px;
+margin-bottom:10px;
 }
 
-.panel h2{
-    margin-top:10px;
+.title{
+font-size:22px;
+color:#00ffff;
+margin-top:10px;
 }
+
+.data{
+font-size:14px;
+line-height:1.6;
+color:#aee;
+}
+
+.status{
+margin-top:10px;
+padding:6px;
+background:#062f3f;
+border-left:4px solid #00ffff;
+font-size:13px;
+}
+
 </style>
-
 </head>
+
 <body>
 
 <header>
-<h1>T-Virus Laboratory Database</h1>
-<p>Biological Research Interface</p>
+<h1>ศูนย์ฐานข้อมูลห้องปฏิบัติการไวรัส T-Virus</h1>
+<p>Umbrella Research Laboratory Control System</p>
 </header>
 
-<div class="lab-container">
+<div class="container">
 
-<div class="panel">
-<video autoplay loop muted>
-<source src="dna.mp4" type="video/mp4">
-</video>
-<h2>DNA Analysis</h2>
-<p>Helix structure mutation sequence.</p>
+<div class="card">
+<video src="dna.mp4" autoplay loop muted></video>
+<div class="title">การวิเคราะห์ดีเอ็นเอ</div>
+
+<div class="data">
+Virus Type : T-Virus Prototype<br>
+Genome : RNA Recombinant<br>
+Mutation Rate : 12.7%<br>
+Host Compatibility : Human Cells
 </div>
 
-<div class="panel">
+<div class="status">
+สถานะการทดลอง : กำลังวิเคราะห์โครงสร้างพันธุกรรม
+</div>
+</div>
+
+
+<div class="card">
 <img src="virus-3d.png">
-<h2>Virus 3D Model</h2>
-<p>Three dimensional virus simulation.</p>
+
+<div class="title">โมเดล 3 มิติของไวรัส</div>
+
+<div class="data">
+Capsid Layer : Protein Shell<br>
+Spike Protein : Active<br>
+Viral Envelope : Detected<br>
+Stability Index : 89%
 </div>
 
-<div class="panel">
+<div class="status">
+สถานะ : โมเดลจำลองไวรัสเสถียร
+</div>
+
+</div>
+
+
+<div class="card">
+
 <img src="infected-cell.png">
-<h2>Infected Cell</h2>
-<p>Cellular infection stage under microscope.</p>
+
+<div class="title">เซลล์ที่ติดเชื้อ</div>
+
+<div class="data">
+Host Cell Type : Human Tissue<br>
+Infection Rate : 86%<br>
+Replication Speed : High<br>
+Cell Damage : Severe
 </div>
 
-<div class="panel">
-<video autoplay loop muted>
-<source src="virus-structure.mp4" type="video/mp4">
-</video>
-<h2>Virus Structure</h2>
-<p>Microscopic virus anatomy scan.</p>
+<div class="status">
+สถานะ : พบการเพิ่มจำนวนไวรัส
+</div>
+
+</div>
+
+
+<div class="card">
+
+<video src="virus-structure.mp4" autoplay loop muted></video>
+
+<div class="title">โครงสร้างไวรัส</div>
+
+<div class="data">
+Protein Layer : Active<br>
+RNA Core : Stable<br>
+Mutation Pattern : Dynamic<br>
+Containment Level : Biohazard Level-4
+</div>
+
+<div class="status">
+สถานะ : อยู่ในห้องควบคุมความปลอดภัย
+</div>
+
 </div>
 
 </div>
