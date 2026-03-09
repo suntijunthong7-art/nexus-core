@@ -1,145 +1,158 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Nexus Bio-Containment Research Console</title>
+<title>Nexus Bio Research Console</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
-:root{
---bg:#0b1d2b;
---panel:#132f45;
---border:#1f4c6b;
---accent:#4fb6e6;
---text:#e8f1f6;
---muted:#9fb4c3;
-}
-
 body{
 margin:0;
-font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-background:var(--bg);
-color:var(--text);
+font-family:Segoe UI;
+background:#0b1d2b;
+color:white;
 }
-
-/* header */
 
 header{
-padding:16px 22px;
+padding:18px;
 background:#0f2b40;
-border-bottom:1px solid var(--border);
 font-weight:600;
-letter-spacing:.02em;
 }
-
-/* layout */
 
 .main{
 padding:22px;
 display:grid;
 gap:22px;
-max-width:1100px;
-margin:auto;
 }
 
-/* panels */
-
 .panel{
-background:var(--panel);
-border:1px solid var(--border);
+background:#132f45;
 border-radius:10px;
 padding:18px;
 }
 
-.panel h2{
-margin:0 0 12px 0;
+h2{
 font-size:13px;
 letter-spacing:.1em;
-color:var(--muted);
-font-weight:600;
+color:#9fb4c3;
+margin-bottom:12px;
 }
-
-/* media frame */
 
 .frame{
 aspect-ratio:16/9;
-background:#000;
-border-radius:6px;
 overflow:hidden;
-border:1px solid var(--border);
+border-radius:6px;
 }
 
-.frame video,
-.frame img{
+video,img{
 width:100%;
 height:100%;
 object-fit:cover;
 }
 
-/* data table */
+/* genome scanner */
+
+.sequence{
+font-family:monospace;
+font-size:14px;
+color:#6ee0ff;
+background:#071a2b;
+padding:10px;
+border-radius:6px;
+overflow:auto;
+}
+
+/* table */
 
 table{
 width:100%;
 border-collapse:collapse;
-font-size:14px;
 }
 
 td{
-padding:8px 4px;
-border-bottom:1px solid var(--border);
+padding:8px;
+border-bottom:1px solid #1f4c6b;
 }
 
 td:first-child{
-color:var(--muted);
-width:55%;
+color:#9fb4c3;
 }
 
-/* responsive */
+/* specimen list */
 
-@media (min-width:900px){
-.main{
-grid-template-columns:1fr 1fr;
-}
+.specimen{
+font-family:monospace;
+font-size:13px;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
-🧬 Nexus Bio-Containment AI — Viral Research Console
+🧬 Nexus Bio-Containment AI — Research Console
 </header>
 
 <div class="main">
 
 <div class="panel">
 <h2>DNA GENOME VISUALIZATION</h2>
+
 <div class="frame">
 <video autoplay muted loop playsinline>
 <source src="dna.mp4" type="video/mp4">
 </video>
 </div>
+
 </div>
 
 <div class="panel">
 <h2>VIRAL STRUCTURE MODEL</h2>
+
 <div class="frame">
-<img src="virus-3d.png">
+<img src="virus-model-3d.png">
 </div>
+
 </div>
 
 <div class="panel">
-<h2>SPECIMEN ANALYSIS</h2>
+<h2>GENOME SEQUENCE SCANNER</h2>
 
-<table>
-<tr><td>Specimen ID</td><td>TV-023</td></tr>
-<tr><td>Virus Activity</td><td>78%</td></tr>
-<tr><td>Mutation Index</td><td>0.92</td></tr>
-<tr><td>Containment Level</td><td>BSL-4</td></tr>
-</table>
+<div class="sequence">
+
+ATGCGTACGTTAGCTAGCGTAGCTAGCTAGTACGATCGATCGTAGCTAGCGATCGATCGT<br>
+CGATCGTAGCTAGCTAGCATCGATCGTAGCTAGCTAGCATCGTAGCTAGCTAGCTAGCA<br>
+GCTAGCATCGATCGTAGCTAGCTAGCTAGCATCGATCGTAGCTAGCTAGCATCGATCGA
+
+</div>
+
+</div>
+
+<div class="panel">
+<h2>VIRAL ACTIVITY ANALYSIS</h2>
+
+<canvas id="chart"></canvas>
+
+</div>
+
+<div class="panel">
+<h2>SPECIMEN DATABASE</h2>
+
+<div class="specimen">
+
+TV-021 — Stable<br>
+TV-022 — Mutation Detected<br>
+TV-023 — Active Sample<br>
+TV-024 — Containment
+
+</div>
 
 </div>
 
@@ -155,6 +168,24 @@ grid-template-columns:1fr 1fr;
 </div>
 
 </div>
+
+<script>
+
+new Chart(document.getElementById("chart"),{
+
+type:"line",
+
+data:{
+labels:["Day1","Day2","Day3","Day4","Day5"],
+datasets:[{
+label:"Virus Activity",
+data:[12,30,48,62,78]
+}]
+}
+
+});
+
+</script>
 
 </body>
 </html>
