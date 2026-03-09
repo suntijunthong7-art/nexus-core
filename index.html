@@ -2,84 +2,48 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NEXUS CORE SYSTEM</title>
+<title>NEXUS LOGIN</title>
 
 <style>
 
 body{
-background:#0a0f18;
+background:#050b14;
 color:#9ecbff;
 font-family:Arial;
-margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
-/* top bar */
-
-.top{
+.box{
 background:#111827;
-padding:15px;
-text-align:center;
-font-size:22px;
-font-weight:bold;
-letter-spacing:2px;
-}
-
-/* main container */
-
-.container{
-padding:20px;
-}
-
-/* grid */
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-}
-
-/* card */
-
-.card{
-background:#162333;
-padding:20px;
+padding:40px;
 border-radius:10px;
+width:280px;
+text-align:center;
 }
 
-.card h3{
-margin-top:0;
-}
-
-/* button */
-
-button{
+input{
 width:100%;
-padding:12px;
+padding:10px;
 margin-top:10px;
 background:#1f2937;
 border:none;
 color:white;
-border-radius:6px;
-font-size:15px;
+}
+
+button{
+width:100%;
+padding:10px;
+margin-top:15px;
+background:#2563eb;
+border:none;
+color:white;
 }
 
 button:hover{
-background:#0f172a;
-cursor:pointer;
-}
-
-/* status */
-
-.green{
-color:#00ff9c;
-}
-
-.yellow{
-color:#ffd000;
-}
-
-.red{
-color:#ff3b3b;
+background:#1d4ed8;
 }
 
 </style>
@@ -87,66 +51,35 @@ color:#ff3b3b;
 
 <body>
 
-<div class="top">
-NEXUS RESEARCH FACILITY
-</div>
+<div class="box">
 
-<div class="container">
+<h2>NEXUS CORE</h2>
 
-<div class="grid">
+<input id="user" placeholder="User">
 
-<div class="card">
+<input id="pass" type="password" placeholder="Password">
 
-<h3>Session Information</h3>
-
-<p>User : Authorized Personnel</p>
-<p>Access Level : Level 4</p>
-<p>Location : Laboratory Core</p>
+<button onclick="login()">ACCESS</button>
 
 </div>
 
-<div class="card">
+<script>
 
-<h3>Facility Systems</h3>
+function login(){
 
-<p>Reactor Core : <span class="green">Operational</span></p>
-<p>Containment : <span class="green">Stable</span></p>
-<p>Specimen Storage : <span class="yellow">Locked</span></p>
-<p>AI Monitoring : <span class="green">Active</span></p>
+var u=document.getElementById("user").value;
+var p=document.getElementById("pass").value;
 
-</div>
+if(u=="admin" && p=="Lc1234"){
+location.href="dashboard.html";
+}
+else{
+alert("Access Denied");
+}
 
-</div>
+}
 
-<br>
-
-<div class="card">
-
-<h3>Laboratory Controls</h3>
-
-<button onclick="location.href='dashboard.html'">
-Research Database
-</button>
-
-<button onclick="location.href='lab.html'">
-Laboratory Experiments
-</button>
-
-<button onclick="location.href='logs.html'">
-Experiment Logs
-</button>
-
-<button onclick="location.href='security.html'">
-Security System
-</button>
-
-<button onclick="location.href='redqueen.html'">
-AI Core
-</button>
-
-</div>
-
-</div>
+</script>
 
 </body>
 </html>
