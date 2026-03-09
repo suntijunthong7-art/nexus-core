@@ -45,19 +45,17 @@ opacity:0.75;
 color:#ffcc66;
 font-size:11px;
 margin-top:3px;
-letter-spacing:1px;
 }
 
 .warning{
 color:#ff5a5a;
 font-size:11px;
-margin-top:2px;
 }
 
 .clock{
 font-size:12px;
-opacity:0.7;
 margin-top:6px;
+opacity:0.7;
 }
 
 .container{
@@ -71,7 +69,6 @@ background:#162435;
 border-radius:10px;
 padding:18px;
 margin-bottom:16px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
 
 .panel h2{
@@ -86,12 +83,12 @@ color:#4be38a;
 font-weight:600;
 }
 
-.status-warning{
-color:#ffcc66;
-}
-
 .status-secure{
 color:#7fd4ff;
+}
+
+.status-warning{
+color:#ffcc66;
 }
 
 button{
@@ -119,6 +116,18 @@ font-size:13px;
 color:#6df5a4;
 height:170px;
 overflow:auto;
+}
+
+.image-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:10px;
+}
+
+.image-grid img{
+width:100%;
+border-radius:6px;
 }
 
 </style>
@@ -159,6 +168,7 @@ AUTHORIZED PERSONNEL ONLY — UNAUTHORIZED ACCESS PROHIBITED
 
 </header>
 
+
 <div class="container">
 
 
@@ -189,12 +199,28 @@ Monitoring Grid : <span class="status-ok">Active</span>
 
 <div class="panel">
 
-<h2>Biohazard Monitoring</h2>
+<h2>Biohazard Research Status</h2>
 
 Biohazard Activity Level : <span class="status-warning">Low</span><br>
 Containment Level : <span class="status-secure">BSL-4</span><br>
 Specimen Integrity : <span class="status-ok">Verified</span><br>
-Genetic Analysis Systems : <span class="status-ok">Operational</span>
+Genome Analysis Systems : <span class="status-ok">Operational</span>
+
+</div>
+
+
+<div class="panel">
+
+<h2>Virology Imaging Feed</h2>
+
+Laboratory microscopy imaging data.
+
+<div class="image-grid">
+
+<img src="virus1.jpg">
+<img src="virus2.jpg">
+
+</div>
 
 </div>
 
@@ -203,19 +229,19 @@ Genetic Analysis Systems : <span class="status-ok">Operational</span>
 
 <h2>Research Control Modules</h2>
 
-<button onclick="log('Accessing Virology Research Database...')">
+<button onclick="log('Accessing virology research database...')">
 Virology Research Database
 </button>
 
-<button onclick="log('Opening Specimen Archive...')">
+<button onclick="log('Opening specimen archive...')">
 Specimen Archive
 </button>
 
-<button onclick="log('Loading Personnel Registry...')">
+<button onclick="log('Loading personnel registry...')">
 Personnel Registry
 </button>
 
-<button onclick="log('Launching Containment Security Control...')">
+<button onclick="log('Launching containment security control...')">
 Containment Security Control
 </button>
 
@@ -285,7 +311,6 @@ document.getElementById("clock").innerText=
 
 },1000);
 
-
 let autoLogs=[
 
 "Environmental monitoring stable",
@@ -293,9 +318,7 @@ let autoLogs=[
 "Sensor grid synchronization complete",
 "Specimen archive access logged",
 "Security node handshake confirmed",
-"Laboratory sector integrity verified",
-"AI monitoring grid status verified",
-"Biocontainment protocol check complete"
+"Genome analysis systems verified"
 
 ];
 
