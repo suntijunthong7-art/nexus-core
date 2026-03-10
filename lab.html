@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,43 +11,52 @@
 
 body{
 margin:0;
-background:#041a1a;
+background:#031b1b;
 font-family:Segoe UI,Arial;
-color:#b8fff2;
+color:#bffff4;
 }
 
 header{
 display:flex;
 align-items:center;
-gap:12px;
-padding:18px;
-border-bottom:1px solid #0a5555;
-background:#062424;
+gap:14px;
+padding:16px;
+background:#062626;
+border-bottom:1px solid #0a6a6a;
 }
 
 header img{
-width:40px;
+width:38px;
 }
 
 header h1{
+margin:0;
 font-size:18px;
 letter-spacing:2px;
-margin:0;
-color:#7effe1;
+color:#7fffe5;
+}
+
+.status-bar{
+display:flex;
+justify-content:space-around;
+padding:8px;
+font-size:11px;
+background:#041f1f;
+border-bottom:1px solid #0a5a5a;
 }
 
 .container{
-padding:20px;
+padding:18px;
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:20px;
+gap:18px;
 }
 
 .card{
-background:#082c2c;
-border:1px solid #0b6e6e;
+background:#082e2e;
+border:1px solid #0b7777;
 border-radius:10px;
-padding:16px;
+padding:15px;
 box-shadow:0 0 15px rgba(0,255,200,0.1);
 }
 
@@ -54,13 +64,13 @@ box-shadow:0 0 15px rgba(0,255,200,0.1);
 margin-top:0;
 font-size:13px;
 letter-spacing:1px;
-color:#73ffe0;
+color:#7bffe8;
 }
 
 .big{
-font-size:36px;
+font-size:38px;
 font-weight:bold;
-color:#3cffd4;
+color:#39ffd4;
 }
 
 .data{
@@ -68,13 +78,7 @@ font-size:13px;
 line-height:1.8;
 }
 
-.media{
-width:100%;
-border-radius:6px;
-margin-top:10px;
-}
-
-video{
+img,video{
 width:100%;
 border-radius:6px;
 margin-top:10px;
@@ -86,15 +90,15 @@ font-size:12px;
 line-height:1.6;
 }
 
-footer{
+.footer{
 text-align:center;
-padding:18px;
 font-size:11px;
-color:#6ad4c7;
-border-top:1px solid #0a5555;
+padding:15px;
+border-top:1px solid #0a5a5a;
+color:#69d9cc;
 }
 
-@media(max-width:800px){
+@media(max-width:850px){
 .container{
 grid-template-columns:1fr;
 }
@@ -114,6 +118,16 @@ grid-template-columns:1fr;
 </header>
 
 
+<div class="status-bar">
+
+<div>Facility: BSL-4</div>
+<div>Containment: SECURE</div>
+<div>System Status: ONLINE</div>
+<div>AI Monitor: ACTIVE</div>
+
+</div>
+
+
 <div class="container">
 
 
@@ -129,7 +143,7 @@ Oxygen Saturation: 98%<br>
 Core Temperature: 36.7°C<br>
 Blood Pressure: 118 / 76<br>
 Neural Activity: NORMAL<br>
-Subject Status: STABLE
+Subject Condition: STABLE
 
 </div>
 
@@ -138,7 +152,7 @@ Subject Status: STABLE
 
 <div class="card">
 
-<h3>DNA SEQUENCE STREAM</h3>
+<h3>DNA SEQUENCE MONITOR</h3>
 
 <video autoplay muted loop>
 <source src="dna.mp4" type="video/mp4">
@@ -148,7 +162,7 @@ Subject Status: STABLE
 
 Genome Analysis: ACTIVE<br>
 Sequence Integrity: VERIFIED<br>
-RNA Monitoring: RUNNING<br>
+RNA Stream: RUNNING
 
 </div>
 
@@ -159,13 +173,13 @@ RNA Monitoring: RUNNING<br>
 
 <h3>VIRUS STRUCTURE ANALYSIS</h3>
 
-<img src="virus-3d.png" class="media">
+<img src="virus-3d.png">
 
 <div class="data">
 
 Replication Rate: LOW<br>
 Mutation Probability: 13%<br>
-Host Adaptation: STABLE
+Host Adaptation Index: STABLE
 
 </div>
 
@@ -174,15 +188,15 @@ Host Adaptation: STABLE
 
 <div class="card">
 
-<h3>INFECTED CELL SCAN</h3>
+<h3>INFECTED CELL OBSERVATION</h3>
 
-<img src="infected-cell.png" class="media">
+<img src="infected-cell.png">
 
 <div class="data">
 
-Cellular Damage: 4%<br>
-Virus Load: CONTROLLED<br>
-Immune Response: ACTIVE
+Cell Infection Ratio: 4%<br>
+Immune Response: ACTIVE<br>
+Containment Risk: MINIMAL
 
 </div>
 
@@ -199,9 +213,9 @@ Immune Response: ACTIVE
 
 <div class="data">
 
-Structural Modeling: RUNNING<br>
+3D Modeling: RUNNING<br>
 Protein Folding: PROCESSING<br>
-AI Prediction: STABLE
+AI Structural Prediction: STABLE
 
 </div>
 
@@ -217,9 +231,9 @@ AI Prediction: STABLE
 11:21 System Boot Sequence<br>
 11:23 Genome Database Sync<br>
 11:24 Viral Structure Scan<br>
-11:25 Host Integration Test<br>
-11:27 Neural Signal Monitoring<br>
-11:29 Lab Node Stabilized<br>
+11:26 AI Mutation Prediction<br>
+11:28 Host Integration Test<br>
+11:31 Lab Node Stabilized
 
 </div>
 
@@ -228,12 +242,14 @@ AI Prediction: STABLE
 
 </div>
 
-<footer>
 
-INTERNATIONAL ACCREDITATION  
-ISO 27001 | WHO BioSafety Level-4 | Global Genome Network
+<div class="footer">
 
-</footer>
+International BioSecurity Network  
+ISO 27001 | WHO BioSafety Level-4 | Global Genome Research Alliance
+
+</div>
+
 
 </body>
 </html>
