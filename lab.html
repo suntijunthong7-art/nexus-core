@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>T-Virus Analysis System</title>
+<title>T-Virus Monitoring Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -13,7 +11,7 @@
 
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:#061a20;
 color:#8feaff;
 }
@@ -21,98 +19,76 @@ color:#8feaff;
 /* header */
 
 header{
-
 background:#0b2f38;
-padding:14px 20px;
-
+padding:15px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-
 }
 
 .status{
-
 display:flex;
 align-items:center;
 gap:8px;
-
 }
 
 .dot{
-
 width:10px;
 height:10px;
-
 border-radius:50%;
-
 background:#2cff9c;
-
 }
 
 /* layout */
 
 .container{
-
 padding:20px;
-
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-
 gap:16px;
-
 }
 
 .card{
-
 background:#0c2530;
-
 padding:14px;
-
 border:1px solid #10414e;
-
 }
 
 img,video{
 width:100%;
 }
 
-/* graph */
+/* graph full width */
 
 .graph{
-
 grid-column:1/-1;
-
 background:#0c2530;
-
 padding:20px;
-
-}
-
-canvas{
-width:100%;
-height:300px;
 }
 
 /* log */
 
 .log{
-
 background:#000;
-
 color:#00ff9c;
-
 font-family:monospace;
-
 height:150px;
-
 overflow:auto;
-
 padding:10px;
+}
 
-margin-top:10px;
+/* pulse */
 
+.bpm{
+font-size:28px;
+text-align:center;
+color:#2cff9c;
+margin-bottom:8px;
+}
+
+canvas{
+width:100%;
+height:150px;
 }
 
 </style>
@@ -125,10 +101,8 @@ margin-top:10px;
 <div>T-Virus Monitoring System</div>
 
 <div class="status">
-
 <div class="dot"></div>
-Active
-
+System Active
 </div>
 
 </header>
@@ -173,6 +147,16 @@ Active
 
 <div class="card">
 
+<h3>Heart Rate Monitor</h3>
+
+<div class="bpm"><span id="bpm">72</span> BPM</div>
+
+<canvas id="pulseChart"></canvas>
+
+</div>
+
+<div class="card">
+
 <h3>System Log</h3>
 
 <div class="log" id="log"></div>
@@ -181,7 +165,7 @@ Active
 
 <div class="graph">
 
-<h3>T-Virus Mutation Graph</h3>
+<h3>T-Virus Activity</h3>
 
 <canvas id="virusChart"></canvas>
 
@@ -191,29 +175,70 @@ Active
 
 <script>
 
-/* graph */
+/* virus activity graph */
 
-let ctx=document.getElementById("virusChart")
+let virusData=[5,8,12,18,24,30]
 
-let data=[5,8,12,18,24,30]
-
-let chart=new Chart(ctx,{
+let virusChart=new Chart(document.getElementById("virusChart"),{
 
 type:"line",
 
 data:{
-
 labels:["0h","2h","4h","6h","8h","10h"],
+datasets:[{
+label:"Virus Activity",
+data:virusData,
+borderColor:"#2cc6ff",
+backgroundColor:"rgba(44,198,255,.2)",
+fill:true
+}]
+},
 
+options:{
+animation:false,
+plugins:{
+legend:{labels:{color:"#8feaff"}}
+},
+scales:{
+x:{ticks:{color:"#8feaff"}},
+y:{ticks:{color:"#8feaff"}}
+}
+}
+
+})
+
+setInterval(()=>{
+
+let v=Math.floor(Math.random()*40)+10
+
+virusData.push(v)
+virusData.shift()
+
+virusChart.data.datasets[0].data=virusData
+
+virusChart.update()
+
+},3000)
+
+/* heart rate */
+
+let pulseData=[70,72,71,73,75,72,74]
+
+let pulseChart=new Chart(document.getElementById("pulseChart"),{
+
+type:"line",
+
+data:{
+labels:["","","","","","",""],
 datasets:[{
 
-label:"T-Virus Activity",
+data:pulseData,
 
-data:data,
+borderColor:"#00ff9c",
 
-borderColor:"#2cc6ff",
+backgroundColor:"rgba(0,255,156,.2)",
 
-backgroundColor:"rgba(44,198,255,.2)",
+tension:.4,
 
 fill:true
 
@@ -222,38 +247,30 @@ fill:true
 },
 
 options:{
-
 animation:false,
-
-plugins:{
-legend:{labels:{color:"#8feaff"}}
-},
-
+plugins:{legend:{display:false}},
 scales:{
-x:{ticks:{color:"#8feaff"}},
-y:{ticks:{color:"#8feaff"}}
+x:{display:false},
+y:{display:false}
 }
-
 }
 
 })
 
-/* realtime update */
-
 setInterval(()=>{
 
-let v=Math.floor(Math.random()*40)+10
+let bpm=70+Math.floor(Math.random()*15)
 
-data.push(v)
+pulseData.push(bpm)
+pulseData.shift()
 
-data.shift()
+pulseChart.data.datasets[0].data=pulseData
 
-chart.data.datasets[0].data=data
+pulseChart.update()
 
-chart.update()
+document.getElementById("bpm").innerText=bpm
 
-},3000)
-
+},1500)
 
 /* system log */
 
