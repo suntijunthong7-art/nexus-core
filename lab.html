@@ -1,64 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Global Bio Research Command Center</title>
+<title>Global Bio Research Command</title>
 
 <style>
 
 body{
-background:#02171a;
-font-family:Consolas,monospace;
+background:#021b1c;
 color:#00ffd0;
+font-family:Consolas,monospace;
 margin:0;
 padding:20px;
 }
 
 header{
 text-align:center;
-margin-bottom:25px;
+margin-bottom:30px;
 }
 
 header img{
-width:110px;
-margin-bottom:10px;
+width:100px;
+margin-bottom:12px;
 }
 
 header h1{
 font-size:20px;
-letter-spacing:3px;
+letter-spacing:2px;
 color:#8ffff0;
 }
+
+/* GRID */
 
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:20px;
+gap:22px;
 }
+
+/* CARD */
 
 .panel{
-background:#062529;
+background:#05292c;
 border:1px solid #00ffd0;
-border-radius:8px;
-padding:15px;
+border-radius:10px;
+padding:16px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+min-height:320px;
 box-shadow:0 0 12px rgba(0,255,200,0.15);
+transition:0.3s;
 }
 
-.title{
-font-size:13px;
-margin-bottom:10px;
-color:#7fffe8;
+.panel:hover{
+box-shadow:0 0 20px rgba(0,255,200,0.35);
 }
+
+/* TITLE */
+
+.title{
+font-size:14px;
+color:#7fffe8;
+margin-bottom:10px;
+}
+
+/* IMAGE AREA */
 
 .media{
 width:100%;
-height:160px;
+height:180px;
 overflow:hidden;
 border-radius:6px;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 .media img,
@@ -66,19 +83,33 @@ margin-bottom:10px;
 width:100%;
 height:100%;
 object-fit:cover;
+display:block;
 }
 
+/* BPM */
+
 .bpm{
-font-size:32px;
+font-size:38px;
 font-weight:bold;
 margin-bottom:10px;
+color:#00ffc8;
 }
+
+/* TEXT */
+
+.info{
+font-size:13px;
+line-height:1.6;
+}
+
+/* FOOTER */
 
 .footer{
 text-align:center;
-margin-top:30px;
+margin-top:35px;
 font-size:12px;
-color:#5fd0c0;
+color:#6cd6c5;
+opacity:0.7;
 }
 
 </style>
@@ -91,62 +122,164 @@ color:#5fd0c0;
 
 <img src="logo.png">
 
-<h1>GLOBAL BIO RESEARCH COMMAND CENTER</h1>
+<h1>ศูนย์บัญชาการวิจัยชีวภาพระดับโลก</h1>
 
 </header>
 
+
 <div class="grid">
 
-<!-- Vital -->
+<!-- CARD 1 -->
 
 <div class="panel">
 
-<div class="title">VITAL SIGN MONITOR</div>
+<div class="title">เซ็นเซอร์ชีพจร</div>
 
 <div class="media">
-<video autoplay muted loop onerror="this.style.display='none'">
+
+<video autoplay muted loop>
 <source src="dna.mp4" type="video/mp4">
 </video>
 
-<img src="https://images.unsplash.com/photo-1581093588401-22f8c6f4b01e">
 </div>
 
-<div class="bpm" id="bpm">84 BPM</div>
+<div class="bpm" id="bpm">82 BPM</div>
 
-Oxygen Level: 98% <br>
-Core Temperature: 36.7°C <br>
-Neural Activity: NORMAL
+<div class="info">
+ระดับออกซิเจน: 98% <br>
+อุณหภูมิแกนกลางร่างกาย: 36.7°C <br>
+กิจกรรมสมอง: ปกติ
+</div>
 
 </div>
 
 
-<!-- Bio sample -->
+<!-- CARD 2 -->
 
 <div class="panel">
 
-<div class="title">BIO SAMPLE SCANNER</div>
+<div class="title">เซลล์ติดเชื้อ</div>
 
 <div class="media">
+<img src="infected-cell.png">
+</div>
 
-<img src="infected-cell.png"
-onerror="this.src='https://images.unsplash.com/photo-1584036561566-baf8f5f1b144'">
+<div class="info">
+การวิเคราะห์โครงสร้างพันธุกรรม: ACTIVE <br>
+ความเข้ากันได้กับโฮสต์: STABLE <br>
+รูปแบบการกลายพันธุ์: ไม่พบ
+</div>
 
 </div>
 
-Genetic Structure Analysis: ACTIVE <br>
-Host Compatibility: STABLE <br>
-Mutation Pattern: NONE DETECTED
 
-</div>
-
-
-<!-- Virus -->
+<!-- CARD 3 -->
 
 <div class="panel">
 
-<div class="title">VIRUS ANALYSIS</div>
+<div class="title">โครงสร้างไวรัส</div>
 
 <div class="media">
+<img src="virus-3d.png">
+</div>
+
+<div class="info">
+อัตราการเพิ่มจำนวน: ต่ำ <br>
+โอกาสการกลายพันธุ์: 3.1% <br>
+ความเสี่ยงการแพร่กระจาย: น้อยที่สุด
+</div>
+
+</div>
+
+
+<!-- CARD 4 -->
+
+<div class="panel">
+
+<div class="title">ฐานข้อมูลจีโนม</div>
+
+<div class="media">
+
+<video autoplay muted loop>
+<source src="virus-structure.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<div class="info">
+จำนวนแซมเปิลที่โหลดแล้ว: 2,184,442 <br>
+การประมวลผลลำดับ: ทำงาน <br>
+ตรวจสอบข้อมูล: ผ่าน
+</div>
+
+</div>
+
+
+<!-- CARD 5 -->
+
+<div class="panel">
+
+<div class="title">ห้องทดลอง</div>
+
+<div class="media">
+<img src="lab.png">
+</div>
+
+<div class="info">
+ระดับการกักกัน: BSL-4 <br>
+สถานะห้องล็อก: ปิดสนิท <br>
+ห้องทดลองหลัก: ทำงาน
+</div>
+
+</div>
+
+
+<!-- CARD 6 -->
+
+<div class="panel">
+
+<div class="title">เครือข่ายวิจัย</div>
+
+<div class="media">
+<img src="network.png">
+</div>
+
+<div class="info">
+โหนดวิจัย: 14 ออนไลน์ <br>
+ช่องทางสื่อสาร: ปลอดภัย <br>
+ดาวเทียมเชื่อมต่อ: เสถียร
+</div>
+
+</div>
+
+</div>
+
+
+<div class="footer">
+
+International Bio Research Authority
+
+</div>
+
+
+<script>
+
+/* Heartbeat */
+
+function updateBPM(){
+
+let bpm = Math.floor(Math.random()*6)+80;
+
+document.getElementById("bpm").innerText = bpm + " BPM";
+
+}
+
+setInterval(updateBPM,2000);
+
+</script>
+
+</body>
+</html><div class="media">
 
 <img src="virus-3d.png"
 onerror="this.src='https://images.unsplash.com/photo-1559757175-0eb30cd8c063'">
