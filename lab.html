@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>T-Virus Monitoring Dashboard</title>
+
+<title>T-Virus Research System</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -11,8 +14,8 @@
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
-background:#061a20;
+font-family:Arial;
+background:#05171c;
 color:#8feaff;
 }
 
@@ -28,8 +31,8 @@ align-items:center;
 
 .status{
 display:flex;
-align-items:center;
 gap:8px;
+align-items:center;
 }
 
 .dot{
@@ -39,7 +42,7 @@ border-radius:50%;
 background:#2cff9c;
 }
 
-/* layout */
+/* grid layout */
 
 .container{
 padding:20px;
@@ -58,7 +61,7 @@ img,video{
 width:100%;
 }
 
-/* graph full width */
+/* graph */
 
 .graph{
 grid-column:1/-1;
@@ -80,10 +83,10 @@ padding:10px;
 /* pulse */
 
 .bpm{
-font-size:28px;
+font-size:26px;
 text-align:center;
 color:#2cff9c;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 canvas{
@@ -91,7 +94,25 @@ width:100%;
 height:150px;
 }
 
+/* certification */
+
+.cert{
+font-size:14px;
+line-height:1.6;
+}
+
+.seal{
+margin-top:10px;
+text-align:center;
+}
+
+.seal img{
+width:70px;
+opacity:.9;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -111,7 +132,7 @@ System Active
 
 <div class="card">
 
-<h3>DNA Structure</h3>
+<h3>DNA Visualization</h3>
 
 <video autoplay loop muted>
 <source src="dna.mp4">
@@ -163,9 +184,26 @@ System Active
 
 </div>
 
+<div class="card cert">
+
+<h3>Laboratory Certification</h3>
+
+BioSafety Level: BSL-4<br>
+Research Protocol: TV-A114-RX<br>
+Genome Project: GVX-2049<br>
+Data Standard: ISO-27001<br>
+Sample Status: VERIFIED
+
+<div class="seal">
+<img src="logo.png">
+<p>Authorized Research Laboratory</p>
+</div>
+
+</div>
+
 <div class="graph">
 
-<h3>T-Virus Activity</h3>
+<h3>T-Virus Activity Graph</h3>
 
 <canvas id="virusChart"></canvas>
 
@@ -175,9 +213,9 @@ System Active
 
 <script>
 
-/* virus activity graph */
+/* virus graph */
 
-let virusData=[5,8,12,18,24,30]
+let virusData=[5,10,15,20,25,30]
 
 let virusChart=new Chart(document.getElementById("virusChart"),{
 
@@ -194,16 +232,7 @@ fill:true
 }]
 },
 
-options:{
-animation:false,
-plugins:{
-legend:{labels:{color:"#8feaff"}}
-},
-scales:{
-x:{ticks:{color:"#8feaff"}},
-y:{ticks:{color:"#8feaff"}}
-}
-}
+options:{animation:false}
 
 })
 
@@ -215,44 +244,34 @@ virusData.push(v)
 virusData.shift()
 
 virusChart.data.datasets[0].data=virusData
-
 virusChart.update()
 
 },3000)
 
-/* heart rate */
 
-let pulseData=[70,72,71,73,75,72,74]
+/* pulse */
+
+let pulse=[70,72,71,73,74,72]
 
 let pulseChart=new Chart(document.getElementById("pulseChart"),{
 
 type:"line",
 
 data:{
-labels:["","","","","","",""],
+labels:["","","","","",""],
 datasets:[{
-
-data:pulseData,
-
+data:pulse,
 borderColor:"#00ff9c",
-
 backgroundColor:"rgba(0,255,156,.2)",
-
 tension:.4,
-
 fill:true
-
 }]
-
 },
 
 options:{
 animation:false,
 plugins:{legend:{display:false}},
-scales:{
-x:{display:false},
-y:{display:false}
-}
+scales:{x:{display:false},y:{display:false}}
 }
 
 })
@@ -261,16 +280,16 @@ setInterval(()=>{
 
 let bpm=70+Math.floor(Math.random()*15)
 
-pulseData.push(bpm)
-pulseData.shift()
+pulse.push(bpm)
+pulse.shift()
 
-pulseChart.data.datasets[0].data=pulseData
-
+pulseChart.data.datasets[0].data=pulse
 pulseChart.update()
 
 document.getElementById("bpm").innerText=bpm
 
 },1500)
+
 
 /* system log */
 
@@ -279,10 +298,10 @@ let log=document.getElementById("log")
 let msgs=[
 
 "Scanning T-Virus genome",
-"Analyzing mutation pattern",
-"Protein binding detected",
-"Host cell infection progressing",
-"Sequence alignment running"
+"Mutation sequence detected",
+"Analyzing host cell",
+"Protein binding process",
+"Genome alignment running"
 
 ]
 
