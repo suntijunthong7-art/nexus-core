@@ -1,152 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Global Bio Research Command Center</title>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bio Research Command Center</title>
 
 <style>
 
 body{
-margin:0;
+background:#021c1f;
 font-family:Arial;
-background:#021218;
-color:#9fe9ff;
-}
-
-/* header */
-
-header{
-
-background:#06232c;
-
-padding:16px 20px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-border-bottom:1px solid #0c3d48;
-
-}
-
-.status{
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-}
-
-.dot{
-
-width:10px;
-
-height:10px;
-
-border-radius:50%;
-
-background:#2cff9c;
-
-}
-
-/* layout */
-
-.container{
-
+color:#00ffc3;
+margin:0;
 padding:20px;
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-
-gap:18px;
-
 }
 
-.card{
-
-background:#062028;
-
-border:1px solid #0f3a44;
-
-padding:14px;
-
+.panel{
+background:#042f34;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 0 15px rgba(0,255,200,0.2);
 }
 
-img,video{
-
-width:100%;
-
+.title{
+font-size:20px;
+margin-bottom:10px;
+color:#9affea;
 }
-
-/* log */
-
-.log{
-
-background:#000;
-
-color:#00ff9c;
-
-font-family:monospace;
-
-height:160px;
-
-overflow:auto;
-
-padding:10px;
-
-}
-
-/* bpm */
 
 .bpm{
-
-font-size:28px;
-
+font-size:40px;
 text-align:center;
-
-color:#2cff9c;
-
-margin-bottom:8px;
-
+margin:10px 0;
 }
 
-/* radar */
-
-.radar{
-
-width:200px;
-
-height:200px;
-
-border:2px solid #1fc8ff;
-
-border-radius:50%;
-
-margin:auto;
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.scan{
-
-position:absolute;
-
+canvas{
 width:100%;
+}
 
+.log{
+background:black;
+padding:10px;
+font-family:monospace;
+color:#00ff90;
+height:120px;
+overflow:auto;
+}
+
+.accredit{
+line-height:1.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+
+<div class="title">Vital Sign Monitor</div>
+
+<div class="bpm" id="bpm">84 BPM</div>
+
+<canvas id="pulseChart"></canvas>
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">Bio Scanner</div>
+
+<canvas id="scanner"></canvas>
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">Research System Log</div>
+
+<div class="log" id="log">
+
+[11:11:27] Host Cell Infection Monitor — ACTIVE<br>
+[11:11:30] Genome Sequencing — INITIATED<br>
+[11:11:32] Protein Folding Analysis — PROCESSING<br>
+[11:11:35] Bio-Containment System — STABLE<br>
+[11:11:37] Viral Mutation Pattern — DETECTED<br>
+[11:11:40] Structural Protein Mapping — RUNNING
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">International Accreditation</div>
+
+<div class="accredit">
+
+ISO 27001 — Data Security<br>
+WHO BioSafety Level — BSL-4<br>
+Global Genome Project — GGP-2049<br>
+Research Protocol — TVA-114-RX<br>
+Sample Status: <b>VERIFIED</b>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">Virus Activity Analysis</div>
+
+<canvas id="virusChart"></canvas>
+
+</div>
+
+
+
+<script>
+
+function drawPulse(){
+
+let canvas=document.getElementById("pulseChart");
+let ctx=canvas.getContext("2d");
+
+canvas.height=120;
+
+ctx.strokeStyle="#00ffc3";
+ctx.lineWidth=2;
+
+ctx.beginPath();
+
+for(let i=0;i<canvas.width;i+=10){
+
+let y=60+Math.sin(i/20)*30+Math.random()*5;
+
+ctx.lineTo(i,y);
+
+}
+
+ctx.stroke();
+
+}
+
+drawPulse();
+
+
+
+function drawVirus(){
+
+let canvas=document.getElementById("virusChart");
+let ctx=canvas.getContext("2d");
+
+canvas.height=120;
+
+ctx.strokeStyle="#00aaff";
+ctx.lineWidth=2;
+
+ctx.beginPath();
+
+let values=[20,25,22,45,28,30];
+
+for(let i=0;i<values.length;i++){
+
+let x=i*(canvas.width/values.length);
+let y=120-values[i]*2;
+
+ctx.lineTo(x,y);
+
+}
+
+ctx.stroke();
+
+}
+
+drawVirus();
+
+
+
+function scanner(){
+
+let canvas=document.getElementById("scanner");
+let ctx=canvas.getContext("2d");
+
+canvas.height=200;
+
+let angle=0;
+
+setInterval(()=>{
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.beginPath();
+
+ctx.arc(canvas.width/2,100,80,0,Math.PI*2);
+ctx.strokeStyle="#00d0ff";
+ctx.stroke();
+
+ctx.beginPath();
+
+ctx.moveTo(canvas.width/2,100);
+
+ctx.lineTo(
+canvas.width/2+80*Math.cos(angle),
+100+80*Math.sin(angle)
+);
+
+ctx.stroke();
+
+angle+=0.05;
+
+},50)
+
+}
+
+scanner();
+
+</script>
+
+</body>
+</html>
 height:100%;
 
 background:conic-gradient(
