@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>T-Virus Research System</title>
+<title>T-Virus Research Laboratory</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -15,7 +15,7 @@
 body{
 margin:0;
 font-family:Arial;
-background:#05171c;
+background:#04151b;
 color:#8feaff;
 }
 
@@ -26,13 +26,12 @@ background:#0b2f38;
 padding:15px 20px;
 display:flex;
 justify-content:space-between;
-align-items:center;
 }
 
 .status{
 display:flex;
-gap:8px;
 align-items:center;
+gap:8px;
 }
 
 .dot{
@@ -42,7 +41,7 @@ border-radius:50%;
 background:#2cff9c;
 }
 
-/* grid layout */
+/* layout */
 
 .container{
 padding:20px;
@@ -53,25 +52,32 @@ gap:16px;
 
 .card{
 background:#0c2530;
-padding:14px;
 border:1px solid #10414e;
+padding:14px;
 }
 
-img,video{
-width:100%;
+/* genome */
+
+.genome{
+background:#000;
+font-family:monospace;
+color:#00ff9c;
+height:80px;
+overflow:hidden;
+padding:8px;
+font-size:13px;
 }
 
-/* graph */
+/* sensor */
 
-.graph{
-grid-column:1/-1;
-background:#0c2530;
-padding:20px;
+.sensor{
+font-size:14px;
+line-height:1.7;
 }
 
-/* log */
+/* terminal */
 
-.log{
+.terminal{
 background:#000;
 color:#00ff9c;
 font-family:monospace;
@@ -86,29 +92,19 @@ padding:10px;
 font-size:26px;
 text-align:center;
 color:#2cff9c;
-margin-bottom:10px;
 }
 
 canvas{
 width:100%;
-height:150px;
+height:140px;
 }
 
-/* certification */
+/* graph full */
 
-.cert{
-font-size:14px;
-line-height:1.6;
-}
-
-.seal{
-margin-top:10px;
-text-align:center;
-}
-
-.seal img{
-width:70px;
-opacity:.9;
+.graph{
+grid-column:1/-1;
+background:#0c2530;
+padding:20px;
 }
 
 </style>
@@ -119,11 +115,11 @@ opacity:.9;
 
 <header>
 
-<div>T-Virus Monitoring System</div>
+<div>T-Virus Bio Research System</div>
 
 <div class="status">
 <div class="dot"></div>
-System Active
+Laboratory Online
 </div>
 
 </header>
@@ -132,43 +128,30 @@ System Active
 
 <div class="card">
 
-<h3>DNA Visualization</h3>
+<h3>Genome Stream</h3>
 
-<video autoplay loop muted>
-<source src="dna.mp4">
-</video>
+<div class="genome" id="genome"></div>
 
 </div>
 
 <div class="card">
 
-<h3>T-Virus Model</h3>
+<h3>Bio Sensor Data</h3>
 
-<img src="virus-3d.png">
+<div class="sensor">
+
+Sample ID: TVX-2049<br>
+Temperature: <span id="temp">37</span> °C<br>
+pH Level: <span id="ph">7.2</span><br>
+Viral Load: <span id="load">320</span> copies/ml
+
+</div>
 
 </div>
 
 <div class="card">
 
-<h3>Infected Cell</h3>
-
-<img src="infected-cell.png">
-
-</div>
-
-<div class="card">
-
-<h3>Virus Structure</h3>
-
-<video autoplay loop muted>
-<source src="virus-structure.mp4">
-</video>
-
-</div>
-
-<div class="card">
-
-<h3>Heart Rate Monitor</h3>
+<h3>Heart Monitor</h3>
 
 <div class="bpm"><span id="bpm">72</span> BPM</div>
 
@@ -178,32 +161,15 @@ System Active
 
 <div class="card">
 
-<h3>System Log</h3>
+<h3>Research Terminal</h3>
 
-<div class="log" id="log"></div>
-
-</div>
-
-<div class="card cert">
-
-<h3>Laboratory Certification</h3>
-
-BioSafety Level: BSL-4<br>
-Research Protocol: TV-A114-RX<br>
-Genome Project: GVX-2049<br>
-Data Standard: ISO-27001<br>
-Sample Status: VERIFIED
-
-<div class="seal">
-<img src="logo.png">
-<p>Authorized Research Laboratory</p>
-</div>
+<div class="terminal" id="log"></div>
 
 </div>
 
 <div class="graph">
 
-<h3>T-Virus Activity Graph</h3>
+<h3>Virus Activity</h3>
 
 <canvas id="virusChart"></canvas>
 
@@ -213,19 +179,52 @@ Sample Status: VERIFIED
 
 <script>
 
+/* genome stream */
+
+let genome=document.getElementById("genome")
+
+let bases=["A","T","C","G"]
+
+setInterval(()=>{
+
+let seq=""
+
+for(let i=0;i<60;i++){
+
+seq+=bases[Math.floor(Math.random()*4)]
+
+}
+
+genome.innerHTML=seq+"<br>"+genome.innerHTML
+
+},1200)
+
+
+/* biosensor */
+
+setInterval(()=>{
+
+document.getElementById("temp").innerText=(36+Math.random()*2).toFixed(1)
+
+document.getElementById("ph").innerText=(7+Math.random()*0.5).toFixed(2)
+
+document.getElementById("load").innerText=Math.floor(Math.random()*500+200)
+
+},3000)
+
+
 /* virus graph */
 
-let virusData=[5,10,15,20,25,30]
+let data=[5,10,15,20,25]
 
-let virusChart=new Chart(document.getElementById("virusChart"),{
+let chart=new Chart(document.getElementById("virusChart"),{
 
 type:"line",
 
 data:{
-labels:["0h","2h","4h","6h","8h","10h"],
+labels:["0h","2h","4h","6h","8h"],
 datasets:[{
-label:"Virus Activity",
-data:virusData,
+data:data,
 borderColor:"#2cc6ff",
 backgroundColor:"rgba(44,198,255,.2)",
 fill:true
@@ -240,30 +239,31 @@ setInterval(()=>{
 
 let v=Math.floor(Math.random()*40)+10
 
-virusData.push(v)
-virusData.shift()
+data.push(v)
 
-virusChart.data.datasets[0].data=virusData
-virusChart.update()
+data.shift()
+
+chart.data.datasets[0].data=data
+
+chart.update()
 
 },3000)
 
 
 /* pulse */
 
-let pulse=[70,72,71,73,74,72]
+let pulse=[70,72,71,73,74]
 
 let pulseChart=new Chart(document.getElementById("pulseChart"),{
 
 type:"line",
 
 data:{
-labels:["","","","","",""],
+labels:["","","","",""],
 datasets:[{
 data:pulse,
 borderColor:"#00ff9c",
 backgroundColor:"rgba(0,255,156,.2)",
-tension:.4,
 fill:true
 }]
 },
@@ -284,6 +284,7 @@ pulse.push(bpm)
 pulse.shift()
 
 pulseChart.data.datasets[0].data=pulse
+
 pulseChart.update()
 
 document.getElementById("bpm").innerText=bpm
@@ -291,16 +292,16 @@ document.getElementById("bpm").innerText=bpm
 },1500)
 
 
-/* system log */
+/* terminal */
 
 let log=document.getElementById("log")
 
 let msgs=[
 
-"Scanning T-Virus genome",
+"Scanning viral genome...",
 "Mutation sequence detected",
-"Analyzing host cell",
 "Protein binding process",
+"Host cell infection mapping",
 "Genome alignment running"
 
 ]
@@ -315,7 +316,7 @@ log.innerHTML+="["+t+"] "+m+"<br>"
 
 log.scrollTop=log.scrollHeight
 
-},2500)
+},2000)
 
 </script>
 
