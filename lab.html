@@ -11,7 +11,7 @@
 <style>
 
 body{
-background:#02171a;
+background:radial-gradient(circle at center,#032c30,#000);
 font-family:Consolas,monospace;
 color:#00ffd0;
 margin:0;
@@ -43,9 +43,12 @@ background:#062529;
 border:1px solid #00ffd0;
 border-radius:8px;
 padding:18px;
-box-shadow:0 0 20px rgba(0,255,200,0.15);
 position:relative;
 overflow:hidden;
+
+box-shadow:
+0 0 10px rgba(0,255,200,0.2),
+0 0 30px rgba(0,255,200,0.1);
 }
 
 .panel::before{
@@ -67,6 +70,8 @@ animation:scan 4s linear infinite;
 .media img,
 .media video{
 width:100%;
+height:200px;
+object-fit:cover;
 border-radius:4px;
 margin-bottom:10px;
 opacity:0.9;
@@ -108,6 +113,18 @@ width:100%;
 height:60px;
 }
 
+.heartbeat polyline{
+stroke-dasharray:500;
+stroke-dashoffset:500;
+animation:heart 3s linear infinite;
+}
+
+@keyframes heart{
+to{
+stroke-dashoffset:0;
+}
+}
+
 </style>
 
 </head>
@@ -125,7 +142,6 @@ GLOBAL BIO RESEARCH COMMAND CENTER
 </header>
 
 <div class="grid">
-
 
 <div class="panel">
 
@@ -286,17 +302,13 @@ International Bio Research Authority
 <script>
 
 function updateBPM(){
-
 let bpm=Math.floor(Math.random()*10)+80
 document.getElementById("bpm").innerText=bpm+" BPM"
-
 }
-
 setInterval(updateBPM,2000)
 
 
 const logs=[
-
 "Genome Sequencing — INITIATED",
 "Protein Folding Analysis — PROCESSING",
 "Host Cell Infection Monitor — ACTIVE",
@@ -305,7 +317,6 @@ const logs=[
 "Structural Protein Mapping — RUNNING",
 "RNA Signal Integrity — CHECKING",
 "Global Node Sync — COMPLETE"
-
 ]
 
 function addLog(){
@@ -314,7 +325,8 @@ let time=new Date().toLocaleTimeString()
 
 let logLine="["+time+"] "+logs[Math.floor(Math.random()*logs.length)]+"<br>"
 
-document.getElementById("log").innerHTML=logLine+document.getElementById("log").innerHTML
+document.getElementById("log").innerHTML=
+logLine+document.getElementById("log").innerHTML
 
 }
 
