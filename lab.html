@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Bio Research Command Center</title>
+<title>Secure Bio Research Command Center</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -14,23 +12,19 @@
 body{
 margin:0;
 font-family:Arial;
-background:#04161b;
-color:#9eeaff;
+background:#031318;
+color:#8feaff;
 }
 
 /* header */
 
 header{
-background:#0a2e36;
-padding:15px 20px;
+background:#07232c;
+padding:14px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-}
-
-header h1{
-font-size:18px;
-letter-spacing:1px;
+border-bottom:1px solid #0e3a45;
 }
 
 .status{
@@ -42,8 +36,8 @@ gap:8px;
 .dot{
 width:10px;
 height:10px;
-border-radius:50%;
 background:#2cff9c;
+border-radius:50%;
 }
 
 /* layout */
@@ -55,37 +49,14 @@ grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:16px;
 }
 
-/* card */
-
 .card{
-background:#0c2530;
+background:#071e26;
+border:1px solid #0f3a44;
 padding:14px;
-border:1px solid #123e49;
-}
-
-.card h3{
-margin-top:0;
 }
 
 img,video{
 width:100%;
-}
-
-/* graph */
-
-.graph{
-grid-column:1/-1;
-padding:20px;
-background:#0c2530;
-}
-
-/* pulse */
-
-.bpm{
-text-align:center;
-font-size:26px;
-color:#2cff9c;
-margin-bottom:8px;
 }
 
 /* log */
@@ -99,6 +70,52 @@ overflow:auto;
 padding:10px;
 }
 
+/* pulse */
+
+.bpm{
+text-align:center;
+font-size:28px;
+color:#2cff9c;
+margin-bottom:10px;
+}
+
+/* radar */
+
+.radar{
+width:180px;
+height:180px;
+border:2px solid #1fc8ff;
+border-radius:50%;
+margin:auto;
+position:relative;
+overflow:hidden;
+}
+
+.scan{
+position:absolute;
+width:100%;
+height:100%;
+background:conic-gradient(
+transparent 0deg,
+rgba(31,200,255,.5) 40deg,
+transparent 70deg
+);
+animation:spin 3s linear infinite;
+}
+
+@keyframes spin{
+from{transform:rotate(0deg)}
+to{transform:rotate(360deg)}
+}
+
+/* graph */
+
+.graph{
+grid-column:1/-1;
+background:#071e26;
+padding:20px;
+}
+
 /* certification */
 
 .cert{
@@ -107,35 +124,26 @@ line-height:1.6;
 }
 
 .seal{
-margin-top:10px;
 text-align:center;
+margin-top:10px;
 }
 
 .seal img{
 width:70px;
-opacity:.9;
-}
-
-/* sample panel */
-
-.sample{
-font-size:14px;
-line-height:1.7;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
 
-<h1>Advanced Bio Research Center</h1>
+<div>Bio Research Command Center</div>
 
 <div class="status">
 <div class="dot"></div>
-Lab Network Active
+Secure Network Active
 </div>
 
 </header>
@@ -144,7 +152,7 @@ Lab Network Active
 
 <div class="card">
 
-<h3>DNA Structure Monitor</h3>
+<h3>DNA Monitor</h3>
 
 <video autoplay loop muted>
 <source src="dna.mp4">
@@ -162,7 +170,7 @@ Lab Network Active
 
 <div class="card">
 
-<h3>Infected Cell Scan</h3>
+<h3>Infected Cell</h3>
 
 <img src="infected-cell.png">
 
@@ -190,21 +198,19 @@ Lab Network Active
 
 <div class="card">
 
-<h3>Research Log</h3>
+<h3>Particle Scanner</h3>
 
-<div class="log" id="log"></div>
+<div class="radar">
+<div class="scan"></div>
+</div>
 
 </div>
 
-<div class="card sample">
+<div class="card">
 
-<h3>Sample Analysis</h3>
+<h3>System Log</h3>
 
-Sample ID: TVX-2049<br>
-Host Cell Type: Human<br>
-Infection Stage: Phase II<br>
-Genome Stability: 84%<br>
-Mutation Risk: Moderate
+<div class="log" id="log"></div>
 
 </div>
 
@@ -215,22 +221,19 @@ Mutation Risk: Moderate
 BioSafety Level: BSL-4<br>
 Research Protocol: TV-A114-RX<br>
 Genome Project: GVX-2049<br>
-Data Integrity: ISO-27001<br>
+Security Level: CLASSIFIED<br>
 Sample Status: VERIFIED
 
 <div class="seal">
-
 <img src="logo.png">
-
-<p>Authorized Research Facility</p>
-
+<p>Authorized Bio Research Division</p>
 </div>
 
 </div>
 
 <div class="graph">
 
-<h3>T-Virus Activity Graph</h3>
+<h3>T-Virus Activity Analysis</h3>
 
 <canvas id="virusChart"></canvas>
 
@@ -240,9 +243,9 @@ Sample Status: VERIFIED
 
 <script>
 
-/* virus graph */
+/* virus activity graph */
 
-let virusData=[5,8,12,18,25,30]
+let virusData=[5,10,14,18,22,30]
 
 let virusChart=new Chart(document.getElementById("virusChart"),{
 
@@ -276,7 +279,7 @@ virusChart.update()
 },3000)
 
 
-/* pulse */
+/* heart pulse */
 
 let pulse=[70,72,71,73,74,72]
 
@@ -318,17 +321,17 @@ document.getElementById("bpm").innerText=bpm
 },1500)
 
 
-/* research log */
+/* system log */
 
 let log=document.getElementById("log")
 
 let msgs=[
 
-"Genome scan started",
-"Mutation sequence detected",
-"Host cell response analyzing",
-"Protein binding process",
-"DNA alignment running"
+"Secure channel established",
+"Scanning viral genome",
+"Mutation probability calculated",
+"Protein structure analysis running",
+"Cell infection pattern detected"
 
 ]
 
