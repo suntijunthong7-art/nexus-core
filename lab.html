@@ -1,111 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Global Bio Research Command Center</title>
 
 <style>
 
 body{
+background:#021c1b;
+font-family:Arial,Helvetica,sans-serif;
+color:#9fffe0;
 margin:0;
-background:#031b1b;
-font-family:Segoe UI,Arial;
-color:#bffff4;
 }
 
 header{
 display:flex;
 align-items:center;
-gap:14px;
-padding:16px;
-background:#062626;
-border-bottom:1px solid #0a6a6a;
+padding:20px;
+border-bottom:1px solid #0c3f3d;
+background:#012424;
 }
 
 header img{
-width:38px;
+height:40px;
+margin-right:15px;
 }
 
 header h1{
-margin:0;
 font-size:18px;
-letter-spacing:2px;
-color:#7fffe5;
+letter-spacing:3px;
+font-weight:500;
+color:#6effd6;
 }
 
-.status-bar{
-display:flex;
-justify-content:space-around;
-padding:8px;
-font-size:11px;
-background:#041f1f;
-border-bottom:1px solid #0a5a5a;
-}
-
-.container{
-padding:18px;
+.dashboard{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:18px;
+gap:25px;
+padding:25px;
 }
 
-.card{
-background:#082e2e;
-border:1px solid #0b7777;
-border-radius:10px;
-padding:15px;
-box-shadow:0 0 15px rgba(0,255,200,0.1);
+.panel{
+background:#022d2b;
+border:1px solid #0f5a57;
+border-radius:8px;
+padding:18px;
+box-shadow:0 0 12px rgba(0,255,200,0.08);
 }
 
-.card h3{
-margin-top:0;
+.panel h2{
+font-size:14px;
+letter-spacing:2px;
+margin-bottom:12px;
+color:#6effd6;
+}
+
+.vital{
+font-size:42px;
+font-weight:600;
+color:#69ffe6;
+}
+
+.info{
 font-size:13px;
-letter-spacing:1px;
-color:#7bffe8;
+line-height:1.7;
+color:#b9fff1;
 }
 
-.big{
-font-size:38px;
-font-weight:bold;
-color:#39ffd4;
-}
-
-.data{
-font-size:13px;
-line-height:1.8;
-}
-
-img,video{
+.media{
 width:100%;
 border-radius:6px;
 margin-top:10px;
 }
 
-.log{
-font-family:monospace;
-font-size:12px;
-line-height:1.6;
+video{
+width:100%;
+border-radius:6px;
 }
 
-.footer{
+footer{
 text-align:center;
 font-size:11px;
 padding:15px;
-border-top:1px solid #0a5a5a;
-color:#69d9cc;
-}
-
-@media(max-width:850px){
-.container{
-grid-template-columns:1fr;
-}
+border-top:1px solid #0c3f3d;
+color:#5cccb8;
 }
 
 </style>
 </head>
+
 
 <body>
 
@@ -118,138 +101,98 @@ grid-template-columns:1fr;
 </header>
 
 
-<div class="status-bar">
 
-<div>Facility: BSL-4</div>
-<div>Containment: SECURE</div>
-<div>System Status: ONLINE</div>
-<div>AI Monitor: ACTIVE</div>
-
-</div>
+<div class="dashboard">
 
 
-<div class="container">
+<div class="panel">
 
+<h2>VITAL SIGN MONITOR</h2>
 
-<div class="card">
+<div class="vital">91 BPM</div>
 
-<h3>VITAL SIGN MONITOR</h3>
-
-<div class="big">91 BPM</div>
-
-<div class="data">
-
+<div class="info">
 Oxygen Saturation: 98%<br>
 Core Temperature: 36.7°C<br>
 Blood Pressure: 118 / 76<br>
 Neural Activity: NORMAL<br>
-Subject Condition: STABLE
-
+Subject Status: STABLE
 </div>
 
 </div>
 
 
-<div class="card">
 
-<h3>DNA SEQUENCE MONITOR</h3>
+<div class="panel">
 
-<video autoplay muted loop>
+<h2>RNA SCAN STATUS</h2>
+
+<div class="info">
+Genetic Structure Analysis: ACTIVE<br>
+Host Compatibility: STABLE<br>
+Mutation Pattern: NONE DETECTED<br>
+Virus Variant: T-Series<br>
+Experiment Phase: 4
+</div>
+
+</div>
+
+
+
+<div class="panel">
+
+<h2>DNA SEQUENCING VISUALIZATION</h2>
+
+<video autoplay loop muted class="media">
 <source src="dna.mp4" type="video/mp4">
 </video>
 
-<div class="data">
-
-Genome Analysis: ACTIVE<br>
-Sequence Integrity: VERIFIED<br>
-RNA Stream: RUNNING
-
-</div>
-
 </div>
 
 
-<div class="card">
 
-<h3>VIRUS STRUCTURE ANALYSIS</h3>
+<div class="panel">
 
-<img src="virus-3d.png">
+<h2>VIRUS STRUCTURE MODEL</h2>
 
-<div class="data">
-
-Replication Rate: LOW<br>
-Mutation Probability: 13%<br>
-Host Adaptation Index: STABLE
-
-</div>
+<img src="virus-3d.png" class="media">
 
 </div>
 
 
-<div class="card">
 
-<h3>INFECTED CELL OBSERVATION</h3>
+<div class="panel">
 
-<img src="infected-cell.png">
+<h2>INFECTED CELL MICROSCOPY</h2>
 
-<div class="data">
-
-Cell Infection Ratio: 4%<br>
-Immune Response: ACTIVE<br>
-Containment Risk: MINIMAL
-
-</div>
+<img src="infected-cell.png" class="media">
 
 </div>
 
 
-<div class="card">
 
-<h3>VIRUS STRUCTURE SIMULATION</h3>
+<div class="panel">
 
-<video autoplay muted loop>
+<h2>VIRUS STRUCTURE ANALYSIS</h2>
+
+<video autoplay loop muted class="media">
 <source src="virus-structure.mp4" type="video/mp4">
 </video>
 
-<div class="data">
-
-3D Modeling: RUNNING<br>
-Protein Folding: PROCESSING<br>
-AI Structural Prediction: STABLE
-
 </div>
 
-</div>
-
-
-<div class="card">
-
-<h3>RESEARCH SYSTEM LOG</h3>
-
-<div class="log">
-
-11:21 System Boot Sequence<br>
-11:23 Genome Database Sync<br>
-11:24 Viral Structure Scan<br>
-11:26 AI Mutation Prediction<br>
-11:28 Host Integration Test<br>
-11:31 Lab Node Stabilized
-
-</div>
-
-</div>
 
 
 </div>
 
 
-<div class="footer">
 
-International BioSecurity Network  
-ISO 27001 | WHO BioSafety Level-4 | Global Genome Research Alliance
+<footer>
 
-</div>
+INTERNATIONAL ACCREDITATION  
+ISO 27001 | WHO BioSafety Level 4 | Global Pathogen Research Network
 
+</footer>
 
 </body>
 </html>
