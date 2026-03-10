@@ -1,100 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Global Bio Research Command Center</title>
 
 <style>
 
 body{
-margin:0;
-background:#031a1d;
+background:#02171a;
 font-family:Consolas,monospace;
 color:#00ffd0;
+margin:0;
+padding:20px;
 }
 
 header{
 text-align:center;
-padding:20px;
+margin-bottom:25px;
 }
 
 header img{
-width:90px;
-opacity:.9;
-}
-
-header h1{
-font-size:20px;
-letter-spacing:3px;
-margin-top:10px;
-color:#8efff2;
+width:110px;
+margin-bottom:10px;
 }
 
 .grid{
-
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:18px;
-padding:18px;
-
 }
 
 .panel{
-
-background:#06292c;
+background:#062529;
 border:1px solid #00ffd0;
 border-radius:8px;
-padding:14px;
-box-shadow:0 0 12px rgba(0,255,200,.15);
-
+padding:15px;
+box-shadow:0 0 10px rgba(0,255,200,0.15);
 }
 
 .title{
-font-size:13px;
-margin-bottom:8px;
-color:#7fffe8;
+font-size:14px;
+margin-bottom:10px;
+letter-spacing:1px;
+color:#8ffff0;
 }
 
 .media{
-
 width:100%;
-height:150px;
-border-radius:6px;
+height:160px;
 overflow:hidden;
+border-radius:6px;
 margin-bottom:10px;
-
 }
 
 .media img,
 .media video{
-
 width:100%;
 height:100%;
 object-fit:cover;
-
 }
 
 .bpm{
-font-size:34px;
+font-size:32px;
 font-weight:bold;
-margin:6px 0;
-}
-
-.good{
-color:#00ff9c;
-}
-
-.footer{
-
-text-align:center;
-padding:25px;
-font-size:12px;
-color:#4cc5b5;
-
+margin-bottom:10px;
 }
 
 </style>
@@ -106,9 +78,9 @@ color:#4cc5b5;
 <header>
 
 <img src="logo.png"
-onerror="this.src='https://images.unsplash.com/photo-1582719471384-894fbb16e074'">
+onerror="this.src='https://images.unsplash.com/photo-1559757175-0eb30cd8c063'">
 
-<h1>GLOBAL BIO RESEARCH COMMAND CENTER</h1>
+<h2>GLOBAL BIO RESEARCH COMMAND CENTER</h2>
 
 </header>
 
@@ -123,13 +95,16 @@ onerror="this.src='https://images.unsplash.com/photo-1582719471384-894fbb16e074'
 
 <div class="media">
 
-<video autoplay muted loop playsinline>
-<source src="dna.mp4">
+<video autoplay muted loop
+onerror="this.outerHTML='<img src=https://images.unsplash.com/photo-1581594693702-fbdc51b2763b>'">
+
+<source src="dna.mp4" type="video/mp4">
+
 </video>
 
 </div>
 
-<div class="bpm" id="bpm">85 BPM</div>
+<div class="bpm" id="bpm">84 BPM</div>
 
 Oxygen Level: 98% <br>
 Core Temperature: 36.7°C <br>
@@ -138,28 +113,7 @@ Neural Activity: NORMAL
 </div>
 
 
-<!-- BIO SAMPLE -->
-
-<div class="panel">
-
-<div class="title">BIO SAMPLE SCANNER</div>
-
-<div class="media">
-
-<img src="infected-cell.png"
-onerror="this.src='https://images.unsplash.com/photo-1584036561566-baf8f5f1b144'">
-
-</div>
-
-Genetic Structure Analysis: ACTIVE <br>
-Host Compatibility: STABLE <br>
-Mutation Pattern: NONE DETECTED <br>
-Virus Strain: T-Variant Experimental
-
-</div>
-
-
-<!-- VIRUS ANALYSIS -->
+<!-- VIRUS -->
 
 <div class="panel">
 
@@ -168,48 +122,22 @@ Virus Strain: T-Variant Experimental
 <div class="media">
 
 <img src="virus-3d.png"
-onerror="this.src='https://images.unsplash.com/photo-1581594693702-fbdc51b2763b'">
+onerror="this.src='https://images.unsplash.com/photo-1584036561566-baf8f5f1b144'">
 
 </div>
 
 Replication Rate: LOW <br>
 Mutation Probability: 3.1% <br>
-Host Adaptation Index: STABLE <br>
-Containment Risk: MINIMAL
+Host Adaptation Index: STABLE
 
 </div>
 
 
-<!-- GENOME -->
+<!-- INFECTED CELL -->
 
 <div class="panel">
 
-<div class="title">GENOME DATABASE</div>
-
-<div class="media">
-
-<video autoplay muted loop playsinline
-poster="https://images.unsplash.com/photo-1559757175-0eb30cd8c063">
-
-<source src="virus-structure.mp4">
-
-</video>
-
-</div>
-
-Genome Records Loaded: 2,184,442 <br>
-Sequence Processing: ACTIVE <br>
-Data Integrity Check: PASSED <br>
-Backup Node Status: ONLINE
-
-</div>
-
-
-<!-- SECURITY -->
-
-<div class="panel">
-
-<div class="title">CONTAINMENT SECURITY</div>
+<div class="title">CELL INFECTION</div>
 
 <div class="media">
 
@@ -218,58 +146,51 @@ onerror="this.src='https://images.unsplash.com/photo-1581093588401-22f8c6f4b01e'
 
 </div>
 
-Containment Level: BSL-4 <br>
-Airlock Status: SEALED <br>
-Isolation Chamber: ACTIVE <br>
-Hazard Level: <span class="good">GREEN</span>
+Host Interaction: ACTIVE <br>
+Cell Mutation: MONITORING <br>
+Immune Response: STABLE
 
 </div>
 
 
-<!-- NETWORK -->
+<!-- STRUCTURE -->
 
 <div class="panel">
 
-<div class="title">GLOBAL NETWORK STATUS</div>
+<div class="title">VIRUS STRUCTURE</div>
 
 <div class="media">
 
-<img src="virus-3d.png"
-onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475'">
+<video autoplay muted loop
+onerror="this.outerHTML='<img src=https://images.unsplash.com/photo-1582719471384-894fbb16e074>'">
+
+<source src="virus-structure.mp4" type="video/mp4">
+
+</video>
 
 </div>
 
-Research Nodes: 14 ONLINE <br>
-Secure Channels: ACTIVE <br>
-Data Sync: RUNNING <br>
-Satellite Relay: STABLE
+Protein Shell: STABLE <br>
+RNA Chain: VERIFIED
 
 </div>
-
-
-</div>
-
-<div class="footer">
-
-International Bio Research Authority
 
 </div>
 
 
 <script>
 
-function updateBPM(){
+function bpm(){
 
-let bpm=Math.floor(Math.random()*8)+82;
+let n = Math.floor(Math.random()*10)+80;
 
-document.getElementById("bpm").innerText=bpm+" BPM";
+document.getElementById("bpm").innerText=n+" BPM";
 
 }
 
-setInterval(updateBPM,2000);
+setInterval(bpm,2000);
 
 </script>
 
 </body>
-
 </html>
