@@ -1,52 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Bio Research Command Center</title>
+<title>Bio Research Command System</title>
 
 <style>
 
 body{
-background:#02181c;
-font-family:Arial;
-color:#00ffd0;
+background:#071a1d;
+color:#00ffa6;
+font-family:Consolas,monospace;
 margin:0;
 padding:20px;
 }
 
 .panel{
-background:#052a2f;
+background:#0c2b2f;
+border:1px solid #00ffa6;
 padding:20px;
 margin-bottom:20px;
-border-radius:10px;
-box-shadow:0 0 20px rgba(0,255,200,.15);
+border-radius:6px;
+box-shadow:0 0 15px rgba(0,255,170,0.2);
 }
 
 .title{
-font-size:20px;
-margin-bottom:10px;
+font-size:18px;
+margin-bottom:15px;
+color:#7dfff0;
+letter-spacing:1px;
 }
 
-.bpm{
-font-size:36px;
-text-align:center;
-margin-bottom:10px;
+.heartbeat{
+font-size:42px;
+font-weight:bold;
+animation:pulse 1s infinite;
 }
 
-canvas{
-width:100%;
+@keyframes pulse{
+0%{opacity:0.5}
+50%{opacity:1}
+100%{opacity:0.5}
 }
 
 .log{
-background:#000;
-padding:10px;
-font-family:monospace;
+color:#72ffcf;
+font-size:14px;
+line-height:1.6;
+}
+
+.status{
 color:#00ff88;
-height:120px;
-overflow:auto;
+font-weight:bold;
+}
+
+.scan{
+font-size:20px;
+animation:scan 3s infinite;
+}
+
+@keyframes scan{
+0%{opacity:0.3}
+50%{opacity:1}
+100%{opacity:0.3}
+}
+
+.cert{
+color:#9efff3;
+line-height:1.8;
+}
+
+.footer{
+text-align:center;
+margin-top:30px;
+color:#5cd3c4;
+font-size:13px;
 }
 
 </style>
@@ -56,179 +83,87 @@ overflow:auto;
 
 <div class="panel">
 
-<div class="title">Vital Sign Monitor</div>
+<div class="title">VITAL SIGN MONITOR</div>
 
-<div class="bpm" id="bpm">84 BPM</div>
+<div class="heartbeat" id="bpm">84 BPM</div>
 
-<canvas id="ecg"></canvas>
+<div>
+Oxygen Level: 98% <br>
+Core Temperature: 36.7°C <br>
+Neural Activity: NORMAL
+</div>
 
 </div>
 
 
 <div class="panel">
 
-<div class="title">Bio Scanner</div>
+<div class="title">BIO SAMPLE SCANNER</div>
 
-<canvas id="radar"></canvas>
+<div class="scan">
+GENETIC STRUCTURE ANALYSIS ACTIVE
+</div>
+
+<div>
+Host Compatibility: STABLE <br>
+Mutation Pattern: NONE DETECTED <br>
+Virus Strain: T-Variant Experimental
+</div>
 
 </div>
 
 
 <div class="panel">
 
-<div class="title">Research System Log</div>
+<div class="title">RESEARCH SYSTEM LOG</div>
 
 <div class="log">
 
-[11:11:27] Host Cell Infection Monitor — ACTIVE<br>
-[11:11:30] Genome Sequencing — INITIATED<br>
-[11:11:32] Protein Folding Analysis — PROCESSING<br>
-[11:11:35] Bio-Containment System — STABLE<br>
-[11:11:37] Viral Mutation Pattern — DETECTED<br>
-[11:11:40] Structural Protein Mapping — RUNNING
+[11:11:27] Host Cell Infection Monitor — ACTIVE <br>
+[11:11:30] Genome Sequencing — INITIATED <br>
+[11:11:32] Protein Folding Analysis — PROCESSING <br>
+[11:11:35] Bio Containment System — STABLE <br>
+[11:11:37] Viral Mutation Pattern — ANALYZING <br>
+[11:11:40] Structural Protein Mapping — RUNNING <br>
 
 </div>
 
+</div>
+
+
+<div class="panel">
+
+<div class="title">INTERNATIONAL ACCREDITATION</div>
+
+<div class="cert">
+
+ISO 27001 — Data Security <br>
+WHO BioSafety Level — BSL-4 <br>
+Global Genome Project — GGP-2049 <br>
+Research Protocol — TVA-114-RX <br>
+
+<span class="status">Sample Status: VERIFIED</span>
+
+</div>
+
+</div>
+
+
+<div class="footer">
+International Bio Research Authority
 </div>
 
 
 <script>
 
-/* ECG HEART GRAPH */
+function updateBPM(){
 
-let ecgCanvas=document.getElementById("ecg")
-let ecgCtx=ecgCanvas.getContext("2d")
-
-ecgCanvas.height=120
-
-let x=0
-
-function drawECG(){
-
-ecgCtx.fillStyle="#052a2f"
-ecgCtx.fillRect(0,0,ecgCanvas.width,ecgCanvas.height)
-
-ecgCtx.strokeStyle="#00ffc3"
-ecgCtx.lineWidth=2
-
-ecgCtx.beginPath()
-
-for(let i=0;i<ecgCanvas.width;i++){
-
-let y=60
-
-if(i%80<5) y=30
-else if(i%80<10) y=90
-else if(i%80<15) y=50
-else y=60+Math.random()*3
-
-ecgCtx.lineTo(i,y)
+let bpm = Math.floor(Math.random()*10)+80;
+document.getElementById("bpm").innerText=bpm+" BPM";
 
 }
 
-ecgCtx.stroke()
-
-}
-
-setInterval(drawECG,120)
-
-
-
-/* RADAR */
-
-let radar=document.getElementById("radar")
-let rctx=radar.getContext("2d")
-
-radar.height=220
-
-let angle=0
-
-let targets=[
-{r:60,a:1},
-{r:40,a:3},
-{r:70,a:4}
-]
-
-function drawRadar(){
-
-let cx=radar.width/2
-let cy=110
-
-rctx.fillStyle="#052a2f"
-rctx.fillRect(0,0,radar.width,radar.height)
-
-rctx.strokeStyle="#00bfff"
-rctx.lineWidth=1
-
-for(let r=40;r<=80;r+=20){
-
-rctx.beginPath()
-rctx.arc(cx,cy,r,0,Math.PI*2)
-rctx.stroke()
-
-}
-
-/* sweep */
-
-let grad=rctx.createRadialGradient(cx,cy,0,cx,cy,90)
-
-grad.addColorStop(0,"rgba(0,255,200,0.4)")
-grad.addColorStop(1,"transparent")
-
-rctx.beginPath()
-
-rctx.moveTo(cx,cy)
-
-rctx.arc(cx,cy,90,angle,angle+0.3)
-
-rctx.closePath()
-
-rctx.fillStyle=grad
-
-rctx.fill()
-
-/* targets */
-
-targets.forEach(t=>{
-
-let tx=cx+t.r*Math.cos(t.a)
-let ty=cy+t.r*Math.sin(t.a)
-
-if(Math.abs(angle-t.a)<0.1){
-
-rctx.fillStyle="#00ff99"
-
-}else{
-
-rctx.fillStyle="#004d40"
-
-}
-
-rctx.beginPath()
-
-rctx.arc(tx,ty,4,0,Math.PI*2)
-
-rctx.fill()
-
-})
-
-angle+=0.03
-
-}
-
-setInterval(drawRadar,30)
-
-
-
-/* BPM RANDOM */
-
-setInterval(()=>{
-
-let bpm=70+Math.floor(Math.random()*20)
-
-document.getElementById("bpm").innerText=bpm+" BPM"
-
-},3000)
+setInterval(updateBPM,2000);
 
 </script>
 
