@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>T-Virus Research Laboratory</title>
+<title>Bio Research Command Center</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -15,17 +14,23 @@
 body{
 margin:0;
 font-family:Arial;
-background:#04151b;
-color:#8feaff;
+background:#04161b;
+color:#9eeaff;
 }
 
 /* header */
 
 header{
-background:#0b2f38;
+background:#0a2e36;
 padding:15px 20px;
 display:flex;
 justify-content:space-between;
+align-items:center;
+}
+
+header h1{
+font-size:18px;
+letter-spacing:1px;
 }
 
 .status{
@@ -50,34 +55,42 @@ grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:16px;
 }
 
+/* card */
+
 .card{
 background:#0c2530;
-border:1px solid #10414e;
 padding:14px;
+border:1px solid #123e49;
 }
 
-/* genome */
-
-.genome{
-background:#000;
-font-family:monospace;
-color:#00ff9c;
-height:80px;
-overflow:hidden;
-padding:8px;
-font-size:13px;
+.card h3{
+margin-top:0;
 }
 
-/* sensor */
-
-.sensor{
-font-size:14px;
-line-height:1.7;
+img,video{
+width:100%;
 }
 
-/* terminal */
+/* graph */
 
-.terminal{
+.graph{
+grid-column:1/-1;
+padding:20px;
+background:#0c2530;
+}
+
+/* pulse */
+
+.bpm{
+text-align:center;
+font-size:26px;
+color:#2cff9c;
+margin-bottom:8px;
+}
+
+/* log */
+
+.log{
 background:#000;
 color:#00ff9c;
 font-family:monospace;
@@ -86,25 +99,28 @@ overflow:auto;
 padding:10px;
 }
 
-/* pulse */
+/* certification */
 
-.bpm{
-font-size:26px;
+.cert{
+font-size:14px;
+line-height:1.6;
+}
+
+.seal{
+margin-top:10px;
 text-align:center;
-color:#2cff9c;
 }
 
-canvas{
-width:100%;
-height:140px;
+.seal img{
+width:70px;
+opacity:.9;
 }
 
-/* graph full */
+/* sample panel */
 
-.graph{
-grid-column:1/-1;
-background:#0c2530;
-padding:20px;
+.sample{
+font-size:14px;
+line-height:1.7;
 }
 
 </style>
@@ -115,11 +131,11 @@ padding:20px;
 
 <header>
 
-<div>T-Virus Bio Research System</div>
+<h1>Advanced Bio Research Center</h1>
 
 <div class="status">
 <div class="dot"></div>
-Laboratory Online
+Lab Network Active
 </div>
 
 </header>
@@ -128,30 +144,43 @@ Laboratory Online
 
 <div class="card">
 
-<h3>Genome Stream</h3>
+<h3>DNA Structure Monitor</h3>
 
-<div class="genome" id="genome"></div>
-
-</div>
-
-<div class="card">
-
-<h3>Bio Sensor Data</h3>
-
-<div class="sensor">
-
-Sample ID: TVX-2049<br>
-Temperature: <span id="temp">37</span> °C<br>
-pH Level: <span id="ph">7.2</span><br>
-Viral Load: <span id="load">320</span> copies/ml
-
-</div>
+<video autoplay loop muted>
+<source src="dna.mp4">
+</video>
 
 </div>
 
 <div class="card">
 
-<h3>Heart Monitor</h3>
+<h3>Virus Model</h3>
+
+<img src="virus-3d.png">
+
+</div>
+
+<div class="card">
+
+<h3>Infected Cell Scan</h3>
+
+<img src="infected-cell.png">
+
+</div>
+
+<div class="card">
+
+<h3>Virus Structure</h3>
+
+<video autoplay loop muted>
+<source src="virus-structure.mp4">
+</video>
+
+</div>
+
+<div class="card">
+
+<h3>Heart Rate Monitor</h3>
 
 <div class="bpm"><span id="bpm">72</span> BPM</div>
 
@@ -161,15 +190,47 @@ Viral Load: <span id="load">320</span> copies/ml
 
 <div class="card">
 
-<h3>Research Terminal</h3>
+<h3>Research Log</h3>
 
-<div class="terminal" id="log"></div>
+<div class="log" id="log"></div>
+
+</div>
+
+<div class="card sample">
+
+<h3>Sample Analysis</h3>
+
+Sample ID: TVX-2049<br>
+Host Cell Type: Human<br>
+Infection Stage: Phase II<br>
+Genome Stability: 84%<br>
+Mutation Risk: Moderate
+
+</div>
+
+<div class="card cert">
+
+<h3>Laboratory Certification</h3>
+
+BioSafety Level: BSL-4<br>
+Research Protocol: TV-A114-RX<br>
+Genome Project: GVX-2049<br>
+Data Integrity: ISO-27001<br>
+Sample Status: VERIFIED
+
+<div class="seal">
+
+<img src="logo.png">
+
+<p>Authorized Research Facility</p>
+
+</div>
 
 </div>
 
 <div class="graph">
 
-<h3>Virus Activity</h3>
+<h3>T-Virus Activity Graph</h3>
 
 <canvas id="virusChart"></canvas>
 
@@ -179,52 +240,19 @@ Viral Load: <span id="load">320</span> copies/ml
 
 <script>
 
-/* genome stream */
-
-let genome=document.getElementById("genome")
-
-let bases=["A","T","C","G"]
-
-setInterval(()=>{
-
-let seq=""
-
-for(let i=0;i<60;i++){
-
-seq+=bases[Math.floor(Math.random()*4)]
-
-}
-
-genome.innerHTML=seq+"<br>"+genome.innerHTML
-
-},1200)
-
-
-/* biosensor */
-
-setInterval(()=>{
-
-document.getElementById("temp").innerText=(36+Math.random()*2).toFixed(1)
-
-document.getElementById("ph").innerText=(7+Math.random()*0.5).toFixed(2)
-
-document.getElementById("load").innerText=Math.floor(Math.random()*500+200)
-
-},3000)
-
-
 /* virus graph */
 
-let data=[5,10,15,20,25]
+let virusData=[5,8,12,18,25,30]
 
-let chart=new Chart(document.getElementById("virusChart"),{
+let virusChart=new Chart(document.getElementById("virusChart"),{
 
 type:"line",
 
 data:{
-labels:["0h","2h","4h","6h","8h"],
+labels:["0h","2h","4h","6h","8h","10h"],
 datasets:[{
-data:data,
+label:"Virus Activity",
+data:virusData,
 borderColor:"#2cc6ff",
 backgroundColor:"rgba(44,198,255,.2)",
 fill:true
@@ -239,31 +267,30 @@ setInterval(()=>{
 
 let v=Math.floor(Math.random()*40)+10
 
-data.push(v)
+virusData.push(v)
+virusData.shift()
 
-data.shift()
-
-chart.data.datasets[0].data=data
-
-chart.update()
+virusChart.data.datasets[0].data=virusData
+virusChart.update()
 
 },3000)
 
 
 /* pulse */
 
-let pulse=[70,72,71,73,74]
+let pulse=[70,72,71,73,74,72]
 
 let pulseChart=new Chart(document.getElementById("pulseChart"),{
 
 type:"line",
 
 data:{
-labels:["","","","",""],
+labels:["","","","","",""],
 datasets:[{
 data:pulse,
 borderColor:"#00ff9c",
 backgroundColor:"rgba(0,255,156,.2)",
+tension:.4,
 fill:true
 }]
 },
@@ -284,7 +311,6 @@ pulse.push(bpm)
 pulse.shift()
 
 pulseChart.data.datasets[0].data=pulse
-
 pulseChart.update()
 
 document.getElementById("bpm").innerText=bpm
@@ -292,17 +318,17 @@ document.getElementById("bpm").innerText=bpm
 },1500)
 
 
-/* terminal */
+/* research log */
 
 let log=document.getElementById("log")
 
 let msgs=[
 
-"Scanning viral genome...",
+"Genome scan started",
 "Mutation sequence detected",
+"Host cell response analyzing",
 "Protein binding process",
-"Host cell infection mapping",
-"Genome alignment running"
+"DNA alignment running"
 
 ]
 
@@ -316,7 +342,7 @@ log.innerHTML+="["+t+"] "+m+"<br>"
 
 log.scrollTop=log.scrollHeight
 
-},2000)
+},2500)
 
 </script>
 
