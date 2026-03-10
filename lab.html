@@ -4,85 +4,123 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GLOBAL BIO RESEARCH COMMAND CENTER</title>
+<title>GLOBAL BIO RESEARCH COMMAND</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#031a17;
-color:#8fffe8;
+font-family:monospace;
+background:#021b18;
+color:#00ffc8;
+overflow-x:hidden;
 }
 
+/* background video */
+
+#bgvideo{
+position:fixed;
+right:0;
+bottom:0;
+min-width:100%;
+min-height:100%;
+opacity:0.12;
+z-index:-1;
+}
+
+/* header */
+
 header{
-text-align:center;
-padding:20px;
-border-bottom:1px solid #0b5e56;
+display:flex;
+align-items:center;
+gap:15px;
+padding:15px;
+border-bottom:1px solid #00ffc855;
 }
 
 header img{
-width:80px;
-display:block;
-margin:auto;
-margin-bottom:10px;
+height:40px;
 }
 
-h1{
-letter-spacing:4px;
-font-size:20px;
+header h1{
+font-size:18px;
+letter-spacing:2px;
 }
+
+/* grid */
 
 .container{
-width:90%;
-max-width:1000px;
-margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
 padding:20px;
 }
+
+/* card */
 
 .card{
-background:#062420;
-border:1px solid #0c6f63;
-border-radius:10px;
-padding:20px;
-margin-bottom:20px;
-box-shadow:0 0 15px rgba(0,255,200,0.05);
-}
-
-.card h2{
-font-size:16px;
-margin-bottom:10px;
-}
-
-.vital{
-font-size:48px;
-font-weight:bold;
-}
-
-img,video{
-width:100%;
+border:1px solid #00ffc855;
 border-radius:8px;
-margin-top:10px;
+padding:15px;
+background:#001c19;
+box-shadow:0 0 15px #00ffc822;
 }
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
+.card h3{
+margin-top:0;
+font-size:14px;
+letter-spacing:1px;
 }
+
+/* vital monitor */
+
+#bpm{
+font-size:40px;
+color:#00ff9c;
+}
+
+/* images */
+
+.card img{
+width:100%;
+border-radius:6px;
+}
+
+/* video */
+
+.card video{
+width:100%;
+border-radius:6px;
+}
+
+/* log */
+
+.log{
+font-size:12px;
+line-height:1.6;
+color:#8affdf;
+}
+
+/* footer */
 
 footer{
 text-align:center;
-padding:20px;
-font-size:12px;
-color:#6ad6c3;
-border-top:1px solid #0b5e56;
+padding:15px;
+font-size:11px;
+border-top:1px solid #00ffc833;
+color:#66ffe3;
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- DNA background -->
+
+<video autoplay muted loop id="bgvideo">
+<source src="dna.mp4" type="video/mp4">
+</video>
 
 <header>
 
@@ -94,84 +132,108 @@ border-top:1px solid #0b5e56;
 
 <div class="container">
 
+<!-- VITAL -->
+
 <div class="card">
 
-<h2>VITAL SIGN MONITOR</h2>
+<h3>VITAL SIGN MONITOR</h3>
 
-<div class="vital">91 BPM</div>
+<div id="bpm">92 BPM</div>
 
-<p>Oxygen Saturation: 98%</p>
-<p>Core Temperature: 36.7°C</p>
-<p>Blood Pressure: 118 / 76</p>
-<p>Neural Activity: NORMAL</p>
+<p>
+Oxygen: 98%<br>
+Core Temp: 36.7°C<br>
+Neural Activity: Normal
+</p>
 
 </div>
 
 
-<div class="card">
-
-<h2>RNA SEQUENCE VISUALIZATION</h2>
-
-<video autoplay muted loop>
-<source src="dna.mp4" type="video/mp4">
-</video>
-
-<p>RNA Replication Monitor</p>
-<p>Genome Scan: ACTIVE</p>
-
-</div>
-
-
-<div class="grid">
+<!-- VIRUS STRUCTURE -->
 
 <div class="card">
 
-<h2>3D VIRUS MODEL</h2>
-
-<img src="virus-3d.png">
-
-<p>Structural Simulation</p>
-
-</div>
-
-
-<div class="card">
-
-<h2>INFECTED CELL ANALYSIS</h2>
-
-<img src="infected-cell.png">
-
-<p>Cellular Host Interaction</p>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>VIRUS STRUCTURE ANALYSIS</h2>
+<h3>VIRUS STRUCTURE SCAN</h3>
 
 <video autoplay muted loop>
 <source src="virus-structure.mp4" type="video/mp4">
 </video>
 
-<p>Mutation Probability: 13%</p>
-<p>Replication Rate: LOW</p>
-<p>Containment Risk: MINIMAL</p>
+<p>
+Strain: T-Variant<br>
+Mutation Pattern: Stable<br>
+Containment: Active
+</p>
 
 </div>
 
 
+<!-- VIRUS MODEL -->
+
 <div class="card">
 
-<h2>BSL-4 LAB FACILITY STATUS</h2>
+<h3>3D VIRUS MODEL</h3>
 
-<p>Containment Level: BSL-4</p>
-<p>Airlock Status: SEALED</p>
-<p>Isolation Chamber: ACTIVE</p>
-<p>Hazard Monitoring: GREEN</p>
-<p>Personnel Clearance: LEVEL-A</p>
+<img src="virus-3d.png">
+
+<p>
+Replication Rate: Low<br>
+Mutation Probability: 13%
+</p>
+
+</div>
+
+
+<!-- INFECTED CELL -->
+
+<div class="card">
+
+<h3>INFECTED CELL ANALYSIS</h3>
+
+<img src="infected-cell.png">
+
+<p>
+Cellular Degradation: 24%<br>
+Immune Response: Weak
+</p>
+
+</div>
+
+
+<!-- DATABASE -->
+
+<div class="card">
+
+<h3>GENOME DATABASE</h3>
+
+<p>
+
+Genome Records: 2,151,442<br>
+Sequence Processing: ACTIVE<br>
+Integrity Check: PASSED<br>
+Backup Node: SYNC
+
+</p>
+
+</div>
+
+
+<!-- LOG -->
+
+<div class="card">
+
+<h3>RESEARCH SYSTEM LOG</h3>
+
+<div class="log">
+
+11:21 System Boot Sequence<br>
+11:23 Bio Sample Scan<br>
+11:25 Viral Structure Analysis<br>
+11:27 Host Compatibility Test<br>
+11:29 Genome Sync<br>
+11:31 Neural Signal Monitoring
+
+</div>
 
 </div>
 
@@ -179,9 +241,24 @@ border-top:1px solid #0b5e56;
 
 <footer>
 
-ISO 27001 | WHO BioSafety Level 4 | Global Bio Research Network
+INTERNATIONAL ACCREDITATION  
+ISO-27001 | WHO BioSafety Level-4 | Global Genome Project
 
 </footer>
+
+<script>
+
+/* random bpm */
+
+setInterval(()=>{
+
+let bpm = 88 + Math.floor(Math.random()*10)
+
+document.getElementById("bpm").innerText=bpm+" BPM"
+
+},2000)
+
+</script>
 
 </body>
 </html>
