@@ -2,72 +2,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Global Bio Research Command Center</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GLOBAL BIO RESEARCH COMMAND CENTER</title>
 
 <style>
 
 body{
-background:#021c1b;
-font-family:Arial,Helvetica,sans-serif;
+background:#071c1b;
+font-family:Arial, Helvetica, sans-serif;
 color:#9fffe0;
 margin:0;
+padding:0;
 }
 
 header{
-display:flex;
-align-items:center;
-padding:20px;
-border-bottom:1px solid #0c3f3d;
-background:#012424;
+text-align:center;
+padding:25px;
+border-bottom:1px solid #0f4c48;
 }
 
 header img{
-height:40px;
-margin-right:15px;
+width:70px;
+margin-bottom:10px;
 }
 
-header h1{
-font-size:18px;
+h1{
+font-size:20px;
 letter-spacing:3px;
-font-weight:500;
-color:#6effd6;
+color:#6affc9;
 }
 
-.dashboard{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:25px;
-padding:25px;
+.container{
+padding:15px;
 }
 
-.panel{
-background:#022d2b;
-border:1px solid #0f5a57;
-border-radius:8px;
+.card{
+border:1px solid #0f4c48;
+border-radius:10px;
 padding:18px;
-box-shadow:0 0 12px rgba(0,255,200,0.08);
+margin-bottom:15px;
+background:#082625;
+box-shadow:0 0 8px rgba(0,255,200,0.15);
 }
 
-.panel h2{
+.card h2{
 font-size:14px;
 letter-spacing:2px;
-margin-bottom:12px;
-color:#6effd6;
+color:#7fffd8;
+margin-bottom:10px;
 }
 
-.vital{
+.bpm{
 font-size:42px;
-font-weight:600;
-color:#69ffe6;
+font-weight:bold;
+color:#56ffd0;
 }
 
-.info{
-font-size:13px;
-line-height:1.7;
-color:#b9fff1;
-}
-
-.media{
+img{
 width:100%;
 border-radius:6px;
 margin-top:10px;
@@ -76,19 +68,25 @@ margin-top:10px;
 video{
 width:100%;
 border-radius:6px;
+margin-top:10px;
+}
+
+.status{
+color:#9fffe0;
+font-size:14px;
+line-height:1.8;
 }
 
 footer{
 text-align:center;
 font-size:11px;
-padding:15px;
-border-top:1px solid #0c3f3d;
-color:#5cccb8;
+padding:10px;
+color:#5fd9b0;
+opacity:0.7;
 }
 
 </style>
 </head>
-
 
 <body>
 
@@ -100,18 +98,16 @@ color:#5cccb8;
 
 </header>
 
+<div class="container">
 
 
-<div class="dashboard">
-
-
-<div class="panel">
+<div class="card">
 
 <h2>VITAL SIGN MONITOR</h2>
 
-<div class="vital">91 BPM</div>
+<div class="bpm" id="bpm">91 BPM</div>
 
-<div class="info">
+<div class="status">
 Oxygen Saturation: 98%<br>
 Core Temperature: 36.7°C<br>
 Blood Pressure: 118 / 76<br>
@@ -123,27 +119,20 @@ Subject Status: STABLE
 
 
 
-<div class="panel">
+<div class="card">
 
 <h2>RNA SCAN STATUS</h2>
 
-<div class="info">
+<div class="status">
 Genetic Structure Analysis: ACTIVE<br>
 Host Compatibility: STABLE<br>
 Mutation Pattern: NONE DETECTED<br>
 Virus Variant: T-Series<br>
-Experiment Phase: 4
+Experiment Phase: 4<br>
+Sequencing Integrity: VERIFIED
 </div>
 
-</div>
-
-
-
-<div class="panel">
-
-<h2>DNA SEQUENCING VISUALIZATION</h2>
-
-<video autoplay loop muted class="media">
+<video autoplay muted loop>
 <source src="dna.mp4" type="video/mp4">
 </video>
 
@@ -151,31 +140,44 @@ Experiment Phase: 4
 
 
 
-<div class="panel">
-
-<h2>VIRUS STRUCTURE MODEL</h2>
-
-<img src="virus-3d.png" class="media">
-
-</div>
-
-
-
-<div class="panel">
-
-<h2>INFECTED CELL MICROSCOPY</h2>
-
-<img src="infected-cell.png" class="media">
-
-</div>
-
-
-
-<div class="panel">
+<div class="card">
 
 <h2>VIRUS STRUCTURE ANALYSIS</h2>
 
-<video autoplay loop muted class="media">
+<img src="virus-3d.png">
+
+<div class="status">
+Replication Rate: LOW<br>
+Mutation Probability: 13%<br>
+Host Adaptation Index: STABLE<br>
+Containment Risk: MINIMAL
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>INFECTED CELL ANALYSIS</h2>
+
+<img src="infected-cell.png">
+
+<div class="status">
+Cell Damage Level: MODERATE<br>
+Viral Penetration: CONFIRMED<br>
+Immune Response: DETECTED
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>VIRUS STRUCTURE VIDEO</h2>
+
+<video autoplay muted loop>
 <source src="virus-structure.mp4" type="video/mp4">
 </video>
 
@@ -183,16 +185,78 @@ Experiment Phase: 4
 
 
 
+<div class="card">
+
+<h2>GENOME DATABASE</h2>
+
+<div class="status">
+Genome Records Loaded: 2,151,442<br>
+Sequence Processing: ACTIVE<br>
+Data Integrity Check: PASSED<br>
+Backup Node: SYNCED<br>
+Global Research Nodes: 12<br>
+Last Update: 11:30 UTC
+</div>
+
 </div>
 
 
 
+<div class="card">
+
+<h2>BSL-4 LAB FACILITY</h2>
+
+<div class="status">
+Containment Level: BSL-4<br>
+Airlock Status: SEALED<br>
+Isolation Chamber: ACTIVE<br>
+Hazard Monitoring: GREEN<br>
+Personnel Clearance: LEVEL-A
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>RESEARCH SYSTEM LOG</h2>
+
+<div class="status">
+11:21 System Boot Sequence<br>
+11:23 Data Sampling Started<br>
+11:24 Viral Structure Scan<br>
+11:25 Host Integration Test<br>
+11:27 Neural Signal Monitoring<br>
+11:29 Genome Sync Completed<br>
+11:31 Lab Node Stabilized
+</div>
+
+</div>
+
+</div>
+
+
 <footer>
 
-INTERNATIONAL ACCREDITATION  
-ISO 27001 | WHO BioSafety Level 4 | Global Pathogen Research Network
+INTERNATIONAL ACCREDITATION ISO 27001 | WHO BioSafety Level 4
 
 </footer>
+
+
+
+<script>
+
+setInterval(function(){
+
+let bpm = 88 + Math.floor(Math.random()*6);
+
+document.getElementById("bpm").innerText = bpm + " BPM";
+
+},2000);
+
+</script>
+
 
 </body>
 </html>
