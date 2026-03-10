@@ -2,76 +2,86 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Global Bio Research Command Center</title>
 
 <style>
 
 body{
-background:#021f1e;
-font-family:monospace;
-color:#7fffd4;
 margin:0;
+font-family: "Segoe UI", Arial, sans-serif;
+background:#071b1b;
+color:#b6fff0;
 }
 
 header{
 text-align:center;
 padding:20px;
-font-size:28px;
+font-size:20px;
 letter-spacing:3px;
-border-bottom:1px solid #00ffcc;
+border-bottom:1px solid #0f5c5c;
+color:#79ffe1;
 }
 
 .container{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:20px;
+grid-template-columns:1fr 1fr;
+gap:18px;
 padding:20px;
 }
 
-.panel{
-background:#042f2e;
-border:1px solid #00ffc3;
-padding:15px;
-border-radius:8px;
-box-shadow:0 0 10px #00ffc366;
+.card{
+background:#082525;
+border:1px solid #0e6b6b;
+border-radius:10px;
+padding:16px;
+box-shadow:0 0 10px rgba(0,255,200,0.15);
 }
 
-.panel img{
+.card h3{
+margin-top:0;
+font-size:14px;
+letter-spacing:1px;
+color:#7fffdc;
+}
+
+.data{
+font-size:13px;
+line-height:1.8;
+color:#b9fff1;
+}
+
+.big{
+font-size:38px;
+font-weight:bold;
+color:#52ffe0;
+}
+
+img{
 width:100%;
 border-radius:6px;
-margin-bottom:10px;
-}
-
-.title{
-font-size:18px;
-margin-bottom:10px;
-color:#00ffd0;
-}
-
-.bpm{
-font-size:48px;
-color:#00ff9c;
+margin-top:10px;
 }
 
 .log{
-height:200px;
-overflow:auto;
-font-size:13px;
-line-height:1.6;
-}
-
-canvas{
-background:#001b1a;
-width:100%;
-height:120px;
-border-radius:6px;
+font-family:monospace;
+font-size:12px;
+line-height:1.7;
+color:#9fffe9;
 }
 
 footer{
 text-align:center;
-padding:15px;
-border-top:1px solid #00ffcc;
-font-size:12px;
+padding:20px;
+font-size:11px;
+color:#5fbfb3;
+border-top:1px solid #0f5c5c;
+}
+
+@media(max-width:800px){
+.container{
+grid-template-columns:1fr;
+}
 }
 
 </style>
@@ -85,159 +95,121 @@ GLOBAL BIO RESEARCH COMMAND CENTER
 
 <div class="container">
 
-<div class="panel">
-<div class="title">VITAL SIGN MONITOR</div>
+<div class="card">
+<h3>VITAL SIGN MONITOR</h3>
 
-<canvas id="pulse"></canvas>
+<div class="big">91 BPM</div>
 
-<div class="bpm" id="bpm">86 BPM</div>
-
-<p>
-Oxygen Level: 98%<br>
+<div class="data">
+Oxygen Saturation: 98%<br>
 Core Temperature: 36.7°C<br>
-Neural Activity: NORMAL
-</p>
+Blood Pressure: 118 / 76<br>
+Neural Activity: NORMAL<br>
+Subject Status: STABLE
+</div>
 
 </div>
 
 
-<div class="panel">
-<div class="title">RNA SCAN STATUS</div>
+<div class="card">
+<h3>RNA SCAN STATUS</h3>
 
-<p>
-Genetic Structure Analysis<br><br>
+<div class="data">
 
-ACTIVE<br>
+Genetic Structure Analysis: ACTIVE<br>
 Host Compatibility: STABLE<br>
 Mutation Pattern: NONE DETECTED<br>
-Virus Strain: T-VARIANT<br>
-Experiment Phase: 4
-</p>
+Virus Variant: T-Series<br>
+Experiment Phase: 4<br>
+Sequencing Integrity: VERIFIED
+
+</div>
 
 </div>
 
 
-<div class="panel">
-<div class="title">VIRUS ANALYSIS</div>
+<div class="card">
 
-<img src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b">
+<h3>VIRUS STRUCTURE ANALYSIS</h3>
 
-<p>
+<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144">
+
+<div class="data">
+
 Replication Rate: LOW<br>
 Mutation Probability: 13%<br>
 Host Adaptation Index: STABLE<br>
 Containment Risk: MINIMAL
-</p>
+
+</div>
 
 </div>
 
 
-<div class="panel">
-<div class="title">GENOME DATABASE</div>
+<div class="card">
 
-<img src="https://images.unsplash.com/photo-1581093588401-22a5b38d2e73">
+<h3>GENOME DATABASE</h3>
 
-<p>
+<div class="data">
+
 Genome Records Loaded: 2,151,442<br>
 Sequence Processing: ACTIVE<br>
 Data Integrity Check: PASSED<br>
-Backup Node: SYNC
-</p>
+Backup Node: SYNCED<br>
+Global Research Nodes: 12<br>
+Last Update: 11:30 UTC
+
+</div>
 
 </div>
 
 
-<div class="panel">
-<div class="title">CLINICAL LAB FACILITY</div>
+<div class="card">
 
-<img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
+<h3>BSL-4 LAB FACILITY</h3>
 
-<p>
+<img src="https://images.unsplash.com/photo-1581093458791-9d8e8a8b9c6c">
+
+<div class="data">
+
 Containment Level: BSL-4<br>
 Airlock Status: SEALED<br>
 Isolation Chamber: ACTIVE<br>
-Monitoring: GREEN
-</p>
-
-</div>
-
-
-<div class="panel">
-<div class="title">RESEARCH SYSTEM LOG</div>
-
-<div class="log" id="log">
-
-11:21 System Boot Sequence<br>
-11:23 Data Sampling Started<br>
-11:24 Viral Structure Scan<br>
-11:25 Host Integration Test<br>
-11:27 Neural Signal Monitoring<br>
-11:29 Lab Node Synchronization<br>
+Hazard Monitoring: GREEN<br>
+Personnel Clearance: LEVEL-A
 
 </div>
 
 </div>
+
+
+<div class="card">
+
+<h3>RESEARCH SYSTEM LOG</h3>
+
+<div class="log">
+
+11:21  System Boot Sequence<br>
+11:23  Data Sampling Started<br>
+11:24  Viral Structure Scan<br>
+11:25  Host Integration Test<br>
+11:27  Neural Signal Monitoring<br>
+11:29  Genome Sync Completed<br>
+11:31  Lab Node Stabilized
+
+</div>
+
+</div>
+
 
 </div>
 
 <footer>
-INTERNATIONAL ACCREDITATION<br>
-ISO 27001 | WHO BioSafety Level 4 | Global Genome Project
+
+INTERNATIONAL ACCREDITATION  
+ISO 27001 | WHO BioSafety Level 4 | Global Genome Research Network
+
 </footer>
-
-
-<script>
-
-const canvas=document.getElementById("pulse")
-const ctx=canvas.getContext("2d")
-
-canvas.width=600
-canvas.height=120
-
-let x=0
-
-function draw(){
-
-ctx.fillStyle="#001b1a"
-ctx.fillRect(0,0,canvas.width,canvas.height)
-
-ctx.strokeStyle="#00ff9c"
-ctx.lineWidth=2
-ctx.beginPath()
-
-for(let i=0;i<canvas.width;i++){
-
-let y=60+Math.sin((i+x)/10)*10
-
-if(i%80==0) y=20
-if(i%81==0) y=100
-
-ctx.lineTo(i,y)
-
-}
-
-ctx.stroke()
-
-x+=2
-
-requestAnimationFrame(draw)
-
-}
-
-draw()
-
-
-function updateBPM(){
-
-let bpm=80+Math.floor(Math.random()*20)
-
-document.getElementById("bpm").innerText=bpm+" BPM"
-
-}
-
-setInterval(updateBPM,3000)
-
-</script>
 
 </body>
 </html>
