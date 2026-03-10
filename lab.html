@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Secure Bio Research Command Center</title>
+
+<title>Global Bio Research Command Center</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -12,138 +15,214 @@
 body{
 margin:0;
 font-family:Arial;
-background:#031318;
-color:#8feaff;
+background:#021218;
+color:#9fe9ff;
 }
 
 /* header */
 
 header{
-background:#07232c;
-padding:14px 20px;
+
+background:#06232c;
+
+padding:16px 20px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-border-bottom:1px solid #0e3a45;
+
+border-bottom:1px solid #0c3d48;
+
 }
 
 .status{
+
 display:flex;
+
 align-items:center;
+
 gap:8px;
+
 }
 
 .dot{
+
 width:10px;
+
 height:10px;
-background:#2cff9c;
+
 border-radius:50%;
+
+background:#2cff9c;
+
 }
 
 /* layout */
 
 .container{
+
 padding:20px;
+
 display:grid;
+
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:16px;
+
+gap:18px;
+
 }
 
 .card{
-background:#071e26;
+
+background:#062028;
+
 border:1px solid #0f3a44;
+
 padding:14px;
+
 }
 
 img,video{
+
 width:100%;
+
 }
 
 /* log */
 
 .log{
+
 background:#000;
+
 color:#00ff9c;
+
 font-family:monospace;
-height:150px;
+
+height:160px;
+
 overflow:auto;
+
 padding:10px;
+
 }
 
-/* pulse */
+/* bpm */
 
 .bpm{
-text-align:center;
+
 font-size:28px;
+
+text-align:center;
+
 color:#2cff9c;
-margin-bottom:10px;
+
+margin-bottom:8px;
+
 }
 
 /* radar */
 
 .radar{
-width:180px;
-height:180px;
+
+width:200px;
+
+height:200px;
+
 border:2px solid #1fc8ff;
+
 border-radius:50%;
+
 margin:auto;
+
 position:relative;
+
 overflow:hidden;
+
 }
 
 .scan{
+
 position:absolute;
+
 width:100%;
+
 height:100%;
+
 background:conic-gradient(
+
 transparent 0deg,
-rgba(31,200,255,.5) 40deg,
-transparent 70deg
+
+rgba(31,200,255,.5) 45deg,
+
+transparent 80deg
+
 );
-animation:spin 3s linear infinite;
+
+animation:spin 4s linear infinite;
+
 }
 
 @keyframes spin{
-from{transform:rotate(0deg)}
+
+from{transform:rotate(0)}
+
 to{transform:rotate(360deg)}
-}
 
-/* graph */
-
-.graph{
-grid-column:1/-1;
-background:#071e26;
-padding:20px;
 }
 
 /* certification */
 
 .cert{
+
 font-size:14px;
-line-height:1.6;
+
+line-height:1.7;
+
 }
 
 .seal{
+
 text-align:center;
+
 margin-top:10px;
+
 }
 
 .seal img{
+
 width:70px;
+
+}
+
+/* graph */
+
+.graph{
+
+grid-column:1/-1;
+
+background:#062028;
+
+padding:20px;
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
 
-<div>Bio Research Command Center</div>
+<div>Global Bio Research Command Center</div>
 
 <div class="status">
+
 <div class="dot"></div>
-Secure Network Active
+
+Secure Network Operational
+
 </div>
 
 </header>
@@ -152,17 +231,19 @@ Secure Network Active
 
 <div class="card">
 
-<h3>DNA Monitor</h3>
+<h3>Genome Monitoring</h3>
 
 <video autoplay loop muted>
+
 <source src="dna.mp4">
+
 </video>
 
 </div>
 
 <div class="card">
 
-<h3>Virus Model</h3>
+<h3>Virus Structural Model</h3>
 
 <img src="virus-3d.png">
 
@@ -170,7 +251,7 @@ Secure Network Active
 
 <div class="card">
 
-<h3>Infected Cell</h3>
+<h3>Infected Cell Analysis</h3>
 
 <img src="infected-cell.png">
 
@@ -178,17 +259,19 @@ Secure Network Active
 
 <div class="card">
 
-<h3>Virus Structure</h3>
+<h3>Virus Architecture</h3>
 
 <video autoplay loop muted>
+
 <source src="virus-structure.mp4">
+
 </video>
 
 </div>
 
 <div class="card">
 
-<h3>Heart Rate Monitor</h3>
+<h3>Vital Sign Monitor</h3>
 
 <div class="bpm"><span id="bpm">72</span> BPM</div>
 
@@ -198,17 +281,19 @@ Secure Network Active
 
 <div class="card">
 
-<h3>Particle Scanner</h3>
+<h3>Bio Scanner</h3>
 
 <div class="radar">
+
 <div class="scan"></div>
+
 </div>
 
 </div>
 
 <div class="card">
 
-<h3>System Log</h3>
+<h3>Research System Log</h3>
 
 <div class="log" id="log"></div>
 
@@ -216,24 +301,31 @@ Secure Network Active
 
 <div class="card cert">
 
-<h3>Laboratory Certification</h3>
+<h3>International Accreditation</h3>
 
-BioSafety Level: BSL-4<br>
+ISO 27001 Data Security<br>
+
+WHO BioSafety Level: BSL-4<br>
+
+Global Genome Project: GGP-2049<br>
+
 Research Protocol: TV-A114-RX<br>
-Genome Project: GVX-2049<br>
-Security Level: CLASSIFIED<br>
+
 Sample Status: VERIFIED
 
 <div class="seal">
+
 <img src="logo.png">
-<p>Authorized Bio Research Division</p>
+
+<p>International Bio Research Authority</p>
+
 </div>
 
 </div>
 
 <div class="graph">
 
-<h3>T-Virus Activity Analysis</h3>
+<h3>Virus Activity Analysis</h3>
 
 <canvas id="virusChart"></canvas>
 
@@ -243,23 +335,32 @@ Sample Status: VERIFIED
 
 <script>
 
-/* virus activity graph */
+/* virus graph */
 
-let virusData=[5,10,14,18,22,30]
+let virusData=[5,9,14,18,22,30]
 
 let virusChart=new Chart(document.getElementById("virusChart"),{
 
 type:"line",
 
 data:{
+
 labels:["0h","2h","4h","6h","8h","10h"],
+
 datasets:[{
+
 label:"Virus Activity",
+
 data:virusData,
+
 borderColor:"#2cc6ff",
+
 backgroundColor:"rgba(44,198,255,.2)",
+
 fill:true
+
 }]
+
 },
 
 options:{animation:false}
@@ -271,15 +372,17 @@ setInterval(()=>{
 let v=Math.floor(Math.random()*40)+10
 
 virusData.push(v)
+
 virusData.shift()
 
 virusChart.data.datasets[0].data=virusData
+
 virusChart.update()
 
 },3000)
 
 
-/* heart pulse */
+/* pulse */
 
 let pulse=[70,72,71,73,74,72]
 
@@ -288,20 +391,33 @@ let pulseChart=new Chart(document.getElementById("pulseChart"),{
 type:"line",
 
 data:{
+
 labels:["","","","","",""],
+
 datasets:[{
+
 data:pulse,
+
 borderColor:"#00ff9c",
+
 backgroundColor:"rgba(0,255,156,.2)",
+
 tension:.4,
+
 fill:true
+
 }]
+
 },
 
 options:{
+
 animation:false,
+
 plugins:{legend:{display:false}},
+
 scales:{x:{display:false},y:{display:false}}
+
 }
 
 })
@@ -311,9 +427,11 @@ setInterval(()=>{
 let bpm=70+Math.floor(Math.random()*15)
 
 pulse.push(bpm)
+
 pulse.shift()
 
 pulseChart.data.datasets[0].data=pulse
+
 pulseChart.update()
 
 document.getElementById("bpm").innerText=bpm
@@ -327,11 +445,15 @@ let log=document.getElementById("log")
 
 let msgs=[
 
-"Secure channel established",
-"Scanning viral genome",
-"Mutation probability calculated",
+"Genome scan initiated",
+
+"Virus mutation pattern detected",
+
 "Protein structure analysis running",
-"Cell infection pattern detected"
+
+"Host cell infection monitoring",
+
+"Bio containment system stable"
 
 ]
 
@@ -350,4 +472,5 @@ log.scrollTop=log.scrollHeight
 </script>
 
 </body>
+
 </html>
