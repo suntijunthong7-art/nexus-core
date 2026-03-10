@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Bio Research Command Center</title>
 
 <style>
 
 body{
-background:#021c1f;
+background:#02181c;
 font-family:Arial;
-color:#00ffc3;
+color:#00ffd0;
 margin:0;
 padding:20px;
 }
 
 .panel{
-background:#042f34;
+background:#052a2f;
 padding:20px;
 margin-bottom:20px;
 border-radius:10px;
-box-shadow:0 0 15px rgba(0,255,200,0.2);
+box-shadow:0 0 20px rgba(0,255,200,.15);
 }
 
 .title{
 font-size:20px;
 margin-bottom:10px;
-color:#9affea;
 }
 
 .bpm{
-font-size:40px;
+font-size:36px;
 text-align:center;
-margin:10px 0;
+margin-bottom:10px;
 }
 
 canvas{
@@ -40,16 +41,12 @@ width:100%;
 }
 
 .log{
-background:black;
+background:#000;
 padding:10px;
 font-family:monospace;
-color:#00ff90;
+color:#00ff88;
 height:120px;
 overflow:auto;
-}
-
-.accredit{
-line-height:1.8;
 }
 
 </style>
@@ -63,7 +60,7 @@ line-height:1.8;
 
 <div class="bpm" id="bpm">84 BPM</div>
 
-<canvas id="pulseChart"></canvas>
+<canvas id="ecg"></canvas>
 
 </div>
 
@@ -72,7 +69,7 @@ line-height:1.8;
 
 <div class="title">Bio Scanner</div>
 
-<canvas id="scanner"></canvas>
+<canvas id="radar"></canvas>
 
 </div>
 
@@ -81,7 +78,7 @@ line-height:1.8;
 
 <div class="title">Research System Log</div>
 
-<div class="log" id="log">
+<div class="log">
 
 [11:11:27] Host Cell Infection Monitor — ACTIVE<br>
 [11:11:30] Genome Sequencing — INITIATED<br>
@@ -95,460 +92,145 @@ line-height:1.8;
 </div>
 
 
-<div class="panel">
-
-<div class="title">International Accreditation</div>
-
-<div class="accredit">
-
-ISO 27001 — Data Security<br>
-WHO BioSafety Level — BSL-4<br>
-Global Genome Project — GGP-2049<br>
-Research Protocol — TVA-114-RX<br>
-Sample Status: <b>VERIFIED</b>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="title">Virus Activity Analysis</div>
-
-<canvas id="virusChart"></canvas>
-
-</div>
-
-
-
 <script>
 
-function drawPulse(){
+/* ECG HEART GRAPH */
 
-let canvas=document.getElementById("pulseChart");
-let ctx=canvas.getContext("2d");
+let ecgCanvas=document.getElementById("ecg")
+let ecgCtx=ecgCanvas.getContext("2d")
 
-canvas.height=120;
+ecgCanvas.height=120
 
-ctx.strokeStyle="#00ffc3";
-ctx.lineWidth=2;
+let x=0
 
-ctx.beginPath();
+function drawECG(){
 
-for(let i=0;i<canvas.width;i+=10){
+ecgCtx.fillStyle="#052a2f"
+ecgCtx.fillRect(0,0,ecgCanvas.width,ecgCanvas.height)
 
-let y=60+Math.sin(i/20)*30+Math.random()*5;
+ecgCtx.strokeStyle="#00ffc3"
+ecgCtx.lineWidth=2
 
-ctx.lineTo(i,y);
+ecgCtx.beginPath()
 
-}
+for(let i=0;i<ecgCanvas.width;i++){
 
-ctx.stroke();
+let y=60
 
-}
+if(i%80<5) y=30
+else if(i%80<10) y=90
+else if(i%80<15) y=50
+else y=60+Math.random()*3
 
-drawPulse();
-
-
-
-function drawVirus(){
-
-let canvas=document.getElementById("virusChart");
-let ctx=canvas.getContext("2d");
-
-canvas.height=120;
-
-ctx.strokeStyle="#00aaff";
-ctx.lineWidth=2;
-
-ctx.beginPath();
-
-let values=[20,25,22,45,28,30];
-
-for(let i=0;i<values.length;i++){
-
-let x=i*(canvas.width/values.length);
-let y=120-values[i]*2;
-
-ctx.lineTo(x,y);
+ecgCtx.lineTo(i,y)
 
 }
 
-ctx.stroke();
+ecgCtx.stroke()
 
 }
 
-drawVirus();
+setInterval(drawECG,120)
 
 
 
-function scanner(){
+/* RADAR */
 
-let canvas=document.getElementById("scanner");
-let ctx=canvas.getContext("2d");
+let radar=document.getElementById("radar")
+let rctx=radar.getContext("2d")
 
-canvas.height=200;
+radar.height=220
 
-let angle=0;
+let angle=0
 
-setInterval(()=>{
+let targets=[
+{r:60,a:1},
+{r:40,a:3},
+{r:70,a:4}
+]
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+function drawRadar(){
 
-ctx.beginPath();
+let cx=radar.width/2
+let cy=110
 
-ctx.arc(canvas.width/2,100,80,0,Math.PI*2);
-ctx.strokeStyle="#00d0ff";
-ctx.stroke();
+rctx.fillStyle="#052a2f"
+rctx.fillRect(0,0,radar.width,radar.height)
 
-ctx.beginPath();
+rctx.strokeStyle="#00bfff"
+rctx.lineWidth=1
 
-ctx.moveTo(canvas.width/2,100);
+for(let r=40;r<=80;r+=20){
 
-ctx.lineTo(
-canvas.width/2+80*Math.cos(angle),
-100+80*Math.sin(angle)
-);
-
-ctx.stroke();
-
-angle+=0.05;
-
-},50)
+rctx.beginPath()
+rctx.arc(cx,cy,r,0,Math.PI*2)
+rctx.stroke()
 
 }
 
-scanner();
+/* sweep */
 
-</script>
+let grad=rctx.createRadialGradient(cx,cy,0,cx,cy,90)
 
-</body>
-</html>
-height:100%;
+grad.addColorStop(0,"rgba(0,255,200,0.4)")
+grad.addColorStop(1,"transparent")
 
-background:conic-gradient(
+rctx.beginPath()
 
-transparent 0deg,
+rctx.moveTo(cx,cy)
 
-rgba(31,200,255,.5) 45deg,
+rctx.arc(cx,cy,90,angle,angle+0.3)
 
-transparent 80deg
+rctx.closePath()
 
-);
+rctx.fillStyle=grad
 
-animation:spin 4s linear infinite;
+rctx.fill()
 
-}
+/* targets */
 
-@keyframes spin{
+targets.forEach(t=>{
 
-from{transform:rotate(0)}
+let tx=cx+t.r*Math.cos(t.a)
+let ty=cy+t.r*Math.sin(t.a)
 
-to{transform:rotate(360deg)}
+if(Math.abs(angle-t.a)<0.1){
 
-}
+rctx.fillStyle="#00ff99"
 
-/* certification */
+}else{
 
-.cert{
-
-font-size:14px;
-
-line-height:1.7;
+rctx.fillStyle="#004d40"
 
 }
 
-.seal{
+rctx.beginPath()
 
-text-align:center;
+rctx.arc(tx,ty,4,0,Math.PI*2)
 
-margin-top:10px;
-
-}
-
-.seal img{
-
-width:70px;
-
-}
-
-/* graph */
-
-.graph{
-
-grid-column:1/-1;
-
-background:#062028;
-
-padding:20px;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<header>
-
-<div>Global Bio Research Command Center</div>
-
-<div class="status">
-
-<div class="dot"></div>
-
-Secure Network Operational
-
-</div>
-
-</header>
-
-<div class="container">
-
-<div class="card">
-
-<h3>Genome Monitoring</h3>
-
-<video autoplay loop muted>
-
-<source src="dna.mp4">
-
-</video>
-
-</div>
-
-<div class="card">
-
-<h3>Virus Structural Model</h3>
-
-<img src="virus-3d.png">
-
-</div>
-
-<div class="card">
-
-<h3>Infected Cell Analysis</h3>
-
-<img src="infected-cell.png">
-
-</div>
-
-<div class="card">
-
-<h3>Virus Architecture</h3>
-
-<video autoplay loop muted>
-
-<source src="virus-structure.mp4">
-
-</video>
-
-</div>
-
-<div class="card">
-
-<h3>Vital Sign Monitor</h3>
-
-<div class="bpm"><span id="bpm">72</span> BPM</div>
-
-<canvas id="pulseChart"></canvas>
-
-</div>
-
-<div class="card">
-
-<h3>Bio Scanner</h3>
-
-<div class="radar">
-
-<div class="scan"></div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Research System Log</h3>
-
-<div class="log" id="log"></div>
-
-</div>
-
-<div class="card cert">
-
-<h3>International Accreditation</h3>
-
-ISO 27001 Data Security<br>
-
-WHO BioSafety Level: BSL-4<br>
-
-Global Genome Project: GGP-2049<br>
-
-Research Protocol: TV-A114-RX<br>
-
-Sample Status: VERIFIED
-
-<div class="seal">
-
-<img src="logo.png">
-
-<p>International Bio Research Authority</p>
-
-</div>
-
-</div>
-
-<div class="graph">
-
-<h3>Virus Activity Analysis</h3>
-
-<canvas id="virusChart"></canvas>
-
-</div>
-
-</div>
-
-<script>
-
-/* virus graph */
-
-let virusData=[5,9,14,18,22,30]
-
-let virusChart=new Chart(document.getElementById("virusChart"),{
-
-type:"line",
-
-data:{
-
-labels:["0h","2h","4h","6h","8h","10h"],
-
-datasets:[{
-
-label:"Virus Activity",
-
-data:virusData,
-
-borderColor:"#2cc6ff",
-
-backgroundColor:"rgba(44,198,255,.2)",
-
-fill:true
-
-}]
-
-},
-
-options:{animation:false}
+rctx.fill()
 
 })
 
+angle+=0.03
+
+}
+
+setInterval(drawRadar,30)
+
+
+
+/* BPM RANDOM */
+
 setInterval(()=>{
 
-let v=Math.floor(Math.random()*40)+10
+let bpm=70+Math.floor(Math.random()*20)
 
-virusData.push(v)
-
-virusData.shift()
-
-virusChart.data.datasets[0].data=virusData
-
-virusChart.update()
+document.getElementById("bpm").innerText=bpm+" BPM"
 
 },3000)
 
-
-/* pulse */
-
-let pulse=[70,72,71,73,74,72]
-
-let pulseChart=new Chart(document.getElementById("pulseChart"),{
-
-type:"line",
-
-data:{
-
-labels:["","","","","",""],
-
-datasets:[{
-
-data:pulse,
-
-borderColor:"#00ff9c",
-
-backgroundColor:"rgba(0,255,156,.2)",
-
-tension:.4,
-
-fill:true
-
-}]
-
-},
-
-options:{
-
-animation:false,
-
-plugins:{legend:{display:false}},
-
-scales:{x:{display:false},y:{display:false}}
-
-}
-
-})
-
-setInterval(()=>{
-
-let bpm=70+Math.floor(Math.random()*15)
-
-pulse.push(bpm)
-
-pulse.shift()
-
-pulseChart.data.datasets[0].data=pulse
-
-pulseChart.update()
-
-document.getElementById("bpm").innerText=bpm
-
-},1500)
-
-
-/* system log */
-
-let log=document.getElementById("log")
-
-let msgs=[
-
-"Genome scan initiated",
-
-"Virus mutation pattern detected",
-
-"Protein structure analysis running",
-
-"Host cell infection monitoring",
-
-"Bio containment system stable"
-
-]
-
-setInterval(()=>{
-
-let t=new Date().toLocaleTimeString()
-
-let m=msgs[Math.floor(Math.random()*msgs.length)]
-
-log.innerHTML+="["+t+"] "+m+"<br>"
-
-log.scrollTop=log.scrollHeight
-
-},2500)
-
 </script>
 
 </body>
-
 </html>
