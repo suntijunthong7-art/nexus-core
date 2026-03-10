@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Global Bio Research Command Center</title>
 
 <style>
 
 body{
-background:#03191d;
+background:#02171a;
 font-family:Consolas,monospace;
-color:#00ffc8;
+color:#00ffd0;
 margin:0;
 padding:20px;
 }
@@ -17,9 +20,9 @@ padding:20px;
 header{
 text-align:center;
 font-size:22px;
-margin-bottom:25px;
-color:#8ffff0;
 letter-spacing:2px;
+margin-bottom:30px;
+color:#7efff0;
 }
 
 .grid{
@@ -29,45 +32,47 @@ gap:20px;
 }
 
 .panel{
-background:#08282d;
-border:1px solid #00ffc8;
-padding:20px;
-border-radius:6px;
-box-shadow:0 0 15px rgba(0,255,200,0.15);
+background:#062529;
+border:1px solid #00ffd0;
+border-radius:8px;
+padding:18px;
+box-shadow:0 0 12px rgba(0,255,200,0.15);
+}
+
+.panel img{
+width:100%;
+border-radius:4px;
+margin-bottom:10px;
+opacity:0.85;
 }
 
 .title{
-font-size:15px;
+font-size:14px;
+margin-bottom:8px;
+color:#8ffff0;
 letter-spacing:1px;
-margin-bottom:12px;
-color:#7dfff0;
 }
 
 .bpm{
-font-size:40px;
+font-size:38px;
 font-weight:bold;
 margin-bottom:10px;
-}
-
-.status-good{
-color:#00ff9c;
-}
-
-.status-warn{
-color:#ffcc00;
 }
 
 .log{
 font-size:13px;
 line-height:1.6;
-color:#72ffcf;
+}
+
+.good{
+color:#00ff9c;
 }
 
 .footer{
-margin-top:30px;
 text-align:center;
+margin-top:30px;
 font-size:12px;
-color:#4cc5b7;
+color:#4bc3b3;
 }
 
 </style>
@@ -86,6 +91,8 @@ GLOBAL BIO RESEARCH COMMAND CENTER
 
 <div class="title">VITAL SIGN MONITOR</div>
 
+<img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b">
+
 <div class="bpm" id="bpm">84 BPM</div>
 
 Oxygen Level: 98% <br>
@@ -99,6 +106,8 @@ Neural Activity: NORMAL
 
 <div class="title">BIO SAMPLE SCANNER</div>
 
+<img src="https://images.unsplash.com/photo-1581093588401-22f8c6f4b01e">
+
 Genetic Structure Analysis: ACTIVE <br>
 Host Compatibility: STABLE <br>
 Mutation Pattern: NONE DETECTED <br>
@@ -110,6 +119,8 @@ Virus Strain: T-Variant Experimental
 <div class="panel">
 
 <div class="title">VIRUS ANALYSIS</div>
+
+<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144">
 
 Replication Rate: LOW <br>
 Mutation Probability: 3.1% <br>
@@ -123,6 +134,8 @@ Containment Risk: MINIMAL
 
 <div class="title">GENOME DATABASE</div>
 
+<img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063">
+
 Genome Records Loaded: 2,184,442 <br>
 Sequence Processing: ACTIVE <br>
 Data Integrity Check: PASSED <br>
@@ -135,10 +148,12 @@ Backup Node Status: ONLINE
 
 <div class="title">CONTAINMENT SECURITY</div>
 
+<img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074">
+
 Containment Level: BSL-4 <br>
 Airlock Status: SEALED <br>
 Isolation Chamber: ACTIVE <br>
-Hazard Level: <span class="status-good">GREEN</span>
+Hazard Level: <span class="good">GREEN</span>
 
 </div>
 
@@ -146,6 +161,8 @@ Hazard Level: <span class="status-good">GREEN</span>
 <div class="panel">
 
 <div class="title">GLOBAL NETWORK STATUS</div>
+
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
 
 Research Nodes: 14 ONLINE <br>
 Secure Channels: ACTIVE <br>
@@ -166,7 +183,7 @@ Satellite Relay: STABLE
 [11:11:32] Protein Folding Analysis — PROCESSING <br>
 [11:11:35] Bio Containment System — STABLE <br>
 [11:11:37] Viral Mutation Pattern — ANALYZING <br>
-[11:11:40] Structural Protein Mapping — RUNNING <br>
+[11:11:40] Structural Protein Mapping — RUNNING
 
 </div>
 
@@ -180,11 +197,9 @@ Satellite Relay: STABLE
 ISO 27001 — Data Security <br>
 WHO BioSafety Level — BSL-4 <br>
 Global Genome Project — GGP-2049 <br>
-Research Protocol — TVA-114-RX <br>
+Research Protocol — TVA-114-RX <br><br>
 
-<span class="status-good">
-Sample Status: VERIFIED
-</span>
+<span class="good">Sample Status: VERIFIED</span>
 
 </div>
 
@@ -194,14 +209,13 @@ Sample Status: VERIFIED
 International Bio Research Authority
 </div>
 
-
 <script>
 
 function updateBPM(){
 
 let bpm = Math.floor(Math.random()*10)+80;
 
-document.getElementById("bpm").innerText = bpm+" BPM";
+document.getElementById("bpm").innerText=bpm+" BPM";
 
 }
 
