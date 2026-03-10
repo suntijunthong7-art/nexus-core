@@ -27,6 +27,11 @@ color:#7efff0;
 text-shadow:0 0 10px #00ffd0;
 }
 
+header img{
+width:90px;
+margin-bottom:10px;
+}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -59,11 +64,12 @@ animation:scan 4s linear infinite;
 100%{left:100%}
 }
 
-.panel img{
+.media img,
+.media video{
 width:100%;
 border-radius:4px;
 margin-bottom:10px;
-opacity:0.85;
+opacity:0.9;
 }
 
 .title{
@@ -74,7 +80,7 @@ letter-spacing:1px;
 }
 
 .bpm{
-font-size:38px;
+font-size:36px;
 font-weight:bold;
 margin-bottom:10px;
 }
@@ -97,8 +103,6 @@ font-size:12px;
 color:#4bc3b3;
 }
 
-/* heartbeat line */
-
 .heartbeat{
 width:100%;
 height:60px;
@@ -111,27 +115,36 @@ height:60px;
 <body>
 
 <header>
+
+<img src="logo.png" onerror="this.style.display='none'">
+
+<br>
+
 GLOBAL BIO RESEARCH COMMAND CENTER
+
 </header>
 
 <div class="grid">
+
 
 <div class="panel">
 
 <div class="title">VITAL SIGN MONITOR</div>
 
+<div class="media">
+
+<video autoplay muted loop
+onerror="this.outerHTML='<img src=https://images.unsplash.com/photo-1581594693702-fbdc51b2763b>'">
+
+<source src="dna.mp4" type="video/mp4">
+
+</video>
+
+</div>
+
 <svg class="heartbeat" viewBox="0 0 500 100">
-<polyline
-fill="none"
-stroke="#00ffd0"
-stroke-width="3"
-points="
-0,50 40,50 60,20 80,80 100,50
-140,50 160,20 180,80 200,50
-240,50 260,20 280,80 300,50
-340,50 360,20 380,80 400,50
-440,50 460,20 480,80 500,50"
-/>
+<polyline fill="none" stroke="#00ffd0" stroke-width="3"
+points="0,50 40,50 60,20 80,80 100,50 140,50 160,20 180,80 200,50 240,50 260,20 280,80 300,50 340,50 360,20 380,80 400,50 440,50 460,20 480,80 500,50"/>
 </svg>
 
 <div class="bpm" id="bpm">84 BPM</div>
@@ -147,7 +160,12 @@ Neural Activity: NORMAL
 
 <div class="title">BIO SAMPLE SCANNER</div>
 
-<img src="https://images.unsplash.com/photo-1581093588401-22f8c6f4b01e">
+<div class="media">
+
+<img src="infected-cell.png"
+onerror="this.src='https://images.unsplash.com/photo-1581093588401-22f8c6f4b01e'">
+
+</div>
 
 Genetic Structure Analysis: ACTIVE <br>
 Host Compatibility: STABLE <br>
@@ -161,7 +179,12 @@ Virus Strain: T-Variant Experimental
 
 <div class="title">VIRUS ANALYSIS</div>
 
-<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144">
+<div class="media">
+
+<img src="virus-3d.png"
+onerror="this.src='https://images.unsplash.com/photo-1584036561566-baf8f5f1b144'">
+
+</div>
 
 Replication Rate: LOW <br>
 Mutation Probability: 3.1% <br>
@@ -175,7 +198,11 @@ Containment Risk: MINIMAL
 
 <div class="title">GENOME DATABASE</div>
 
+<div class="media">
+
 <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063">
+
+</div>
 
 Genome Records Loaded: 2,184,442 <br>
 Sequence Processing: ACTIVE <br>
@@ -189,7 +216,16 @@ Backup Node Status: ONLINE
 
 <div class="title">CONTAINMENT SECURITY</div>
 
-<img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074">
+<div class="media">
+
+<video autoplay muted loop
+onerror="this.outerHTML='<img src=https://images.unsplash.com/photo-1582719471384-894fbb16e074>'">
+
+<source src="virus-structure.mp4" type="video/mp4">
+
+</video>
+
+</div>
 
 Containment Level: BSL-4 <br>
 Airlock Status: SEALED <br>
@@ -203,7 +239,11 @@ Hazard Level: <span class="good">GREEN</span>
 
 <div class="title">GLOBAL NETWORK STATUS</div>
 
+<div class="media">
+
 <img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
+
+</div>
 
 Research Nodes: 14 ONLINE <br>
 Secure Channels: ACTIVE <br>
@@ -217,9 +257,7 @@ Satellite Relay: STABLE
 
 <div class="title">RESEARCH SYSTEM LOG</div>
 
-<div class="log" id="log">
-
-</div>
+<div class="log" id="log"></div>
 
 </div>
 
@@ -239,22 +277,26 @@ Research Protocol — TVA-114-RX <br><br>
 
 </div>
 
+
 <div class="footer">
 International Bio Research Authority
 </div>
+
 
 <script>
 
 function updateBPM(){
 
-let bpm=Math.floor(Math.random()*10)+80;
-document.getElementById("bpm").innerText=bpm+" BPM";
+let bpm=Math.floor(Math.random()*10)+80
+document.getElementById("bpm").innerText=bpm+" BPM"
 
 }
 
-setInterval(updateBPM,2000);
+setInterval(updateBPM,2000)
+
 
 const logs=[
+
 "Genome Sequencing — INITIATED",
 "Protein Folding Analysis — PROCESSING",
 "Host Cell Infection Monitor — ACTIVE",
@@ -263,6 +305,7 @@ const logs=[
 "Structural Protein Mapping — RUNNING",
 "RNA Signal Integrity — CHECKING",
 "Global Node Sync — COMPLETE"
+
 ]
 
 function addLog(){
