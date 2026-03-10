@@ -20,19 +20,11 @@ padding:20px;
 
 header{
 text-align:center;
-margin-bottom:30px;
-}
-
-header img{
-width:120px;
-margin-bottom:10px;
-opacity:0.9;
-}
-
-header h1{
-font-size:22px;
+font-size:24px;
 letter-spacing:3px;
+margin-bottom:30px;
 color:#7efff0;
+text-shadow:0 0 10px #00ffd0;
 }
 
 .grid{
@@ -45,35 +37,44 @@ gap:20px;
 background:#062529;
 border:1px solid #00ffd0;
 border-radius:8px;
-padding:16px;
-box-shadow:0 0 12px rgba(0,255,200,0.15);
+padding:18px;
+box-shadow:0 0 20px rgba(0,255,200,0.15);
+position:relative;
+overflow:hidden;
+}
+
+.panel::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:2px;
+background:#00ffd0;
+animation:scan 4s linear infinite;
+}
+
+@keyframes scan{
+0%{left:-100%}
+100%{left:100%}
+}
+
+.panel img{
+width:100%;
+border-radius:4px;
+margin-bottom:10px;
+opacity:0.85;
 }
 
 .title{
 font-size:14px;
-margin-bottom:10px;
-letter-spacing:1px;
+margin-bottom:8px;
 color:#8ffff0;
-}
-
-.media{
-width:100%;
-height:160px;
-border-radius:5px;
-overflow:hidden;
-margin-bottom:10px;
-}
-
-.media img,
-.media video{
-width:100%;
-height:100%;
-object-fit:cover;
-opacity:0.9;
+letter-spacing:1px;
 }
 
 .bpm{
-font-size:36px;
+font-size:38px;
 font-weight:bold;
 margin-bottom:10px;
 }
@@ -81,6 +82,8 @@ margin-bottom:10px;
 .log{
 font-size:13px;
 line-height:1.6;
+height:160px;
+overflow:hidden;
 }
 
 .good{
@@ -94,6 +97,13 @@ font-size:12px;
 color:#4bc3b3;
 }
 
+/* heartbeat line */
+
+.heartbeat{
+width:100%;
+height:60px;
+}
+
 </style>
 
 </head>
@@ -101,26 +111,28 @@ color:#4bc3b3;
 <body>
 
 <header>
-
-<img src="logo.png">
-
-<h1>GLOBAL BIO RESEARCH COMMAND CENTER</h1>
-
+GLOBAL BIO RESEARCH COMMAND CENTER
 </header>
 
 <div class="grid">
-
-<!-- VITAL -->
 
 <div class="panel">
 
 <div class="title">VITAL SIGN MONITOR</div>
 
-<div class="media">
-<video autoplay muted loop>
-<source src="dna.mp4" type="video/mp4">
-</video>
-</div>
+<svg class="heartbeat" viewBox="0 0 500 100">
+<polyline
+fill="none"
+stroke="#00ffd0"
+stroke-width="3"
+points="
+0,50 40,50 60,20 80,80 100,50
+140,50 160,20 180,80 200,50
+240,50 260,20 280,80 300,50
+340,50 360,20 380,80 400,50
+440,50 460,20 480,80 500,50"
+/>
+</svg>
 
 <div class="bpm" id="bpm">84 BPM</div>
 
@@ -131,15 +143,11 @@ Neural Activity: NORMAL
 </div>
 
 
-<!-- BIO SAMPLE -->
-
 <div class="panel">
 
 <div class="title">BIO SAMPLE SCANNER</div>
 
-<div class="media">
-<img src="infected-cell.png">
-</div>
+<img src="https://images.unsplash.com/photo-1581093588401-22f8c6f4b01e">
 
 Genetic Structure Analysis: ACTIVE <br>
 Host Compatibility: STABLE <br>
@@ -149,15 +157,11 @@ Virus Strain: T-Variant Experimental
 </div>
 
 
-<!-- VIRUS ANALYSIS -->
-
 <div class="panel">
 
 <div class="title">VIRUS ANALYSIS</div>
 
-<div class="media">
-<img src="virus-3d.png">
-</div>
+<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144">
 
 Replication Rate: LOW <br>
 Mutation Probability: 3.1% <br>
@@ -167,17 +171,11 @@ Containment Risk: MINIMAL
 </div>
 
 
-<!-- GENOME -->
-
 <div class="panel">
 
 <div class="title">GENOME DATABASE</div>
 
-<div class="media">
-<video autoplay muted loop>
-<source src="virus-structure.mp4" type="video/mp4">
-</video>
-</div>
+<img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063">
 
 Genome Records Loaded: 2,184,442 <br>
 Sequence Processing: ACTIVE <br>
@@ -187,15 +185,11 @@ Backup Node Status: ONLINE
 </div>
 
 
-<!-- SECURITY -->
-
 <div class="panel">
 
 <div class="title">CONTAINMENT SECURITY</div>
 
-<div class="media">
-<img src="infected-cell.png">
-</div>
+<img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074">
 
 Containment Level: BSL-4 <br>
 Airlock Status: SEALED <br>
@@ -205,15 +199,11 @@ Hazard Level: <span class="good">GREEN</span>
 </div>
 
 
-<!-- NETWORK -->
-
 <div class="panel">
 
 <div class="title">GLOBAL NETWORK STATUS</div>
 
-<div class="media">
-<img src="virus-3d.png">
-</div>
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
 
 Research Nodes: 14 ONLINE <br>
 Secure Channels: ACTIVE <br>
@@ -223,40 +213,20 @@ Satellite Relay: STABLE
 </div>
 
 
-<!-- LOG -->
-
 <div class="panel">
 
 <div class="title">RESEARCH SYSTEM LOG</div>
 
-<div class="media">
-<video autoplay muted loop>
-<source src="dna.mp4" type="video/mp4">
-</video>
-</div>
-
-<div class="log">
-
-[11:11:27] Host Cell Infection Monitor — ACTIVE <br>
-[11:11:30] Genome Sequencing — INITIATED <br>
-[11:11:32] Protein Folding Analysis — PROCESSING <br>
-[11:11:35] Bio Containment System — STABLE <br>
-[11:11:37] Viral Mutation Pattern — ANALYZING
+<div class="log" id="log">
 
 </div>
 
 </div>
 
-
-<!-- ACCREDITATION -->
 
 <div class="panel">
 
 <div class="title">INTERNATIONAL ACCREDITATION</div>
-
-<div class="media">
-<img src="virus-structure.png">
-</div>
 
 ISO 27001 — Data Security <br>
 WHO BioSafety Level — BSL-4 <br>
@@ -269,23 +239,43 @@ Research Protocol — TVA-114-RX <br><br>
 
 </div>
 
-
 <div class="footer">
 International Bio Research Authority
 </div>
-
 
 <script>
 
 function updateBPM(){
 
-let bpm = Math.floor(Math.random()*10)+80;
-
+let bpm=Math.floor(Math.random()*10)+80;
 document.getElementById("bpm").innerText=bpm+" BPM";
 
 }
 
 setInterval(updateBPM,2000);
+
+const logs=[
+"Genome Sequencing — INITIATED",
+"Protein Folding Analysis — PROCESSING",
+"Host Cell Infection Monitor — ACTIVE",
+"Bio Containment System — STABLE",
+"Viral Mutation Pattern — ANALYZING",
+"Structural Protein Mapping — RUNNING",
+"RNA Signal Integrity — CHECKING",
+"Global Node Sync — COMPLETE"
+]
+
+function addLog(){
+
+let time=new Date().toLocaleTimeString()
+
+let logLine="["+time+"] "+logs[Math.floor(Math.random()*logs.length)]+"<br>"
+
+document.getElementById("log").innerHTML=logLine+document.getElementById("log").innerHTML
+
+}
+
+setInterval(addLog,3000)
 
 </script>
 
