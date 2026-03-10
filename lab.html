@@ -3,61 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Global Bio Research Command Center</title>
 
 <style>
 
 body{
 margin:0;
-font-family: "Segoe UI", Arial, sans-serif;
-background:#071b1b;
-color:#b6fff0;
+background:#041a1a;
+font-family:Segoe UI,Arial;
+color:#b8fff2;
 }
 
 header{
-text-align:center;
-padding:20px;
-font-size:20px;
-letter-spacing:3px;
-border-bottom:1px solid #0f5c5c;
-color:#79ffe1;
+display:flex;
+align-items:center;
+gap:12px;
+padding:18px;
+border-bottom:1px solid #0a5555;
+background:#062424;
+}
+
+header img{
+width:40px;
+}
+
+header h1{
+font-size:18px;
+letter-spacing:2px;
+margin:0;
+color:#7effe1;
 }
 
 .container{
+padding:20px;
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:18px;
-padding:20px;
+gap:20px;
 }
 
 .card{
-background:#082525;
-border:1px solid #0e6b6b;
+background:#082c2c;
+border:1px solid #0b6e6e;
 border-radius:10px;
 padding:16px;
-box-shadow:0 0 10px rgba(0,255,200,0.15);
+box-shadow:0 0 15px rgba(0,255,200,0.1);
 }
 
 .card h3{
 margin-top:0;
-font-size:14px;
+font-size:13px;
 letter-spacing:1px;
-color:#7fffdc;
+color:#73ffe0;
+}
+
+.big{
+font-size:36px;
+font-weight:bold;
+color:#3cffd4;
 }
 
 .data{
 font-size:13px;
 line-height:1.8;
-color:#b9fff1;
 }
 
-.big{
-font-size:38px;
-font-weight:bold;
-color:#52ffe0;
+.media{
+width:100%;
+border-radius:6px;
+margin-top:10px;
 }
 
-img{
+video{
 width:100%;
 border-radius:6px;
 margin-top:10px;
@@ -66,16 +83,15 @@ margin-top:10px;
 .log{
 font-family:monospace;
 font-size:12px;
-line-height:1.7;
-color:#9fffe9;
+line-height:1.6;
 }
 
 footer{
 text-align:center;
-padding:20px;
+padding:18px;
 font-size:11px;
-color:#5fbfb3;
-border-top:1px solid #0f5c5c;
+color:#6ad4c7;
+border-top:1px solid #0a5555;
 }
 
 @media(max-width:800px){
@@ -90,38 +106,49 @@ grid-template-columns:1fr;
 <body>
 
 <header>
-GLOBAL BIO RESEARCH COMMAND CENTER
+
+<img src="logo.png">
+
+<h1>GLOBAL BIO RESEARCH COMMAND CENTER</h1>
+
 </header>
+
 
 <div class="container">
 
+
 <div class="card">
+
 <h3>VITAL SIGN MONITOR</h3>
 
 <div class="big">91 BPM</div>
 
 <div class="data">
+
 Oxygen Saturation: 98%<br>
 Core Temperature: 36.7°C<br>
 Blood Pressure: 118 / 76<br>
 Neural Activity: NORMAL<br>
 Subject Status: STABLE
+
 </div>
 
 </div>
 
 
 <div class="card">
-<h3>RNA SCAN STATUS</h3>
+
+<h3>DNA SEQUENCE STREAM</h3>
+
+<video autoplay muted loop>
+<source src="dna.mp4" type="video/mp4">
+</video>
 
 <div class="data">
 
-Genetic Structure Analysis: ACTIVE<br>
-Host Compatibility: STABLE<br>
-Mutation Pattern: NONE DETECTED<br>
-Virus Variant: T-Series<br>
-Experiment Phase: 4<br>
-Sequencing Integrity: VERIFIED
+Genome Analysis: ACTIVE<br>
+Sequence Integrity: VERIFIED<br>
+RNA Monitoring: RUNNING<br>
 
 </div>
 
@@ -132,14 +159,13 @@ Sequencing Integrity: VERIFIED
 
 <h3>VIRUS STRUCTURE ANALYSIS</h3>
 
-<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144">
+<img src="virus-3d.png" class="media">
 
 <div class="data">
 
 Replication Rate: LOW<br>
 Mutation Probability: 13%<br>
-Host Adaptation Index: STABLE<br>
-Containment Risk: MINIMAL
+Host Adaptation: STABLE
 
 </div>
 
@@ -148,16 +174,15 @@ Containment Risk: MINIMAL
 
 <div class="card">
 
-<h3>GENOME DATABASE</h3>
+<h3>INFECTED CELL SCAN</h3>
+
+<img src="infected-cell.png" class="media">
 
 <div class="data">
 
-Genome Records Loaded: 2,151,442<br>
-Sequence Processing: ACTIVE<br>
-Data Integrity Check: PASSED<br>
-Backup Node: SYNCED<br>
-Global Research Nodes: 12<br>
-Last Update: 11:30 UTC
+Cellular Damage: 4%<br>
+Virus Load: CONTROLLED<br>
+Immune Response: ACTIVE
 
 </div>
 
@@ -166,17 +191,17 @@ Last Update: 11:30 UTC
 
 <div class="card">
 
-<h3>BSL-4 LAB FACILITY</h3>
+<h3>VIRUS STRUCTURE SIMULATION</h3>
 
-<img src="https://images.unsplash.com/photo-1581093458791-9d8e8a8b9c6c">
+<video autoplay muted loop>
+<source src="virus-structure.mp4" type="video/mp4">
+</video>
 
 <div class="data">
 
-Containment Level: BSL-4<br>
-Airlock Status: SEALED<br>
-Isolation Chamber: ACTIVE<br>
-Hazard Monitoring: GREEN<br>
-Personnel Clearance: LEVEL-A
+Structural Modeling: RUNNING<br>
+Protein Folding: PROCESSING<br>
+AI Prediction: STABLE
 
 </div>
 
@@ -189,13 +214,12 @@ Personnel Clearance: LEVEL-A
 
 <div class="log">
 
-11:21  System Boot Sequence<br>
-11:23  Data Sampling Started<br>
-11:24  Viral Structure Scan<br>
-11:25  Host Integration Test<br>
-11:27  Neural Signal Monitoring<br>
-11:29  Genome Sync Completed<br>
-11:31  Lab Node Stabilized
+11:21 System Boot Sequence<br>
+11:23 Genome Database Sync<br>
+11:24 Viral Structure Scan<br>
+11:25 Host Integration Test<br>
+11:27 Neural Signal Monitoring<br>
+11:29 Lab Node Stabilized<br>
 
 </div>
 
@@ -207,7 +231,7 @@ Personnel Clearance: LEVEL-A
 <footer>
 
 INTERNATIONAL ACCREDITATION  
-ISO 27001 | WHO BioSafety Level 4 | Global Genome Research Network
+ISO 27001 | WHO BioSafety Level-4 | Global Genome Network
 
 </footer>
 
