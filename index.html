@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nexus Core Secure Portal</title>
 
 <style>
@@ -26,6 +27,12 @@ padding:30px;
 border-radius:20px;
 text-align:center;
 box-shadow:0 10px 30px rgba(0,0,0,0.4);
+animation:fade 0.8s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
 .logo{
@@ -56,11 +63,16 @@ border-radius:10px;
 background:#2f4158;
 color:white;
 font-size:16px;
+transition:0.3s;
 }
 
 button:hover{
 background:#1d2c3f;
 cursor:pointer;
+}
+
+button:active{
+transform:scale(0.97);
 }
 
 .status{
@@ -73,6 +85,14 @@ font-size:14px;
 margin-top:10px;
 color:red;
 font-size:14px;
+min-height:18px;
+}
+
+.loading{
+margin-top:10px;
+font-size:14px;
+color:#444;
+display:none;
 }
 
 </style>
@@ -92,6 +112,8 @@ font-size:14px;
 
 <button onclick="login()">SIGN IN</button>
 
+<div id="loading" class="loading">Verifying secure access...</div>
+
 <div id="error" class="error"></div>
 
 <div class="status">
@@ -102,20 +124,36 @@ System Status : Secure Connection Active
 
 <script>
 
+document.addEventListener("keydown",function(e){
+if(e.key==="Enter"){
+login();
+}
+});
+
 function login(){
 
 let u=document.getElementById("user").value;
 let p=document.getElementById("pass").value;
 
-if(u=="admin" && p=="Lc1234"){
+document.getElementById("error").innerText="";
+document.getElementById("loading").style.display="block";
 
-window.location="dashboard.html"
+setTimeout(function(){
+
+if(u==="admin" && p==="Lc1234"){
+
+sessionStorage.setItem("auth","true");
+
+window.location.replace("dashboard.html");
 
 }else{
 
+document.getElementById("loading").style.display="none";
 document.getElementById("error").innerText="ACCESS DENIED";
 
 }
+
+},900);
 
 }
 
