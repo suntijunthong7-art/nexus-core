@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>NEXUS CORE LAB</title>
 
 <style>
@@ -11,38 +12,35 @@ body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
 background:#050b10;
-color:#e8f0f5;
+color:#e6edf3;
 }
 
-.header{
-background:#02060a;
-padding:16px;
+header{
+background:#02070c;
+padding:18px;
 border-bottom:1px solid #1e2a34;
 }
 
-.header h1{
-margin:0;
+.logo{
 font-size:18px;
-letter-spacing:2px;
+font-weight:bold;
+letter-spacing:1px;
 }
 
-.header p{
-margin:0;
+.subtitle{
 font-size:12px;
-color:#7a8c9a;
+color:#8b98a5;
 }
 
 .hero{
 height:180px;
-background-image:url("https://images.unsplash.com/photo-1581091870622-1e7e0e1c0b57");
+background-image:url("https://images.unsplash.com/photo-1581093588401-16e3c6b4d1c0");
 background-size:cover;
 background-position:center;
 }
 
 .container{
-padding:18px;
-max-width:900px;
-margin:auto;
+padding:20px;
 }
 
 .card{
@@ -51,7 +49,7 @@ border:1px solid #1e2a34;
 border-radius:10px;
 padding:18px;
 margin-bottom:16px;
-box-shadow:0 4px 12px rgba(0,0,0,0.45);
+box-shadow:0 4px 12px rgba(0,0,0,0.4);
 }
 
 .grid{
@@ -60,12 +58,22 @@ grid-template-columns:1fr 1fr;
 gap:12px;
 }
 
-.small-card{
-background:#0c131a;
-border:1px solid #1e2a34;
-border-radius:8px;
+.stat{
+background:#0a1117;
 padding:14px;
-font-size:13px;
+border-radius:8px;
+border:1px solid #1b2730;
+}
+
+.stat-title{
+font-size:12px;
+color:#8a98a6;
+}
+
+.stat-value{
+font-size:16px;
+font-weight:bold;
+margin-top:4px;
 }
 
 .button{
@@ -76,12 +84,12 @@ text-align:center;
 border-radius:8px;
 font-weight:bold;
 cursor:pointer;
-transition:all .25s ease;
+transition:all 0.25s ease;
 }
 
 .button:hover{
 background:#1fb3a6;
-transform:scale(1.02);
+transform:scale(1.03);
 }
 
 .footer{
@@ -89,12 +97,6 @@ text-align:center;
 font-size:12px;
 color:#6c7a86;
 padding:30px;
-border-top:1px solid #1e2a34;
-margin-top:30px;
-}
-
-ul{
-padding-left:18px;
 }
 
 </style>
@@ -102,69 +104,76 @@ padding-left:18px;
 
 <body>
 
-<div class="header">
-<h1>NEXUS CORE LAB</h1>
-<p>International Bio Defense Research Network</p>
-</div>
+<header>
+<div class="logo">NEXUS CORE LAB</div>
+<div class="subtitle">International Bio Defense Research Network</div>
+</header>
 
 <div class="hero"></div>
 
 <div class="container">
 
 <div class="card">
+
 <h3>Advanced Bio Defense Research</h3>
+
 <p>
-Nexus Core Laboratory is a high-security international research organization focused on biological defense,
-genomic monitoring and global pathogen threat analysis.  
-The network integrates AI driven bio-intelligence with global laboratory nodes.
+Nexus Core Laboratory is a high-security international research organization focused on biological defense, genomic monitoring and global pathogen threat analysis.
 </p>
+
 </div>
 
 <div class="grid">
 
-<div class="small-card">
-<b>GLOBAL NODES</b><br>
-14 Active
+<div class="stat">
+<div class="stat-title">GLOBAL NODES</div>
+<div class="stat-value">14 Active</div>
 </div>
 
-<div class="small-card">
-<b>SYSTEM LOAD</b><br>
-38%
+<div class="stat">
+<div class="stat-title">SYSTEM LOAD</div>
+<div class="stat-value">38%</div>
 </div>
 
-<div class="small-card">
-<b>NETWORK STATUS</b><br>
-ONLINE
+<div class="stat">
+<div class="stat-title">NETWORK STATUS</div>
+<div class="stat-value">ONLINE</div>
 </div>
 
-<div class="small-card">
-<b>LAST LOG</b><br>
-Genome Scan
+<div class="stat">
+<div class="stat-title">LAST LOG</div>
+<div class="stat-value">Genome Scan</div>
 </div>
 
 </div>
 
 <div class="card">
+
 <h3>Recent Activity</h3>
+
 <ul>
 <li>Genome scan completed</li>
 <li>Bio sample analysis running</li>
 <li>Network security verification passed</li>
 <li>Lab node synchronization complete</li>
 </ul>
+
 </div>
 
 <div class="card">
+
 <h3>Research Divisions</h3>
+
 <p>
-GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br><br>
-PATHOGEN DEFENSE — Virus Detection & Bio Security<br><br>
-BIO NETWORK — Global Bio Threat Monitoring<br><br>
+GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br>
+PATHOGEN DEFENSE — Virus Detection & Bio Security<br>
+BIO NETWORK — Global Bio Threat Monitoring<br>
 AI LAB — Predictive Bio Intelligence Systems
 </p>
+
 </div>
 
-<div class="button">
+<div class="button" onclick="location.href='lab.html'">
 ENTER LAB
 </div>
 
