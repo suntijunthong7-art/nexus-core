@@ -1,47 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>NEXUS CORE LAB</title>
 
 <style>
 
 body{
+background:#060d14;
+font-family:Arial;
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#050b10;
-color:#e6edf3;
+color:#cfd9e2;
 }
 
-header{
+/* header */
+
+.header{
 background:#02070c;
-padding:18px;
-border-bottom:1px solid #1e2a34;
+padding:16px;
+border-bottom:1px solid #14212b;
 }
 
-.logo{
-font-size:18px;
+.title{
 font-weight:bold;
 letter-spacing:1px;
 }
 
 .subtitle{
 font-size:12px;
-color:#8b98a5;
+color:#7d8c98;
 }
 
-.hero{
-height:180px;
-background-image:url("https://images.unsplash.com/photo-1581093588401-16e3c6b4d1c0");
-background-size:cover;
-background-position:center;
-}
+/* container */
 
 .container{
-padding:20px;
+padding:16px;
 }
+
+/* cards */
 
 .card{
 background:#0c131a;
@@ -49,8 +44,16 @@ border:1px solid #1e2a34;
 border-radius:10px;
 padding:18px;
 margin-bottom:16px;
-box-shadow:0 4px 12px rgba(0,0,0,0.4);
+box-shadow:0 4px 10px rgba(0,0,0,0.4);
+transition:all .25s;
 }
+
+.card:hover{
+transform:translateY(-2px);
+border-color:#2f4858;
+}
+
+/* stats */
 
 .grid{
 display:grid;
@@ -59,44 +62,58 @@ gap:12px;
 }
 
 .stat{
-background:#0a1117;
-padding:14px;
+background:#0c131a;
+border:1px solid #1c2731;
 border-radius:8px;
-border:1px solid #1b2730;
+padding:14px;
+font-size:13px;
 }
 
-.stat-title{
-font-size:12px;
-color:#8a98a6;
-}
+/* status */
 
-.stat-value{
-font-size:16px;
+.online{
+color:#28d7a3;
 font-weight:bold;
-margin-top:4px;
 }
+
+/* button */
 
 .button{
 margin-top:20px;
 background:#1e8a80;
-padding:14px;
+padding:15px;
 text-align:center;
 border-radius:8px;
 font-weight:bold;
+letter-spacing:.5px;
 cursor:pointer;
-transition:all 0.25s ease;
+transition:.3s;
 }
 
 .button:hover{
-background:#1fb3a6;
-transform:scale(1.03);
+background:#20a89c;
+transform:scale(1.02);
 }
+
+/* footer */
 
 .footer{
 text-align:center;
 font-size:12px;
-color:#6c7a86;
-padding:30px;
+color:#5c6b77;
+padding:30px 20px;
+}
+
+/* subtle animation */
+
+@keyframes pulse{
+0%{opacity:.6}
+50%{opacity:1}
+100%{opacity:.6}
+}
+
+.online{
+animation:pulse 2s infinite;
 }
 
 </style>
@@ -104,84 +121,70 @@ padding:30px;
 
 <body>
 
-<header>
-<div class="logo">NEXUS CORE LAB</div>
+<div class="header">
+<div class="title">NEXUS CORE LAB</div>
 <div class="subtitle">International Bio Defense Research Network</div>
-</header>
-
-<div class="hero"></div>
+</div>
 
 <div class="container">
 
 <div class="card">
-
 <h3>Advanced Bio Defense Research</h3>
-
 <p>
 Nexus Core Laboratory is a high-security international research organization focused on biological defense, genomic monitoring and global pathogen threat analysis.
 </p>
-
 </div>
 
 <div class="grid">
 
 <div class="stat">
-<div class="stat-title">GLOBAL NODES</div>
-<div class="stat-value">14 Active</div>
+GLOBAL NODES<br>
+<strong>14 Active</strong>
 </div>
 
 <div class="stat">
-<div class="stat-title">SYSTEM LOAD</div>
-<div class="stat-value">38%</div>
+SYSTEM LOAD<br>
+<strong>38%</strong>
 </div>
 
 <div class="stat">
-<div class="stat-title">NETWORK STATUS</div>
-<div class="stat-value">ONLINE</div>
+NETWORK STATUS<br>
+<span class="online">ONLINE</span>
 </div>
 
 <div class="stat">
-<div class="stat-title">LAST LOG</div>
-<div class="stat-value">Genome Scan</div>
+LAST LOG<br>
+<strong>Genome Scan</strong>
 </div>
 
 </div>
 
 <div class="card">
-
 <h3>Recent Activity</h3>
-
-<ul>
-<li>Genome scan completed</li>
-<li>Bio sample analysis running</li>
-<li>Network security verification passed</li>
-<li>Lab node synchronization complete</li>
-</ul>
-
+• Genome scan completed<br>
+• Bio sample analysis running<br>
+• Network security verification passed<br>
+• Lab node synchronization complete
 </div>
 
 <div class="card">
-
 <h3>Research Divisions</h3>
 
-<p>
 GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br>
 PATHOGEN DEFENSE — Virus Detection & Bio Security<br>
 BIO NETWORK — Global Bio Threat Monitoring<br>
 AI LAB — Predictive Bio Intelligence Systems
-</p>
 
 </div>
 
-<div class="button" onclick="location.href='lab.html'">
+<div class="button">
 ENTER LAB
 </div>
 
 </div>
 
 <div class="footer">
-NEXUS CORE LAB • Global Bio Defense Network  
-<br>
+NEXUS CORE LAB • Global Bio Defense Network<br>
 © 2026 Nexus Research Division
 </div>
 
