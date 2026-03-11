@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Core Lab</title>
+<title>NEXUS CORE LAB</title>
 
 <style>
 
@@ -11,73 +11,104 @@ body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
 background:#050b10;
-color:#d6e2ea;
+color:#d9e2ec;
 }
 
-header{
-background:#02070b;
+/* Header */
+
+.header{
+background:#0b1620;
 padding:18px;
-border-bottom:1px solid #1c2a33;
+border-bottom:1px solid #1f2e3a;
 }
 
-header h1{
+.header h1{
 margin:0;
 font-size:18px;
 letter-spacing:1px;
 }
 
-header p{
-margin:2px 0 0;
+.header p{
+margin:3px 0 0 0;
 font-size:12px;
-color:#7c8b96;
+color:#7f8c96;
 }
 
-.hero{
-height:200px;
-background-image:url("https://images.unsplash.com/photo-1581091012184-5c2a2b5f2c0f");
-background-size:cover;
-background-position:center;
-}
+/* Container */
 
 .container{
 padding:20px;
+max-width:900px;
+margin:auto;
 }
 
+/* Cards */
+
 .card{
-background:#0c141a;
-border:1px solid #1b2b35;
+background:#0e1a23;
+border:1px solid #1e2a34;
 border-radius:10px;
 padding:18px;
-margin-bottom:16px;
+margin-bottom:18px;
 box-shadow:0 4px 12px rgba(0,0,0,0.5);
 }
 
-.grid{
+.card h3{
+margin-top:0;
+color:#e8eef3;
+}
+
+/* Stats */
+
+.stats{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:10px;
+margin-top:10px;
 }
 
-.image-section img{
+.stat{
+background:#0a141c;
+border:1px solid #1c2a35;
+border-radius:8px;
+padding:10px;
+font-size:13px;
+}
+
+/* Images */
+
+.lab-image{
 width:100%;
 border-radius:8px;
 margin-top:10px;
 }
 
+/* Button */
+
 .button{
+display:block;
 margin-top:20px;
-background:#1f8b82;
+background:#1f8a7a;
 padding:14px;
 text-align:center;
 border-radius:8px;
 font-weight:bold;
+color:white;
+text-decoration:none;
+transition:0.25s;
 }
+
+.button:hover{
+background:#22a495;
+}
+
+/* Footer */
 
 .footer{
 text-align:center;
 font-size:12px;
 color:#6c7a86;
-padding:30px;
+padding:25px;
 }
 
 </style>
@@ -85,46 +116,42 @@ padding:30px;
 
 <body>
 
-<header>
+<div class="header">
 <h1>NEXUS CORE LAB</h1>
 <p>International Bio Defense Research Network</p>
-</header>
-
-<div class="hero"></div>
+</div>
 
 <div class="container">
 
 <div class="card">
 <h3>Advanced Bio Defense Research</h3>
 <p>
-Nexus Core Laboratory is a high-security international research
-organization focused on biological defense, genomic monitoring
-and global pathogen threat analysis.
+Nexus Core Laboratory is a high-security international research organization focused on biological defense, genomic monitoring and global pathogen threat analysis.
 </p>
+
+<div class="stats">
+
+<div class="stat">
+<b>GLOBAL NODES</b><br>
+14 Active
 </div>
 
-<div class="grid">
-
-<div class="card">
-GLOBAL NODES<br>
-<strong>14 Active</strong>
+<div class="stat">
+<b>SYSTEM LOAD</b><br>
+38%
 </div>
 
-<div class="card">
-SYSTEM LOAD<br>
-<strong>38%</strong>
+<div class="stat">
+<b>NETWORK STATUS</b><br>
+ONLINE
 </div>
 
-<div class="card">
-NETWORK STATUS<br>
-<strong>ONLINE</strong>
+<div class="stat">
+<b>LAST LOG</b><br>
+Genome Scan
 </div>
 
-<div class="card">
-LAST LOG<br>
-<strong>Genome Scan</strong>
 </div>
-
 </div>
 
 <div class="card">
@@ -137,35 +164,35 @@ LAST LOG<br>
 </ul>
 </div>
 
-<div class="card image-section">
-<h3>Laboratory Research</h3>
-
-<img src="https://images.unsplash.com/photo-1579154204601-01588f351e67">
-
-<img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
-
-<img src="https://images.unsplash.com/photo-1582719188393-bb71ca45dbb9">
-
-</div>
-
 <div class="card">
 <h3>Research Divisions</h3>
 
+<p>
 GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br>
 PATHOGEN DEFENSE — Virus Detection & Bio Security<br>
 BIO NETWORK — Global Bio Threat Monitoring<br>
 AI LAB — Predictive Bio Intelligence Systems
+</p>
 
 </div>
 
-<div class="button">
-ENTER LAB
+<div class="card">
+<h3>Laboratory Operations</h3>
+
+<img class="lab-image" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
+
+<img class="lab-image" src="https://images.unsplash.com/photo-1579154204601-01588f351e67">
+
+<img class="lab-image" src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69">
+
 </div>
+
+<a class="button" href="#">ENTER LAB</a>
 
 </div>
 
 <div class="footer">
-NEXUS CORE LAB • Global Bio Defense Network  
+NEXUS CORE LAB • Global Bio Defense Network<br>
 © 2026 Nexus Research Division
 </div>
 
