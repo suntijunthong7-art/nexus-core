@@ -14,21 +14,21 @@ box-sizing:border-box;
 
 body{
 margin:0;
-font-family:Arial,Helvetica,sans-serif;
+font-family:Arial, Helvetica, sans-serif;
 background:#07151c;
 color:#e6f2f7;
 }
 
-/* TOP BAR */
+/* TOPBAR */
 
 .topbar{
 background:#020a0f;
-padding:16px;
+padding:14px 16px;
 border-bottom:1px solid #1a2a33;
 }
 
 .logo{
-font-size:18px;
+font-size:17px;
 font-weight:bold;
 letter-spacing:2px;
 }
@@ -36,11 +36,11 @@ letter-spacing:2px;
 /* NAV */
 
 .nav{
-margin-top:10px;
+margin-top:8px;
 display:flex;
 flex-wrap:wrap;
-gap:14px;
-font-size:13px;
+gap:10px;
+font-size:12px;
 }
 
 .nav a{
@@ -49,16 +49,16 @@ text-decoration:none;
 }
 
 .nav a:hover{
-color:white;
+color:#ffffff;
 }
 
 /* STATUS BAR */
 
 .system-bar{
 background:#051018;
-padding:8px;
+padding:7px;
 text-align:center;
-font-size:11px;
+font-size:10px;
 color:#6fb4c1;
 border-bottom:1px solid #1c2b35;
 }
@@ -66,31 +66,31 @@ border-bottom:1px solid #1c2b35;
 /* CONTAINER */
 
 .container{
-max-width:900px;
+max-width:760px;
 margin:auto;
-padding:20px 14px;
+padding:18px 12px;
 }
 
-/* DATA PANEL */
+/* DATA GRID */
 
 .data-grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:20px;
+gap:10px;
+margin-bottom:16px;
 }
 
 .data-box{
 background:#08131a;
 border:1px solid #1a2a33;
 border-radius:8px;
-padding:14px;
-font-size:12px;
+padding:12px;
+font-size:11px;
 }
 
 .data-box strong{
 display:block;
-font-size:16px;
+font-size:15px;
 margin-top:4px;
 }
 
@@ -100,19 +100,19 @@ margin-top:4px;
 background:#08131a;
 border:1px solid #1a2a33;
 border-radius:10px;
-padding:18px;
-margin-bottom:18px;
+padding:16px;
+margin-bottom:14px;
 }
 
 .card h3{
-margin:0 0 10px 0;
-font-size:16px;
+margin:0 0 8px 0;
+font-size:15px;
 }
 
 .card p{
-font-size:13px;
+font-size:12px;
 color:#9fb3c1;
-line-height:1.6;
+line-height:1.5;
 }
 
 /* BUTTON */
@@ -121,9 +121,9 @@ line-height:1.6;
 display:inline-block;
 margin-top:10px;
 background:#1f8a80;
-padding:10px 16px;
+padding:9px 14px;
 border-radius:6px;
-font-size:13px;
+font-size:12px;
 cursor:pointer;
 }
 
@@ -134,21 +134,30 @@ background:#25b5a8;
 /* FOOTER */
 
 .footer{
-margin-top:40px;
+margin-top:30px;
 text-align:center;
-font-size:11px;
+font-size:10px;
 color:#6e8b99;
 border-top:1px solid #16252f;
-padding-top:18px;
-line-height:1.6;
+padding-top:14px;
+line-height:1.5;
 }
 
 /* DESKTOP */
 
 @media(min-width:768px){
 
+.container{
+max-width:1000px;
+}
+
 .data-grid{
 grid-template-columns:repeat(4,1fr);
+}
+
+.nav{
+gap:18px;
+font-size:13px;
 }
 
 }
@@ -271,7 +280,7 @@ Secure Infrastructure Online
 <script>
 
 function openLab(){
-window.location="lab.html"
+window.location="lab.html";
 }
 
 </script>
