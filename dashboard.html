@@ -8,9 +8,7 @@
 
 <style>
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
 margin:0;
@@ -33,8 +31,6 @@ font-weight:bold;
 letter-spacing:2px;
 }
 
-/* NAV */
-
 .nav{
 margin-top:8px;
 display:flex;
@@ -52,7 +48,7 @@ text-decoration:none;
 color:white;
 }
 
-/* STATUS BAR */
+/* STATUS */
 
 .system-bar{
 background:#051018;
@@ -61,6 +57,25 @@ text-align:center;
 font-size:10px;
 color:#6fb4c1;
 border-bottom:1px solid #1c2b35;
+}
+
+/* ACCESS LEVEL */
+
+.access-level{
+text-align:center;
+font-size:11px;
+color:#3cff9a;
+margin-top:6px;
+letter-spacing:1px;
+}
+
+/* SERVER CLOCK */
+
+.clock{
+text-align:center;
+font-size:11px;
+color:#8ab4c9;
+margin-top:4px;
 }
 
 /* CONTAINER */
@@ -115,6 +130,12 @@ color:#9fb3c1;
 line-height:1.5;
 }
 
+/* ALERT PANEL */
+
+.alert{
+border-left:4px solid #2ec4b6;
+}
+
 /* BUTTON */
 
 .enter-btn{
@@ -143,10 +164,213 @@ padding-top:14px;
 line-height:1.5;
 }
 
-/* DESKTOP */
-
 @media(min-width:768px){
 
+.container{max-width:1000px;}
+
+.data-grid{
+grid-template-columns:repeat(4,1fr);
+}
+
+.nav{
+gap:18px;
+font-size:13px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+
+<div class="logo">
+NEXUS CORE
+</div>
+
+<div class="nav">
+<a href="#">Dashboard</a>
+<a href="#">Laboratories</a>
+<a href="#">Research Network</a>
+<a href="#">Security</a>
+<a href="#">Logs</a>
+</div>
+
+</div>
+
+<div class="system-bar">
+SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
+</div>
+
+<div class="access-level">
+USER ACCESS : LEVEL ALPHA
+</div>
+
+<div class="clock" id="clock">
+SERVER TIME : --
+</div>
+
+<div class="container">
+
+<div class="data-grid">
+
+<div class="data-box">
+Active Labs
+<strong>14</strong>
+</div>
+
+<div class="data-box">
+Samples Processing
+<strong>327</strong>
+</div>
+
+<div class="data-box">
+Network Nodes
+<strong>42</strong>
+</div>
+
+<div class="data-box">
+AI Monitoring
+<strong style="color:#3cff9a;">ONLINE</strong>
+</div>
+
+<div class="data-box">
+System Security
+<strong style="color:#3cff9a;">SECURE</strong>
+</div>
+
+<div class="data-box">
+Containment Level
+<strong style="color:#ffd166;">LEVEL 3</strong>
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Biological Research Lab</h3>
+
+<p>
+Primary laboratory dedicated to advanced pathogen analysis,
+genetic sequencing and controlled biological experiments.
+</p>
+
+<div class="enter-btn" onclick="openLab()">
+ENTER LAB
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Genome Sequencing</h3>
+
+<p>
+High precision genomic analysis facility connected to the
+global pathogen surveillance network.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Bio Security Division</h3>
+
+<p>
+National level bio defense monitoring unit responsible for
+containment protocol and threat detection.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Global Research Network</h3>
+
+<p>
+Encrypted data exchange between international research
+centers and high containment laboratories.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>AI Bio Intelligence</h3>
+
+<p>
+Machine learning analysis platform used for predicting
+pathogen mutation patterns and global outbreak models.
+</p>
+
+</div>
+
+<div class="card alert">
+
+<h3>System Alert Monitor</h3>
+
+<p id="alertText">No active threats detected</p>
+
+</div>
+
+<div class="footer">
+
+NEXUS CORE INTERNATIONAL RESEARCH NETWORK<br>
+Bio Defense & Pathogen Intelligence Division<br><br>
+
+System Build 3.1.02<br>
+Secure Infrastructure Online
+
+</div>
+
+</div>
+
+<script>
+
+function openLab(){
+window.location="lab.html";
+}
+
+/* CLOCK */
+
+function updateClock(){
+
+const now = new Date()
+
+let h = now.getHours().toString().padStart(2,'0')
+let m = now.getMinutes().toString().padStart(2,'0')
+let s = now.getSeconds().toString().padStart(2,'0')
+
+document.getElementById("clock").innerText =
+"SERVER TIME : "+h+":"+m+":"+s
+
+}
+
+setInterval(updateClock,1000)
+
+/* ALERT SYSTEM */
+
+const alerts=[
+"No active threats detected",
+"Network node verified",
+"Bio sample scan complete",
+"AI anomaly scan running"
+]
+
+setInterval(()=>{
+
+let r=Math.floor(Math.random()*alerts.length)
+
+document.getElementById("alertText").innerText=alerts[r]
+
+},5000)
+
+</script>
+
+</body>
+</html>
 .container{
 max-width:1000px;
 }
