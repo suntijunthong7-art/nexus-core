@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>National Bio Defense Command</title>
 
@@ -13,17 +13,15 @@
 body{
 margin:0;
 font-family:Consolas,monospace;
-background:#031315;
+background:radial-gradient(circle at top,#043437,#000);
 color:#00ffd0;
 }
 
 /* HEADER */
 
 header{
-
 padding:20px;
 border-bottom:1px solid #00ffd0;
-
 }
 
 h1{
@@ -33,21 +31,17 @@ letter-spacing:2px;
 }
 
 .threat{
-
 margin-top:5px;
 font-size:14px;
-
 }
 
 /* GRID */
 
 .grid{
-
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:15px;
+gap:16px;
 padding:20px;
-
 }
 
 /* PANEL */
@@ -56,36 +50,72 @@ padding:20px;
 
 background:#062528;
 border:1px solid #00ffd0;
-border-radius:6px;
+border-radius:8px;
 padding:15px;
 
-box-shadow:0 0 15px rgba(0,255,200,0.2);
+box-shadow:
+0 0 15px rgba(0,255,200,0.2),
+0 0 40px rgba(0,255,200,0.08);
+
+position:relative;
+overflow:hidden;
 
 }
 
+/* SCAN EFFECT */
+
+.panel::before{
+
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:2px;
+background:#00ffd0;
+
+animation:scan 5s linear infinite;
+
+}
+
+@keyframes scan{
+
+0%{left:-100%}
+100%{left:100%}
+
+}
+
+/* TEXT */
+
 .title{
-
 font-size:13px;
-margin-bottom:8px;
+margin-bottom:6px;
 color:#8ffff0;
-
 }
 
 .data{
-
 font-size:18px;
 font-weight:bold;
+margin-bottom:5px;
+}
+
+/* IMAGE MONITOR */
+
+.monitor img{
+
+width:100%;
+border-radius:6px;
+opacity:0.9;
 
 }
 
-/* SYSTEM LOG */
+/* LOG */
 
 .log{
-
 font-size:12px;
 height:120px;
 overflow:hidden;
-
+line-height:1.6;
 }
 
 /* BUTTON */
@@ -107,9 +137,7 @@ margin-top:10px;
 @media(max-width:700px){
 
 .grid{
-
 grid-template-columns:1fr;
-
 }
 
 }
@@ -132,6 +160,8 @@ Threat Level : <span style="color:#00ff8c">GREEN</span>
 
 <div class="grid">
 
+<!-- SURVEILLANCE -->
+
 <div class="panel">
 
 <div class="title">GLOBAL SURVEILLANCE</div>
@@ -142,6 +172,7 @@ Satellite Bio Detection Network
 
 </div>
 
+<!-- DEFENSE -->
 
 <div class="panel">
 
@@ -153,28 +184,43 @@ Orbital Monitoring Grid
 
 </div>
 
+<!-- SYSTEM -->
 
 <div class="panel">
 
 <div class="title">SYSTEM STATUS</div>
 
-<div class="data" id="cpu">CPU LOAD 23%</div>
+<div class="data" id="cpu">CPU LOAD 32%</div>
 
 Memory Allocation Stable
 
 </div>
 
+<!-- BIO SIGNAL -->
 
 <div class="panel">
 
 <div class="title">BIO SIGNAL MONITOR</div>
 
-<div class="data" id="signal">Signal Stable</div>
+<div class="data">Signal Stable</div>
 
 Genetic Detection Active
 
 </div>
 
+<!-- VIRUS MONITOR -->
+
+<div class="panel monitor">
+
+<div class="title">GLOBAL BIO SCAN</div>
+
+<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144">
+
+Virus Detection Network Active
+
+</div>
+
+<!-- SYSTEM LOG -->
 
 <div class="panel">
 
@@ -184,6 +230,7 @@ Genetic Detection Active
 
 </div>
 
+<!-- LAB ACCESS -->
 
 <div class="panel">
 
@@ -201,7 +248,7 @@ ENTER RESEARCH LAB
 
 <script>
 
-/* CPU STATUS */
+/* CPU LOAD */
 
 function cpu(){
 
@@ -214,7 +261,7 @@ document.getElementById("cpu").innerText=
 
 setInterval(cpu,2000)
 
-/* LOG SYSTEM */
+/* SYSTEM LOG */
 
 const logs=[
 
@@ -223,7 +270,9 @@ const logs=[
 "Containment check passed",
 "Bio sensor calibration",
 "Threat analysis running",
-"DNA structure mapping"
+"DNA structure mapping",
+"Global surveillance updated",
+"Neural pattern analysis"
 
 ]
 
