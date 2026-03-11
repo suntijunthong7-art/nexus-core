@@ -1,59 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nexus Core Lab</title>
 
 <style>
 
 body{
-background:#060d14;
-font-family:Arial;
 margin:0;
-color:#cfd9e2;
+font-family:Arial, Helvetica, sans-serif;
+background:#060c12;
+color:#d6e2ea;
 }
-
-/* header */
 
 .header{
+padding:14px 20px;
 background:#02070c;
-padding:16px;
-border-bottom:1px solid #14212b;
+border-bottom:1px solid #0f1c26;
 }
 
-.title{
-font-weight:bold;
+.header h1{
+font-size:16px;
+margin:0;
 letter-spacing:1px;
 }
 
-.subtitle{
-font-size:12px;
-color:#7d8c98;
+.header p{
+margin:2px 0 0 0;
+font-size:11px;
+color:#7f97a5;
 }
 
-/* container */
+.hero{
+height:200px;
+background-image:url("https://images.unsplash.com/photo-1581093458791-9d42c0f0b9b5");
+background-size:cover;
+background-position:center;
+}
 
 .container{
-padding:16px;
+padding:20px;
 }
 
-/* cards */
-
 .card{
-background:#0c131a;
-border:1px solid #1e2a34;
+background:#0b141c;
+border:1px solid #1c2a35;
 border-radius:10px;
 padding:18px;
 margin-bottom:16px;
-box-shadow:0 4px 10px rgba(0,0,0,0.4);
-transition:all .25s;
+box-shadow:0 4px 12px rgba(0,0,0,0.4);
 }
-
-.card:hover{
-transform:translateY(-2px);
-border-color:#2f4858;
-}
-
-/* stats */
 
 .grid{
 display:grid;
@@ -61,59 +59,31 @@ grid-template-columns:1fr 1fr;
 gap:12px;
 }
 
-.stat{
-background:#0c131a;
-border:1px solid #1c2731;
-border-radius:8px;
-padding:14px;
-font-size:13px;
+.small{
+font-size:12px;
+color:#8ea6b3;
 }
 
-/* status */
-
-.online{
-color:#28d7a3;
+.status{
 font-weight:bold;
+color:#7ce3c8;
 }
-
-/* button */
 
 .button{
 margin-top:20px;
-background:#1e8a80;
-padding:15px;
+background:#2a9d8f;
+padding:14px;
 text-align:center;
 border-radius:8px;
 font-weight:bold;
-letter-spacing:.5px;
 cursor:pointer;
-transition:.3s;
 }
-
-.button:hover{
-background:#20a89c;
-transform:scale(1.02);
-}
-
-/* footer */
 
 .footer{
 text-align:center;
-font-size:12px;
-color:#5c6b77;
-padding:30px 20px;
-}
-
-/* subtle animation */
-
-@keyframes pulse{
-0%{opacity:.6}
-50%{opacity:1}
-100%{opacity:.6}
-}
-
-.online{
-animation:pulse 2s infinite;
+font-size:11px;
+color:#6c7a86;
+padding:30px;
 }
 
 </style>
@@ -122,59 +92,63 @@ animation:pulse 2s infinite;
 <body>
 
 <div class="header">
-<div class="title">NEXUS CORE LAB</div>
-<div class="subtitle">International Bio Defense Research Network</div>
+<h1>NEXUS CORE LAB</h1>
+<p>International Bio Defense Research Network</p>
 </div>
+
+<div class="hero"></div>
 
 <div class="container">
 
 <div class="card">
 <h3>Advanced Bio Defense Research</h3>
-<p>
+<p class="small">
 Nexus Core Laboratory is a high-security international research organization focused on biological defense, genomic monitoring and global pathogen threat analysis.
 </p>
 </div>
 
 <div class="grid">
 
-<div class="stat">
-GLOBAL NODES<br>
-<strong>14 Active</strong>
+<div class="card">
+<div class="small">GLOBAL NODES</div>
+14 Active
 </div>
 
-<div class="stat">
-SYSTEM LOAD<br>
-<strong>38%</strong>
+<div class="card">
+<div class="small">SYSTEM LOAD</div>
+38%
 </div>
 
-<div class="stat">
-NETWORK STATUS<br>
-<span class="online">ONLINE</span>
+<div class="card">
+<div class="small">NETWORK STATUS</div>
+<span class="status">ONLINE</span>
 </div>
 
-<div class="stat">
-LAST LOG<br>
-<strong>Genome Scan</strong>
+<div class="card">
+<div class="small">LAST LOG</div>
+Genome Scan
 </div>
 
 </div>
 
 <div class="card">
 <h3>Recent Activity</h3>
-• Genome scan completed<br>
-• Bio sample analysis running<br>
-• Network security verification passed<br>
-• Lab node synchronization complete
+<ul class="small">
+<li>Genome scan completed</li>
+<li>Bio sample analysis running</li>
+<li>Network security verification passed</li>
+<li>Lab node synchronization complete</li>
+</ul>
 </div>
 
 <div class="card">
 <h3>Research Divisions</h3>
-
+<p class="small">
 GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br>
 PATHOGEN DEFENSE — Virus Detection & Bio Security<br>
 BIO NETWORK — Global Bio Threat Monitoring<br>
 AI LAB — Predictive Bio Intelligence Systems
-
+</p>
 </div>
 
 <div class="button">
