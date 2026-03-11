@@ -1,69 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>NEXUS CORE</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#031218;
-color:#d8edf2;
+font-family:Arial;
+background:#071c1f;
+color:#d7f6f1;
 }
 
 header{
-padding:18px;
-border-bottom:1px solid #12323a;
+padding:25px;
+border-bottom:1px solid #103a40;
 }
 
 h1{
 margin:0;
 letter-spacing:3px;
-font-size:22px;
 }
 
 nav{
-margin-top:8px;
-}
-
-nav a{
-color:#7faab2;
-margin-right:16px;
-text-decoration:none;
+margin-top:10px;
+color:#7fb8b1;
 font-size:14px;
 }
 
-nav a:hover{
-color:white;
-}
-
-/* SYSTEM STATUS */
-
 .status{
 text-align:center;
-padding:10px;
-font-size:13px;
-color:#46e0a6;
-border-bottom:1px solid #12323a;
-}
-
-.status-light{
-width:9px;
-height:9px;
-background:#2cff88;
-border-radius:50%;
-display:inline-block;
-margin-left:6px;
-animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-0%{box-shadow:0 0 4px #2cff88;}
-50%{box-shadow:0 0 14px #2cff88;}
-100%{box-shadow:0 0 4px #2cff88;}
+padding:12px;
+color:#1fe58f;
+border-bottom:1px solid #103a40;
 }
 
 .container{
@@ -73,79 +46,65 @@ padding:20px;
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:14px;
+gap:15px;
 }
 
 .card{
-background:#061920;
-border:1px solid #11333b;
-border-radius:12px;
-padding:18px;
+background:#0b2a2e;
+padding:20px;
+border-radius:10px;
+border:1px solid #123f44;
 }
 
 .card h3{
 margin:0;
-font-size:13px;
-color:#7fa9b1;
+font-size:14px;
+color:#7fb8b1;
 }
 
-.value{
-margin-top:8px;
-font-size:22px;
+.card p{
+font-size:24px;
+margin:10px 0 0 0;
 }
 
 .section{
-margin-top:26px;
+margin-top:25px;
 }
 
-.section h2{
-font-size:16px;
-margin-bottom:10px;
-color:#9cc6ce;
-}
-
-.panel{
-background:#05161c;
-border:1px solid #11333b;
-border-radius:12px;
-padding:18px;
-}
-
-.button{
-margin-top:10px;
-display:inline-block;
-background:#109d95;
-padding:10px 18px;
-border-radius:6px;
-color:white;
-text-decoration:none;
-}
-
-.activity div{
-font-size:13px;
-padding:6px 0;
-border-bottom:1px solid rgba(255,255,255,0.05);
-color:#9dbcc2;
-}
-
-.lockdown{
-margin-top:12px;
-background:#b00000;
+button{
+background:#1ea89a;
 border:none;
-padding:10px 18px;
+padding:12px 20px;
 color:white;
 border-radius:6px;
 cursor:pointer;
 }
 
-.time{
-margin-top:25px;
+button:hover{
+background:#179082;
+}
+
+.lock{
+background:#c40000;
+}
+
+.lock:hover{
+background:#a30000;
+}
+
+.log{
+font-size:13px;
+line-height:22px;
+}
+
+.server{
 text-align:center;
-font-size:14px;
-color:#8fb5bc;
+margin:25px 0;
+color:#7fb8b1;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -155,18 +114,13 @@ color:#8fb5bc;
 <h1>NEXUS CORE</h1>
 
 <nav>
-<a>Dashboard</a>
-<a>Laboratories</a>
-<a>Research Network</a>
-<a>Security</a>
-<a>Logs</a>
+Dashboard • Laboratories • Research Network • Security • Logs
 </nav>
 
 </header>
 
 <div class="status">
-SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
-<span class="status-light"></span>
+SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE ●
 </div>
 
 <div class="container">
@@ -175,114 +129,79 @@ SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 
 <div class="card">
 <h3>Active Labs</h3>
-<div class="value">14</div>
+<p id="labs">14</p>
 </div>
 
 <div class="card">
 <h3>Samples Processing</h3>
-<div class="value">327</div>
+<p id="samples">327</p>
 </div>
 
 <div class="card">
 <h3>Network Nodes</h3>
-<div class="value">42</div>
+<p>42</p>
 </div>
 
 <div class="card">
 <h3>AI Monitoring</h3>
-<div class="value">ONLINE</div>
+<p>ONLINE</p>
 </div>
 
 <div class="card">
 <h3>System Security</h3>
-<div class="value">SECURE</div>
+<p>SECURE</p>
 </div>
 
 <div class="card">
 <h3>Containment Level</h3>
-<div class="value">LEVEL 3</div>
+<p>LEVEL 3</p>
 </div>
 
 </div>
 
 
-<div class="section">
+<div class="section card">
 
-<h2>Biological Research Lab</h2>
+<h3>Biological Research Lab</h3>
 
-<div class="panel">
-
-Primary laboratory dedicated to advanced pathogen analysis,
+<p>
+Primary laboratory dedicated to pathogen analysis,
 genetic sequencing and controlled biological experiments.
+</p>
 
-<br>
-
-<a class="button">ENTER LAB</a>
-
-</div>
+<button onclick="enterLab()">ENTER LAB</button>
 
 </div>
 
 
-<div class="section">
+<div class="section card">
 
-<h2>Security Clearance</h2>
+<h3>System Activity</h3>
 
-<div class="panel">
-
-User Access Level : <b style="color:#46e0a6">ALPHA</b>
-
-<ul>
-<li>Bio Containment Lab</li>
-<li>Genome Sequencing Center</li>
-<li>AI Bio Intelligence Unit</li>
-<li>National Bio Security Division</li>
-</ul>
-
-</div>
+<div id="log" class="log"></div>
 
 </div>
 
 
-<div class="section">
+<div class="section card">
 
-<h2>System Activity</h2>
+<h3>Threat Monitoring</h3>
 
-<div class="panel">
+<p>Current Risk Level : <b id="risk">MODERATE</b></p>
 
-<div class="activity" id="log"></div>
-
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h2>Threat Monitoring</h2>
-
-<div class="panel">
-
-Current Risk Level :
-<b id="threat" style="color:#ffc857">MODERATE</b>
-
-<br><br>
-
-External Bio Threat Detection : NONE  
-Network Intrusion Attempt : 0  
+<p>
+External Bio Threat Detection : NONE<br>
+Network Intrusion Attempt : 0<br>
 Containment Breach : NONE
+</p>
 
-<br>
-
-<button class="lockdown" onclick="lockdown()">
+<button class="lock" onclick="lockdown()">
 EMERGENCY LOCKDOWN
 </button>
 
 </div>
 
-</div>
-
-<div class="time">
+<div class="server">
 SERVER TIME : <span id="time"></span>
 </div>
 
@@ -290,80 +209,87 @@ SERVER TIME : <span id="time"></span>
 
 <script>
 
-/* SERVER TIME */
-
 function updateTime(){
-let n=new Date()
-let h=String(n.getHours()).padStart(2,'0')
-let m=String(n.getMinutes()).padStart(2,'0')
-let s=String(n.getSeconds()).padStart(2,'0')
 
-document.getElementById("time").innerText=h+":"+m+":"+s
+let now=new Date()
+
+document.getElementById("time").innerText=
+now.toLocaleTimeString()
+
 }
 
 setInterval(updateTime,1000)
-updateTime()
 
-/* ACTIVITY LOG */
+
 
 let logs=[
-"Lab Node Connected",
-"AI Analysis Running",
 "Secure Channel Verified",
-"Genome Data Uploaded",
-"Research Network Sync Completed"
+"AI Analysis Running",
+"Genome Data Synced",
+"Network Integrity Check",
+"Sample Batch Verified",
+"Containment Protocol Active"
 ]
 
 function addLog(){
 
-let box=document.getElementById("log")
+let logBox=document.getElementById("log")
 
 let time=new Date().toLocaleTimeString()
 
-let text=time+" • "+logs[Math.floor(Math.random()*logs.length)]
+let text=time+" • "+
+logs[Math.floor(Math.random()*logs.length)]
 
 let div=document.createElement("div")
 div.innerText=text
 
-box.prepend(div)
+logBox.prepend(div)
 
-if(box.children.length>6){
-box.removeChild(box.lastChild)
+if(logBox.children.length>6){
+
+logBox.removeChild(logBox.lastChild)
+
 }
 
 }
 
-setInterval(addLog,4000)
+setInterval(addLog,5000)
 
-/* THREAT LEVEL */
 
-let threatLevels=["LOW","MODERATE","HIGH"]
+
+let threat=["LOW","MODERATE","HIGH"]
 
 function changeThreat(){
 
-let t=threatLevels[Math.floor(Math.random()*3)]
+let level=threat[Math.floor(Math.random()*3)]
 
-let el=document.getElementById("threat")
+let el=document.getElementById("risk")
 
-el.innerText=t
+el.innerText=level
 
-if(t=="LOW") el.style.color="#2cff88"
-if(t=="MODERATE") el.style.color="#ffc857"
-if(t=="HIGH") el.style.color="#ff3b3b"
+if(level=="LOW") el.style.color="#2cff88"
+if(level=="MODERATE") el.style.color="#ffc857"
+if(level=="HIGH") el.style.color="#ff3b3b"
 
 }
 
 setInterval(changeThreat,10000)
 
-/* LOCKDOWN */
+
+
+function enterLab(){
+
+alert("Accessing Biological Research Lab")
+
+}
 
 function lockdown(){
 
-alert("SYSTEM LOCKDOWN INITIATED")
-
-document.body.style.background="#2a0000"
+alert("EMERGENCY LOCKDOWN ACTIVATED")
 
 }
+
+updateTime()
 
 </script>
 
