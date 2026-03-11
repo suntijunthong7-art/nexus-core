@@ -2,82 +2,52 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>National Bio Defense Command</title>
+<title>Nexus Core Lab</title>
 
 <style>
 
 body{
-margin:0;
 font-family:Arial;
+margin:0;
 background:#000;
 color:#00ffc3;
-}
-
-.header{
-padding:20px;
-border-bottom:1px solid #00ffc3;
-}
-
-.container{
 padding:15px;
 }
 
-.grid{
+h2{
+margin-top:0;
+}
 
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:20px;
-
+gap:10px;
+margin:20px 0;
 }
 
-.card{
-
-background:#042f2f;
-padding:16px;
-border-radius:10px;
+.box{
 border:1px solid #00ffc3;
-
+padding:10px;
+border-radius:8px;
 }
 
-.card h3{
-margin:0 0 10px 0;
-font-size:14px;
-}
-
-.video-box{
-
-margin-top:20px;
-
-}
-
-.video-box video{
-
+video{
 width:100%;
-max-height:220px;
-border-radius:12px;
-object-fit:cover;
-
-}
-
-.btn{
-
-margin-top:25px;
-display:block;
-width:100%;
-padding:14px;
-background:#00b894;
-border:none;
 border-radius:10px;
-font-size:16px;
-color:white;
-
+margin-top:10px;
 }
 
-.btn:hover{
-background:#009e7d;
+button{
+width:100%;
+padding:12px;
+margin-top:20px;
+background:#00a884;
+border:none;
+color:white;
+font-size:16px;
+border-radius:8px;
 }
 
 </style>
@@ -85,64 +55,44 @@ background:#009e7d;
 
 <body>
 
-<div class="header">
-<h2>กองบัญชาการป้องกันชีวภาพแห่งชาติ</h2>
-ระดับภัยคุกคาม : ปลอดภัย
-</div>
-
-<div class="container">
+<h2>กองบัญชาการป้องกันชีวภาพ</h2>
+สถานะ : ปลอดภัย
 
 <div class="grid">
 
-<div class="card">
-<h3>การเฝ้าระวังทั่วโลก</h3>
-14 Nodes Active
+<div class="box">
+การเฝ้าระวัง<br>
+14 Nodes
 </div>
 
-<div class="card">
-<h3>โหลดระบบ</h3>
+<div class="box">
+โหลดระบบ<br>
 38%
 </div>
 
-<div class="card">
-<h3>เครือข่ายป้องกัน</h3>
+<div class="box">
+เครือข่าย<br>
 ONLINE
 </div>
 
-<div class="card">
-<h3>บันทึกระบบ</h3>
-[15:44] genome scan completed
+<div class="box">
+บันทึก<br>
+genome scan completed
 </div>
 
 </div>
 
-<div class="video-box">
+<h3>Lab Camera</h3>
 
-<h3>Lab Surveillance</h3>
+<video controls>
 
-<video autoplay muted loop playsinline controls>
-
-<source src="https://cdn.coverr.co/videos/coverr-working-in-laboratory-5171/1080p.mp4" type="video/mp4">
+<source src="video/lab.mp4" type="video/mp4">
 
 </video>
 
-</div>
-
-<button class="btn" onclick="enterLab()">
+<button onclick="location.href='lab.html'">
 เข้าสู่ห้องปฏิบัติการ
 </button>
-
-</div>
-
-<script>
-
-function enterLab(){
-
-window.location.href="lab.html"
-
-}
-
-</script>
 
 </body>
 </html>
