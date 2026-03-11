@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>NEXUS CORE</title>
 
 <style>
@@ -9,89 +11,98 @@
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
-background:#06141a;
-color:#cfe7ec;
+background:#020b10;
+color:#cfe8ee;
 }
 
 header{
-padding:20px;
-border-bottom:1px solid #0f2c33;
-background:#041017;
+padding:18px;
+border-bottom:1px solid #0e2a31;
 }
 
-header h1{
+h1{
 margin:0;
-font-size:22px;
 letter-spacing:3px;
-color:#e7f9ff;
+font-size:22px;
 }
 
 nav{
-margin-top:10px;
+margin-top:8px;
 }
 
 nav a{
+color:#7aa5ad;
 margin-right:18px;
 text-decoration:none;
-color:#7fb5bd;
 font-size:14px;
 }
 
 nav a:hover{
-color:#ffffff;
-}
-
-.status{
-text-align:center;
-padding:10px;
-background:#071a1f;
-border-bottom:1px solid #0f2c33;
-color:#35e6a7;
-font-size:13px;
-letter-spacing:2px;
+color:#fff;
 }
 
 .container{
-padding:25px;
+padding:20px;
+}
+
+.statusbar{
+text-align:center;
+color:#4bd3a4;
+font-size:14px;
+margin-bottom:20px;
 }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:18px;
+gap:15px;
 }
 
 .card{
-background:#071a1f;
-border:1px solid #12343b;
-border-radius:10px;
+background:#07161b;
+border:1px solid #0f2f36;
+border-radius:12px;
 padding:18px;
 }
 
 .card h3{
 margin-top:0;
-font-size:15px;
-color:#a9dbe2;
+font-size:14px;
+color:#7fa8af;
 }
 
 .value{
-font-size:24px;
-margin-top:10px;
-color:#40ffb7;
+font-size:22px;
+margin-top:8px;
+}
+
+.section{
+margin-top:30px;
+}
+
+.section h2{
+font-size:16px;
+color:#9bc3ca;
+margin-bottom:10px;
 }
 
 .panel{
-margin-top:25px;
-background:#071a1f;
-border:1px solid #12343b;
-border-radius:10px;
-padding:20px;
+background:#06141a;
+border:1px solid #10343c;
+border-radius:12px;
+padding:18px;
+margin-bottom:15px;
 }
 
-.panel h3{
-margin-top:0;
-font-size:16px;
-color:#bde7ef;
+.button{
+display:inline-block;
+margin-top:10px;
+padding:10px 18px;
+background:#0f8f8a;
+color:white;
+border-radius:6px;
+text-decoration:none;
+font-size:14px;
 }
 
 .activity{
@@ -101,27 +112,20 @@ margin:0;
 }
 
 .activity li{
-padding:7px 0;
+padding:6px 0;
+font-size:13px;
+color:#9dbcc2;
 border-bottom:1px solid rgba(255,255,255,0.05);
-font-size:14px;
-color:#86b7bd;
 }
 
-.security{
-display:flex;
-justify-content:space-between;
-margin-top:10px;
+.clearance{
+color:#4bd3a4;
+font-weight:bold;
 }
 
-.security div{
-font-size:14px;
-}
-
-.clock{
-text-align:right;
-font-size:14px;
-color:#9ad2da;
-margin-top:5px;
+.threat{
+color:#ffcc66;
+font-weight:bold;
 }
 
 </style>
@@ -144,9 +148,134 @@ margin-top:5px;
 
 </header>
 
-<div class="status">
+<div class="container">
+
+<div class="statusbar">
 SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 </div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Active Labs</h3>
+<div class="value">14</div>
+</div>
+
+<div class="card">
+<h3>Samples Processing</h3>
+<div class="value">327</div>
+</div>
+
+<div class="card">
+<h3>Network Nodes</h3>
+<div class="value">42</div>
+</div>
+
+<div class="card">
+<h3>AI Monitoring</h3>
+<div class="value">ONLINE</div>
+</div>
+
+<div class="card">
+<h3>System Security</h3>
+<div class="value">SECURE</div>
+</div>
+
+<div class="card">
+<h3>Containment Level</h3>
+<div class="value">LEVEL 3</div>
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>Biological Research Lab</h2>
+
+<div class="panel">
+
+Primary laboratory dedicated to advanced pathogen analysis, genetic sequencing and controlled biological experiments.
+
+<br>
+
+<a class="button" href="#">ENTER LAB</a>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>Security Clearance</h2>
+
+<div class="panel">
+
+User Access Level :
+<span class="clearance">ALPHA</span>
+
+<br><br>
+
+Authorized Zones
+
+<ul>
+<li>Bio Containment Lab</li>
+<li>Genome Sequencing Center</li>
+<li>AI Bio Intelligence Unit</li>
+<li>National Bio Security Division</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>System Activity</h2>
+
+<div class="panel">
+
+<ul class="activity">
+
+<li>23:48:22 • Lab Node Connected</li>
+<li>23:48:18 • AI Analysis Running</li>
+<li>23:48:11 • Secure Channel Verified</li>
+<li>23:47:55 • Genome Data Uploaded</li>
+<li>23:47:30 • Research Network Sync Completed</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>Threat Monitoring</h2>
+
+<div class="panel">
+
+Current Risk Level :
+<span class="threat">MODERATE</span>
+
+<br><br>
+
+External Bio Threat Detection : NONE  
+Network Intrusion Attempt : 0  
+Containment Breach : NONE
+
+</div>
+
+</div>
+
+
+</div>
+
+</body>
+</html></div>
 
 <div class="container">
 
