@@ -2,51 +2,12 @@
 <html>
 <head>
 
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab Dashboard</title>
 
-<style>
+<title>National Bio Defense Command</title>
 
-body{
-margin:0;
-font-family:Arial;
-background:#071b22;
-color:#8feaff;
-}
-
-header{
-padding:15px;
-background:#0b2f38;
-display:flex;
-justify-content:space-between;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-padding:20px;
-}
-
-.card{
-background:#0c2530;
-padding:10px;
-border:1px solid #10414e;
-}
-
-img,video{
-width:100%;
-}
-
-button{
-margin-top:10px;
-padding:8px;
-background:#0fa8c5;
-border:none;
-color:white;
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -54,63 +15,58 @@ color:white;
 
 <header>
 
-<div>Laboratory Monitoring</div>
+<h1>NATIONAL BIO DEFENSE COMMAND</h1>
 
-<div>SYSTEM ACTIVE</div>
+<nav>
+
+<a href="dashboard.html">COMMAND</a>
+<a href="lab.html">RESEARCH LAB</a>
+
+</nav>
 
 </header>
 
 <div class="grid">
 
-<div class="card">
+<div class="panel">
 
-<h3>DNA Visualization</h3>
+<h3>THREAT LEVEL</h3>
 
-<video autoplay loop muted>
-<source src="dna.mp4">
-</video>
+<h1 style="color:#00ff90">GREEN</h1>
+
+National Biosecurity Status Stable
 
 </div>
 
-<div class="card">
+<div class="panel">
 
-<h3>Virus Model</h3>
+<h3>GLOBAL SURVEILLANCE</h3>
 
 <img src="virus-3d.png">
 
-</div>
-
-<div class="card">
-
-<h3>Infected Cell</h3>
-
-<img src="infected-cell.png">
+Active Monitoring Network
 
 </div>
 
-<div class="card">
+<div class="panel">
 
-<h3>Virus Structure</h3>
+<h3>DEFENSE NETWORK</h3>
 
-<video autoplay loop muted>
-<source src="virus-structure.mp4">
-</video>
+Satellite Bio Detection Grid Online
 
 </div>
 
-<div class="card">
+<div class="panel">
 
-<h3>Analysis</h3>
+<h3>SYSTEM LOG</h3>
 
-<button onclick="location.href='analysis.html'">
-
-Open Analysis
-
-</button>
+<div id="log"></div>
 
 </div>
 
 </div>
+
+<script src="system.js"></script>
 
 </body>
 </html>
