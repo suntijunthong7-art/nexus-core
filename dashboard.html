@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>National Bio Defense Command</title>
 
@@ -12,234 +12,251 @@
 body{
 margin:0;
 font-family:Arial;
-background:#0e1a22;
+background:#071a20;
 color:white;
 }
 
 .header{
-background:#111e27;
 padding:20px;
-font-size:24px;
-font-weight:bold;
+background:#0c2a33;
 }
 
-.sub{
-color:#39d98a;
-font-size:14px;
-margin-top:4px;
+.header h1{
+margin:0;
+font-size:26px;
+}
+
+.threat{
+color:#36ff9c;
+margin-top:5px;
 }
 
 .container{
-padding:20px;
-max-width:900px;
-margin:auto;
+padding:15px;
 }
 
 .card{
-background:#1c2b36;
-padding:20px;
-border-radius:12px;
-margin-bottom:18px;
+background:#102b34;
+border-radius:16px;
+padding:18px;
+margin-bottom:15px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
 }
 
-h3{
-margin-top:0;
-color:#8fbcd4;
+.title{
+font-size:14px;
+color:#8aa7b2;
+margin-bottom:8px;
 }
 
 .big{
 font-size:32px;
 font-weight:bold;
-margin-top:5px;
 }
 
 .small{
-opacity:0.7;
-font-size:14px;
+color:#9db2bb;
 }
 
-.virus{
+canvas{
 width:100%;
+height:90px;
+background:black;
 border-radius:10px;
-margin-top:10px;
 }
 
-.scan-line{
-position:relative;
+.bar{
+height:6px;
+background:#1d3e46;
+border-radius:5px;
+overflow:hidden;
+margin-top:8px;
 }
 
-.scan-line:after{
-content:"";
-position:absolute;
-left:0;
-right:0;
-height:4px;
-background:#00ff9c;
-top:0;
-animation:scan 4s infinite;
-}
-
-@keyframes scan{
-0%{top:0}
-100%{top:100%}
+.bar span{
+display:block;
+height:100%;
+background:#00ffa6;
+width:60%;
 }
 
 .log{
-background:#16222c;
-padding:10px;
-border-radius:8px;
-font-family:monospace;
-font-size:14px;
-line-height:1.6;
+background:#06161b;
+padding:12px;
+border-radius:10px;
+font-size:12px;
+height:120px;
+overflow:auto;
 }
 
-.pulse{
-height:80px;
-background:black;
-border-radius:8px;
-margin-top:10px;
-position:relative;
-overflow:hidden;
-}
-
-.pulse svg{
+.labbtn{
 width:100%;
-height:100%;
-}
-
-.btn{
-background:#0b6b4d;
 padding:14px;
 border:none;
-border-radius:10px;
-color:white;
+border-radius:12px;
+background:#00c896;
+color:black;
+font-weight:bold;
 font-size:16px;
 margin-top:10px;
-width:100%;
-}
-
-.btn:hover{
-background:#0f8a64;
-cursor:pointer;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="header">
-NATIONAL BIO DEFENSE COMMAND
-<div class="sub">Threat Level : GREEN</div>
+
+<h1>NATIONAL BIO DEFENSE COMMAND</h1>
+<div class="threat">Threat Level : GREEN</div>
+
 </div>
 
 <div class="container">
 
 <div class="card">
-<h3>GLOBAL SURVEILLANCE</h3>
-<div class="big">14 Nodes Active</div>
+<div class="title">GLOBAL SURVEILLANCE</div>
+<div class="big" id="nodes">14 Nodes Active</div>
 <div class="small">Satellite Bio Detection Network</div>
 </div>
 
 <div class="card">
-<h3>DEFENSE NETWORK</h3>
-<div class="big">Online</div>
+<div class="title">DEFENSE NETWORK</div>
+<div class="big">ONLINE</div>
 <div class="small">Orbital Monitoring Grid</div>
 </div>
 
 <div class="card">
-<h3>SYSTEM STATUS</h3>
-<div class="big">CPU Load 44%</div>
+<div class="title">SYSTEM STATUS</div>
+<div class="big" id="cpu">CPU Load 44%</div>
 <div class="small">Memory Allocation Stable</div>
 </div>
 
+<div class="card">
+<div class="title">BIO SIGNAL MONITOR</div>
+<canvas id="ecg"></canvas>
+</div>
 
 <div class="card">
-<h3>BIO SIGNAL MONITOR</h3>
-
-<div class="pulse">
-
-<svg viewBox="0 0 500 100">
-
-<polyline
-fill="none"
-stroke="#00ff9c"
-stroke-width="3"
-points="
-0,50
-40,50
-60,20
-80,80
-100,50
-150,50
-170,20
-190,80
-210,50
-260,50
-280,20
-300,80
-320,50
-400,50
-500,50"
-/>
-
-</svg>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>GLOBAL BIO SCAN</h3>
-
-<div class="scan-line">
-
-<img src="virus.jpg" class="virus">
-
-</div>
-
+<div class="title">GLOBAL BIO SCAN</div>
 <div class="small">Virus Detection Network</div>
-
+<div class="bar"><span id="scanbar"></span></div>
 </div>
-
 
 <div class="card">
-
-<h3>SYSTEM LOG</h3>
-
-<div class="log">
-
-[13:56:55] Satellite node synchronized  
-[13:56:50] Satellite node synchronized  
-[13:56:45] Bio sensor calibration  
-[13:56:40] Satellite node synchronized  
-[13:56:35] Threat analysis running  
-[13:56:30] Bio sensor calibration  
-
+<div class="title">SYSTEM LOG</div>
+<div class="log" id="log"></div>
 </div>
 
-<button class="btn" onclick="openLab()">
+<div class="card">
+<div class="title">RESEARCH FACILITY</div>
+
+<button class="labbtn" onclick="enterLab()">
 ENTER BIO LAB
 </button>
 
 </div>
 
-
 </div>
-
 
 <script>
 
-function openLab(){
+function enterLab(){
 
 window.location="lab.html"
 
 }
 
-</script>
+function randomCPU(){
 
+let val=Math.floor(Math.random()*40)+30
+document.getElementById("cpu").innerText="CPU Load "+val+"%"
+
+}
+
+setInterval(randomCPU,3000)
+
+function randomNodes(){
+
+let n=Math.floor(Math.random()*6)+12
+document.getElementById("nodes").innerText=n+" Nodes Active"
+
+}
+
+setInterval(randomNodes,5000)
+
+function scanBar(){
+
+let s=Math.floor(Math.random()*100)
+document.getElementById("scanbar").style.width=s+"%"
+
+}
+
+setInterval(scanBar,2000)
+
+let logbox=document.getElementById("log")
+
+function addLog(){
+
+let t=new Date().toLocaleTimeString()
+
+let msgs=[
+"Satellite node synchronized",
+"Bio sensor calibration",
+"Orbital scan completed",
+"Threat analysis running",
+"Defense network stable"
+]
+
+let m=msgs[Math.floor(Math.random()*msgs.length)]
+
+logbox.innerHTML="["+t+"] "+m+"<br>"+logbox.innerHTML
+
+}
+
+setInterval(addLog,2000)
+
+
+
+/* ECG GRAPH */
+
+let c=document.getElementById("ecg")
+let ctx=c.getContext("2d")
+
+let x=0
+
+function draw(){
+
+ctx.fillStyle="black"
+ctx.fillRect(0,0,c.width,c.height)
+
+ctx.strokeStyle="#00ff9c"
+ctx.lineWidth=2
+ctx.beginPath()
+
+for(let i=0;i<c.width;i++){
+
+let y=45
+
+if(i%80==20) y=20
+if(i%80==25) y=70
+if(i%80==30) y=45
+
+ctx.lineTo(i,y)
+
+}
+
+ctx.stroke()
+
+requestAnimationFrame(draw)
+
+}
+
+draw()
+
+</script>
 
 </body>
 </html>
