@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>National Bio Defense Command</title>
 
@@ -12,123 +12,124 @@
 
 body{
 margin:0;
-font-family:Consolas,monospace;
-background:radial-gradient(circle at top,#043437,#000);
-color:#00ffd0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f3f5f7;
+color:#333;
 }
 
 /* HEADER */
 
 header{
+background:#1c2a38;
+color:white;
 padding:20px;
-border-bottom:1px solid #00ffd0;
 }
 
-h1{
+header h1{
 margin:0;
 font-size:22px;
-letter-spacing:2px;
 }
 
 .threat{
-margin-top:5px;
+margin-top:6px;
 font-size:14px;
 }
 
 /* GRID */
 
-.grid{
+.container{
+
+padding:20px;
+
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:16px;
-padding:20px;
+gap:20px;
+
 }
 
-/* PANEL */
+/* CARD */
 
-.panel{
+.card{
 
-background:#062528;
-border:1px solid #00ffd0;
+background:white;
 border-radius:8px;
-padding:15px;
+padding:18px;
 
-box-shadow:
-0 0 15px rgba(0,255,200,0.2),
-0 0 40px rgba(0,255,200,0.08);
-
-position:relative;
-overflow:hidden;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
 
 }
 
-/* SCAN EFFECT */
-
-.panel::before{
-
-content:"";
-position:absolute;
-top:0;
-left:-100%;
-width:100%;
-height:2px;
-background:#00ffd0;
-
-animation:scan 5s linear infinite;
-
-}
-
-@keyframes scan{
-
-0%{left:-100%}
-100%{left:100%}
-
-}
-
-/* TEXT */
+/* TITLE */
 
 .title{
+
 font-size:13px;
+color:#666;
 margin-bottom:6px;
-color:#8ffff0;
+
 }
 
-.data{
-font-size:18px;
+/* BIG DATA */
+
+.value{
+
+font-size:24px;
 font-weight:bold;
-margin-bottom:5px;
+
 }
 
-/* IMAGE MONITOR */
+/* PROGRESS BAR */
 
-.monitor img{
+.bar{
+
+height:8px;
+background:#e2e6ea;
+border-radius:4px;
+margin-top:10px;
+overflow:hidden;
+
+}
+
+.bar span{
+
+display:block;
+height:100%;
+background:#2d7ef7;
+
+}
+
+/* TABLE */
+
+table{
 
 width:100%;
-border-radius:6px;
-opacity:0.9;
+border-collapse:collapse;
+font-size:13px;
 
 }
 
-/* LOG */
+td{
 
-.log{
-font-size:12px;
-height:120px;
-overflow:hidden;
-line-height:1.6;
+padding:6px 0;
+border-bottom:1px solid #eee;
+
 }
 
 /* BUTTON */
 
-.labbtn{
+button{
 
+margin-top:10px;
+padding:10px;
 width:100%;
-padding:12px;
-background:#00ffd0;
+
 border:none;
 border-radius:6px;
+
+background:#2d7ef7;
+color:white;
+
 font-weight:bold;
-margin-top:10px;
 
 }
 
@@ -136,8 +137,10 @@ margin-top:10px;
 
 @media(max-width:700px){
 
-.grid{
+.container{
+
 grid-template-columns:1fr;
+
 }
 
 }
@@ -153,93 +156,106 @@ grid-template-columns:1fr;
 <h1>NATIONAL BIO DEFENSE COMMAND</h1>
 
 <div class="threat">
-Threat Level : <span style="color:#00ff8c">GREEN</span>
+
+Threat Level : <b style="color:#00c853">GREEN</b>
+
 </div>
 
 </header>
 
-<div class="grid">
+<div class="container">
 
-<!-- SURVEILLANCE -->
+<!-- GLOBAL NETWORK -->
 
-<div class="panel">
+<div class="card">
 
-<div class="title">GLOBAL SURVEILLANCE</div>
+<div class="title">Global Surveillance Network</div>
 
-<div class="data">14 NODES ACTIVE</div>
+<div class="value">14 Active Nodes</div>
 
-Satellite Bio Detection Network
+<div class="bar">
+<span style="width:70%"></span>
+</div>
 
 </div>
 
-<!-- DEFENSE -->
 
-<div class="panel">
+<!-- DEFENSE GRID -->
 
-<div class="title">DEFENSE NETWORK</div>
+<div class="card">
 
-<div class="data">ONLINE</div>
+<div class="title">Defense Monitoring Grid</div>
 
-Orbital Monitoring Grid
+<div class="value">Online</div>
 
-</div>
-
-<!-- SYSTEM -->
-
-<div class="panel">
-
-<div class="title">SYSTEM STATUS</div>
-
-<div class="data" id="cpu">CPU LOAD 32%</div>
-
-Memory Allocation Stable
+Orbital Satellite Network Operational
 
 </div>
 
-<!-- BIO SIGNAL -->
 
-<div class="panel">
+<!-- SYSTEM STATUS -->
 
-<div class="title">BIO SIGNAL MONITOR</div>
+<div class="card">
 
-<div class="data">Signal Stable</div>
+<div class="title">System Resource Usage</div>
 
-Genetic Detection Active
+<div class="value" id="cpu">CPU 38%</div>
+
+<div class="bar">
+<span id="bar" style="width:38%"></span>
+</div>
 
 </div>
 
-<!-- VIRUS MONITOR -->
 
-<div class="panel monitor">
+<!-- BIO MONITOR -->
 
-<div class="title">GLOBAL BIO SCAN</div>
+<div class="card">
 
-<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144">
+<div class="title">Biological Signal Monitor</div>
 
-Virus Detection Network Active
+<div class="value">Stable</div>
+
+No abnormal genetic markers detected.
 
 </div>
+
+
+<!-- VIRUS IMAGE -->
+
+<div class="card">
+
+<div class="title">Microscopy Sample</div>
+
+<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144"
+style="width:100%;border-radius:6px">
+
+</div>
+
 
 <!-- SYSTEM LOG -->
 
-<div class="panel">
+<div class="card">
 
-<div class="title">SYSTEM LOG</div>
+<div class="title">System Log</div>
 
-<div class="log" id="log"></div>
+<table id="log"></table>
 
 </div>
 
+
 <!-- LAB ACCESS -->
 
-<div class="panel">
+<div class="card">
 
-<div class="title">RESEARCH FACILITY</div>
+<div class="title">Research Facility Access</div>
 
-Access to Containment Laboratory
+Containment Laboratory
 
-<button class="labbtn" onclick="enterLab()">
-ENTER RESEARCH LAB
+<button onclick="enterLab()">
+
+Open Research Lab
+
 </button>
 
 </div>
@@ -248,31 +264,30 @@ ENTER RESEARCH LAB
 
 <script>
 
-/* CPU LOAD */
+/* CPU SIMULATION */
 
 function cpu(){
 
 let value=Math.floor(Math.random()*30)+20
 
-document.getElementById("cpu").innerText=
-"CPU LOAD "+value+"%"
+document.getElementById("cpu").innerText="CPU "+value+"%"
+
+document.getElementById("bar").style.width=value+"%"
 
 }
 
-setInterval(cpu,2000)
+setInterval(cpu,3000)
 
-/* SYSTEM LOG */
+/* LOG */
 
 const logs=[
 
-"Genome scan initiated",
-"Satellite node synced",
-"Containment check passed",
-"Bio sensor calibration",
-"Threat analysis running",
-"DNA structure mapping",
-"Global surveillance updated",
-"Neural pattern analysis"
+"Genome scan started",
+"Satellite sync completed",
+"Containment inspection passed",
+"Data archive updated",
+"Network health verified",
+"Sensor calibration complete"
 
 ]
 
@@ -280,17 +295,17 @@ function addLog(){
 
 let time=new Date().toLocaleTimeString()
 
-let line="["+time+"] "+logs[Math.floor(Math.random()*logs.length)]+"<br>"
+let row="<tr><td>"+time+"</td><td>"+logs[Math.floor(Math.random()*logs.length)]+"</td></tr>"
 
-let box=document.getElementById("log")
+let table=document.getElementById("log")
 
-box.innerHTML=line+box.innerHTML
+table.innerHTML=row+table.innerHTML
 
 }
 
-setInterval(addLog,3000)
+setInterval(addLog,4000)
 
-/* ENTER LAB */
+/* OPEN LAB */
 
 function enterLab(){
 
