@@ -11,126 +11,113 @@
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:linear-gradient(180deg,#041b1f,#021315);
+font-family:Arial;
+background:#041f22;
 color:white;
 }
 
-.header{
-padding:25px;
-border-bottom:1px solid rgba(255,255,255,0.05);
+/* TOP BAR */
+
+.topbar{
+background:#031618;
+padding:18px;
+border-bottom:1px solid #0e4b4f;
 }
 
 .title{
-font-size:28px;
-font-weight:700;
+font-size:26px;
 letter-spacing:3px;
+font-weight:bold;
 }
 
 .subtitle{
-opacity:0.6;
+font-size:12px;
+color:#8aa7a8;
+margin-top:4px;
+}
+
+/* STATUS BAR */
+
+.status{
+background:#062c2f;
+padding:12px 18px;
 font-size:13px;
-margin-top:5px;
+color:#2de3b7;
+border-bottom:1px solid #0e4b4f;
 }
 
-.status-bar{
-background:#052428;
-padding:12px 20px;
-font-size:13px;
-color:#30e0b0;
-letter-spacing:1px;
-border-bottom:1px solid rgba(255,255,255,0.05);
-}
-
-.nav{
-display:flex;
-gap:25px;
-padding:15px 20px;
-font-size:14px;
-border-bottom:1px solid rgba(255,255,255,0.05);
-}
-
-.nav span{
-opacity:0.7;
-cursor:pointer;
-}
-
-.nav span:hover{
-opacity:1;
-}
+/* GRID */
 
 .container{
 padding:20px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-}
-
 .card{
-background:linear-gradient(180deg,#063036,#052428);
-padding:20px;
-border-radius:12px;
-border:1px solid rgba(255,255,255,0.05);
-box-shadow:0 5px 20px rgba(0,0,0,0.4);
+background:#072f33;
+border-radius:14px;
+padding:18px;
+margin-bottom:16px;
+border:1px solid #0d4448;
 }
 
-.card h3{
-margin:0;
+.card-title{
 font-size:14px;
-opacity:0.7;
+color:#9abbbb;
+margin-bottom:6px;
 }
 
-.big{
-font-size:30px;
-margin-top:8px;
+.card-value{
+font-size:26px;
+font-weight:bold;
 }
+
+/* LAB CARD */
 
 .lab-card{
-margin-top:25px;
-background:linear-gradient(180deg,#063036,#052428);
-padding:25px;
-border-radius:14px;
-border:1px solid rgba(255,255,255,0.05);
+background:#08373b;
 }
 
-.lab-card h2{
-margin-top:0;
+.lab-title{
+font-size:18px;
+margin-bottom:8px;
 }
 
-.button{
-display:inline-block;
-margin-top:15px;
-padding:10px 18px;
-background:#1fa387;
+.lab-desc{
+font-size:13px;
+color:#a4c6c7;
+margin-bottom:12px;
+}
+
+button{
+background:#1f7f73;
+border:none;
+padding:12px 20px;
 border-radius:8px;
+color:white;
 font-size:14px;
+}
+
+button:hover{
+background:#145a52;
 cursor:pointer;
 }
 
-.button:hover{
-background:#1cc4a2;
+/* LOGS */
+
+.logs{
+font-family:monospace;
+font-size:13px;
+line-height:1.6;
+color:#9ad4d6;
 }
 
-.activity{
-margin-top:25px;
-background:#052428;
-padding:20px;
-border-radius:12px;
-border:1px solid rgba(255,255,255,0.05);
-font-size:13px;
-line-height:1.8;
-opacity:0.9;
-}
+/* FOOTER */
 
 .footer{
-margin-top:30px;
-padding:15px;
 text-align:center;
+padding:15px;
 font-size:12px;
-opacity:0.5;
+color:#6e8c8e;
 }
 
 </style>
@@ -139,91 +126,89 @@ opacity:0.5;
 
 <body>
 
-<div class="header">
+<div class="topbar">
 
 <div class="title">NEXUS CORE</div>
-<div class="subtitle">Command Network • Secure Research Division • Global Node</div>
+
+<div class="subtitle">
+Command Network • Secure Research Division • Global Node
+</div>
 
 </div>
 
-<div class="status-bar">
-SYSTEM STATUS • OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
-</div>
+<div class="status">
 
-<div class="nav">
-<span>Overview</span>
-<span>Laboratories</span>
-<span>Security</span>
-<span>AI Systems</span>
+SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
+
 </div>
 
 <div class="container">
 
-<div class="grid">
-
 <div class="card">
-<h3>Active Laboratories</h3>
-<div class="big">14</div>
+<div class="card-title">Active Laboratories</div>
+<div class="card-value">14</div>
 </div>
 
 <div class="card">
-<h3>Samples Processing</h3>
-<div class="big">327</div>
+<div class="card-title">Samples Processing</div>
+<div class="card-value">327</div>
 </div>
 
 <div class="card">
-<h3>Network Nodes</h3>
-<div class="big">42</div>
+<div class="card-title">Global Network Nodes</div>
+<div class="card-value">42</div>
 </div>
 
 <div class="card">
-<h3>Containment Level</h3>
-<div class="big">LEVEL 3</div>
+<div class="card-title">AI Monitoring</div>
+<div class="card-value">ONLINE</div>
 </div>
 
 <div class="card">
-<h3>AI Monitoring</h3>
-<div class="big">ONLINE</div>
+<div class="card-title">Containment Level</div>
+<div class="card-value">LEVEL 3</div>
+</div>
+
+<div class="card lab-card">
+
+<div class="lab-title">Biological Research Laboratory</div>
+
+<div class="lab-desc">
+Primary laboratory dedicated to pathogen analysis, genomic sequencing and controlled biological testing.
+</div>
+
+<button onclick="enterLab()">ENTER LAB</button>
+
 </div>
 
 <div class="card">
-<h3>System Security</h3>
-<div class="big">SECURE</div>
-</div>
+
+<div class="card-title">System Activity</div>
+
+<div class="logs">
+
+00:33:18  Genome Data Synced<br>
+00:33:13  Network Integrity Check<br>
+00:33:08  Security Authentication<br>
+00:33:03  Node Synchronization
 
 </div>
 
-<div class="lab-card">
-
-<h2>Biological Research Laboratory</h2>
-
-<p>
-Primary laboratory dedicated to pathogen analysis,
-genomic sequencing and controlled biological testing.
-</p>
-
-<div class="button">
-ENTER LAB
 </div>
-
-</div>
-
-<div class="activity">
-
-<b>System Activity</b><br>
-
-00:33:18 • Genome Data Synced<br>
-00:33:13 • Network Integrity Check<br>
-00:33:08 • Security Authentication<br>
-00:33:03 • Node Synchronization
 
 </div>
 
 <div class="footer">
-NEXUS CORE • Secure Global Research Network
+Nexus Core Secure Infrastructure • Internal System
 </div>
 
-</div>
+<script>
+
+function enterLab(){
+alert("ACCESSING LAB MODULE...");
+}
+
+</script>
 
 </body>
 </html>
