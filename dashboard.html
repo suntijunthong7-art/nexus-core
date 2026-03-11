@@ -1,152 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE - Research Network</title>
+
+<title>NEXUS CORE COMMAND</title>
 
 <style>
 
 body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#071c1c;
-    color:#d7f7f2;
+margin:0;
+font-family:Arial;
+background:#07191c;
+color:#cfe6e3;
 }
 
-header{
-    background:#0b2b2b;
-    padding:20px;
-    border-bottom:1px solid #0f4444;
+.header{
+padding:30px;
+border-bottom:1px solid #0f3c40;
 }
 
-.title{
-    font-size:32px;
-    letter-spacing:3px;
-    font-weight:700;
+.header h1{
+margin:0;
+letter-spacing:4px;
+font-size:32px;
 }
 
-.classification{
-    margin-top:5px;
-    color:#7fffd4;
-    font-size:12px;
+.topbar{
+margin-top:10px;
+font-size:13px;
+color:#7fb5ae;
 }
 
-nav{
-    margin-top:15px;
+.status{
+padding:15px 30px;
+background:#061315;
+border-bottom:1px solid #0f3c40;
+color:#1fe3a2;
+font-size:14px;
 }
 
-nav button{
-    background:#0f3c3c;
-    border:none;
-    color:#bff;
-    padding:8px 14px;
-    margin-right:8px;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-nav button:hover{
-    background:#145555;
-}
-
-.status-bar{
-    text-align:center;
-    padding:12px;
-    background:#052222;
-    border-bottom:1px solid #0f4444;
-    color:#7fffd4;
-}
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
-    padding:30px;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+padding:30px;
 }
 
 .card{
-    background:#0c2e2e;
-    padding:20px;
-    border-radius:10px;
-    border:1px solid #114444;
+background:#0b2528;
+border:1px solid #123d41;
+padding:20px;
+border-radius:10px;
 }
 
 .card h3{
-    margin-top:0;
-    font-size:14px;
-    color:#8fe6da;
+margin:0 0 10px 0;
+font-size:14px;
+color:#7fb5ae;
 }
 
-.card .value{
-    font-size:28px;
-    margin-top:10px;
+.value{
+font-size:28px;
+}
+
+.section{
+padding:0 30px 30px 30px;
+}
+
+.panel{
+background:#0b2528;
+border:1px solid #123d41;
+padding:25px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.button{
+display:inline-block;
+margin-top:15px;
+padding:12px 22px;
+background:#1c7f74;
+color:white;
+border-radius:6px;
+text-decoration:none;
+font-size:14px;
 }
 
 .logs{
-    margin:30px;
-    background:#0c2e2e;
-    padding:20px;
-    border-radius:10px;
+font-size:13px;
+line-height:1.8;
+color:#9ed1cb;
 }
 
-.logs h3{
-    margin-top:0;
-}
-
-.log-line{
-    font-size:14px;
-    padding:3px 0;
-    color:#bde9e4;
+.alert{
+font-size:24px;
+font-weight:bold;
+color:#ff3b3b;
 }
 
 .footer{
-    text-align:center;
-    padding:20px;
-    font-size:12px;
-    color:#7aa;
+padding:20px 30px;
+border-top:1px solid #0f3c40;
+font-size:12px;
+color:#6ea5a0;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<header>
+<div class="header">
 
-<div class="title">NEXUS CORE</div>
-<div class="classification">
-SECURITY CLASS : LEVEL A CLEARANCE
+<h1>NEXUS CORE</h1>
+
+<div class="topbar">
+Command Network • Secure Research Division • Global Node
 </div>
 
-<nav>
-<button>Dashboard</button>
-<button>Laboratories</button>
-<button>Research</button>
-<button>Security</button>
-<button>Logs</button>
-</nav>
+</div>
 
-</header>
 
-<div class="status-bar">
+<div class="status">
 SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 </div>
 
-<section class="dashboard">
+
+<div class="grid">
 
 <div class="card">
 <h3>Active Laboratories</h3>
-<div class="value">3</div>
+<div class="value">14</div>
 </div>
 
 <div class="card">
 <h3>Samples Processing</h3>
-<div class="value">124</div>
+<div class="value">327</div>
 </div>
 
 <div class="card">
 <h3>Network Nodes</h3>
+<div class="value">42</div>
+</div>
+
+<div class="card">
+<h3>AI Monitoring</h3>
+<div class="value">ONLINE</div>
+</div>
+
+<div class="card">
+<h3>System Security</h3>
+<div class="value">SECURE</div>
+</div>
+
+<div class="card">
+<h3>Containment Level</h3>
+<div class="value">LEVEL 3</div>
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="panel">
+
+<h3>Biological Research Laboratory</h3>
+
+<p>
+Primary laboratory dedicated to pathogen analysis,
+genomic sequencing and controlled biological testing.
+</p>
+
+<a href="lab.html" class="button">
+ENTER LAB
+</a>
+
+</div>
+
+
+<div class="panel">
+
+<h3>System Activity</h3>
+
+<div class="logs">
+00:33:18 • Genome Data Synced<br>
+00:33:13 • Network Integrity Check<br>
+00:33:08 • Security Authentication<br>
+00:33:03 • Node Synchronization
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h3>Threat Monitoring</h3>
+
+Current Risk Level :
+<span class="alert">HIGH</span>
+
+</div>
+
+</div>
+
+
+<div class="footer">
+
+NEXUS CORE NETWORK • SECURE NODE 07 • ENCRYPTION AES-512 • BUILD v2.3
+
+</div>
+
+</body>
+</html><h3>Network Nodes</h3>
 <div class="value">18</div>
 </div>
 
