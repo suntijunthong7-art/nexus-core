@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Core</title>
+<title>Nexus Core Research Network</title>
 
 <style>
 
@@ -19,14 +19,11 @@ background:#07151c;
 color:#e6f2f7;
 }
 
-/* TOPBAR */
+/* TOP BAR */
 
 .topbar{
 background:#020a0f;
-padding:14px;
-display:flex;
-flex-direction:column;
-gap:10px;
+padding:16px;
 border-bottom:1px solid #1a2a33;
 }
 
@@ -36,10 +33,13 @@ font-weight:bold;
 letter-spacing:2px;
 }
 
+/* NAV */
+
 .nav{
+margin-top:10px;
 display:flex;
 flex-wrap:wrap;
-gap:12px;
+gap:14px;
 font-size:13px;
 }
 
@@ -63,20 +63,35 @@ color:#6fb4c1;
 border-bottom:1px solid #1c2b35;
 }
 
-/* MAIN CONTAINER */
+/* CONTAINER */
 
 .container{
-padding:20px 14px;
-max-width:600px;
+max-width:900px;
 margin:auto;
+padding:20px 14px;
 }
 
-/* GRID */
+/* DATA PANEL */
 
-.grid{
-display:flex;
-flex-direction:column;
-gap:18px;
+.data-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:20px;
+}
+
+.data-box{
+background:#08131a;
+border:1px solid #1a2a33;
+border-radius:8px;
+padding:14px;
+font-size:12px;
+}
+
+.data-box strong{
+display:block;
+font-size:16px;
+margin-top:4px;
 }
 
 /* CARD */
@@ -86,6 +101,7 @@ background:#08131a;
 border:1px solid #1a2a33;
 border-radius:10px;
 padding:18px;
+margin-bottom:18px;
 }
 
 .card h3{
@@ -103,7 +119,7 @@ line-height:1.6;
 
 .enter-btn{
 display:inline-block;
-margin-top:12px;
+margin-top:10px;
 background:#1f8a80;
 padding:10px 16px;
 border-radius:6px;
@@ -131,24 +147,8 @@ line-height:1.6;
 
 @media(min-width:768px){
 
-.topbar{
-flex-direction:row;
-justify-content:space-between;
-align-items:center;
-}
-
-.nav{
-gap:20px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-}
-
-.container{
-max-width:1100px;
+.data-grid{
+grid-template-columns:repeat(4,1fr);
 }
 
 }
@@ -180,41 +180,79 @@ SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 
 <div class="container">
 
-<div class="grid">
+<!-- DATA PANEL -->
+
+<div class="data-grid">
+
+<div class="data-box">
+Active Labs
+<strong>14</strong>
+</div>
+
+<div class="data-box">
+Samples Processing
+<strong>327</strong>
+</div>
+
+<div class="data-box">
+Network Nodes
+<strong>42</strong>
+</div>
+
+<div class="data-box">
+AI Monitoring
+<strong>ONLINE</strong>
+</div>
+
+</div>
+
+<!-- CARDS -->
 
 <div class="card">
+
 <h3>Biological Research Lab</h3>
+
 <p>
 Primary laboratory dedicated to advanced pathogen analysis,
 genetic sequencing and controlled biological experiments.
 </p>
 
-<div class="enter-btn" onclick="openLab()">ENTER LAB</div>
+<div class="enter-btn" onclick="openLab()">
+ENTER LAB
+</div>
+
 </div>
 
 <div class="card">
+
 <h3>Genome Sequencing</h3>
+
 <p>
 High precision genomic analysis facility connected to the
 global pathogen surveillance network.
 </p>
+
 </div>
 
 <div class="card">
+
 <h3>Bio Security Division</h3>
+
 <p>
 National level bio defense monitoring unit responsible for
 containment protocol and threat detection.
 </p>
+
 </div>
 
 <div class="card">
+
 <h3>Global Research Network</h3>
+
 <p>
 Encrypted data exchange between international research
 centers and high containment laboratories.
 </p>
-</div>
 
 </div>
 
@@ -223,7 +261,7 @@ centers and high containment laboratories.
 NEXUS CORE INTERNATIONAL RESEARCH NETWORK<br>
 Bio Defense & Pathogen Intelligence Division<br><br>
 
-System Build 3.1.02  
+System Build 3.1.02<br>
 Secure Infrastructure Online
 
 </div>
