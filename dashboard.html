@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,172 +9,142 @@
 <style>
 
 body{
+font-family: Arial;
+background:#071b1e;
+color:#d8f7f7;
 margin:0;
-font-family:Arial;
-background:#041f22;
-color:white;
+padding:0;
 }
 
-/* TOP BAR */
-
-.topbar{
-background:#031618;
-padding:18px;
-border-bottom:1px solid #0e4b4f;
+header{
+padding:30px;
+background:#041214;
+border-bottom:1px solid #0e3c40;
 }
 
-.title{
-font-size:26px;
+h1{
 letter-spacing:3px;
-font-weight:bold;
+margin:0;
 }
 
-.subtitle{
-font-size:12px;
-color:#8aa7a8;
-margin-top:4px;
+.sub{
+color:#4fb6b2;
+font-size:14px;
 }
-
-/* STATUS BAR */
 
 .status{
-background:#062c2f;
-padding:12px 18px;
-font-size:13px;
-color:#2de3b7;
-border-bottom:1px solid #0e4b4f;
+padding:15px 30px;
+color:#3fe0c4;
+border-bottom:1px solid #0e3c40;
 }
 
-/* GRID */
-
 .container{
-padding:20px;
+padding:25px;
 }
 
 .card{
-background:#072f33;
-border-radius:14px;
-padding:18px;
-margin-bottom:16px;
-border:1px solid #0d4448;
+background:#0a2628;
+padding:25px;
+margin-bottom:18px;
+border-radius:10px;
+border:1px solid #0e3c40;
 }
 
-.card-title{
+.title{
+color:#8fd8d5;
 font-size:14px;
-color:#9abbbb;
-margin-bottom:6px;
 }
 
-.card-value{
-font-size:26px;
-font-weight:bold;
+.value{
+font-size:30px;
+margin-top:5px;
 }
 
-/* LAB CARD */
-
-.lab-card{
-background:#08373b;
-}
-
-.lab-title{
-font-size:18px;
-margin-bottom:8px;
-}
-
-.lab-desc{
-font-size:13px;
-color:#a4c6c7;
-margin-bottom:12px;
+.lab{
+margin-top:20px;
 }
 
 button{
-background:#1f7f73;
+background:#1d8c83;
 border:none;
 padding:12px 20px;
-border-radius:8px;
 color:white;
-font-size:14px;
-}
-
-button:hover{
-background:#145a52;
+border-radius:6px;
 cursor:pointer;
 }
 
-/* LOGS */
-
-.logs{
-font-family:monospace;
+.log{
 font-size:13px;
-line-height:1.6;
-color:#9ad4d6;
+line-height:1.8;
+color:#9ed4d1;
 }
 
-/* FOOTER */
-
-.footer{
-text-align:center;
-padding:15px;
-font-size:12px;
-color:#6e8c8e;
+.threat{
+font-size:28px;
+margin-top:5px;
 }
+
+.green{color:#46ffb1}
+.yellow{color:#ffd94f}
+.red{color:#ff4f4f}
 
 </style>
-
 </head>
 
 <body>
 
-<div class="topbar">
+<header>
 
-<div class="title">NEXUS CORE</div>
+<h1>NEXUS CORE</h1>
+<div class="sub">Global Strategic Research Command</div>
 
-<div class="subtitle">
-Command Network • Secure Research Division • Global Node
-</div>
-
-</div>
+</header>
 
 <div class="status">
 
-SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
+SYSTEM STATUS • OPERATIONAL • AI MONITOR ACTIVE
 
 </div>
 
 <div class="container">
 
 <div class="card">
-<div class="card-title">Active Laboratories</div>
-<div class="card-value">14</div>
+<div class="title">Active Laboratories</div>
+<div class="value" id="labs">0</div>
 </div>
 
 <div class="card">
-<div class="card-title">Samples Processing</div>
-<div class="card-value">327</div>
+<div class="title">Samples Processing</div>
+<div class="value" id="samples">0</div>
 </div>
 
 <div class="card">
-<div class="card-title">Global Network Nodes</div>
-<div class="card-value">42</div>
+<div class="title">Network Nodes</div>
+<div class="value" id="nodes">0</div>
 </div>
 
 <div class="card">
-<div class="card-title">AI Monitoring</div>
-<div class="card-value">ONLINE</div>
+<div class="title">AI Monitoring</div>
+<div class="value">ONLINE</div>
 </div>
 
 <div class="card">
-<div class="card-title">Containment Level</div>
-<div class="card-value">LEVEL 3</div>
+<div class="title">Containment Level</div>
+<div class="value">LEVEL <span id="containment"></span></div>
 </div>
 
-<div class="card lab-card">
-
-<div class="lab-title">Biological Research Laboratory</div>
-
-<div class="lab-desc">
-Primary laboratory dedicated to pathogen analysis, genomic sequencing and controlled biological testing.
+<div class="card">
+<div class="title">Threat Index</div>
+<div class="threat" id="threat"></div>
 </div>
+
+<div class="card lab">
+
+<h3>Biological Research Laboratory</h3>
+
+Primary laboratory dedicated to pathogen analysis and genomic sequencing.
+
+<br><br>
 
 <button onclick="enterLab()">ENTER LAB</button>
 
@@ -183,30 +152,106 @@ Primary laboratory dedicated to pathogen analysis, genomic sequencing and contro
 
 <div class="card">
 
-<div class="card-title">System Activity</div>
+<h3>System Activity</h3>
 
-<div class="logs">
-
-00:33:18  Genome Data Synced<br>
-00:33:13  Network Integrity Check<br>
-00:33:08  Security Authentication<br>
-00:33:03  Node Synchronization
+<div class="log" id="log">
 
 </div>
 
 </div>
 
-</div>
-
-<div class="footer">
-Nexus Core Secure Infrastructure • Internal System
 </div>
 
 <script>
 
-function enterLab(){
-alert("ACCESSING LAB MODULE...");
+/* AI RANDOM SYSTEM */
+
+function random(min,max){
+return Math.floor(Math.random()*(max-min+1))+min
 }
+
+function updateSystem(){
+
+document.getElementById("labs").innerText=random(10,24)
+
+document.getElementById("samples").innerText=random(300,2000)
+
+document.getElementById("nodes").innerText=random(40,120)
+
+document.getElementById("containment").innerText=random(1,5)
+
+}
+
+/* THREAT ANALYSIS */
+
+function threatLevel(){
+
+let level=random(1,100)
+
+let threat=document.getElementById("threat")
+
+if(level<60){
+threat.innerText="LOW"
+threat.className="threat green"
+}
+
+else if(level<85){
+threat.innerText="MODERATE"
+threat.className="threat yellow"
+}
+
+else{
+threat.innerText="HIGH"
+threat.className="threat red"
+}
+
+}
+
+/* ACTIVITY FEED */
+
+const activities=[
+
+"Genome Data Synced",
+"Network Integrity Check",
+"AI Pattern Scan Complete",
+"Security Authentication",
+"Node Synchronization",
+"Threat Analysis Updated",
+"Sample Batch Processed",
+"Global Node Ping",
+"Biological Sample Logged"
+
+]
+
+function updateLog(){
+
+let log=document.getElementById("log")
+
+let time=new Date().toLocaleTimeString()
+
+let text=time+" • "+activities[random(0,activities.length-1)]
+
+log.innerHTML=text+"<br>"+log.innerHTML
+
+}
+
+/* ENTER LAB */
+
+function enterLab(){
+
+alert("Accessing Biological Research Division...")
+
+}
+
+/* RUN SYSTEM */
+
+updateSystem()
+threatLevel()
+updateLog()
+
+setInterval(updateSystem,5000)
+setInterval(threatLevel,7000)
+setInterval(updateLog,3000)
 
 </script>
 
