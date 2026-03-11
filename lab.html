@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -34,7 +34,7 @@ margin-bottom:10px;
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:20px;
 }
 
@@ -49,6 +49,15 @@ overflow:hidden;
 box-shadow:
 0 0 10px rgba(0,255,200,0.2),
 0 0 30px rgba(0,255,200,0.1);
+
+transition:0.3s;
+}
+
+.panel:hover{
+transform:translateY(-4px);
+box-shadow:
+0 0 15px rgba(0,255,200,0.4),
+0 0 40px rgba(0,255,200,0.2);
 }
 
 .panel::before{
@@ -59,7 +68,7 @@ left:-100%;
 width:100%;
 height:2px;
 background:#00ffd0;
-animation:scan 4s linear infinite;
+animation:scan 5s linear infinite;
 }
 
 @keyframes scan{
@@ -74,7 +83,7 @@ height:200px;
 object-fit:cover;
 border-radius:4px;
 margin-bottom:10px;
-opacity:0.9;
+opacity:0.95;
 }
 
 .title{
@@ -108,18 +117,23 @@ font-size:12px;
 color:#4bc3b3;
 }
 
+/* ECG */
+
 .heartbeat{
 width:100%;
-height:60px;
+height:70px;
 }
 
 .heartbeat polyline{
-stroke-dasharray:500;
-stroke-dashoffset:500;
-animation:heart 3s linear infinite;
+stroke:#00ffd0;
+stroke-width:3;
+fill:none;
+stroke-dasharray:700;
+stroke-dashoffset:700;
+animation:ecg 2s linear infinite;
 }
 
-@keyframes heart{
+@keyframes ecg{
 to{
 stroke-dashoffset:0;
 }
@@ -149,24 +163,20 @@ GLOBAL BIO RESEARCH COMMAND CENTER
 
 <div class="media">
 
-<video autoplay muted loop
-onerror="this.outerHTML='<img src=https://images.unsplash.com/photo-1581594693702-fbdc51b2763b>'">
-
+<video autoplay muted loop playsinline>
 <source src="dna.mp4" type="video/mp4">
-
 </video>
 
 </div>
 
 <svg class="heartbeat" viewBox="0 0 500 100">
-<polyline fill="none" stroke="#00ffd0" stroke-width="3"
-points="0,50 40,50 60,20 80,80 100,50 140,50 160,20 180,80 200,50 240,50 260,20 280,80 300,50 340,50 360,20 380,80 400,50 440,50 460,20 480,80 500,50"/>
+<polyline points="0,50 40,50 60,15 80,85 100,50 140,50 160,15 180,85 200,50 240,50 260,15 280,85 300,50 340,50 360,15 380,85 400,50 440,50 460,15 480,85 500,50"/>
 </svg>
 
 <div class="bpm" id="bpm">84 BPM</div>
 
-Oxygen Level: 98% <br>
-Core Temperature: 36.7°C <br>
+Oxygen Level: <span id="oxy">98</span>% <br>
+Core Temperature: <span id="temp">36.7</span>°C <br>
 Neural Activity: NORMAL
 
 </div>
@@ -234,11 +244,8 @@ Backup Node Status: ONLINE
 
 <div class="media">
 
-<video autoplay muted loop
-onerror="this.outerHTML='<img src=https://images.unsplash.com/photo-1582719471384-894fbb16e074>'">
-
+<video autoplay muted loop playsinline>
 <source src="virus-structure.mp4" type="video/mp4">
-
 </video>
 
 </div>
@@ -301,14 +308,28 @@ International Bio Research Authority
 
 <script>
 
-function updateBPM(){
-let bpm=Math.floor(Math.random()*10)+80
-document.getElementById("bpm").innerText=bpm+" BPM"
-}
-setInterval(updateBPM,2000)
+/* Vital Signs */
 
+function updateVitals(){
+
+let bpm=Math.floor(Math.random()*10)+80
+let oxy=Math.floor(Math.random()*3)+97
+let temp=(36.5+Math.random()*0.4).toFixed(1)
+
+document.getElementById("bpm").innerText=bpm+" BPM"
+document.getElementById("oxy").innerText=oxy
+document.getElementById("temp").innerText=temp
+
+}
+
+setInterval(updateVitals,2000)
+
+
+
+/* System Logs */
 
 const logs=[
+
 "Genome Sequencing — INITIATED",
 "Protein Folding Analysis — PROCESSING",
 "Host Cell Infection Monitor — ACTIVE",
@@ -317,6 +338,7 @@ const logs=[
 "Structural Protein Mapping — RUNNING",
 "RNA Signal Integrity — CHECKING",
 "Global Node Sync — COMPLETE"
+
 ]
 
 function addLog(){
@@ -325,8 +347,17 @@ let time=new Date().toLocaleTimeString()
 
 let logLine="["+time+"] "+logs[Math.floor(Math.random()*logs.length)]+"<br>"
 
-document.getElementById("log").innerHTML=
-logLine+document.getElementById("log").innerHTML
+let logBox=document.getElementById("log")
+
+logBox.innerHTML=logLine+logBox.innerHTML
+
+/* limit log lines */
+
+if(logBox.innerHTML.split("<br>").length>20){
+
+logBox.innerHTML=logBox.innerHTML.split("<br>").slice(0,20).join("<br>")
+
+}
 
 }
 
