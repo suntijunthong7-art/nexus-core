@@ -10,8 +10,8 @@
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
-background:#021017;
-color:#cfe6ec;
+background:#031218;
+color:#d8edf2;
 }
 
 header{
@@ -30,22 +30,40 @@ margin-top:8px;
 }
 
 nav a{
-color:#7aa5ad;
-margin-right:18px;
+color:#7faab2;
+margin-right:16px;
 text-decoration:none;
 font-size:14px;
 }
 
 nav a:hover{
-color:#ffffff;
+color:white;
 }
+
+/* SYSTEM STATUS */
 
 .status{
 text-align:center;
-color:#49d6a7;
 padding:10px;
 font-size:13px;
+color:#46e0a6;
 border-bottom:1px solid #12323a;
+}
+
+.status-light{
+width:9px;
+height:9px;
+background:#2cff88;
+border-radius:50%;
+display:inline-block;
+margin-left:6px;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 4px #2cff88;}
+50%{box-shadow:0 0 14px #2cff88;}
+100%{box-shadow:0 0 4px #2cff88;}
 }
 
 .container{
@@ -56,12 +74,11 @@ padding:20px;
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:14px;
-margin-bottom:25px;
 }
 
 .card{
-background:#051820;
-border:1px solid #10333b;
+background:#061920;
+border:1px solid #11333b;
 border-radius:12px;
 padding:18px;
 }
@@ -78,7 +95,7 @@ font-size:22px;
 }
 
 .section{
-margin-top:25px;
+margin-top:26px;
 }
 
 .section h2{
@@ -88,49 +105,44 @@ color:#9cc6ce;
 }
 
 .panel{
-background:#04141a;
-border:1px solid #10333b;
+background:#05161c;
+border:1px solid #11333b;
 border-radius:12px;
 padding:18px;
 }
 
 .button{
-display:inline-block;
 margin-top:10px;
+display:inline-block;
+background:#109d95;
 padding:10px 18px;
-background:#0f8f8a;
 border-radius:6px;
 color:white;
 text-decoration:none;
-font-size:14px;
-}
-
-.activity{
-margin-top:10px;
-font-size:13px;
-color:#9dbcc2;
 }
 
 .activity div{
-padding:5px 0;
+font-size:13px;
+padding:6px 0;
 border-bottom:1px solid rgba(255,255,255,0.05);
+color:#9dbcc2;
 }
 
 .lockdown{
-margin-top:15px;
-padding:12px;
-background:#7a0000;
-color:white;
+margin-top:12px;
+background:#b00000;
 border:none;
+padding:10px 18px;
+color:white;
 border-radius:6px;
 cursor:pointer;
 }
 
 .time{
-margin-top:20px;
+margin-top:25px;
 text-align:center;
-color:#8db6be;
 font-size:14px;
+color:#8fb5bc;
 }
 
 </style>
@@ -143,17 +155,18 @@ font-size:14px;
 <h1>NEXUS CORE</h1>
 
 <nav>
-<a href="#">Dashboard</a>
-<a href="#">Laboratories</a>
-<a href="#">Research Network</a>
-<a href="#">Security</a>
-<a href="#">Logs</a>
+<a>Dashboard</a>
+<a>Laboratories</a>
+<a>Research Network</a>
+<a>Security</a>
+<a>Logs</a>
 </nav>
 
 </header>
 
 <div class="status">
 SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
+<span class="status-light"></span>
 </div>
 
 <div class="container">
@@ -192,6 +205,7 @@ SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 
 </div>
 
+
 <div class="section">
 
 <h2>Biological Research Lab</h2>
@@ -209,13 +223,14 @@ genetic sequencing and controlled biological experiments.
 
 </div>
 
+
 <div class="section">
 
 <h2>Security Clearance</h2>
 
 <div class="panel">
 
-User Access Level : <b style="color:#49d6a7">ALPHA</b>
+User Access Level : <b style="color:#46e0a6">ALPHA</b>
 
 <ul>
 <li>Bio Containment Lab</li>
@@ -227,6 +242,7 @@ User Access Level : <b style="color:#49d6a7">ALPHA</b>
 </div>
 
 </div>
+
 
 <div class="section">
 
@@ -240,19 +256,23 @@ User Access Level : <b style="color:#49d6a7">ALPHA</b>
 
 </div>
 
+
 <div class="section">
 
 <h2>Threat Monitoring</h2>
 
 <div class="panel">
 
-Current Risk Level : <b style="color:#ffc857">MODERATE</b>
+Current Risk Level :
+<b id="threat" style="color:#ffc857">MODERATE</b>
 
 <br><br>
 
 External Bio Threat Detection : NONE  
 Network Intrusion Attempt : 0  
 Containment Breach : NONE
+
+<br>
 
 <button class="lockdown" onclick="lockdown()">
 EMERGENCY LOCKDOWN
@@ -270,20 +290,18 @@ SERVER TIME : <span id="time"></span>
 
 <script>
 
-/* CLOCK */
+/* SERVER TIME */
 
 function updateTime(){
-let now=new Date()
-
-let h=String(now.getHours()).padStart(2,'0')
-let m=String(now.getMinutes()).padStart(2,'0')
-let s=String(now.getSeconds()).padStart(2,'0')
+let n=new Date()
+let h=String(n.getHours()).padStart(2,'0')
+let m=String(n.getMinutes()).padStart(2,'0')
+let s=String(n.getSeconds()).padStart(2,'0')
 
 document.getElementById("time").innerText=h+":"+m+":"+s
 }
 
 setInterval(updateTime,1000)
-
 updateTime()
 
 /* ACTIVITY LOG */
@@ -298,19 +316,44 @@ let logs=[
 
 function addLog(){
 
+let box=document.getElementById("log")
+
 let time=new Date().toLocaleTimeString()
 
 let text=time+" • "+logs[Math.floor(Math.random()*logs.length)]
 
 let div=document.createElement("div")
-
 div.innerText=text
 
-document.getElementById("log").prepend(div)
+box.prepend(div)
+
+if(box.children.length>6){
+box.removeChild(box.lastChild)
+}
 
 }
 
 setInterval(addLog,4000)
+
+/* THREAT LEVEL */
+
+let threatLevels=["LOW","MODERATE","HIGH"]
+
+function changeThreat(){
+
+let t=threatLevels[Math.floor(Math.random()*3)]
+
+let el=document.getElementById("threat")
+
+el.innerText=t
+
+if(t=="LOW") el.style.color="#2cff88"
+if(t=="MODERATE") el.style.color="#ffc857"
+if(t=="HIGH") el.style.color="#ff3b3b"
+
+}
+
+setInterval(changeThreat,10000)
 
 /* LOCKDOWN */
 
@@ -318,7 +361,7 @@ function lockdown(){
 
 alert("SYSTEM LOCKDOWN INITIATED")
 
-document.body.style.background="#2b0000"
+document.body.style.background="#2a0000"
 
 }
 
