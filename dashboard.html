@@ -27,12 +27,14 @@ left:0;
 width:100%;
 height:100%;
 z-index:-2;
+overflow:hidden;
 }
 
 .video-bg iframe{
 width:100vw;
 height:100vh;
 pointer-events:none;
+border:none;
 }
 
 /* DARK OVERLAY */
@@ -41,7 +43,7 @@ pointer-events:none;
 position:fixed;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.65);
+background:rgba(0,0,0,0.75);
 z-index:-1;
 }
 
@@ -58,31 +60,17 @@ font-size:28px;
 
 .threat{
 color:#00ff9d;
+margin-top:5px;
 }
 
-/* MAP */
-
-.map{
-height:200px;
-background:url("https://eoimages.gsfc.nasa.gov/images/imagerecords/74000/74218/world.topo.bathy.200412.3x5400x2700.jpg");
-background-size:cover;
-border-radius:10px;
-margin:20px;
-position:relative;
-}
+/* SCAN LINE */
 
 .scan{
-position:absolute;
 width:100%;
 height:2px;
 background:#00ffc8;
-box-shadow:0 0 10px #00ffc8;
-animation:scan 4s linear infinite;
-}
-
-@keyframes scan{
-0%{top:0}
-100%{top:200px}
+box-shadow:0 0 12px #00ffc8;
+margin:10px 0;
 }
 
 /* DASHBOARD */
@@ -95,10 +83,11 @@ padding:20px;
 }
 
 .card{
-background:rgba(0,40,40,0.7);
+background:rgba(0,60,60,0.6);
 border:1px solid rgba(0,255,200,0.3);
-border-radius:10px;
+border-radius:12px;
 padding:18px;
+backdrop-filter:blur(6px);
 }
 
 .label{
@@ -135,6 +124,11 @@ font-weight:bold;
 color:black;
 }
 
+button:hover{
+background:#00c18d;
+cursor:pointer;
+}
+
 </style>
 
 </head>
@@ -143,7 +137,7 @@ color:black;
 
 <div class="video-bg">
 
-<iframe src="https://www.youtube.com/embed/1La4QzGeaaQ?autoplay=1&mute=1&loop=1&playlist=1La4QzGeaaQ"></iframe>
+<iframe src="https://www.youtube.com/embed/XBPjVzSoepo?autoplay=1&mute=1&loop=1&playlist=XBPjVzSoepo"></iframe>
 
 </div>
 
@@ -159,16 +153,13 @@ Threat Level : GREEN
 
 </div>
 
-<div class="map">
 <div class="scan"></div>
-</div>
 
 <div class="dashboard">
 
 <div class="card">
 
 <div class="label">GLOBAL SURVEILLANCE</div>
-
 <div class="big" id="nodes">16 Nodes Active</div>
 
 </div>
@@ -176,7 +167,6 @@ Threat Level : GREEN
 <div class="card">
 
 <div class="label">SYSTEM LOAD</div>
-
 <div class="big" id="cpu">CPU 38%</div>
 
 </div>
@@ -184,7 +174,6 @@ Threat Level : GREEN
 <div class="card">
 
 <div class="label">DEFENSE NETWORK</div>
-
 <div class="big">ONLINE</div>
 
 </div>
@@ -192,7 +181,6 @@ Threat Level : GREEN
 <div class="card">
 
 <div class="label">SYSTEM LOG</div>
-
 <div class="log" id="log"></div>
 
 </div>
@@ -262,5 +250,4 @@ window.location="lab.html"
 </script>
 
 </body>
-
 </html>
