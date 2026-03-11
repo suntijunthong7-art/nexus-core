@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>National Bio Defense Command</title>
 
 <style>
@@ -13,238 +10,179 @@
 body{
 margin:0;
 font-family:Arial;
+background:#000;
 color:white;
-background:black;
-overflow-x:hidden;
 }
 
-/* VIDEO BACKGROUND */
+/* video background */
 
-.video-bg{
+video{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-2;
-overflow:hidden;
-}
-
-.video-bg iframe{
-width:100vw;
-height:100vh;
-pointer-events:none;
-border:none;
-}
-
-/* DARK OVERLAY */
-
-.overlay{
-position:fixed;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.75);
+right:0;
+bottom:0;
+min-width:100%;
+min-height:100%;
 z-index:-1;
+opacity:0.25;
 }
 
-/* HEADER */
+/* header */
 
-.header{
-padding:25px;
+header{
+padding:30px;
+border-bottom:2px solid #00ffc8;
 }
 
 h1{
 margin:0;
-font-size:28px;
+font-size:32px;
 }
 
 .threat{
-color:#00ff9d;
+color:#00ffc8;
+font-size:20px;
 margin-top:5px;
 }
 
-/* SCAN LINE */
+/* grid */
 
-.scan{
-width:100%;
-height:2px;
-background:#00ffc8;
-box-shadow:0 0 12px #00ffc8;
-margin:10px 0;
-}
-
-/* DASHBOARD */
-
-.dashboard{
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:15px;
-padding:20px;
+gap:20px;
+padding:25px;
 }
 
 .card{
 background:rgba(0,60,60,0.6);
-border:1px solid rgba(0,255,200,0.3);
-border-radius:12px;
-padding:18px;
-backdrop-filter:blur(6px);
+padding:25px;
+border-radius:14px;
+border:1px solid #00ffc8;
 }
 
-.label{
-font-size:12px;
-color:#9ed9d9;
+.card h3{
+margin-top:0;
+color:#9fffe0;
 }
 
 .big{
-font-size:24px;
-margin-top:5px;
+font-size:28px;
+margin-top:10px;
 }
+
+/* log */
 
 .log{
 height:120px;
 overflow:auto;
 font-family:monospace;
-font-size:12px;
+font-size:13px;
 }
 
-/* BUTTON */
+/* button */
 
-.lab{
-padding:20px;
-}
-
-button{
-width:100%;
-padding:16px;
-background:#00e6a6;
+.enter{
+margin:30px;
+padding:18px;
+width:calc(100% - 60px);
+font-size:20px;
+background:#00c896;
 border:none;
-border-radius:10px;
-font-size:18px;
+border-radius:12px;
 font-weight:bold;
-color:black;
 }
 
-button:hover{
-background:#00c18d;
+.enter:hover{
+background:#00a47b;
 cursor:pointer;
 }
 
-</style>
+.image-panel{
+padding:25px;
+}
 
+.image-panel img{
+width:100%;
+border-radius:10px;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="video-bg">
+<!-- background video -->
+<video autoplay muted loop>
+<source src="https://cdn.coverr.co/videos/coverr-scientist-working-in-a-lab-5176/1080p.mp4">
+</video>
 
-<iframe src="https://www.youtube.com/embed/XBPjVzSoepo?autoplay=1&mute=1&loop=1&playlist=XBPjVzSoepo"></iframe>
-
-</div>
-
-<div class="overlay"></div>
-
-<div class="header">
+<header>
 
 <h1>NATIONAL BIO DEFENSE COMMAND</h1>
+<div class="threat">Threat Level : GREEN</div>
 
-<div class="threat">
-Threat Level : GREEN
-</div>
+</header>
 
-</div>
-
-<div class="scan"></div>
-
-<div class="dashboard">
+<div class="grid">
 
 <div class="card">
-
-<div class="label">GLOBAL SURVEILLANCE</div>
-<div class="big" id="nodes">16 Nodes Active</div>
-
+<h3>GLOBAL SURVEILLANCE</h3>
+<div class="big" id="nodes">14 Nodes Active</div>
 </div>
 
 <div class="card">
-
-<div class="label">SYSTEM LOAD</div>
+<h3>SYSTEM LOAD</h3>
 <div class="big" id="cpu">CPU 38%</div>
-
 </div>
 
 <div class="card">
-
-<div class="label">DEFENSE NETWORK</div>
+<h3>DEFENSE NETWORK</h3>
 <div class="big">ONLINE</div>
-
 </div>
 
 <div class="card">
-
-<div class="label">SYSTEM LOG</div>
-<div class="log" id="log"></div>
-
+<h3>SYSTEM LOG</h3>
+<div class="log" id="log">
+[15:44:21] Genome sample processing<br>
+[15:44:23] Orbital scan completed<br>
+[15:44:26] Bio shield monitoring<br>
+</div>
 </div>
 
 </div>
 
-<div class="lab">
+<div class="image-panel">
 
-<button onclick="enterLab()">ENTER BIO LAB</button>
+<h2>Research Feed</h2>
+
+<img src="https://images.unsplash.com/photo-1581091870627-3c4b8e9e5c9e">
 
 </div>
+
+<button class="enter" onclick="enterLab()">
+ENTER BIO LAB
+</button>
 
 <script>
 
-/* nodes */
+/* random cpu */
 
 setInterval(()=>{
-
-let n=14+Math.floor(Math.random()*6)
-
-document.getElementById("nodes").innerText=n+" Nodes Active"
-
-},4000)
-
-/* cpu */
-
-setInterval(()=>{
-
-let cpu=30+Math.floor(Math.random()*20)
-
+let cpu=Math.floor(Math.random()*40)+30
 document.getElementById("cpu").innerText="CPU "+cpu+"%"
-
 },3000)
 
-/* log */
+/* logs */
 
+setInterval(()=>{
 let log=document.getElementById("log")
-
-function addLog(){
-
-let events=[
-"Satellite node synced",
-"Orbital scan completed",
-"Bio sensor active",
-"Threat analysis running",
-"Genome sample processing"
-]
-
-let e=events[Math.floor(Math.random()*events.length)]
-
-let t=new Date().toLocaleTimeString()
-
-log.innerHTML="[ "+t+" ] "+e+"<br>"+log.innerHTML
-
-}
-
-setInterval(addLog,2000)
-
-/* lab */
+let time=new Date().toLocaleTimeString()
+log.innerHTML+="<br>["+time+"] Lab sensor updated"
+log.scrollTop=log.scrollHeight
+},4000)
 
 function enterLab(){
-
 window.location="lab.html"
-
 }
 
 </script>
