@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>National Bio Defense Command</title>
 
-<!-- CDN Libraries -->
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>Nexus Bio Defense Command</title>
 
 <style>
 
@@ -16,10 +14,8 @@ body{
 margin:0;
 font-family:Arial;
 background:#021416;
-color:#e8ffff;
+color:#dfffff;
 }
-
-/* GRID BACKGROUND */
 
 body::before{
 content:"";
@@ -27,13 +23,11 @@ position:fixed;
 width:100%;
 height:100%;
 background:
-linear-gradient(rgba(0,255,200,0.05) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,255,200,0.05) 1px, transparent 1px);
+linear-gradient(rgba(0,255,200,0.06) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,255,200,0.06) 1px, transparent 1px);
 background-size:40px 40px;
 z-index:-1;
 }
-
-/* HEADER */
 
 .header{
 padding:20px;
@@ -42,23 +36,10 @@ border-bottom:1px solid rgba(0,255,200,0.2);
 
 h1{
 margin:0;
-font-size:24px;
+font-size:26px;
 }
 
-.status{
-color:#00ffc8;
-margin-top:6px;
-}
-
-/* MAP */
-
-.map{
-height:260px;
-}
-
-/* DASHBOARD GRID */
-
-.dashboard{
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:15px;
@@ -68,13 +49,13 @@ padding:20px;
 .card{
 background:rgba(0,60,60,0.4);
 border:1px solid rgba(0,255,200,0.2);
-border-radius:10px;
+border-radius:12px;
 padding:15px;
 }
 
 .title{
-font-size:12px;
-color:#8fbebe;
+font-size:13px;
+color:#88bbbb;
 }
 
 .value{
@@ -82,20 +63,9 @@ font-size:22px;
 margin-top:5px;
 }
 
-/* LOG */
-
 .log{
-height:120px;
-overflow:auto;
 font-family:monospace;
 font-size:12px;
-color:#a8e6d8;
-}
-
-/* BUTTON */
-
-.lab{
-padding:20px;
 }
 
 button{
@@ -106,15 +76,11 @@ border:none;
 border-radius:10px;
 font-size:18px;
 font-weight:bold;
-color:black;
-}
-
-button:hover{
-background:#00c18d;
-cursor:pointer;
+margin:20px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -122,129 +88,126 @@ cursor:pointer;
 <div class="header">
 
 <h1>NATIONAL BIO DEFENSE COMMAND</h1>
-
-<div class="status">
-Threat Level : GREEN | Server Time : <span id="clock"></span>
-</div>
+<div>Threat Level : GREEN</div>
 
 </div>
 
-<div id="worldmap" class="map"></div>
-
-<div class="dashboard">
+<div class="grid">
 
 <div class="card">
-<div class="title">GLOBAL SURVEILLANCE</div>
-<div class="value" id="nodes">16 Nodes Active</div>
+<div class="title">SERVER TIME</div>
+<div class="value" id="time">loading...</div>
 </div>
 
 <div class="card">
-<div class="title">SYSTEM LOAD</div>
-<canvas id="cpuChart"></canvas>
+<div class="title">PUBLIC IP</div>
+<div class="value" id="ip">loading...</div>
 </div>
 
 <div class="card">
-<div class="title">THREAT ANALYSIS</div>
-<div class="value" id="threat">No outbreak detected</div>
+<div class="title">ISS SATELLITE POSITION</div>
+<div class="value" id="iss">loading...</div>
 </div>
 
 <div class="card">
-<div class="title">DEFENSE NETWORK</div>
-<div class="value">ONLINE</div>
+<div class="title">WEATHER (BANGKOK)</div>
+<div class="value" id="weather">loading...</div>
 </div>
 
 <div class="card">
+<div class="title">NETWORK LATENCY</div>
+<div class="value" id="ping">testing...</div>
+</div>
+
+<div class="card">
+
 <div class="title">SYSTEM LOG</div>
+
 <div class="log" id="log"></div>
-</div>
 
 </div>
 
-<div class="lab">
-<button onclick="enterLab()">ENTER RESEARCH LAB</button>
 </div>
+
+<button onclick="enterLab()">ENTER BIO LAB</button>
 
 <script>
 
-/* CLOCK */
+/* WORLD TIME */
 
-setInterval(()=>{
+async function getTime(){
 
-document.getElementById("clock").innerText=
-new Date().toLocaleTimeString()
+let res = await fetch("https://worldtimeapi.org/api/ip")
 
-},1000)
+let data = await res.json()
 
-/* NODES */
+document.getElementById("time").innerText =
+data.datetime.slice(11,19)
 
-setInterval(()=>{
-
-let n=14+Math.floor(Math.random()*6)
-
-document.getElementById("nodes").innerText=n+" Nodes Active"
-
-},4000)
-
-/* WORLD MAP */
-
-var chart = echarts.init(document.getElementById('worldmap'));
-
-var option = {
-
-backgroundColor:"#021416",
-
-geo:{
-map:'world',
-roam:true,
-itemStyle:{
-areaColor:"#083333",
-borderColor:"#00ffc8"
-}
-},
-
-series:[{
-type:"scatter",
-coordinateSystem:"geo",
-data:[
-{value:[100.5,13.7]},
-{value:[139.6,35.6]},
-{value:[-74,40.7]},
-{value:[2.35,48.85]}
-],
-symbolSize:8,
-itemStyle:{color:"#00ff9c"}
-}]
-
-};
-
-chart.setOption(option);
-
-/* CPU CHART */
-
-const ctx = document.getElementById('cpuChart');
-
-const cpuChart = new Chart(ctx,{
-
-type:'line',
-
-data:{
-labels:["1","2","3","4","5","6"],
-datasets:[{
-data:[35,38,40,36,34,39],
-borderColor:"#00ffc8",
-backgroundColor:"transparent",
-tension:0.4
-}]
-},
-
-options:{
-plugins:{legend:{display:false}},
-scales:{x:{display:false},y:{display:false}}
 }
 
-});
+getTime()
+setInterval(getTime,10000)
 
-/* LOG STREAM */
+
+/* IP ADDRESS */
+
+fetch("https://api.ipify.org?format=json")
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("ip").innerText=data.ip
+})
+
+
+/* ISS SATELLITE */
+
+async function iss(){
+
+let res = await fetch("https://api.wheretheiss.at/v1/satellites/25544")
+
+let data = await res.json()
+
+document.getElementById("iss").innerText =
+data.latitude.toFixed(2)+" , "+data.longitude.toFixed(2)
+
+}
+
+iss()
+setInterval(iss,5000)
+
+
+/* WEATHER */
+
+async function weather(){
+
+let res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=13.75&longitude=100.50&current_weather=true")
+
+let data = await res.json()
+
+document.getElementById("weather").innerText =
+data.current_weather.temperature+"°C"
+
+}
+
+weather()
+
+
+/* PING */
+
+let start=performance.now()
+
+fetch("https://api.github.com")
+
+.then(()=>{
+
+let latency=Math.floor(performance.now()-start)
+
+document.getElementById("ping").innerText=latency+" ms"
+
+})
+
+
+/* LOG */
 
 let log=document.getElementById("log")
 
@@ -252,11 +215,11 @@ function addLog(){
 
 let events=[
 
-"Satellite node synced",
-"Bio sensor online",
-"Threat scan completed",
-"Neural analysis running",
-"Genome sample processing"
+"satellite link established",
+"biosensor online",
+"network scan completed",
+"defense grid active",
+"AI analysis running"
 
 ]
 
@@ -270,6 +233,7 @@ log.innerHTML="[ "+t+" ] "+e+"<br>"+log.innerHTML
 
 setInterval(addLog,2000)
 
+
 /* LAB */
 
 function enterLab(){
@@ -281,4 +245,5 @@ window.location="lab.html"
 </script>
 
 </body>
+
 </html>
