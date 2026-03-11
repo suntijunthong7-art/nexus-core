@@ -1,297 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>NEXUS CORE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS CORE - Research Network</title>
 
 <style>
 
 body{
-margin:0;
-font-family:Arial;
-background:#071c1f;
-color:#d7f6f1;
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#071c1c;
+    color:#d7f7f2;
 }
 
 header{
-padding:25px;
-border-bottom:1px solid #103a40;
+    background:#0b2b2b;
+    padding:20px;
+    border-bottom:1px solid #0f4444;
 }
 
-h1{
-margin:0;
-letter-spacing:3px;
+.title{
+    font-size:32px;
+    letter-spacing:3px;
+    font-weight:700;
+}
+
+.classification{
+    margin-top:5px;
+    color:#7fffd4;
+    font-size:12px;
 }
 
 nav{
-margin-top:10px;
-color:#7fb8b1;
-font-size:14px;
+    margin-top:15px;
 }
 
-.status{
-text-align:center;
-padding:12px;
-color:#1fe58f;
-border-bottom:1px solid #103a40;
+nav button{
+    background:#0f3c3c;
+    border:none;
+    color:#bff;
+    padding:8px 14px;
+    margin-right:8px;
+    border-radius:6px;
+    cursor:pointer;
 }
 
-.container{
-padding:20px;
+nav button:hover{
+    background:#145555;
 }
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
+.status-bar{
+    text-align:center;
+    padding:12px;
+    background:#052222;
+    border-bottom:1px solid #0f4444;
+    color:#7fffd4;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+    padding:30px;
 }
 
 .card{
-background:#0b2a2e;
-padding:20px;
-border-radius:10px;
-border:1px solid #123f44;
+    background:#0c2e2e;
+    padding:20px;
+    border-radius:10px;
+    border:1px solid #114444;
 }
 
 .card h3{
-margin:0;
-font-size:14px;
-color:#7fb8b1;
+    margin-top:0;
+    font-size:14px;
+    color:#8fe6da;
 }
 
-.card p{
-font-size:24px;
-margin:10px 0 0 0;
+.card .value{
+    font-size:28px;
+    margin-top:10px;
 }
 
-.section{
-margin-top:25px;
+.logs{
+    margin:30px;
+    background:#0c2e2e;
+    padding:20px;
+    border-radius:10px;
 }
 
-button{
-background:#1ea89a;
-border:none;
-padding:12px 20px;
-color:white;
-border-radius:6px;
-cursor:pointer;
+.logs h3{
+    margin-top:0;
 }
 
-button:hover{
-background:#179082;
+.log-line{
+    font-size:14px;
+    padding:3px 0;
+    color:#bde9e4;
 }
 
-.lock{
-background:#c40000;
-}
-
-.lock:hover{
-background:#a30000;
-}
-
-.log{
-font-size:13px;
-line-height:22px;
-}
-
-.server{
-text-align:center;
-margin:25px 0;
-color:#7fb8b1;
+.footer{
+    text-align:center;
+    padding:20px;
+    font-size:12px;
+    color:#7aa;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
 
-<h1>NEXUS CORE</h1>
+<div class="title">NEXUS CORE</div>
+<div class="classification">
+SECURITY CLASS : LEVEL A CLEARANCE
+</div>
 
 <nav>
-Dashboard • Laboratories • Research Network • Security • Logs
+<button>Dashboard</button>
+<button>Laboratories</button>
+<button>Research</button>
+<button>Security</button>
+<button>Logs</button>
 </nav>
 
 </header>
 
-<div class="status">
-SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE ●
+<div class="status-bar">
+SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 </div>
 
-<div class="container">
-
-<div class="grid">
+<section class="dashboard">
 
 <div class="card">
-<h3>Active Labs</h3>
-<p id="labs">14</p>
+<h3>Active Laboratories</h3>
+<div class="value">3</div>
 </div>
 
 <div class="card">
 <h3>Samples Processing</h3>
-<p id="samples">327</p>
+<div class="value">124</div>
 </div>
 
 <div class="card">
 <h3>Network Nodes</h3>
-<p>42</p>
+<div class="value">18</div>
 </div>
 
 <div class="card">
 <h3>AI Monitoring</h3>
-<p>ONLINE</p>
+<div class="value">ONLINE</div>
 </div>
 
 <div class="card">
-<h3>System Security</h3>
-<p>SECURE</p>
+<h3>Containment</h3>
+<div class="value">BSL-3</div>
 </div>
 
 <div class="card">
-<h3>Containment Level</h3>
-<p>LEVEL 3</p>
+<h3>Threat Level</h3>
+<div class="value">ELEVATED</div>
 </div>
 
-</div>
+</section>
 
-
-<div class="section card">
-
-<h3>Biological Research Lab</h3>
-
-<p>
-Primary laboratory dedicated to pathogen analysis,
-genetic sequencing and controlled biological experiments.
-</p>
-
-<button onclick="enterLab()">ENTER LAB</button>
-
-</div>
-
-
-<div class="section card">
+<section class="logs">
 
 <h3>System Activity</h3>
 
-<div id="log" class="log"></div>
+<div class="log-line">00:33:18 • Genome Data Synced</div>
+<div class="log-line">00:33:13 • Network Integrity Check</div>
+<div class="log-line">00:33:08 • External Node Authenticated</div>
+<div class="log-line">00:33:03 • Secure Backup Completed</div>
 
+</section>
+
+<div class="footer">
+NEXUS CORE RESEARCH NETWORK • BUILD 3.2.14
 </div>
-
-
-<div class="section card">
-
-<h3>Threat Monitoring</h3>
-
-<p>Current Risk Level : <b id="risk">MODERATE</b></p>
-
-<p>
-External Bio Threat Detection : NONE<br>
-Network Intrusion Attempt : 0<br>
-Containment Breach : NONE
-</p>
-
-<button class="lock" onclick="lockdown()">
-EMERGENCY LOCKDOWN
-</button>
-
-</div>
-
-<div class="server">
-SERVER TIME : <span id="time"></span>
-</div>
-
-</div>
-
-<script>
-
-function updateTime(){
-
-let now=new Date()
-
-document.getElementById("time").innerText=
-now.toLocaleTimeString()
-
-}
-
-setInterval(updateTime,1000)
-
-
-
-let logs=[
-"Secure Channel Verified",
-"AI Analysis Running",
-"Genome Data Synced",
-"Network Integrity Check",
-"Sample Batch Verified",
-"Containment Protocol Active"
-]
-
-function addLog(){
-
-let logBox=document.getElementById("log")
-
-let time=new Date().toLocaleTimeString()
-
-let text=time+" • "+
-logs[Math.floor(Math.random()*logs.length)]
-
-let div=document.createElement("div")
-div.innerText=text
-
-logBox.prepend(div)
-
-if(logBox.children.length>6){
-
-logBox.removeChild(logBox.lastChild)
-
-}
-
-}
-
-setInterval(addLog,5000)
-
-
-
-let threat=["LOW","MODERATE","HIGH"]
-
-function changeThreat(){
-
-let level=threat[Math.floor(Math.random()*3)]
-
-let el=document.getElementById("risk")
-
-el.innerText=level
-
-if(level=="LOW") el.style.color="#2cff88"
-if(level=="MODERATE") el.style.color="#ffc857"
-if(level=="HIGH") el.style.color="#ff3b3b"
-
-}
-
-setInterval(changeThreat,10000)
-
-
-
-function enterLab(){
-
-alert("Accessing Biological Research Lab")
-
-}
-
-function lockdown(){
-
-alert("EMERGENCY LOCKDOWN ACTIVATED")
-
-}
-
-updateTime()
-
-</script>
 
 </body>
 </html>
