@@ -2,27 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nexus Core Research Network</title>
+<title>Nexus Core</title>
 
 <style>
 
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
+font-family:Arial,Helvetica,sans-serif;
 background:#07151c;
 color:#e6f2f7;
 }
 
-/* TOP BAR */
+/* TOPBAR */
 
 .topbar{
 background:#020a0f;
-padding:16px 30px;
+padding:14px;
 display:flex;
-justify-content:space-between;
-align-items:center;
+flex-direction:column;
+gap:10px;
 border-bottom:1px solid #1a2a33;
 }
 
@@ -32,58 +36,60 @@ font-weight:bold;
 letter-spacing:2px;
 }
 
+.nav{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+font-size:13px;
+}
+
 .nav a{
 color:#8fa5b4;
-margin-left:25px;
 text-decoration:none;
-font-size:14px;
 }
 
 .nav a:hover{
 color:white;
 }
 
-/* SYSTEM STATUS */
+/* STATUS BAR */
 
 .system-bar{
 background:#051018;
-padding:10px;
+padding:8px;
 text-align:center;
-font-size:12px;
+font-size:11px;
 color:#6fb4c1;
 border-bottom:1px solid #1c2b35;
 }
 
-/* MAIN AREA */
+/* MAIN CONTAINER */
 
 .container{
-max-width:1100px;
+padding:20px 14px;
+max-width:600px;
 margin:auto;
-padding:40px 20px;
 }
 
-/* CARDS */
+/* GRID */
 
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
+display:flex;
+flex-direction:column;
+gap:18px;
 }
+
+/* CARD */
 
 .card{
 background:#08131a;
 border:1px solid #1a2a33;
 border-radius:10px;
-padding:22px;
-transition:0.3s;
-}
-
-.card:hover{
-border-color:#2a5d6a;
+padding:18px;
 }
 
 .card h3{
-margin-top:0;
+margin:0 0 10px 0;
 font-size:16px;
 }
 
@@ -96,8 +102,8 @@ line-height:1.6;
 /* BUTTON */
 
 .enter-btn{
-margin-top:12px;
 display:inline-block;
+margin-top:12px;
 background:#1f8a80;
 padding:10px 16px;
 border-radius:6px;
@@ -112,12 +118,39 @@ background:#25b5a8;
 /* FOOTER */
 
 .footer{
-margin-top:60px;
+margin-top:40px;
 text-align:center;
-font-size:12px;
+font-size:11px;
 color:#6e8b99;
 border-top:1px solid #16252f;
-padding-top:20px;
+padding-top:18px;
+line-height:1.6;
+}
+
+/* DESKTOP */
+
+@media(min-width:768px){
+
+.topbar{
+flex-direction:row;
+justify-content:space-between;
+align-items:center;
+}
+
+.nav{
+gap:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.container{
+max-width:1100px;
+}
+
 }
 
 </style>
