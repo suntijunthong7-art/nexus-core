@@ -1,37 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Virus Analysis</title>
+<title>NEXUS CORE AI</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
-background:#081a20;
-color:#8feaff;
+font-family:Arial,Helvetica,sans-serif;
+background:#021017;
+color:#cfe6ec;
 }
 
 header{
-padding:15px;
-background:#0b2f38;
-display:flex;
-justify-content:space-between;
+padding:18px;
+border-bottom:1px solid #12323a;
+}
+
+h1{
+margin:0;
+letter-spacing:3px;
+font-size:22px;
+}
+
+nav{
+margin-top:8px;
+}
+
+nav a{
+color:#7aa5ad;
+margin-right:18px;
+text-decoration:none;
+font-size:14px;
+}
+
+.status{
+text-align:center;
+color:#49d6a7;
+padding:10px;
+border-bottom:1px solid #12323a;
 }
 
 .container{
 padding:20px;
 }
 
-.log{
-background:#000;
-color:#00ff9c;
-font-family:monospace;
-height:200px;
-overflow:auto;
-padding:10px;
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-bottom:25px;
+}
+
+.card{
+background:#051820;
+border:1px solid #10333b;
+border-radius:12px;
+padding:18px;
+}
+
+.card h3{
+margin:0;
+font-size:13px;
+color:#7fa9b1;
+}
+
+.value{
+margin-top:8px;
+font-size:22px;
+}
+
+.section{
+margin-top:25px;
+}
+
+.section h2{
+font-size:16px;
+margin-bottom:10px;
+color:#9cc6ce;
+}
+
+.panel{
+background:#04141a;
+border:1px solid #10333b;
+border-radius:12px;
+padding:18px;
+}
+
+.activity div{
+padding:5px 0;
+border-bottom:1px solid rgba(255,255,255,0.05);
+font-size:13px;
+color:#9dbcc2;
+}
+
+.ai-box{
+margin-top:15px;
+padding:15px;
+border-radius:10px;
+background:#031218;
+border:1px solid #0f3942;
+}
+
+.ai-title{
+font-size:13px;
+color:#7cc8d4;
+}
+
+.ai-result{
+margin-top:6px;
+font-size:14px;
+}
+
+.threat-low{color:#2cff88}
+.threat-mid{color:#ffc857}
+.threat-high{color:#ff3b3b}
+
+.time{
+text-align:center;
+margin-top:20px;
+color:#8db6be;
 }
 
 </style>
@@ -42,57 +133,203 @@ padding:10px;
 
 <header>
 
-<div>Virus Analysis</div>
+<h1>NEXUS CORE</h1>
 
-<button onclick="location.href='dashboard.html'">Back</button>
+<nav>
+<a>Dashboard</a>
+<a>Laboratories</a>
+<a>Research Network</a>
+<a>Security</a>
+<a>Logs</a>
+</nav>
 
 </header>
 
+<div class="status">
+SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
+</div>
+
 <div class="container">
 
-<h3>System Log</h3>
+<div class="grid">
 
-<div class="log" id="log"></div>
+<div class="card">
+<h3>Active Labs</h3>
+<div class="value">14</div>
+</div>
+
+<div class="card">
+<h3>Samples Processing</h3>
+<div class="value">327</div>
+</div>
+
+<div class="card">
+<h3>Network Nodes</h3>
+<div class="value">42</div>
+</div>
+
+<div class="card">
+<h3>AI Monitoring</h3>
+<div class="value">ONLINE</div>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>System Activity</h2>
+
+<div class="panel">
+
+<div class="activity" id="log"></div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>AI Threat Intelligence</h2>
+
+<div class="panel">
+
+<div class="ai-box">
+<div class="ai-title">Threat Level</div>
+<div id="aiThreat" class="ai-result threat-low">LOW</div>
+</div>
+
+<div class="ai-box">
+<div class="ai-title">AI Insight</div>
+<div id="aiInsight" class="ai-result">System operating normally</div>
+</div>
+
+<div class="ai-box">
+<div class="ai-title">Recommendation</div>
+<div id="aiAdvice" class="ai-result">No action required</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="time">
+SERVER TIME : <span id="time"></span>
+</div>
 
 </div>
 
 <script>
 
-let log=document.getElementById("log")
+/* CLOCK */
 
-let msgs=[
-"Scanning viral particles",
-"DNA mutation detected",
-"Protein analysis running",
-"Host cell mapping",
-"Genome sequencing"
+function updateTime(){
+
+let now=new Date()
+
+let h=String(now.getHours()).padStart(2,'0')
+let m=String(now.getMinutes()).padStart(2,'0')
+let s=String(now.getSeconds()).padStart(2,'0')
+
+document.getElementById("time").innerText=h+":"+m+":"+s
+
+}
+
+setInterval(updateTime,1000)
+updateTime()
+
+
+/* SYSTEM LOG EVENTS */
+
+let logs=[
+"Genome Data Uploaded",
+"AI Scan Completed",
+"Lab Node Connected",
+"Secure Channel Verified",
+"Network Sync Completed",
+"Bio Sample Analysis Running"
 ]
 
-setInterval(()=>{
+function addLog(){
 
 let time=new Date().toLocaleTimeString()
 
-let m=msgs[Math.floor(Math.random()*msgs.length)]
+let text=time+" • "+logs[Math.floor(Math.random()*logs.length)]
 
-log.innerHTML+="["+time+"] "+m+"<br>"
+let div=document.createElement("div")
+div.innerText=text
 
-log.scrollTop=log.scrollHeight
+let logBox=document.getElementById("log")
 
-},2000)
+logBox.prepend(div)
+
+if(logBox.children.length>6){
+logBox.removeChild(logBox.lastChild)
+}
+
+runAI(text)
+
+}
+
+setInterval(addLog,4000)
+
+
+/* AI ENGINE */
+
+function runAI(event){
+
+let threat="LOW"
+let insight="System operating normally"
+let advice="No action required"
+
+if(event.includes("Scan")){
+threat="LOW"
+insight="Routine AI diagnostic scan"
+}
+
+if(event.includes("Analysis")){
+threat="MODERATE"
+insight="Bio analysis process detected"
+advice="Monitor lab activity"
+}
+
+if(event.includes("Secure")){
+threat="LOW"
+insight="Network encryption verified"
+}
+
+if(event.includes("Node")){
+threat="MODERATE"
+insight="New network node connection"
+advice="Verify node authorization"
+}
+
+if(event.includes("Genome")){
+threat="MODERATE"
+insight="Genome dataset processing"
+}
+
+updateAI(threat,insight,advice)
+
+}
+
+function updateAI(t,i,a){
+
+let threatBox=document.getElementById("aiThreat")
+
+threatBox.innerText=t
+
+threatBox.className="ai-result "
+
+if(t=="LOW") threatBox.classList.add("threat-low")
+if(t=="MODERATE") threatBox.classList.add("threat-mid")
+if(t=="HIGH") threatBox.classList.add("threat-high")
+
+document.getElementById("aiInsight").innerText=i
+document.getElementById("aiAdvice").innerText=a
+
+}
 
 </script>
-
-</body>
-</html>[10:41] AI Core Online<br>
-[10:42] Monitoring Systems Active<br>
-[10:44] Facility Scan Complete<br>
-[10:47] Security Protocol Verified<br>
-
-</div>
-
-</div>
-
-</div>
 
 </body>
 </html>
