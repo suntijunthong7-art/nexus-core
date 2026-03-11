@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -12,272 +11,235 @@
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#f2f4f7;
-color:#1f2933;
+font-family:Arial;
+background:#0e1a22;
+color:white;
 }
 
-/* HEADER */
-
-header{
-background:white;
+.header{
+background:#111e27;
 padding:20px;
-border-bottom:1px solid #d9e2ec;
-}
-
-h1{
-margin:0;
-font-size:20px;
-}
-
-.threat{
-margin-top:6px;
-font-size:14px;
-color:#2f9e44;
-}
-
-/* GRID */
-
-.container{
-padding:20px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:16px;
-}
-
-/* PANEL */
-
-.panel{
-background:white;
-border:1px solid #d9e2ec;
-border-radius:8px;
-padding:16px;
-}
-
-.panel h3{
-margin:0 0 10px 0;
-font-size:14px;
-color:#52606d;
-}
-
-.data{
-font-size:22px;
-font-weight:600;
-margin-bottom:6px;
+font-size:24px;
+font-weight:bold;
 }
 
 .sub{
-font-size:13px;
-color:#7b8794;
+color:#39d98a;
+font-size:14px;
+margin-top:4px;
 }
 
-/* IMAGE */
+.container{
+padding:20px;
+max-width:900px;
+margin:auto;
+}
 
-.monitor img{
+.card{
+background:#1c2b36;
+padding:20px;
+border-radius:12px;
+margin-bottom:18px;
+}
+
+h3{
+margin-top:0;
+color:#8fbcd4;
+}
+
+.big{
+font-size:32px;
+font-weight:bold;
+margin-top:5px;
+}
+
+.small{
+opacity:0.7;
+font-size:14px;
+}
+
+.virus{
 width:100%;
-border-radius:6px;
+border-radius:10px;
+margin-top:10px;
 }
 
-/* LOG */
+.scan-line{
+position:relative;
+}
+
+.scan-line:after{
+content:"";
+position:absolute;
+left:0;
+right:0;
+height:4px;
+background:#00ff9c;
+top:0;
+animation:scan 4s infinite;
+}
+
+@keyframes scan{
+0%{top:0}
+100%{top:100%}
+}
 
 .log{
-font-size:13px;
-line-height:1.6;
-height:120px;
-overflow:auto;
-background:#f8fafc;
+background:#16222c;
 padding:10px;
-border-radius:6px;
+border-radius:8px;
+font-family:monospace;
+font-size:14px;
+line-height:1.6;
 }
 
-/* BUTTON */
-
-button{
+.pulse{
+height:80px;
+background:black;
+border-radius:8px;
 margin-top:10px;
-padding:12px;
+position:relative;
+overflow:hidden;
+}
+
+.pulse svg{
 width:100%;
+height:100%;
+}
+
+.btn{
+background:#0b6b4d;
+padding:14px;
 border:none;
-border-radius:6px;
-background:#1f6feb;
+border-radius:10px;
 color:white;
-font-weight:600;
+font-size:16px;
+margin-top:10px;
+width:100%;
 }
 
-/* MOBILE */
-
-@media(max-width:700px){
-
-.grid{
-grid-template-columns:1fr;
-}
-
+.btn:hover{
+background:#0f8a64;
+cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<header>
-
-<h1>NATIONAL BIO DEFENSE COMMAND</h1>
-
-<div class="threat">
-Threat Level : GREEN
+<div class="header">
+NATIONAL BIO DEFENSE COMMAND
+<div class="sub">Threat Level : GREEN</div>
 </div>
-
-</header>
 
 <div class="container">
 
-<div class="grid">
-
-<div class="panel">
-
+<div class="card">
 <h3>GLOBAL SURVEILLANCE</h3>
-
-<div class="data">14 Nodes Active</div>
-
-<div class="sub">
-Satellite Bio Detection Network
+<div class="big">14 Nodes Active</div>
+<div class="small">Satellite Bio Detection Network</div>
 </div>
 
-</div>
-
-
-<div class="panel">
-
+<div class="card">
 <h3>DEFENSE NETWORK</h3>
-
-<div class="data">Online</div>
-
-<div class="sub">
-Orbital Monitoring Grid
+<div class="big">Online</div>
+<div class="small">Orbital Monitoring Grid</div>
 </div>
 
-</div>
-
-
-<div class="panel">
-
+<div class="card">
 <h3>SYSTEM STATUS</h3>
-
-<div class="data" id="cpu">CPU Load 32%</div>
-
-<div class="sub">
-Memory Allocation Stable
-</div>
-
+<div class="big">CPU Load 44%</div>
+<div class="small">Memory Allocation Stable</div>
 </div>
 
 
-<div class="panel">
-
+<div class="card">
 <h3>BIO SIGNAL MONITOR</h3>
 
-<div class="data">Signal Stable</div>
+<div class="pulse">
 
-<div class="sub">
-Genetic Detection Active
+<svg viewBox="0 0 500 100">
+
+<polyline
+fill="none"
+stroke="#00ff9c"
+stroke-width="3"
+points="
+0,50
+40,50
+60,20
+80,80
+100,50
+150,50
+170,20
+190,80
+210,50
+260,50
+280,20
+300,80
+320,50
+400,50
+500,50"
+/>
+
+</svg>
+
 </div>
 
 </div>
 
 
-<div class="panel monitor">
+<div class="card">
 
 <h3>GLOBAL BIO SCAN</h3>
 
-<img src="virus-3d.png">
+<div class="scan-line">
 
-<div class="sub">
-Virus Detection Network
-</div>
+<img src="virus.jpg" class="virus">
 
 </div>
 
+<div class="small">Virus Detection Network</div>
 
-<div class="panel">
+</div>
+
+
+<div class="card">
 
 <h3>SYSTEM LOG</h3>
 
-<div class="log" id="log"></div>
+<div class="log">
+
+[13:56:55] Satellite node synchronized  
+[13:56:50] Satellite node synchronized  
+[13:56:45] Bio sensor calibration  
+[13:56:40] Satellite node synchronized  
+[13:56:35] Threat analysis running  
+[13:56:30] Bio sensor calibration  
 
 </div>
 
-
-<div class="panel">
-
-<h3>RESEARCH FACILITY</h3>
-
-<div class="sub">
-Access to Containment Laboratory
-</div>
-
-<button onclick="enterLab()">
-Enter Research Lab
+<button class="btn" onclick="openLab()">
+ENTER BIO LAB
 </button>
 
 </div>
 
-</div>
 
 </div>
+
 
 <script>
 
-/* CPU */
-
-function cpu(){
-
-let value=Math.floor(Math.random()*20)+30
-
-document.getElementById("cpu").innerText=
-"CPU Load "+value+"%"
-
-}
-
-setInterval(cpu,4000)
-
-/* LOG */
-
-const logs=[
-
-"Genome scan completed",
-"Satellite node synchronized",
-"Containment check passed",
-"Bio sensor calibration",
-"Threat analysis running"
-
-]
-
-function addLog(){
-
-let time=new Date().toLocaleTimeString()
-
-let line="["+time+"] "+logs[Math.floor(Math.random()*logs.length)]+"<br>"
-
-let box=document.getElementById("log")
-
-box.innerHTML=line+box.innerHTML
-
-}
-
-setInterval(addLog,5000)
-
-/* LAB */
-
-function enterLab(){
+function openLab(){
 
 window.location="lab.html"
 
 }
 
 </script>
+
 
 </body>
 </html>
