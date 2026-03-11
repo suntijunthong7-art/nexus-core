@@ -9,17 +9,15 @@
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#050b10;
-color:#d9e2ec;
+font-family:Arial,Helvetica,sans-serif;
+background:#050c12;
+color:#d6e2ec;
 }
 
-/* Header */
-
 .header{
-background:#0b1620;
-padding:18px;
-border-bottom:1px solid #1f2e3a;
+padding:16px 20px;
+background:#07141d;
+border-bottom:1px solid #1c2c38;
 }
 
 .header h1{
@@ -29,12 +27,10 @@ letter-spacing:1px;
 }
 
 .header p{
-margin:3px 0 0 0;
+margin:2px 0 0;
 font-size:12px;
-color:#7f8c96;
+color:#7c94a5;
 }
-
-/* Container */
 
 .container{
 padding:20px;
@@ -42,73 +38,67 @@ max-width:900px;
 margin:auto;
 }
 
-/* Cards */
-
 .card{
-background:#0e1a23;
-border:1px solid #1e2a34;
+background:#0c1720;
+border:1px solid #1d2e3a;
 border-radius:10px;
 padding:18px;
 margin-bottom:18px;
 box-shadow:0 4px 12px rgba(0,0,0,0.5);
 }
 
-.card h3{
+.card h2{
 margin-top:0;
-color:#e8eef3;
+font-size:18px;
 }
 
-/* Stats */
-
-.stats{
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
+gap:12px;
 margin-top:10px;
 }
 
 .stat{
-background:#0a141c;
-border:1px solid #1c2a35;
+background:#0b141b;
+border:1px solid #1a2a35;
 border-radius:8px;
-padding:10px;
-font-size:13px;
+padding:14px;
+font-size:14px;
 }
 
-/* Images */
+.stat span{
+display:block;
+font-size:11px;
+color:#7a8c98;
+}
 
-.lab-image{
+.image-section img{
 width:100%;
 border-radius:8px;
-margin-top:10px;
+margin-top:12px;
 }
 
-/* Button */
-
 .button{
-display:block;
 margin-top:20px;
-background:#1f8a7a;
+background:#1e8a80;
 padding:14px;
 text-align:center;
 border-radius:8px;
 font-weight:bold;
-color:white;
-text-decoration:none;
+cursor:pointer;
 transition:0.25s;
 }
 
 .button:hover{
-background:#22a495;
+background:#22b1a6;
 }
-
-/* Footer */
 
 .footer{
 text-align:center;
 font-size:12px;
-color:#6c7a86;
-padding:25px;
+color:#6d7c87;
+padding:30px 10px;
 }
 
 </style>
@@ -124,38 +114,37 @@ padding:25px;
 <div class="container">
 
 <div class="card">
-<h3>Advanced Bio Defense Research</h3>
+<h2>Advanced Bio Defense Research</h2>
 <p>
-Nexus Core Laboratory is a high-security international research organization focused on biological defense, genomic monitoring and global pathogen threat analysis.
+Nexus Core Laboratory is a high-security international research organization focused on
+biological defense, genomic monitoring and global pathogen threat analysis.
 </p>
 
-<div class="stats">
-
+<div class="grid">
 <div class="stat">
-<b>GLOBAL NODES</b><br>
+<span>GLOBAL NODES</span>
 14 Active
 </div>
 
 <div class="stat">
-<b>SYSTEM LOAD</b><br>
+<span>SYSTEM LOAD</span>
 38%
 </div>
 
 <div class="stat">
-<b>NETWORK STATUS</b><br>
+<span>NETWORK STATUS</span>
 ONLINE
 </div>
 
 <div class="stat">
-<b>LAST LOG</b><br>
+<span>LAST LOG</span>
 Genome Scan
 </div>
-
 </div>
 </div>
 
 <div class="card">
-<h3>Recent Activity</h3>
+<h2>Recent Activity</h2>
 <ul>
 <li>Genome scan completed</li>
 <li>Bio sample analysis running</li>
@@ -165,29 +154,29 @@ Genome Scan
 </div>
 
 <div class="card">
-<h3>Research Divisions</h3>
-
+<h2>Research Divisions</h2>
 <p>
 GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br>
 PATHOGEN DEFENSE — Virus Detection & Bio Security<br>
 BIO NETWORK — Global Bio Threat Monitoring<br>
 AI LAB — Predictive Bio Intelligence Systems
 </p>
+</div>
+
+<div class="card image-section">
+<h2>Laboratory Research</h2>
+
+<img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
+
+<img src="https://images.unsplash.com/photo-1579154204601-01588f351e67">
+
+<img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69">
 
 </div>
 
-<div class="card">
-<h3>Laboratory Operations</h3>
-
-<img class="lab-image" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
-
-<img class="lab-image" src="https://images.unsplash.com/photo-1579154204601-01588f351e67">
-
-<img class="lab-image" src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69">
-
+<div class="button">
+ENTER LAB
 </div>
-
-<a class="button" href="#">ENTER LAB</a>
 
 </div>
 
