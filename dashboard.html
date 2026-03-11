@@ -2,370 +2,234 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nexus Core Research Network</title>
+<title>NEXUS CORE</title>
 
 <style>
 
-*{box-sizing:border-box;}
-
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#07151c;
-color:#e6f2f7;
+font-family:Arial,Helvetica,sans-serif;
+background:#06141a;
+color:#cfe7ec;
 }
 
-/* TOPBAR */
-
-.topbar{
-background:#020a0f;
-padding:14px 16px;
-border-bottom:1px solid #1a2a33;
+header{
+padding:20px;
+border-bottom:1px solid #0f2c33;
+background:#041017;
 }
 
-.logo{
-font-size:17px;
-font-weight:bold;
+header h1{
+margin:0;
+font-size:22px;
+letter-spacing:3px;
+color:#e7f9ff;
+}
+
+nav{
+margin-top:10px;
+}
+
+nav a{
+margin-right:18px;
+text-decoration:none;
+color:#7fb5bd;
+font-size:14px;
+}
+
+nav a:hover{
+color:#ffffff;
+}
+
+.status{
+text-align:center;
+padding:10px;
+background:#071a1f;
+border-bottom:1px solid #0f2c33;
+color:#35e6a7;
+font-size:13px;
 letter-spacing:2px;
 }
 
-.nav{
-margin-top:8px;
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-font-size:12px;
-}
-
-.nav a{
-color:#8fa5b4;
-text-decoration:none;
-}
-
-.nav a:hover{
-color:white;
-}
-
-/* STATUS */
-
-.system-bar{
-background:#051018;
-padding:7px;
-text-align:center;
-font-size:10px;
-color:#6fb4c1;
-border-bottom:1px solid #1c2b35;
-}
-
-/* ACCESS LEVEL */
-
-.access-level{
-text-align:center;
-font-size:11px;
-color:#3cff9a;
-margin-top:6px;
-letter-spacing:1px;
-}
-
-/* SERVER CLOCK */
-
-.clock{
-text-align:center;
-font-size:11px;
-color:#8ab4c9;
-margin-top:4px;
-}
-
-/* CONTAINER */
-
 .container{
-max-width:760px;
-margin:auto;
-padding:18px 12px;
+padding:25px;
 }
 
-/* DATA GRID */
-
-.data-grid{
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
-margin-bottom:16px;
+gap:18px;
 }
-
-.data-box{
-background:#08131a;
-border:1px solid #1a2a33;
-border-radius:8px;
-padding:12px;
-font-size:11px;
-}
-
-.data-box strong{
-display:block;
-font-size:15px;
-margin-top:4px;
-}
-
-/* CARD */
 
 .card{
-background:#08131a;
-border:1px solid #1a2a33;
+background:#071a1f;
+border:1px solid #12343b;
 border-radius:10px;
-padding:16px;
-margin-bottom:14px;
+padding:18px;
 }
 
 .card h3{
-margin:0 0 8px 0;
+margin-top:0;
 font-size:15px;
+color:#a9dbe2;
 }
 
-.card p{
-font-size:12px;
-color:#9fb3c1;
-line-height:1.5;
-}
-
-/* ALERT PANEL */
-
-.alert{
-border-left:4px solid #2ec4b6;
-}
-
-/* BUTTON */
-
-.enter-btn{
-display:inline-block;
+.value{
+font-size:24px;
 margin-top:10px;
-background:#1f8a80;
-padding:9px 14px;
-border-radius:6px;
-font-size:12px;
-cursor:pointer;
+color:#40ffb7;
 }
 
-.enter-btn:hover{
-background:#25b5a8;
+.panel{
+margin-top:25px;
+background:#071a1f;
+border:1px solid #12343b;
+border-radius:10px;
+padding:20px;
 }
 
-/* FOOTER */
-
-.footer{
-margin-top:30px;
-text-align:center;
-font-size:10px;
-color:#6e8b99;
-border-top:1px solid #16252f;
-padding-top:14px;
-line-height:1.5;
+.panel h3{
+margin-top:0;
+font-size:16px;
+color:#bde7ef;
 }
 
-@media(min-width:768px){
-
-.container{max-width:1000px;}
-
-.data-grid{
-grid-template-columns:repeat(4,1fr);
+.activity{
+list-style:none;
+padding:0;
+margin:0;
 }
 
-.nav{
-gap:18px;
-font-size:13px;
+.activity li{
+padding:7px 0;
+border-bottom:1px solid rgba(255,255,255,0.05);
+font-size:14px;
+color:#86b7bd;
 }
 
+.security{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
+
+.security div{
+font-size:14px;
+}
+
+.clock{
+text-align:right;
+font-size:14px;
+color:#9ad2da;
+margin-top:5px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="topbar">
+<header>
 
-<div class="logo">
-NEXUS CORE
-</div>
+<h1>NEXUS CORE</h1>
 
-<div class="nav">
+<nav>
 <a href="#">Dashboard</a>
 <a href="#">Laboratories</a>
 <a href="#">Research Network</a>
 <a href="#">Security</a>
 <a href="#">Logs</a>
-</div>
+</nav>
 
-</div>
+</header>
 
-<div class="system-bar">
+<div class="status">
 SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
-</div>
-
-<div class="access-level">
-USER ACCESS : LEVEL ALPHA
-</div>
-
-<div class="clock" id="clock">
-SERVER TIME : --
 </div>
 
 <div class="container">
 
-<div class="data-grid">
-
-<div class="data-box">
-Active Labs
-<strong>14</strong>
+<div class="clock">
+SERVER TIME : <span id="clock"></span>
 </div>
 
-<div class="data-box">
-Samples Processing
-<strong>327</strong>
-</div>
+<div class="grid">
 
-<div class="data-box">
-Network Nodes
-<strong>42</strong>
-</div>
-
-<div class="data-box">
-AI Monitoring
-<strong style="color:#3cff9a;">ONLINE</strong>
-</div>
-
-<div class="data-box">
-System Security
-<strong style="color:#3cff9a;">SECURE</strong>
-</div>
-
-<div class="data-box">
-Containment Level
-<strong style="color:#ffd166;">LEVEL 3</strong>
-</div>
-
+<div class="card">
+<h3>Active Labs</h3>
+<div class="value">14</div>
 </div>
 
 <div class="card">
-
-<h3>Biological Research Lab</h3>
-
-<p>
-Primary laboratory dedicated to advanced pathogen analysis,
-genetic sequencing and controlled biological experiments.
-</p>
-
-<div class="enter-btn" onclick="openLab()">
-ENTER LAB
-</div>
-
+<h3>Samples Processing</h3>
+<div class="value">327</div>
 </div>
 
 <div class="card">
-
-<h3>Genome Sequencing</h3>
-
-<p>
-High precision genomic analysis facility connected to the
-global pathogen surveillance network.
-</p>
-
+<h3>Network Nodes</h3>
+<div class="value">42</div>
 </div>
 
 <div class="card">
-
-<h3>Bio Security Division</h3>
-
-<p>
-National level bio defense monitoring unit responsible for
-containment protocol and threat detection.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Global Research Network</h3>
-
-<p>
-Encrypted data exchange between international research
-centers and high containment laboratories.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>AI Bio Intelligence</h3>
-
-<p>
-Machine learning analysis platform used for predicting
-pathogen mutation patterns and global outbreak models.
-</p>
-
-</div>
-
-<div class="card alert">
-
-<h3>System Alert Monitor</h3>
-
-<p id="alertText">No active threats detected</p>
-
-</div>
-
-<div class="footer">
-
-NEXUS CORE INTERNATIONAL RESEARCH NETWORK<br>
-Bio Defense & Pathogen Intelligence Division<br><br>
-
-System Build 3.1.02<br>
-Secure Infrastructure Online
-
+<h3>Containment Level</h3>
+<div class="value">LEVEL 3</div>
 </div>
 
 </div>
+
+
+<div class="panel">
+
+<h3>Security Clearance</h3>
+
+<div class="security">
+<div>USER ACCESS</div>
+<div>LEVEL ALPHA</div>
+</div>
+
+<div class="security">
+<div>FACILITY STATUS</div>
+<div>SECURE</div>
+</div>
+
+<div class="security">
+<div>ACCESS ZONE</div>
+<div>RESEARCH GRID</div>
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h3>System Activity</h3>
+
+<ul class="activity">
+
+<li>Lab Node Connected</li>
+<li>Genome Data Uploaded</li>
+<li>AI Pattern Analysis Running</li>
+<li>Secure Channel Verified</li>
+<li>Bio Sample Logged</li>
+
+</ul>
+
+</div>
+
+
+</div>
+
 
 <script>
 
-function openLab(){
-window.location="lab.html";
-}
-
-/* CLOCK */
-
 function updateClock(){
-
-const now = new Date()
-
-let h = now.getHours().toString().padStart(2,'0')
-let m = now.getMinutes().toString().padStart(2,'0')
-let s = now.getSeconds().toString().padStart(2,'0')
-
-document.getElementById("clock").innerText =
-"SERVER TIME : "+h+":"+m+":"+s
-
+const now = new Date();
+document.getElementById("clock").innerHTML =
+now.toLocaleTimeString();
 }
 
-setInterval(updateClock,1000)
-
-/* ALERT SYSTEM */
-
-const alerts=[
-"No active threats detected",
-"Network node verified",
-"Bio sample scan complete",
-"AI anomaly scan running"
-]
-
-setInterval(()=>{
-
-let r=Math.floor(Math.random()*alerts.length)
-
-document.getElementById("alertText").innerText=alerts[r]
-
-},5000)
+setInterval(updateClock,1000);
 
 </script>
 
