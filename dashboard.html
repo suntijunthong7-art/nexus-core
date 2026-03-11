@@ -1,88 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE</title>
+
+<title>NEXUS CORE AI</title>
 
 <style>
 
 body{
-background:#071a1d;
-font-family:Arial, Helvetica, sans-serif;
-color:#d7f7f3;
 margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#021017;
+color:#cfe6ec;
 }
 
 header{
-padding:30px;
-background:#051417;
-border-bottom:1px solid #0f3a3f;
+padding:18px;
+border-bottom:1px solid #12323a;
 }
 
 h1{
-letter-spacing:4px;
 margin:0;
+letter-spacing:3px;
+font-size:22px;
 }
 
-.subtitle{
-color:#7fcfc7;
-margin-top:5px;
+nav{
+margin-top:8px;
+}
+
+nav a{
+color:#7aa5ad;
+margin-right:18px;
+text-decoration:none;
 font-size:14px;
 }
 
 .status{
-padding:15px;
-color:#00e0b0;
-border-bottom:1px solid #0f3a3f;
+text-align:center;
+color:#49d6a7;
+padding:10px;
+border-bottom:1px solid #12323a;
 }
 
 .container{
 padding:20px;
 }
 
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-bottom:25px;
+}
+
 .card{
-background:#0a2629;
+background:#051820;
+border:1px solid #10333b;
 border-radius:12px;
-padding:20px;
-margin-bottom:15px;
-box-shadow:0 0 20px rgba(0,0,0,0.4);
+padding:18px;
+}
+
+.card h3{
+margin:0;
+font-size:13px;
+color:#7fa9b1;
 }
 
 .value{
-font-size:32px;
 margin-top:8px;
+font-size:22px;
 }
 
-button{
-background:#1f9e93;
-border:none;
-padding:12px 25px;
-border-radius:6px;
-color:white;
-font-weight:bold;
-margin-top:15px;
-cursor:pointer;
+.section{
+margin-top:25px;
 }
 
-button:hover{
-background:#26bfb2;
+.section h2{
+font-size:16px;
+margin-bottom:10px;
+color:#9cc6ce;
 }
 
-.log{
+.panel{
+background:#04141a;
+border:1px solid #10333b;
+border-radius:12px;
+padding:18px;
+}
+
+.activity div{
+padding:5px 0;
+border-bottom:1px solid rgba(255,255,255,0.05);
 font-size:13px;
-color:#8fd6cf;
-line-height:22px;
+color:#9dbcc2;
+}
+
+.ai-box{
+margin-top:15px;
+padding:15px;
+border-radius:10px;
+background:#031218;
+border:1px solid #0f3942;
+}
+
+.ai-title{
+font-size:13px;
+color:#7cc8d4;
+}
+
+.ai-result{
+margin-top:6px;
+font-size:14px;
+}
+
+.threat-low{color:#2cff88}
+.threat-mid{color:#ffc857}
+.threat-high{color:#ff3b3b}
+
+.time{
+text-align:center;
+margin-top:20px;
+color:#8db6be;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <header>
+
 <h1>NEXUS CORE</h1>
-<div class="subtitle">Command Network • Secure Research Division • Global Node</div>
+
+<nav>
+<a>Dashboard</a>
+<a>Laboratories</a>
+<a>Research Network</a>
+<a>Security</a>
+<a>Logs</a>
+</nav>
+
 </header>
 
 <div class="status">
@@ -91,93 +151,181 @@ SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 
 <div class="container">
 
+<div class="grid">
+
 <div class="card">
-Active Laboratories
-<div class="value" id="labs">14</div>
+<h3>Active Labs</h3>
+<div class="value">14</div>
 </div>
 
 <div class="card">
-Samples Processing
-<div class="value" id="samples">327</div>
+<h3>Samples Processing</h3>
+<div class="value">327</div>
 </div>
 
 <div class="card">
-Network Nodes
-<div class="value" id="nodes">42</div>
+<h3>Network Nodes</h3>
+<div class="value">42</div>
 </div>
 
 <div class="card">
-AI Monitoring
-<div class="value" id="ai">ONLINE</div>
+<h3>AI Monitoring</h3>
+<div class="value">ONLINE</div>
 </div>
 
-<div class="card">
-System Security
-<div class="value">SECURE</div>
 </div>
 
-<div class="card">
-Containment Level
-<div class="value">LEVEL 3</div>
+<div class="section">
+
+<h2>System Activity</h2>
+
+<div class="panel">
+
+<div class="activity" id="log"></div>
+
 </div>
 
-<div class="card">
-<h3>Biological Research Laboratory</h3>
-<p>Primary laboratory dedicated to pathogen analysis, genomic sequencing and controlled biological testing.</p>
-
-<button onclick="enterLab()">ENTER LAB</button>
 </div>
 
-<div class="card">
-<h3>System Activity</h3>
-<div class="log" id="log"></div>
+<div class="section">
+
+<h2>AI Threat Intelligence</h2>
+
+<div class="panel">
+
+<div class="ai-box">
+<div class="ai-title">Threat Level</div>
+<div id="aiThreat" class="ai-result threat-low">LOW</div>
+</div>
+
+<div class="ai-box">
+<div class="ai-title">AI Insight</div>
+<div id="aiInsight" class="ai-result">System operating normally</div>
+</div>
+
+<div class="ai-box">
+<div class="ai-title">Recommendation</div>
+<div id="aiAdvice" class="ai-result">No action required</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="time">
+SERVER TIME : <span id="time"></span>
 </div>
 
 </div>
 
 <script>
 
-function random(min,max){
-return Math.floor(Math.random()*(max-min+1))+min;
-}
+/* CLOCK */
 
-function updateSystem(){
+function updateTime(){
 
-document.getElementById("labs").innerText=random(10,25);
-document.getElementById("samples").innerText=random(300,1500);
-document.getElementById("nodes").innerText=random(40,120);
+let now=new Date()
 
-}
+let h=String(now.getHours()).padStart(2,'0')
+let m=String(now.getMinutes()).padStart(2,'0')
+let s=String(now.getSeconds()).padStart(2,'0')
 
-setInterval(updateSystem,3000);
-
-
-const events=[
-"Genome Data Synced",
-"Security Authentication",
-"Network Integrity Check",
-"AI Surveillance Scan",
-"Node Synchronization",
-"Bio Sample Logged",
-"Containment Protocol Verified"
-];
-
-function updateLog(){
-
-let time=new Date().toLocaleTimeString();
-let event=events[random(0,events.length-1)];
-
-let log=document.getElementById("log");
-
-log.innerHTML=time+" • "+event+"<br>"+log.innerHTML;
+document.getElementById("time").innerText=h+":"+m+":"+s
 
 }
 
-setInterval(updateLog,2000);
+setInterval(updateTime,1000)
+updateTime()
 
-function enterLab(){
 
-alert("ACCESS GRANTED\nEntering Secure Laboratory");
+/* SYSTEM LOG EVENTS */
+
+let logs=[
+"Genome Data Uploaded",
+"AI Scan Completed",
+"Lab Node Connected",
+"Secure Channel Verified",
+"Network Sync Completed",
+"Bio Sample Analysis Running"
+]
+
+function addLog(){
+
+let time=new Date().toLocaleTimeString()
+
+let text=time+" • "+logs[Math.floor(Math.random()*logs.length)]
+
+let div=document.createElement("div")
+div.innerText=text
+
+let logBox=document.getElementById("log")
+
+logBox.prepend(div)
+
+if(logBox.children.length>6){
+logBox.removeChild(logBox.lastChild)
+}
+
+runAI(text)
+
+}
+
+setInterval(addLog,4000)
+
+
+/* AI ENGINE */
+
+function runAI(event){
+
+let threat="LOW"
+let insight="System operating normally"
+let advice="No action required"
+
+if(event.includes("Scan")){
+threat="LOW"
+insight="Routine AI diagnostic scan"
+}
+
+if(event.includes("Analysis")){
+threat="MODERATE"
+insight="Bio analysis process detected"
+advice="Monitor lab activity"
+}
+
+if(event.includes("Secure")){
+threat="LOW"
+insight="Network encryption verified"
+}
+
+if(event.includes("Node")){
+threat="MODERATE"
+insight="New network node connection"
+advice="Verify node authorization"
+}
+
+if(event.includes("Genome")){
+threat="MODERATE"
+insight="Genome dataset processing"
+}
+
+updateAI(threat,insight,advice)
+
+}
+
+function updateAI(t,i,a){
+
+let threatBox=document.getElementById("aiThreat")
+
+threatBox.innerText=t
+
+threatBox.className="ai-result "
+
+if(t=="LOW") threatBox.classList.add("threat-low")
+if(t=="MODERATE") threatBox.classList.add("threat-mid")
+if(t=="HIGH") threatBox.classList.add("threat-high")
+
+document.getElementById("aiInsight").innerText=i
+document.getElementById("aiAdvice").innerText=a
 
 }
 
