@@ -1,52 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nexus Core Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXUS CORE LAB</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#060c12;
-color:#d6e2ea;
+font-family:Arial;
+background:#050b10;
+color:white;
 }
 
 .header{
-padding:14px 20px;
-background:#02070c;
-border-bottom:1px solid #0f1c26;
+padding:18px;
+background:#08131a;
+border-bottom:1px solid #1a2a33;
 }
 
-.header h1{
-font-size:16px;
-margin:0;
-letter-spacing:1px;
+.title{
+font-size:18px;
+font-weight:bold;
 }
 
-.header p{
-margin:2px 0 0 0;
+.subtitle{
 font-size:11px;
-color:#7f97a5;
+color:#7f9aa6;
 }
 
 .hero{
-height:200px;
-background-image:url("https://images.unsplash.com/photo-1581093458791-9d42c0f0b9b5");
-background-size:cover;
-background-position:center;
+height:180px;
+background:url("https://images.unsplash.com/photo-1581091012184-7c29b0b5c6c1") center/cover;
 }
 
 .container{
-padding:20px;
+padding:18px;
 }
 
 .card{
-background:#0b141c;
-border:1px solid #1c2a35;
+background:#0c131a;
+border:1px solid #1e2a34;
 border-radius:10px;
 padding:18px;
 margin-bottom:16px;
@@ -56,32 +50,27 @@ box-shadow:0 4px 12px rgba(0,0,0,0.4);
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:12px;
+gap:10px;
 }
 
-.small{
-font-size:12px;
-color:#8ea6b3;
-}
-
-.status{
-font-weight:bold;
-color:#7ce3c8;
+.labimg{
+width:100%;
+border-radius:8px;
+margin-top:10px;
 }
 
 .button{
-margin-top:20px;
-background:#2a9d8f;
+background:#1e8a80;
 padding:14px;
 text-align:center;
 border-radius:8px;
 font-weight:bold;
-cursor:pointer;
+margin-top:20px;
 }
 
 .footer{
 text-align:center;
-font-size:11px;
+font-size:12px;
 color:#6c7a86;
 padding:30px;
 }
@@ -92,8 +81,8 @@ padding:30px;
 <body>
 
 <div class="header">
-<h1>NEXUS CORE LAB</h1>
-<p>International Bio Defense Research Network</p>
+<div class="title">NEXUS CORE LAB</div>
+<div class="subtitle">International Bio Defense Research Network</div>
 </div>
 
 <div class="hero"></div>
@@ -102,53 +91,53 @@ padding:30px;
 
 <div class="card">
 <h3>Advanced Bio Defense Research</h3>
-<p class="small">
-Nexus Core Laboratory is a high-security international research organization focused on biological defense, genomic monitoring and global pathogen threat analysis.
+<p>
+Nexus Core Laboratory is a high-security international research organization
+focused on biological defense, genomic monitoring and global pathogen threat analysis.
 </p>
 </div>
 
 <div class="grid">
 
 <div class="card">
-<div class="small">GLOBAL NODES</div>
-14 Active
+GLOBAL NODES<br>
+<b>14 Active</b>
 </div>
 
 <div class="card">
-<div class="small">SYSTEM LOAD</div>
-38%
+SYSTEM LOAD<br>
+<b>38%</b>
 </div>
 
 <div class="card">
-<div class="small">NETWORK STATUS</div>
-<span class="status">ONLINE</span>
+NETWORK STATUS<br>
+<b>ONLINE</b>
 </div>
 
 <div class="card">
-<div class="small">LAST LOG</div>
-Genome Scan
+LAST LOG<br>
+<b>Genome Scan</b>
 </div>
 
 </div>
 
 <div class="card">
 <h3>Recent Activity</h3>
-<ul class="small">
-<li>Genome scan completed</li>
-<li>Bio sample analysis running</li>
-<li>Network security verification passed</li>
-<li>Lab node synchronization complete</li>
-</ul>
+• Genome scan completed<br>
+• Bio sample analysis running<br>
+• Network security verification passed<br>
+• Lab node synchronization complete
 </div>
 
 <div class="card">
-<h3>Research Divisions</h3>
-<p class="small">
-GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br>
-PATHOGEN DEFENSE — Virus Detection & Bio Security<br>
-BIO NETWORK — Global Bio Threat Monitoring<br>
-AI LAB — Predictive Bio Intelligence Systems
-</p>
+<h3>Research Laboratory</h3>
+
+<img class="labimg" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
+
+<img class="labimg" src="https://images.unsplash.com/photo-1579165466741-7f35e4755660">
+
+<img class="labimg" src="https://images.unsplash.com/photo-1581093458791-9d09c0f10f63">
+
 </div>
 
 <div class="button">
