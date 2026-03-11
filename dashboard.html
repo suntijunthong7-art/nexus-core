@@ -2,101 +2,145 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Bio Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>National Bio Defense Command</title>
 
 <style>
 
 body{
 margin:0;
-background:black;
-color:#00ffc3;
 font-family:Arial;
-text-align:center;
+background:#000;
+color:#00ffc3;
 }
 
-h1{
-margin-top:40px;
+.header{
+padding:20px;
+border-bottom:1px solid #00ffc3;
 }
 
-.panel{
+.container{
+padding:15px;
+}
 
-margin:30px auto;
-width:90%;
-max-width:500px;
+.grid{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:20px;
+
+}
+
+.card{
+
 background:#042f2f;
-padding:25px;
-border-radius:14px;
+padding:16px;
+border-radius:10px;
 border:1px solid #00ffc3;
 
 }
 
-</style>
+.card h3{
+margin:0 0 10px 0;
+font-size:14px;
+}
 
+.video-box{
+
+margin-top:20px;
+
+}
+
+.video-box video{
+
+width:100%;
+max-height:220px;
+border-radius:12px;
+object-fit:cover;
+
+}
+
+.btn{
+
+margin-top:25px;
+display:block;
+width:100%;
+padding:14px;
+background:#00b894;
+border:none;
+border-radius:10px;
+font-size:16px;
+color:white;
+
+}
+
+.btn:hover{
+background:#009e7d;
+}
+
+</style>
 </head>
 
 <body>
 
-<h1>ห้องปฏิบัติการชีวภาพ</h1>
+<div class="header">
+<h2>กองบัญชาการป้องกันชีวภาพแห่งชาติ</h2>
+ระดับภัยคุกคาม : ปลอดภัย
+</div>
 
-<div class="panel">
+<div class="container">
 
-สถานะระบบ : ONLINE
+<div class="grid">
+
+<div class="card">
+<h3>การเฝ้าระวังทั่วโลก</h3>
+14 Nodes Active
+</div>
+
+<div class="card">
+<h3>โหลดระบบ</h3>
+38%
+</div>
+
+<div class="card">
+<h3>เครือข่ายป้องกัน</h3>
+ONLINE
+</div>
+
+<div class="card">
+<h3>บันทึกระบบ</h3>
+[15:44] genome scan completed
+</div>
 
 </div>
 
-<div class="panel">
+<div class="video-box">
 
-กำลังวิเคราะห์ตัวอย่างไวรัส...
+<h3>Lab Surveillance</h3>
 
-</div>
+<video autoplay muted loop playsinline controls>
 
-</body>
-</html>
-
-<div class="feed">
-
-<h2>ฟีดวิจัย</h2>
-
-<img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780">
-
-</div>
-
-
-<div class="video">
-
-<h2>Lab Surveillance</h2>
-
-<video autoplay muted loop>
-
-<source src="https://cdn.coverr.co/videos/coverr-scientist-working-in-lab-5171/1080p.mp4" type="video/mp4">
+<source src="https://cdn.coverr.co/videos/coverr-working-in-laboratory-5171/1080p.mp4" type="video/mp4">
 
 </video>
 
 </div>
 
+<button class="btn" onclick="enterLab()">
+เข้าสู่ห้องปฏิบัติการ
+</button>
 
-<div class="btn" onclick="enterLab()">
-เข้าสู่ห้องปฏิบัติการชีววิทยา
 </div>
-
 
 <script>
 
 function enterLab(){
 
-window.location="lab.html"
+window.location.href="lab.html"
 
 }
-
-function updateCPU(){
-
-let cpu=Math.floor(Math.random()*30)+30
-
-document.getElementById("cpu").innerText=cpu+"%"
-
-}
-
-setInterval(updateCPU,3000)
 
 </script>
 
