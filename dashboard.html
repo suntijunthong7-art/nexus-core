@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>NATIONAL BIO DEFENSE COMMAND</title>
+<title>National Bio Defense Command</title>
 
 <style>
 
@@ -13,11 +14,10 @@ body{
 margin:0;
 font-family:Arial;
 color:white;
-background:#020c0f;
-overflow-x:hidden;
+background:#021416;
 }
 
-/* GRID BACKGROUND */
+/* GRID */
 
 body::before{
 content:"";
@@ -25,8 +25,8 @@ position:fixed;
 width:100%;
 height:100%;
 background:
-linear-gradient(rgba(0,255,200,0.06) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,255,200,0.06) 1px, transparent 1px);
+linear-gradient(rgba(0,255,200,0.07) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,255,200,0.07) 1px, transparent 1px);
 background-size:40px 40px;
 z-index:-1;
 }
@@ -39,33 +39,28 @@ padding:25px;
 
 h1{
 margin:0;
-font-size:30px;
-letter-spacing:2px;
+font-size:28px;
 }
 
 .threat{
-color:#21ff9a;
+color:#00ff9d;
 margin-top:5px;
 }
 
-/* WORLD MAP */
+/* MAP */
 
 .map{
-width:100%;
-height:200px;
+height:180px;
 background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
 background-size:cover;
-background-position:center;
 opacity:0.35;
 position:relative;
 }
 
-/* SCAN LINE */
-
 .scan{
 position:absolute;
-width:100%;
 height:2px;
+width:100%;
 background:#00ffc8;
 box-shadow:0 0 10px #00ffc8;
 animation:scan 4s linear infinite;
@@ -73,32 +68,33 @@ animation:scan 4s linear infinite;
 
 @keyframes scan{
 0%{top:0}
-100%{top:200px}
+100%{top:180px}
 }
 
-/* PANEL */
+/* DASHBOARD */
 
-.panel{
+.dashboard{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
 padding:20px;
 }
 
 .card{
-background:rgba(0,50,55,0.5);
+background:rgba(0,60,60,0.5);
 border:1px solid rgba(0,255,200,0.2);
 border-radius:12px;
-padding:20px;
-margin-bottom:15px;
-backdrop-filter:blur(6px);
+padding:18px;
 }
 
 .label{
-color:#86a8a8;
 font-size:12px;
+color:#89b5b5;
 }
 
 .big{
-font-size:28px;
-margin-top:4px;
+font-size:26px;
+margin-top:5px;
 }
 
 .log{
@@ -111,6 +107,10 @@ color:#9de2d0;
 
 /* BUTTON */
 
+.lab{
+padding:20px;
+}
+
 button{
 width:100%;
 padding:16px;
@@ -120,7 +120,6 @@ border-radius:10px;
 font-size:18px;
 font-weight:bold;
 color:black;
-margin-top:10px;
 }
 
 button:hover{
@@ -145,11 +144,16 @@ cursor:pointer;
 <div class="scan"></div>
 </div>
 
-<div class="panel">
+<div class="dashboard">
 
 <div class="card">
 <div class="label">GLOBAL SURVEILLANCE</div>
-<div class="big" id="nodes">15 Nodes Active</div>
+<div class="big" id="nodes">16 Nodes Active</div>
+</div>
+
+<div class="card">
+<div class="label">SYSTEM LOAD</div>
+<div class="big" id="cpu">CPU 39%</div>
 </div>
 
 <div class="card">
@@ -158,22 +162,15 @@ cursor:pointer;
 </div>
 
 <div class="card">
-<div class="label">SYSTEM LOAD</div>
-<div class="big" id="cpu">CPU 37%</div>
-</div>
-
-<div class="card">
 <div class="label">SYSTEM LOG</div>
 <div class="log" id="log"></div>
 </div>
 
-<div class="card">
+</div>
 
-<div class="label">RESEARCH FACILITY</div>
+<div class="lab">
 
 <button onclick="enterLab()">ENTER BIO LAB</button>
-
-</div>
 
 </div>
 
@@ -181,14 +178,11 @@ cursor:pointer;
 
 /* nodes */
 
-let nodes=15
-
 setInterval(()=>{
 
-nodes++
-if(nodes>22)nodes=15
+let n=14+Math.floor(Math.random()*6)
 
-document.getElementById("nodes").innerText=nodes+" Nodes Active"
+document.getElementById("nodes").innerText=n+" Nodes Active"
 
 },4000)
 
@@ -196,25 +190,24 @@ document.getElementById("nodes").innerText=nodes+" Nodes Active"
 
 setInterval(()=>{
 
-let cpu=Math.floor(Math.random()*30)+30
+let cpu=30+Math.floor(Math.random()*20)
 
 document.getElementById("cpu").innerText="CPU "+cpu+"%"
 
 },3000)
 
-/* log */
+/* logs */
 
 let log=document.getElementById("log")
 
 function addLog(){
 
 let events=[
-"Satellite link established",
+"Satellite node synced",
 "Orbital scan completed",
-"Neural analysis running",
 "Bio sensor active",
-"Threat analysis stable",
-"Satellite node synced"
+"Threat analysis running",
+"Neural network analyzing"
 ]
 
 let e=events[Math.floor(Math.random()*events.length)]
@@ -238,4 +231,5 @@ window.location="lab.html"
 </script>
 
 </body>
+
 </html>
