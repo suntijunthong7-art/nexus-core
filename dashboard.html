@@ -1,128 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NEXUS CORE AI</title>
+<title>NEXUS LAB</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#021017;
-color:#cfe6ec;
+font-family:Arial;
+background:#020e13;
+color:#d4edf2;
 }
 
 header{
-padding:18px;
-border-bottom:1px solid #12323a;
+padding:20px;
+border-bottom:1px solid #0f2e35;
 }
 
 h1{
 margin:0;
 letter-spacing:3px;
-font-size:22px;
-}
-
-nav{
-margin-top:8px;
-}
-
-nav a{
-color:#7aa5ad;
-margin-right:18px;
-text-decoration:none;
-font-size:14px;
-}
-
-.status{
-text-align:center;
-color:#49d6a7;
-padding:10px;
-border-bottom:1px solid #12323a;
 }
 
 .container{
 padding:20px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:14px;
-margin-bottom:25px;
-}
-
-.card{
-background:#051820;
-border:1px solid #10333b;
-border-radius:12px;
-padding:18px;
-}
-
-.card h3{
-margin:0;
-font-size:13px;
-color:#7fa9b1;
-}
-
-.value{
-margin-top:8px;
-font-size:22px;
-}
-
-.section{
-margin-top:25px;
-}
-
-.section h2{
-font-size:16px;
-margin-bottom:10px;
-color:#9cc6ce;
-}
-
 .panel{
-background:#04141a;
-border:1px solid #10333b;
+background:#06161c;
+border:1px solid #10343c;
 border-radius:12px;
-padding:18px;
+padding:20px;
+margin-bottom:20px;
 }
 
-.activity div{
-padding:5px 0;
-border-bottom:1px solid rgba(255,255,255,0.05);
-font-size:13px;
-color:#9dbcc2;
+.button{
+display:inline-block;
+padding:10px 18px;
+background:#0f8f8a;
+border-radius:6px;
+color:white;
+text-decoration:none;
 }
 
-.ai-box{
-margin-top:15px;
+.console{
+background:black;
+color:#3cff9a;
 padding:15px;
-border-radius:10px;
-background:#031218;
-border:1px solid #0f3942;
-}
-
-.ai-title{
+font-family:monospace;
 font-size:13px;
-color:#7cc8d4;
-}
-
-.ai-result{
-margin-top:6px;
-font-size:14px;
-}
-
-.threat-low{color:#2cff88}
-.threat-mid{color:#ffc857}
-.threat-high{color:#ff3b3b}
-
-.time{
-text-align:center;
-margin-top:20px;
-color:#8db6be;
+border-radius:8px;
+margin-top:10px;
+height:200px;
+overflow:auto;
 }
 
 </style>
@@ -133,199 +67,60 @@ color:#8db6be;
 
 <header>
 
-<h1>NEXUS CORE</h1>
-
-<nav>
-<a>Dashboard</a>
-<a>Laboratories</a>
-<a>Research Network</a>
-<a>Security</a>
-<a>Logs</a>
-</nav>
+<h1>NEXUS CORE LAB</h1>
 
 </header>
 
-<div class="status">
-SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
-</div>
-
 <div class="container">
 
-<div class="grid">
+<div class="panel">
 
-<div class="card">
-<h3>Active Labs</h3>
-<div class="value">14</div>
-</div>
+<h3>Bio Experiment Console</h3>
 
-<div class="card">
-<h3>Samples Processing</h3>
-<div class="value">327</div>
-</div>
-
-<div class="card">
-<h3>Network Nodes</h3>
-<div class="value">42</div>
-</div>
-
-<div class="card">
-<h3>AI Monitoring</h3>
-<div class="value">ONLINE</div>
-</div>
+<div id="console" class="console"></div>
 
 </div>
-
-<div class="section">
-
-<h2>System Activity</h2>
 
 <div class="panel">
 
-<div class="activity" id="log"></div>
+<h3>Lab Control</h3>
 
-</div>
+<button class="button" onclick="runExperiment()">
+Run Experiment
+</button>
 
-</div>
+<a class="button" href="index.html">
+Return Dashboard
+</a>
 
-<div class="section">
-
-<h2>AI Threat Intelligence</h2>
-
-<div class="panel">
-
-<div class="ai-box">
-<div class="ai-title">Threat Level</div>
-<div id="aiThreat" class="ai-result threat-low">LOW</div>
-</div>
-
-<div class="ai-box">
-<div class="ai-title">AI Insight</div>
-<div id="aiInsight" class="ai-result">System operating normally</div>
-</div>
-
-<div class="ai-box">
-<div class="ai-title">Recommendation</div>
-<div id="aiAdvice" class="ai-result">No action required</div>
-</div>
-
-</div>
-
-</div>
-
-<div class="time">
-SERVER TIME : <span id="time"></span>
 </div>
 
 </div>
 
 <script>
 
-/* CLOCK */
-
-function updateTime(){
-
-let now=new Date()
-
-let h=String(now.getHours()).padStart(2,'0')
-let m=String(now.getMinutes()).padStart(2,'0')
-let s=String(now.getSeconds()).padStart(2,'0')
-
-document.getElementById("time").innerText=h+":"+m+":"+s
-
-}
-
-setInterval(updateTime,1000)
-updateTime()
-
-
-/* SYSTEM LOG EVENTS */
-
 let logs=[
-"Genome Data Uploaded",
-"AI Scan Completed",
-"Lab Node Connected",
-"Secure Channel Verified",
-"Network Sync Completed",
-"Bio Sample Analysis Running"
+"Initializing bio scanner...",
+"DNA sequencing started",
+"Virus genome detected",
+"AI mutation prediction running",
+"Lab containment verified",
+"Sample analysis complete"
 ]
 
-function addLog(){
+function runExperiment(){
 
-let time=new Date().toLocaleTimeString()
+let consoleBox=document.getElementById("console")
 
-let text=time+" • "+logs[Math.floor(Math.random()*logs.length)]
+let text=logs[Math.floor(Math.random()*logs.length)]
 
 let div=document.createElement("div")
-div.innerText=text
 
-let logBox=document.getElementById("log")
+div.innerText="> "+text
 
-logBox.prepend(div)
+consoleBox.appendChild(div)
 
-if(logBox.children.length>6){
-logBox.removeChild(logBox.lastChild)
-}
-
-runAI(text)
-
-}
-
-setInterval(addLog,4000)
-
-
-/* AI ENGINE */
-
-function runAI(event){
-
-let threat="LOW"
-let insight="System operating normally"
-let advice="No action required"
-
-if(event.includes("Scan")){
-threat="LOW"
-insight="Routine AI diagnostic scan"
-}
-
-if(event.includes("Analysis")){
-threat="MODERATE"
-insight="Bio analysis process detected"
-advice="Monitor lab activity"
-}
-
-if(event.includes("Secure")){
-threat="LOW"
-insight="Network encryption verified"
-}
-
-if(event.includes("Node")){
-threat="MODERATE"
-insight="New network node connection"
-advice="Verify node authorization"
-}
-
-if(event.includes("Genome")){
-threat="MODERATE"
-insight="Genome dataset processing"
-}
-
-updateAI(threat,insight,advice)
-
-}
-
-function updateAI(t,i,a){
-
-let threatBox=document.getElementById("aiThreat")
-
-threatBox.innerText=t
-
-threatBox.className="ai-result "
-
-if(t=="LOW") threatBox.classList.add("threat-low")
-if(t=="MODERATE") threatBox.classList.add("threat-mid")
-if(t=="HIGH") threatBox.classList.add("threat-high")
-
-document.getElementById("aiInsight").innerText=i
-document.getElementById("aiAdvice").innerText=a
+consoleBox.scrollTop=consoleBox.scrollHeight
 
 }
 
