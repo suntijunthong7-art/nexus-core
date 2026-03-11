@@ -3,90 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>NEXUS CORE</title>
 
 <style>
 
 body{
-font-family: Arial;
-background:#071b1e;
-color:#d8f7f7;
+background:#071a1d;
+font-family:Arial, Helvetica, sans-serif;
+color:#d7f7f3;
 margin:0;
-padding:0;
 }
 
 header{
 padding:30px;
-background:#041214;
-border-bottom:1px solid #0e3c40;
+background:#051417;
+border-bottom:1px solid #0f3a3f;
 }
 
 h1{
-letter-spacing:3px;
+letter-spacing:4px;
 margin:0;
 }
 
-.sub{
-color:#4fb6b2;
+.subtitle{
+color:#7fcfc7;
+margin-top:5px;
 font-size:14px;
 }
 
 .status{
-padding:15px 30px;
-color:#3fe0c4;
-border-bottom:1px solid #0e3c40;
+padding:15px;
+color:#00e0b0;
+border-bottom:1px solid #0f3a3f;
 }
 
 .container{
-padding:25px;
+padding:20px;
 }
 
 .card{
-background:#0a2628;
-padding:25px;
-margin-bottom:18px;
-border-radius:10px;
-border:1px solid #0e3c40;
-}
-
-.title{
-color:#8fd8d5;
-font-size:14px;
+background:#0a2629;
+border-radius:12px;
+padding:20px;
+margin-bottom:15px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
 }
 
 .value{
-font-size:30px;
-margin-top:5px;
-}
-
-.lab{
-margin-top:20px;
+font-size:32px;
+margin-top:8px;
 }
 
 button{
-background:#1d8c83;
+background:#1f9e93;
 border:none;
-padding:12px 20px;
-color:white;
+padding:12px 25px;
 border-radius:6px;
+color:white;
+font-weight:bold;
+margin-top:15px;
 cursor:pointer;
+}
+
+button:hover{
+background:#26bfb2;
 }
 
 .log{
 font-size:13px;
-line-height:1.8;
-color:#9ed4d1;
+color:#8fd6cf;
+line-height:22px;
 }
-
-.threat{
-font-size:28px;
-margin-top:5px;
-}
-
-.green{color:#46ffb1}
-.yellow{color:#ffd94f}
-.red{color:#ff4f4f}
 
 </style>
 </head>
@@ -94,164 +81,105 @@ margin-top:5px;
 <body>
 
 <header>
-
 <h1>NEXUS CORE</h1>
-<div class="sub">Global Strategic Research Command</div>
-
+<div class="subtitle">Command Network • Secure Research Division • Global Node</div>
 </header>
 
 <div class="status">
-
-SYSTEM STATUS • OPERATIONAL • AI MONITOR ACTIVE
-
+SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 </div>
 
 <div class="container">
 
 <div class="card">
-<div class="title">Active Laboratories</div>
-<div class="value" id="labs">0</div>
+Active Laboratories
+<div class="value" id="labs">14</div>
 </div>
 
 <div class="card">
-<div class="title">Samples Processing</div>
-<div class="value" id="samples">0</div>
+Samples Processing
+<div class="value" id="samples">327</div>
 </div>
 
 <div class="card">
-<div class="title">Network Nodes</div>
-<div class="value" id="nodes">0</div>
+Network Nodes
+<div class="value" id="nodes">42</div>
 </div>
 
 <div class="card">
-<div class="title">AI Monitoring</div>
-<div class="value">ONLINE</div>
+AI Monitoring
+<div class="value" id="ai">ONLINE</div>
 </div>
 
 <div class="card">
-<div class="title">Containment Level</div>
-<div class="value">LEVEL <span id="containment"></span></div>
+System Security
+<div class="value">SECURE</div>
 </div>
 
 <div class="card">
-<div class="title">Threat Index</div>
-<div class="threat" id="threat"></div>
+Containment Level
+<div class="value">LEVEL 3</div>
 </div>
 
-<div class="card lab">
-
+<div class="card">
 <h3>Biological Research Laboratory</h3>
-
-Primary laboratory dedicated to pathogen analysis and genomic sequencing.
-
-<br><br>
+<p>Primary laboratory dedicated to pathogen analysis, genomic sequencing and controlled biological testing.</p>
 
 <button onclick="enterLab()">ENTER LAB</button>
-
 </div>
 
 <div class="card">
-
 <h3>System Activity</h3>
-
-<div class="log" id="log">
-
-</div>
-
+<div class="log" id="log"></div>
 </div>
 
 </div>
 
 <script>
 
-/* AI RANDOM SYSTEM */
-
 function random(min,max){
-return Math.floor(Math.random()*(max-min+1))+min
+return Math.floor(Math.random()*(max-min+1))+min;
 }
 
 function updateSystem(){
 
-document.getElementById("labs").innerText=random(10,24)
-
-document.getElementById("samples").innerText=random(300,2000)
-
-document.getElementById("nodes").innerText=random(40,120)
-
-document.getElementById("containment").innerText=random(1,5)
+document.getElementById("labs").innerText=random(10,25);
+document.getElementById("samples").innerText=random(300,1500);
+document.getElementById("nodes").innerText=random(40,120);
 
 }
 
-/* THREAT ANALYSIS */
+setInterval(updateSystem,3000);
 
-function threatLevel(){
 
-let level=random(1,100)
-
-let threat=document.getElementById("threat")
-
-if(level<60){
-threat.innerText="LOW"
-threat.className="threat green"
-}
-
-else if(level<85){
-threat.innerText="MODERATE"
-threat.className="threat yellow"
-}
-
-else{
-threat.innerText="HIGH"
-threat.className="threat red"
-}
-
-}
-
-/* ACTIVITY FEED */
-
-const activities=[
-
+const events=[
 "Genome Data Synced",
-"Network Integrity Check",
-"AI Pattern Scan Complete",
 "Security Authentication",
+"Network Integrity Check",
+"AI Surveillance Scan",
 "Node Synchronization",
-"Threat Analysis Updated",
-"Sample Batch Processed",
-"Global Node Ping",
-"Biological Sample Logged"
-
-]
+"Bio Sample Logged",
+"Containment Protocol Verified"
+];
 
 function updateLog(){
 
-let log=document.getElementById("log")
+let time=new Date().toLocaleTimeString();
+let event=events[random(0,events.length-1)];
 
-let time=new Date().toLocaleTimeString()
+let log=document.getElementById("log");
 
-let text=time+" • "+activities[random(0,activities.length-1)]
-
-log.innerHTML=text+"<br>"+log.innerHTML
+log.innerHTML=time+" • "+event+"<br>"+log.innerHTML;
 
 }
 
-/* ENTER LAB */
+setInterval(updateLog,2000);
 
 function enterLab(){
 
-alert("Accessing Biological Research Division...")
+alert("ACCESS GRANTED\nEntering Secure Laboratory");
 
 }
-
-/* RUN SYSTEM */
-
-updateSystem()
-threatLevel()
-updateLog()
-
-setInterval(updateSystem,5000)
-setInterval(threatLevel,7000)
-setInterval(updateLog,3000)
 
 </script>
 
