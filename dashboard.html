@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Nexus Core Lab</title>
 
 <style>
 
 body{
 margin:0;
 font-family:system-ui;
-background:linear-gradient(#070707,#000000);
+background:#050505;
 color:white;
 }
 
@@ -20,13 +24,11 @@ border-bottom:1px solid #1c1c1c;
 .header h2{
 margin:0;
 font-size:18px;
-letter-spacing:1px;
 }
 
-.header p{
-margin:4px 0 0;
+.header span{
 font-size:12px;
-color:#8a8a8a;
+color:#777;
 }
 
 .container{
@@ -42,44 +44,58 @@ margin-top:15px;
 
 .card{
 background:#111;
-padding:16px;
-border-radius:10px;
-border:1px solid #1f1f1f;
+padding:18px;
+border-radius:12px;
+border:1px solid #1b1b1b;
 }
 
-.card small{
-color:#7a7a7a;
+.card h4{
+font-size:11px;
+color:#777;
+margin:0;
 }
 
-.card strong{
-display:block;
-margin-top:6px;
-font-size:16px;
+.card p{
+margin-top:5px;
+font-size:15px;
+}
+
+.section{
+margin-top:25px;
+}
+
+.section h3{
+font-size:13px;
+color:#888;
+margin-bottom:10px;
 }
 
 .activity{
-margin-top:18px;
-background:#0f0f0f;
-padding:16px;
-border-radius:10px;
-border:1px solid #1c1c1c;
+background:#111;
+border-radius:12px;
+padding:15px;
+border:1px solid #1b1b1b;
 font-size:13px;
-color:#9a9a9a;
+line-height:1.7;
+color:#aaa;
 }
 
-button{
-margin-top:20px;
+.button{
+margin-top:25px;
 width:100%;
-padding:14px;
-background:#0f766e;
+padding:15px;
 border:none;
-border-radius:10px;
+border-radius:12px;
+background:#14746f;
 color:white;
-font-size:14px;
+font-size:15px;
 }
 
-button:hover{
-background:#0c5f59;
+.footer{
+text-align:center;
+font-size:11px;
+color:#666;
+margin-top:20px;
 }
 
 </style>
@@ -88,8 +104,10 @@ background:#0c5f59;
 <body>
 
 <div class="header">
+
 <h2>NEXUS CORE LAB</h2>
-<p>National Bio Defense System</p>
+<span>National Bio Defense System</span>
+
 </div>
 
 <div class="container">
@@ -97,39 +115,57 @@ background:#0c5f59;
 <div class="grid">
 
 <div class="card">
-<small>GLOBAL NODES</small>
-<strong>14 ACTIVE</strong>
+<h4>GLOBAL NODES</h4>
+<p>14 Active</p>
 </div>
 
 <div class="card">
-<small>SYSTEM LOAD</small>
-<strong>38%</strong>
+<h4>SYSTEM LOAD</h4>
+<p>38%</p>
 </div>
 
 <div class="card">
-<small>NETWORK STATUS</small>
-<strong>ONLINE</strong>
+<h4>NETWORK STATUS</h4>
+<p>ONLINE</p>
 </div>
 
 <div class="card">
-<small>LAST LOG</small>
-<strong>Genome Scan</strong>
+<h4>LAST LOG</h4>
+<p>Genome Scan</p>
 </div>
 
 </div>
+
+<div class="section">
+
+<h3>Recent Activity</h3>
 
 <div class="activity">
-SYSTEM ACTIVITY<br>
-• Genome analysis completed<br>
-• Node synchronization active<br>
-• Threat scan running
+• Genome scan completed<br>
+• Bio sample analysis running<br>
+• Network security check passed<br>
+• Lab node synchronization complete
 </div>
 
-<button onclick="location.href='lab.html'">
+</div>
+
+<button class="button" onclick="enterLab()">
 ENTER LAB
 </button>
 
+<div class="footer">
+Secure Research Network
 </div>
+
+</div>
+
+<script>
+
+function enterLab(){
+window.location.href="lab.html"
+}
+
+</script>
 
 </body>
 </html>
