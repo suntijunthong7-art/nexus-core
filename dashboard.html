@@ -13,134 +13,105 @@
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
-background:#f3f5f7;
-color:#333;
+background:#f2f4f7;
+color:#1f2933;
 }
 
 /* HEADER */
 
 header{
-background:#1c2a38;
-color:white;
+background:white;
 padding:20px;
+border-bottom:1px solid #d9e2ec;
 }
 
-header h1{
+h1{
 margin:0;
-font-size:22px;
+font-size:20px;
 }
 
 .threat{
 margin-top:6px;
 font-size:14px;
+color:#2f9e44;
 }
 
 /* GRID */
 
 .container{
-
 padding:20px;
+}
 
+.grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:20px;
-
+gap:16px;
 }
 
-/* CARD */
+/* PANEL */
 
-.card{
-
+.panel{
 background:white;
+border:1px solid #d9e2ec;
 border-radius:8px;
-padding:18px;
-
-box-shadow:0 2px 8px rgba(0,0,0,0.08);
-
+padding:16px;
 }
 
-/* TITLE */
+.panel h3{
+margin:0 0 10px 0;
+font-size:14px;
+color:#52606d;
+}
 
-.title{
-
-font-size:13px;
-color:#666;
+.data{
+font-size:22px;
+font-weight:600;
 margin-bottom:6px;
-
 }
 
-/* BIG DATA */
-
-.value{
-
-font-size:24px;
-font-weight:bold;
-
-}
-
-/* PROGRESS BAR */
-
-.bar{
-
-height:8px;
-background:#e2e6ea;
-border-radius:4px;
-margin-top:10px;
-overflow:hidden;
-
-}
-
-.bar span{
-
-display:block;
-height:100%;
-background:#2d7ef7;
-
-}
-
-/* TABLE */
-
-table{
-
-width:100%;
-border-collapse:collapse;
+.sub{
 font-size:13px;
-
+color:#7b8794;
 }
 
-td{
+/* IMAGE */
 
-padding:6px 0;
-border-bottom:1px solid #eee;
+.monitor img{
+width:100%;
+border-radius:6px;
+}
 
+/* LOG */
+
+.log{
+font-size:13px;
+line-height:1.6;
+height:120px;
+overflow:auto;
+background:#f8fafc;
+padding:10px;
+border-radius:6px;
 }
 
 /* BUTTON */
 
 button{
-
 margin-top:10px;
-padding:10px;
+padding:12px;
 width:100%;
-
 border:none;
 border-radius:6px;
-
-background:#2d7ef7;
+background:#1f6feb;
 color:white;
-
-font-weight:bold;
-
+font-weight:600;
 }
 
 /* MOBILE */
 
 @media(max-width:700px){
 
-.container{
-
+.grid{
 grid-template-columns:1fr;
-
 }
 
 }
@@ -156,107 +127,102 @@ grid-template-columns:1fr;
 <h1>NATIONAL BIO DEFENSE COMMAND</h1>
 
 <div class="threat">
-
-Threat Level : <b style="color:#00c853">GREEN</b>
-
+Threat Level : GREEN
 </div>
 
 </header>
 
 <div class="container">
 
-<!-- GLOBAL NETWORK -->
+<div class="grid">
 
-<div class="card">
+<div class="panel">
 
-<div class="title">Global Surveillance Network</div>
+<h3>GLOBAL SURVEILLANCE</h3>
 
-<div class="value">14 Active Nodes</div>
+<div class="data">14 Nodes Active</div>
 
-<div class="bar">
-<span style="width:70%"></span>
+<div class="sub">
+Satellite Bio Detection Network
 </div>
 
 </div>
 
 
-<!-- DEFENSE GRID -->
+<div class="panel">
 
-<div class="card">
+<h3>DEFENSE NETWORK</h3>
 
-<div class="title">Defense Monitoring Grid</div>
+<div class="data">Online</div>
 
-<div class="value">Online</div>
-
-Orbital Satellite Network Operational
-
-</div>
-
-
-<!-- SYSTEM STATUS -->
-
-<div class="card">
-
-<div class="title">System Resource Usage</div>
-
-<div class="value" id="cpu">CPU 38%</div>
-
-<div class="bar">
-<span id="bar" style="width:38%"></span>
+<div class="sub">
+Orbital Monitoring Grid
 </div>
 
 </div>
 
 
-<!-- BIO MONITOR -->
+<div class="panel">
 
-<div class="card">
+<h3>SYSTEM STATUS</h3>
 
-<div class="title">Biological Signal Monitor</div>
+<div class="data" id="cpu">CPU Load 32%</div>
 
-<div class="value">Stable</div>
-
-No abnormal genetic markers detected.
+<div class="sub">
+Memory Allocation Stable
+</div>
 
 </div>
 
 
-<!-- VIRUS IMAGE -->
+<div class="panel">
 
-<div class="card">
+<h3>BIO SIGNAL MONITOR</h3>
 
-<div class="title">Microscopy Sample</div>
+<div class="data">Signal Stable</div>
 
-<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144"
-style="width:100%;border-radius:6px">
+<div class="sub">
+Genetic Detection Active
+</div>
 
 </div>
 
 
-<!-- SYSTEM LOG -->
+<div class="panel monitor">
 
-<div class="card">
+<h3>GLOBAL BIO SCAN</h3>
 
-<div class="title">System Log</div>
+<img src="virus-3d.png">
 
-<table id="log"></table>
+<div class="sub">
+Virus Detection Network
+</div>
 
 </div>
 
 
-<!-- LAB ACCESS -->
+<div class="panel">
 
-<div class="card">
+<h3>SYSTEM LOG</h3>
 
-<div class="title">Research Facility Access</div>
+<div class="log" id="log"></div>
 
-Containment Laboratory
+</div>
+
+
+<div class="panel">
+
+<h3>RESEARCH FACILITY</h3>
+
+<div class="sub">
+Access to Containment Laboratory
+</div>
 
 <button onclick="enterLab()">
-
-Open Research Lab
-
+Enter Research Lab
 </button>
+
+</div>
 
 </div>
 
@@ -264,30 +230,28 @@ Open Research Lab
 
 <script>
 
-/* CPU SIMULATION */
+/* CPU */
 
 function cpu(){
 
-let value=Math.floor(Math.random()*30)+20
+let value=Math.floor(Math.random()*20)+30
 
-document.getElementById("cpu").innerText="CPU "+value+"%"
-
-document.getElementById("bar").style.width=value+"%"
+document.getElementById("cpu").innerText=
+"CPU Load "+value+"%"
 
 }
 
-setInterval(cpu,3000)
+setInterval(cpu,4000)
 
 /* LOG */
 
 const logs=[
 
-"Genome scan started",
-"Satellite sync completed",
-"Containment inspection passed",
-"Data archive updated",
-"Network health verified",
-"Sensor calibration complete"
+"Genome scan completed",
+"Satellite node synchronized",
+"Containment check passed",
+"Bio sensor calibration",
+"Threat analysis running"
 
 ]
 
@@ -295,17 +259,17 @@ function addLog(){
 
 let time=new Date().toLocaleTimeString()
 
-let row="<tr><td>"+time+"</td><td>"+logs[Math.floor(Math.random()*logs.length)]+"</td></tr>"
+let line="["+time+"] "+logs[Math.floor(Math.random()*logs.length)]+"<br>"
 
-let table=document.getElementById("log")
+let box=document.getElementById("log")
 
-table.innerHTML=row+table.innerHTML
+box.innerHTML=line+box.innerHTML
 
 }
 
-setInterval(addLog,4000)
+setInterval(addLog,5000)
 
-/* OPEN LAB */
+/* LAB */
 
 function enterLab(){
 
