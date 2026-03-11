@@ -3,43 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Nexus Core Lab</title>
+<title>NEXUS CORE LAB</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
-background:#070c12;
-color:#e6edf3;
+background:#050b10;
+color:#e8f0f5;
 }
 
-header{
-background:#050a0f;
+.header{
+background:#02060a;
 padding:16px;
-border-bottom:1px solid #1c2630;
+border-bottom:1px solid #1e2a34;
 }
 
-header h1{
+.header h1{
 margin:0;
 font-size:18px;
 letter-spacing:2px;
 }
 
-header p{
-margin:2px 0 0 0;
+.header p{
+margin:0;
 font-size:12px;
-color:#7a8b99;
+color:#7a8c9a;
 }
 
 .hero{
 height:180px;
-background:url("https://images.unsplash.com/photo-1581091870627-3c8a9d4f79d6") center/cover no-repeat;
+background-image:url("https://images.unsplash.com/photo-1581091870622-1e7e0e1c0b57");
+background-size:cover;
+background-position:center;
 }
 
 .container{
 padding:18px;
+max-width:900px;
+margin:auto;
 }
 
 .card{
@@ -48,25 +51,19 @@ border:1px solid #1e2a34;
 border-radius:10px;
 padding:18px;
 margin-bottom:16px;
-box-shadow:0 4px 12px rgba(0,0,0,0.4);
-}
-
-.card h3{
-margin-top:0;
-font-size:16px;
+box-shadow:0 4px 12px rgba(0,0,0,0.45);
 }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
-margin-bottom:16px;
 }
 
-.stat{
+.small-card{
 background:#0c131a;
 border:1px solid #1e2a34;
-border-radius:10px;
+border-radius:8px;
 padding:14px;
 font-size:13px;
 }
@@ -79,7 +76,7 @@ text-align:center;
 border-radius:8px;
 font-weight:bold;
 cursor:pointer;
-transition:all 0.25s ease;
+transition:all .25s ease;
 }
 
 .button:hover{
@@ -92,6 +89,12 @@ text-align:center;
 font-size:12px;
 color:#6c7a86;
 padding:30px;
+border-top:1px solid #1e2a34;
+margin-top:30px;
+}
+
+ul{
+padding-left:18px;
 }
 
 </style>
@@ -99,10 +102,10 @@ padding:30px;
 
 <body>
 
-<header>
+<div class="header">
 <h1>NEXUS CORE LAB</h1>
 <p>International Bio Defense Research Network</p>
-</header>
+</div>
 
 <div class="hero"></div>
 
@@ -111,30 +114,30 @@ padding:30px;
 <div class="card">
 <h3>Advanced Bio Defense Research</h3>
 <p>
-Nexus Core Laboratory is a high-security international research
-organization focused on biological defense, genomic monitoring
-and global pathogen threat analysis.
+Nexus Core Laboratory is a high-security international research organization focused on biological defense,
+genomic monitoring and global pathogen threat analysis.  
+The network integrates AI driven bio-intelligence with global laboratory nodes.
 </p>
 </div>
 
 <div class="grid">
 
-<div class="stat">
+<div class="small-card">
 <b>GLOBAL NODES</b><br>
 14 Active
 </div>
 
-<div class="stat">
+<div class="small-card">
 <b>SYSTEM LOAD</b><br>
 38%
 </div>
 
-<div class="stat">
+<div class="small-card">
 <b>NETWORK STATUS</b><br>
 ONLINE
 </div>
 
-<div class="stat">
+<div class="small-card">
 <b>LAST LOG</b><br>
 Genome Scan
 </div>
@@ -143,32 +146,33 @@ Genome Scan
 
 <div class="card">
 <h3>Recent Activity</h3>
-<p>
-• Genome scan completed<br>
-• Bio sample analysis running<br>
-• Network security verification passed<br>
-• Lab node synchronization complete
-</p>
+<ul>
+<li>Genome scan completed</li>
+<li>Bio sample analysis running</li>
+<li>Network security verification passed</li>
+<li>Lab node synchronization complete</li>
+</ul>
 </div>
 
 <div class="card">
 <h3>Research Divisions</h3>
 <p>
-GENOMICS UNIT – DNA Monitoring & Mutation Analysis<br>
-PATHOGEN DEFENSE – Virus Detection & Bio Security<br>
-BIO NETWORK – Global Bio Threat Monitoring<br>
-AI LAB – Predictive Bio Intelligence Systems
+GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br><br>
+PATHOGEN DEFENSE — Virus Detection & Bio Security<br><br>
+BIO NETWORK — Global Bio Threat Monitoring<br><br>
+AI LAB — Predictive Bio Intelligence Systems
 </p>
 </div>
 
-<div class="button" onclick="location.href='lab.html'">
+<div class="button">
 ENTER LAB
 </div>
 
 </div>
 
 <div class="footer">
-NEXUS CORE LAB • Global Bio Defense Network<br>
+NEXUS CORE LAB • Global Bio Defense Network  
+<br>
 © 2026 Nexus Research Division
 </div>
 
