@@ -3,150 +3,242 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>National Bio Defense Command</title>
+<title>NATIONAL BIO DEFENSE COMMAND</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(180deg,#071d21,#021014);
 color:white;
+background:#020c0f;
+overflow-x:hidden;
 }
 
-.container{
-padding:20px;
-max-width:420px;
-margin:auto;
+/* GRID BACKGROUND */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:
+linear-gradient(rgba(0,255,200,0.06) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,255,200,0.06) 1px, transparent 1px);
+background-size:40px 40px;
+z-index:-1;
+}
+
+/* HEADER */
+
+.header{
+padding:25px;
 }
 
 h1{
-font-size:28px;
-margin-bottom:5px;
+margin:0;
+font-size:30px;
+letter-spacing:2px;
 }
 
 .threat{
-color:#21e79a;
-margin-bottom:20px;
+color:#21ff9a;
+margin-top:5px;
+}
+
+/* WORLD MAP */
+
+.map{
+width:100%;
+height:200px;
+background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
+background-size:cover;
+background-position:center;
+opacity:0.35;
+position:relative;
+}
+
+/* SCAN LINE */
+
+.scan{
+position:absolute;
+width:100%;
+height:2px;
+background:#00ffc8;
+box-shadow:0 0 10px #00ffc8;
+animation:scan 4s linear infinite;
+}
+
+@keyframes scan{
+0%{top:0}
+100%{top:200px}
+}
+
+/* PANEL */
+
+.panel{
+padding:20px;
 }
 
 .card{
-background:#0e2a30;
-border-radius:18px;
+background:rgba(0,50,55,0.5);
+border:1px solid rgba(0,255,200,0.2);
+border-radius:12px;
 padding:20px;
-margin-bottom:18px;
-box-shadow:0 10px 25px rgba(0,0,0,0.5);
+margin-bottom:15px;
+backdrop-filter:blur(6px);
 }
 
 .label{
-color:#9db5b9;
-font-size:14px;
-margin-bottom:5px;
+color:#86a8a8;
+font-size:12px;
 }
 
 .big{
-font-size:32px;
-font-weight:bold;
-}
-
-.small{
-color:#9db5b9;
-font-size:14px;
-}
-
-.ecg{
-background:black;
-border-radius:10px;
-padding:10px;
-margin-top:10px;
-}
-
-canvas{
-width:100%;
-height:80px;
-}
-
-.progress{
-height:8px;
-background:#1c4046;
-border-radius:10px;
-margin-top:10px;
-}
-
-.bar{
-height:8px;
-background:#22f1b0;
-border-radius:10px;
-width:60%;
+font-size:28px;
+margin-top:4px;
 }
 
 .log{
-background:#021a1d;
-border-radius:10px;
-padding:10px;
-height:130px;
+height:120px;
 overflow:auto;
-font-size:13px;
 font-family:monospace;
+font-size:12px;
+color:#9de2d0;
 }
+
+/* BUTTON */
 
 button{
 width:100%;
 padding:16px;
+background:#00e6a6;
 border:none;
-border-radius:12px;
-background:#1ed19a;
+border-radius:10px;
 font-size:18px;
 font-weight:bold;
-margin-top:15px;
+color:black;
+margin-top:10px;
 }
 
 button:hover{
-background:#13b584;
+background:#00c18d;
 cursor:pointer;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="header">
 
 <h1>NATIONAL BIO DEFENSE COMMAND</h1>
 <div class="threat">Threat Level : GREEN</div>
 
+</div>
+
+<div class="map">
+<div class="scan"></div>
+</div>
+
+<div class="panel">
+
 <div class="card">
 <div class="label">GLOBAL SURVEILLANCE</div>
-<div class="big" id="nodes">14 Nodes Active</div>
-<div class="small">Satellite Bio Detection Network</div>
+<div class="big" id="nodes">15 Nodes Active</div>
 </div>
 
 <div class="card">
 <div class="label">DEFENSE NETWORK</div>
 <div class="big">ONLINE</div>
-<div class="small">Orbital Monitoring Grid</div>
 </div>
 
 <div class="card">
-<div class="label">SYSTEM STATUS</div>
-<div class="big" id="cpu">CPU Load 40%</div>
-<div class="small">Memory Allocation Stable</div>
+<div class="label">SYSTEM LOAD</div>
+<div class="big" id="cpu">CPU 37%</div>
+</div>
+
+<div class="card">
+<div class="label">SYSTEM LOG</div>
+<div class="log" id="log"></div>
 </div>
 
 <div class="card">
 
-<div class="label">BIO SIGNAL MONITOR</div>
+<div class="label">RESEARCH FACILITY</div>
 
-<div class="ecg">
-<canvas id="ecg"></canvas>
-</div>
+<button onclick="enterLab()">ENTER BIO LAB</button>
 
 </div>
 
-<div class="card">
+</div>
+
+<script>
+
+/* nodes */
+
+let nodes=15
+
+setInterval(()=>{
+
+nodes++
+if(nodes>22)nodes=15
+
+document.getElementById("nodes").innerText=nodes+" Nodes Active"
+
+},4000)
+
+/* cpu */
+
+setInterval(()=>{
+
+let cpu=Math.floor(Math.random()*30)+30
+
+document.getElementById("cpu").innerText="CPU "+cpu+"%"
+
+},3000)
+
+/* log */
+
+let log=document.getElementById("log")
+
+function addLog(){
+
+let events=[
+"Satellite link established",
+"Orbital scan completed",
+"Neural analysis running",
+"Bio sensor active",
+"Threat analysis stable",
+"Satellite node synced"
+]
+
+let e=events[Math.floor(Math.random()*events.length)]
+
+let t=new Date().toLocaleTimeString()
+
+log.innerHTML="[ "+t+" ] "+e+"<br>"+log.innerHTML
+
+}
+
+setInterval(addLog,2000)
+
+/* lab */
+
+function enterLab(){
+
+window.location="lab.html"
+
+}
+
+</script>
+
+</body>
+</html><div class="card">
 
 <div class="label">GLOBAL BIO SCAN</div>
 
