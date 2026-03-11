@@ -5,106 +5,132 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NEXUS CORE COMMAND</title>
+<title>NEXUS CORE</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
-background:#07191c;
-color:#cfe6e3;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(180deg,#041b1f,#021315);
+color:white;
 }
 
 .header{
-padding:30px;
-border-bottom:1px solid #0f3c40;
+padding:25px;
+border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-.header h1{
-margin:0;
-letter-spacing:4px;
-font-size:32px;
+.title{
+font-size:28px;
+font-weight:700;
+letter-spacing:3px;
 }
 
-.topbar{
-margin-top:10px;
+.subtitle{
+opacity:0.6;
 font-size:13px;
-color:#7fb5ae;
+margin-top:5px;
 }
 
-.status{
-padding:15px 30px;
-background:#061315;
-border-bottom:1px solid #0f3c40;
-color:#1fe3a2;
+.status-bar{
+background:#052428;
+padding:12px 20px;
+font-size:13px;
+color:#30e0b0;
+letter-spacing:1px;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.nav{
+display:flex;
+gap:25px;
+padding:15px 20px;
 font-size:14px;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.nav span{
+opacity:0.7;
+cursor:pointer;
+}
+
+.nav span:hover{
+opacity:1;
+}
+
+.container{
+padding:20px;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:20px;
-padding:30px;
+grid-template-columns:1fr 1fr;
+gap:15px;
 }
 
 .card{
-background:#0b2528;
-border:1px solid #123d41;
+background:linear-gradient(180deg,#063036,#052428);
 padding:20px;
-border-radius:10px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.05);
+box-shadow:0 5px 20px rgba(0,0,0,0.4);
 }
 
 .card h3{
-margin:0 0 10px 0;
+margin:0;
 font-size:14px;
-color:#7fb5ae;
+opacity:0.7;
 }
 
-.value{
-font-size:28px;
+.big{
+font-size:30px;
+margin-top:8px;
 }
 
-.section{
-padding:0 30px 30px 30px;
-}
-
-.panel{
-background:#0b2528;
-border:1px solid #123d41;
+.lab-card{
+margin-top:25px;
+background:linear-gradient(180deg,#063036,#052428);
 padding:25px;
-border-radius:10px;
-margin-bottom:20px;
+border-radius:14px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.lab-card h2{
+margin-top:0;
 }
 
 .button{
 display:inline-block;
 margin-top:15px;
-padding:12px 22px;
-background:#1c7f74;
-color:white;
-border-radius:6px;
-text-decoration:none;
+padding:10px 18px;
+background:#1fa387;
+border-radius:8px;
 font-size:14px;
+cursor:pointer;
 }
 
-.logs{
+.button:hover{
+background:#1cc4a2;
+}
+
+.activity{
+margin-top:25px;
+background:#052428;
+padding:20px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.05);
 font-size:13px;
 line-height:1.8;
-color:#9ed1cb;
-}
-
-.alert{
-font-size:24px;
-font-weight:bold;
-color:#ff3b3b;
+opacity:0.9;
 }
 
 .footer{
-padding:20px 30px;
-border-top:1px solid #0f3c40;
+margin-top:30px;
+padding:15px;
+text-align:center;
 font-size:12px;
-color:#6ea5a0;
+opacity:0.5;
 }
 
 </style>
@@ -115,102 +141,87 @@ color:#6ea5a0;
 
 <div class="header">
 
-<h1>NEXUS CORE</h1>
-
-<div class="topbar">
-Command Network • Secure Research Division • Global Node
-</div>
+<div class="title">NEXUS CORE</div>
+<div class="subtitle">Command Network • Secure Research Division • Global Node</div>
 
 </div>
 
-
-<div class="status">
-SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
+<div class="status-bar">
+SYSTEM STATUS • OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 </div>
 
+<div class="nav">
+<span>Overview</span>
+<span>Laboratories</span>
+<span>Security</span>
+<span>AI Systems</span>
+</div>
+
+<div class="container">
 
 <div class="grid">
 
 <div class="card">
 <h3>Active Laboratories</h3>
-<div class="value">14</div>
+<div class="big">14</div>
 </div>
 
 <div class="card">
 <h3>Samples Processing</h3>
-<div class="value">327</div>
+<div class="big">327</div>
 </div>
 
 <div class="card">
 <h3>Network Nodes</h3>
-<div class="value">42</div>
-</div>
-
-<div class="card">
-<h3>AI Monitoring</h3>
-<div class="value">ONLINE</div>
-</div>
-
-<div class="card">
-<h3>System Security</h3>
-<div class="value">SECURE</div>
+<div class="big">42</div>
 </div>
 
 <div class="card">
 <h3>Containment Level</h3>
-<div class="value">LEVEL 3</div>
+<div class="big">LEVEL 3</div>
+</div>
+
+<div class="card">
+<h3>AI Monitoring</h3>
+<div class="big">ONLINE</div>
+</div>
+
+<div class="card">
+<h3>System Security</h3>
+<div class="big">SECURE</div>
 </div>
 
 </div>
 
+<div class="lab-card">
 
-<div class="section">
-
-<div class="panel">
-
-<h3>Biological Research Laboratory</h3>
+<h2>Biological Research Laboratory</h2>
 
 <p>
 Primary laboratory dedicated to pathogen analysis,
 genomic sequencing and controlled biological testing.
 </p>
 
-<a href="lab.html" class="button">
+<div class="button">
 ENTER LAB
-</a>
+</div>
 
 </div>
 
+<div class="activity">
 
-<div class="panel">
+<b>System Activity</b><br>
 
-<h3>System Activity</h3>
-
-<div class="logs">
 00:33:18 • Genome Data Synced<br>
 00:33:13 • Network Integrity Check<br>
 00:33:08 • Security Authentication<br>
 00:33:03 • Node Synchronization
-</div>
 
 </div>
-
-
-<div class="panel">
-
-<h3>Threat Monitoring</h3>
-
-Current Risk Level :
-<span class="alert">HIGH</span>
-
-</div>
-
-</div>
-
 
 <div class="footer">
-
-NEXUS CORE NETWORK • SECURE NODE 07 • ENCRYPTION AES-512 • BUILD v2.3
+NEXUS CORE • Secure Global Research Network
+</div>
 
 </div>
 
