@@ -12,37 +12,105 @@
 
 body{
 margin:0;
-background:#051416;
+font-family:Consolas,monospace;
+background:#031315;
 color:#00ffd0;
-font-family:Consolas;
 }
+
+/* HEADER */
 
 header{
+
 padding:20px;
 border-bottom:1px solid #00ffd0;
+
 }
 
-.container{
-padding:20px;
+h1{
+margin:0;
+font-size:22px;
+letter-spacing:2px;
 }
+
+.threat{
+
+margin-top:5px;
+font-size:14px;
+
+}
+
+/* GRID */
+
+.grid{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+padding:20px;
+
+}
+
+/* PANEL */
 
 .panel{
-background:#0a2b2f;
-padding:15px;
+
+background:#062528;
 border:1px solid #00ffd0;
-margin-bottom:15px;
 border-radius:6px;
+padding:15px;
+
+box-shadow:0 0 15px rgba(0,255,200,0.2);
+
 }
 
-button{
+.title{
 
+font-size:13px;
+margin-bottom:8px;
+color:#8ffff0;
+
+}
+
+.data{
+
+font-size:18px;
+font-weight:bold;
+
+}
+
+/* SYSTEM LOG */
+
+.log{
+
+font-size:12px;
+height:120px;
+overflow:hidden;
+
+}
+
+/* BUTTON */
+
+.labbtn{
+
+width:100%;
+padding:12px;
 background:#00ffd0;
 border:none;
-padding:12px;
 border-radius:6px;
-width:100%;
 font-weight:bold;
 margin-top:10px;
+
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
 
 }
 
@@ -54,32 +122,77 @@ margin-top:10px;
 
 <header>
 
-<h2>NATIONAL BIO DEFENSE COMMAND</h2>
+<h1>NATIONAL BIO DEFENSE COMMAND</h1>
 
-Threat Level : <b style="color:#00ff8c">GREEN</b>
+<div class="threat">
+Threat Level : <span style="color:#00ff8c">GREEN</span>
+</div>
 
 </header>
 
-<div class="container">
+<div class="grid">
 
 <div class="panel">
 
-GLOBAL SURVEILLANCE ACTIVE
+<div class="title">GLOBAL SURVEILLANCE</div>
+
+<div class="data">14 NODES ACTIVE</div>
+
+Satellite Bio Detection Network
 
 </div>
 
+
 <div class="panel">
 
-DEFENSE NETWORK ONLINE
+<div class="title">DEFENSE NETWORK</div>
+
+<div class="data">ONLINE</div>
+
+Orbital Monitoring Grid
 
 </div>
 
+
 <div class="panel">
 
-<button onclick="enterLab()">
+<div class="title">SYSTEM STATUS</div>
 
+<div class="data" id="cpu">CPU LOAD 23%</div>
+
+Memory Allocation Stable
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">BIO SIGNAL MONITOR</div>
+
+<div class="data" id="signal">Signal Stable</div>
+
+Genetic Detection Active
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">SYSTEM LOG</div>
+
+<div class="log" id="log"></div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">RESEARCH FACILITY</div>
+
+Access to Containment Laboratory
+
+<button class="labbtn" onclick="enterLab()">
 ENTER RESEARCH LAB
-
 </button>
 
 </div>
@@ -87,6 +200,48 @@ ENTER RESEARCH LAB
 </div>
 
 <script>
+
+/* CPU STATUS */
+
+function cpu(){
+
+let value=Math.floor(Math.random()*30)+20
+
+document.getElementById("cpu").innerText=
+"CPU LOAD "+value+"%"
+
+}
+
+setInterval(cpu,2000)
+
+/* LOG SYSTEM */
+
+const logs=[
+
+"Genome scan initiated",
+"Satellite node synced",
+"Containment check passed",
+"Bio sensor calibration",
+"Threat analysis running",
+"DNA structure mapping"
+
+]
+
+function addLog(){
+
+let time=new Date().toLocaleTimeString()
+
+let line="["+time+"] "+logs[Math.floor(Math.random()*logs.length)]+"<br>"
+
+let box=document.getElementById("log")
+
+box.innerHTML=line+box.innerHTML
+
+}
+
+setInterval(addLog,3000)
+
+/* ENTER LAB */
 
 function enterLab(){
 
