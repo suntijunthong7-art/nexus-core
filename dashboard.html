@@ -4,8 +4,11 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>National Bio Defense Command</title>
+
+<!-- CDN Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
@@ -13,7 +16,7 @@ body{
 margin:0;
 font-family:Arial;
 background:#021416;
-color:#e6ffff;
+color:#e8ffff;
 }
 
 /* GRID BACKGROUND */
@@ -43,32 +46,14 @@ font-size:24px;
 }
 
 .status{
-margin-top:5px;
 color:#00ffc8;
+margin-top:6px;
 }
 
 /* MAP */
 
 .map{
-height:200px;
-background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
-background-size:cover;
-opacity:0.3;
-position:relative;
-}
-
-.scan{
-position:absolute;
-height:2px;
-width:100%;
-background:#00ffc8;
-box-shadow:0 0 10px #00ffc8;
-animation:scan 4s linear infinite;
-}
-
-@keyframes scan{
-0%{top:0}
-100%{top:200px}
+height:260px;
 }
 
 /* DASHBOARD GRID */
@@ -88,7 +73,7 @@ padding:15px;
 }
 
 .title{
-font-size:13px;
+font-size:12px;
 color:#8fbebe;
 }
 
@@ -130,7 +115,6 @@ cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -140,85 +124,56 @@ cursor:pointer;
 <h1>NATIONAL BIO DEFENSE COMMAND</h1>
 
 <div class="status">
-
-Threat Level : GREEN |
-Server Time : <span id="clock"></span>
-
+Threat Level : GREEN | Server Time : <span id="clock"></span>
 </div>
 
 </div>
 
-<div class="map">
-<div class="scan"></div>
-</div>
+<div id="worldmap" class="map"></div>
 
 <div class="dashboard">
 
 <div class="card">
-
 <div class="title">GLOBAL SURVEILLANCE</div>
 <div class="value" id="nodes">16 Nodes Active</div>
-
 </div>
 
 <div class="card">
-
 <div class="title">SYSTEM LOAD</div>
-<div class="value" id="cpu">CPU 38%</div>
-
+<canvas id="cpuChart"></canvas>
 </div>
 
 <div class="card">
-
-<div class="title">BIO SIGNAL MONITOR</div>
-<div class="value" id="bio">Stable</div>
-
-</div>
-
-<div class="card">
-
 <div class="title">THREAT ANALYSIS</div>
 <div class="value" id="threat">No outbreak detected</div>
-
 </div>
 
 <div class="card">
-
 <div class="title">DEFENSE NETWORK</div>
 <div class="value">ONLINE</div>
-
 </div>
 
 <div class="card">
-
 <div class="title">SYSTEM LOG</div>
-
 <div class="log" id="log"></div>
-
 </div>
 
 </div>
 
 <div class="lab">
-
 <button onclick="enterLab()">ENTER RESEARCH LAB</button>
-
 </div>
 
 <script>
 
 /* CLOCK */
 
-function updateClock(){
-
-let now=new Date()
+setInterval(()=>{
 
 document.getElementById("clock").innerText=
-now.toLocaleTimeString()
+new Date().toLocaleTimeString()
 
-}
-
-setInterval(updateClock,1000)
+},1000)
 
 /* NODES */
 
@@ -230,29 +185,66 @@ document.getElementById("nodes").innerText=n+" Nodes Active"
 
 },4000)
 
-/* CPU */
+/* WORLD MAP */
 
-setInterval(()=>{
+var chart = echarts.init(document.getElementById('worldmap'));
 
-let cpu=30+Math.floor(Math.random()*20)
+var option = {
 
-document.getElementById("cpu").innerText="CPU "+cpu+"%"
+backgroundColor:"#021416",
 
-},3000)
+geo:{
+map:'world',
+roam:true,
+itemStyle:{
+areaColor:"#083333",
+borderColor:"#00ffc8"
+}
+},
 
-/* BIOSIGNAL */
+series:[{
+type:"scatter",
+coordinateSystem:"geo",
+data:[
+{value:[100.5,13.7]},
+{value:[139.6,35.6]},
+{value:[-74,40.7]},
+{value:[2.35,48.85]}
+],
+symbolSize:8,
+itemStyle:{color:"#00ff9c"}
+}]
 
-setInterval(()=>{
+};
 
-let states=["Stable","Monitoring","Analyzing"]
+chart.setOption(option);
 
-let s=states[Math.floor(Math.random()*states.length)]
+/* CPU CHART */
 
-document.getElementById("bio").innerText=s
+const ctx = document.getElementById('cpuChart');
 
-},5000)
+const cpuChart = new Chart(ctx,{
 
-/* LOG */
+type:'line',
+
+data:{
+labels:["1","2","3","4","5","6"],
+datasets:[{
+data:[35,38,40,36,34,39],
+borderColor:"#00ffc8",
+backgroundColor:"transparent",
+tension:0.4
+}]
+},
+
+options:{
+plugins:{legend:{display:false}},
+scales:{x:{display:false},y:{display:false}}
+}
+
+});
+
+/* LOG STREAM */
 
 let log=document.getElementById("log")
 
@@ -278,7 +270,7 @@ log.innerHTML="[ "+t+" ] "+e+"<br>"+log.innerHTML
 
 setInterval(addLog,2000)
 
-/* ENTER LAB */
+/* LAB */
 
 function enterLab(){
 
