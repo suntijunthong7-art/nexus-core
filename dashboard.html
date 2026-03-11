@@ -2,52 +2,90 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Core Lab</title>
+<title>NEXUS CORE LAB</title>
 
 <style>
 
 body{
-font-family:Arial;
 margin:0;
-background:#000;
-color:#00ffc3;
-padding:15px;
+font-family:system-ui,Arial;
+background:#0b0b0b;
+color:#e5e5e5;
 }
 
-h2{
-margin-top:0;
+.header{
+padding:22px;
+border-bottom:1px solid #1f1f1f;
+}
+
+.header h2{
+margin:0;
+font-size:18px;
+letter-spacing:1px;
+color:#ffffff;
+}
+
+.header span{
+font-size:12px;
+color:#8a8a8a;
+}
+
+.container{
+padding:20px;
 }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
-margin:20px 0;
+gap:12px;
+margin-bottom:25px;
 }
 
-.box{
-border:1px solid #00ffc3;
-padding:10px;
-border-radius:8px;
+.card{
+background:#111;
+padding:18px;
+border-radius:10px;
+border:1px solid #1f1f1f;
+}
+
+.card h4{
+margin:0;
+font-size:12px;
+color:#8a8a8a;
+}
+
+.card p{
+margin-top:8px;
+font-size:16px;
+color:#ffffff;
+}
+
+.video{
+margin-top:10px;
 }
 
 video{
 width:100%;
+height:190px;
+object-fit:cover;
 border-radius:10px;
-margin-top:10px;
 }
 
-button{
+.button{
+margin-top:25px;
 width:100%;
-padding:12px;
-margin-top:20px;
-background:#00a884;
+padding:14px;
+background:#0f766e;
 border:none;
+border-radius:10px;
 color:white;
-font-size:16px;
-border-radius:8px;
+font-size:15px;
+}
+
+.button:hover{
+background:#0d5f59;
 }
 
 </style>
@@ -55,44 +93,58 @@ border-radius:8px;
 
 <body>
 
-<h2>กองบัญชาการป้องกันชีวภาพ</h2>
-สถานะ : ปลอดภัย
+<div class="header">
+<h2>NEXUS CORE LAB</h2>
+<span>National Bio Defense System</span>
+</div>
+
+<div class="container">
 
 <div class="grid">
 
-<div class="box">
-การเฝ้าระวัง<br>
-14 Nodes
+<div class="card">
+<h4>GLOBAL NODES</h4>
+<p>14 Active</p>
 </div>
 
-<div class="box">
-โหลดระบบ<br>
-38%
+<div class="card">
+<h4>SYSTEM LOAD</h4>
+<p>38%</p>
 </div>
 
-<div class="box">
-เครือข่าย<br>
-ONLINE
+<div class="card">
+<h4>NETWORK STATUS</h4>
+<p>ONLINE</p>
 </div>
 
-<div class="box">
-บันทึก<br>
-genome scan completed
+<div class="card">
+<h4>LAST LOG</h4>
+<p>Genome scan completed</p>
 </div>
 
 </div>
 
-<h3>Lab Camera</h3>
+<div class="video">
 
-<video controls>
-
+<video autoplay muted loop playsinline>
 <source src="video/lab.mp4" type="video/mp4">
-
 </video>
 
-<button onclick="location.href='lab.html'">
-เข้าสู่ห้องปฏิบัติการ
+</div>
+
+<button class="button" onclick="enterLab()">
+Enter Laboratory
 </button>
+
+</div>
+
+<script>
+
+function enterLab(){
+window.location.href="lab.html"
+}
+
+</script>
 
 </body>
 </html>
