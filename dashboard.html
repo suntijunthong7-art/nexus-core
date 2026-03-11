@@ -1,91 +1,102 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NEXUS CORE LAB</title>
+<title>Nexus Core Lab</title>
 
 <style>
 
 body{
 margin:0;
-font-family:system-ui,Arial;
-background:#0b0b0b;
-color:#e5e5e5;
+font-family:system-ui;
+background:#060606;
+color:white;
 }
 
 .header{
-padding:22px;
-border-bottom:1px solid #1f1f1f;
+padding:20px;
+border-bottom:1px solid #1a1a1a;
 }
 
 .header h2{
 margin:0;
 font-size:18px;
 letter-spacing:1px;
-color:#ffffff;
 }
 
 .header span{
 font-size:12px;
-color:#8a8a8a;
+color:#7c7c7c;
 }
 
 .container{
-padding:20px;
+padding:18px;
+max-width:900px;
+margin:auto;
 }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
-margin-bottom:25px;
+margin-top:20px;
 }
 
 .card{
-background:#111;
+background:rgba(20,20,20,0.9);
 padding:18px;
-border-radius:10px;
-border:1px solid #1f1f1f;
+border-radius:12px;
+border:1px solid #1c1c1c;
 }
 
 .card h4{
+font-size:11px;
+color:#7c7c7c;
 margin:0;
-font-size:12px;
-color:#8a8a8a;
 }
 
 .card p{
-margin-top:8px;
 font-size:16px;
-color:#ffffff;
+margin-top:6px;
 }
 
-.video{
-margin-top:10px;
+.preview{
+margin-top:25px;
+border-radius:12px;
+overflow:hidden;
+border:1px solid #1c1c1c;
 }
 
-video{
+.preview video{
 width:100%;
-height:190px;
+height:200px;
 object-fit:cover;
-border-radius:10px;
 }
 
 .button{
-margin-top:25px;
+margin-top:22px;
 width:100%;
 padding:14px;
 background:#0f766e;
 border:none;
-border-radius:10px;
+border-radius:12px;
 color:white;
 font-size:15px;
+letter-spacing:.5px;
 }
 
 .button:hover{
-background:#0d5f59;
+background:#0c5f59;
+}
+
+.footer{
+text-align:center;
+font-size:11px;
+color:#6a6a6a;
+margin-top:25px;
 }
 
 </style>
@@ -94,8 +105,10 @@ background:#0d5f59;
 <body>
 
 <div class="header">
+
 <h2>NEXUS CORE LAB</h2>
 <span>National Bio Defense System</span>
+
 </div>
 
 <div class="container">
@@ -124,7 +137,7 @@ background:#0d5f59;
 
 </div>
 
-<div class="video">
+<div class="preview">
 
 <video autoplay muted loop playsinline>
 <source src="video/lab.mp4" type="video/mp4">
@@ -135,6 +148,10 @@ background:#0d5f59;
 <button class="button" onclick="enterLab()">
 Enter Laboratory
 </button>
+
+<div class="footer">
+Secure Bio Research Network
+</div>
 
 </div>
 
