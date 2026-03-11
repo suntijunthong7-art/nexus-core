@@ -1,50 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NEXUS CORE LAB</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Core Lab</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, Helvetica, sans-serif;
 background:#050b10;
-color:white;
+color:#d6e2ea;
 }
 
-.header{
+header{
+background:#02070b;
 padding:18px;
-background:#08131a;
-border-bottom:1px solid #1a2a33;
+border-bottom:1px solid #1c2a33;
 }
 
-.title{
+header h1{
+margin:0;
 font-size:18px;
-font-weight:bold;
+letter-spacing:1px;
 }
 
-.subtitle{
-font-size:11px;
-color:#7f9aa6;
+header p{
+margin:2px 0 0;
+font-size:12px;
+color:#7c8b96;
 }
 
 .hero{
-height:180px;
-background:url("https://images.unsplash.com/photo-1581091012184-7c29b0b5c6c1") center/cover;
+height:200px;
+background-image:url("https://images.unsplash.com/photo-1581091012184-5c2a2b5f2c0f");
+background-size:cover;
+background-position:center;
 }
 
 .container{
-padding:18px;
+padding:20px;
 }
 
 .card{
-background:#0c131a;
-border:1px solid #1e2a34;
+background:#0c141a;
+border:1px solid #1b2b35;
 border-radius:10px;
 padding:18px;
 margin-bottom:16px;
-box-shadow:0 4px 12px rgba(0,0,0,0.4);
+box-shadow:0 4px 12px rgba(0,0,0,0.5);
 }
 
 .grid{
@@ -53,19 +58,19 @@ grid-template-columns:1fr 1fr;
 gap:10px;
 }
 
-.labimg{
+.image-section img{
 width:100%;
 border-radius:8px;
 margin-top:10px;
 }
 
 .button{
-background:#1e8a80;
+margin-top:20px;
+background:#1f8b82;
 padding:14px;
 text-align:center;
 border-radius:8px;
 font-weight:bold;
-margin-top:20px;
 }
 
 .footer{
@@ -80,10 +85,10 @@ padding:30px;
 
 <body>
 
-<div class="header">
-<div class="title">NEXUS CORE LAB</div>
-<div class="subtitle">International Bio Defense Research Network</div>
-</div>
+<header>
+<h1>NEXUS CORE LAB</h1>
+<p>International Bio Defense Research Network</p>
+</header>
 
 <div class="hero"></div>
 
@@ -92,8 +97,9 @@ padding:30px;
 <div class="card">
 <h3>Advanced Bio Defense Research</h3>
 <p>
-Nexus Core Laboratory is a high-security international research organization
-focused on biological defense, genomic monitoring and global pathogen threat analysis.
+Nexus Core Laboratory is a high-security international research
+organization focused on biological defense, genomic monitoring
+and global pathogen threat analysis.
 </p>
 </div>
 
@@ -101,42 +107,54 @@ focused on biological defense, genomic monitoring and global pathogen threat ana
 
 <div class="card">
 GLOBAL NODES<br>
-<b>14 Active</b>
+<strong>14 Active</strong>
 </div>
 
 <div class="card">
 SYSTEM LOAD<br>
-<b>38%</b>
+<strong>38%</strong>
 </div>
 
 <div class="card">
 NETWORK STATUS<br>
-<b>ONLINE</b>
+<strong>ONLINE</strong>
 </div>
 
 <div class="card">
 LAST LOG<br>
-<b>Genome Scan</b>
+<strong>Genome Scan</strong>
 </div>
 
 </div>
 
 <div class="card">
 <h3>Recent Activity</h3>
-• Genome scan completed<br>
-• Bio sample analysis running<br>
-• Network security verification passed<br>
-• Lab node synchronization complete
+<ul>
+<li>Genome scan completed</li>
+<li>Bio sample analysis running</li>
+<li>Network security verification passed</li>
+<li>Lab node synchronization complete</li>
+</ul>
+</div>
+
+<div class="card image-section">
+<h3>Laboratory Research</h3>
+
+<img src="https://images.unsplash.com/photo-1579154204601-01588f351e67">
+
+<img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
+
+<img src="https://images.unsplash.com/photo-1582719188393-bb71ca45dbb9">
+
 </div>
 
 <div class="card">
-<h3>Research Laboratory</h3>
+<h3>Research Divisions</h3>
 
-<img class="labimg" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
-
-<img class="labimg" src="https://images.unsplash.com/photo-1579165466741-7f35e4755660">
-
-<img class="labimg" src="https://images.unsplash.com/photo-1581093458791-9d09c0f10f63">
+GENOMICS UNIT — DNA Monitoring & Mutation Analysis<br>
+PATHOGEN DEFENSE — Virus Detection & Bio Security<br>
+BIO NETWORK — Global Bio Threat Monitoring<br>
+AI LAB — Predictive Bio Intelligence Systems
 
 </div>
 
@@ -147,7 +165,7 @@ ENTER LAB
 </div>
 
 <div class="footer">
-NEXUS CORE LAB • Global Bio Defense Network<br>
+NEXUS CORE LAB • Global Bio Defense Network  
 © 2026 Nexus Research Division
 </div>
 
