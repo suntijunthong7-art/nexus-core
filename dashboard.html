@@ -1,13 +1,90 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
 
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>National Bio Defense Command</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+
+body{
+margin:0;
+font-family:Consolas,monospace;
+background:linear-gradient(180deg,#031d21,#000);
+color:#00ffd0;
+}
+
+header{
+text-align:center;
+padding:20px;
+font-size:22px;
+letter-spacing:2px;
+border-bottom:1px solid #00ffd0;
+}
+
+.status{
+text-align:center;
+padding:10px;
+font-size:14px;
+}
+
+.green{
+color:#00ff8c;
+}
+
+.container{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+}
+
+.panel{
+
+background:#062529;
+border:1px solid #00ffd0;
+border-radius:8px;
+padding:15px;
+
+box-shadow:
+0 0 10px rgba(0,255,200,0.2),
+0 0 30px rgba(0,255,200,0.1);
+
+}
+
+.title{
+font-size:14px;
+margin-bottom:10px;
+color:#7fffe6;
+}
+
+.media img{
+width:100%;
+border-radius:4px;
+}
+
+.vital{
+font-size:32px;
+margin:10px 0;
+}
+
+.log{
+height:160px;
+overflow:hidden;
+font-size:13px;
+line-height:1.5;
+}
+
+footer{
+text-align:center;
+font-size:12px;
+padding:20px;
+color:#4bc3b3;
+}
+
+</style>
 
 </head>
 
@@ -15,58 +92,159 @@
 
 <header>
 
-<h1>NATIONAL BIO DEFENSE COMMAND</h1>
-
-<nav>
-
-<a href="dashboard.html">COMMAND</a>
-<a href="lab.html">RESEARCH LAB</a>
-
-</nav>
+NATIONAL BIO DEFENSE COMMAND
 
 </header>
 
-<div class="grid">
+<div class="status">
 
-<div class="panel">
+Threat Level :
+<span class="green">GREEN</span>
 
-<h3>THREAT LEVEL</h3>
-
-<h1 style="color:#00ff90">GREEN</h1>
+<br>
 
 National Biosecurity Status Stable
 
 </div>
 
-<div class="panel">
 
-<h3>GLOBAL SURVEILLANCE</h3>
+<div class="container">
 
-<img src="virus-3d.png">
-
-Active Monitoring Network
-
-</div>
 
 <div class="panel">
 
-<h3>DEFENSE NETWORK</h3>
+<div class="title">GLOBAL SURVEILLANCE</div>
 
-Satellite Bio Detection Grid Online
+<div class="media">
+
+<img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144">
 
 </div>
+
+Satellite Monitoring Active<br>
+Global Bio Threat Scan Running<br>
+Detection Grid Online
+
+</div>
+
 
 <div class="panel">
 
-<h3>SYSTEM LOG</h3>
+<div class="title">VIRUS ANALYSIS</div>
 
-<div id="log"></div>
+<div class="media">
+
+<img src="https://images.unsplash.com/photo-1581093588401-22f8c6f4b01e">
+
+</div>
+
+Mutation Rate : 3.2%<br>
+Host Adaptation : Stable<br>
+Containment Status : Secure
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">VITAL SIGN MONITOR</div>
+
+<div class="vital" id="bpm">82 BPM</div>
+
+Oxygen : <span id="oxy">98</span>%<br>
+Core Temperature : <span id="temp">36.7</span>°C<br>
+Neural Activity : NORMAL
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">GENOME DATABASE</div>
+
+Records Loaded : 2,184,442<br>
+Sequence Processing : ACTIVE<br>
+Data Integrity : PASSED<br>
+Backup Node : ONLINE
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">DEFENSE NETWORK</div>
+
+Satellite Grid : ONLINE<br>
+Global Relay : ACTIVE<br>
+Security Channel : ENCRYPTED<br>
+Command Network : STABLE
+
+</div>
+
+
+<div class="panel">
+
+<div class="title">SYSTEM LOG</div>
+
+<div class="log" id="log"></div>
 
 </div>
 
 </div>
 
-<script src="system.js"></script>
+
+<footer>
+
+International Bio Defense Authority
+
+</footer>
+
+
+<script>
+
+function updateVitals(){
+
+let bpm=Math.floor(Math.random()*10)+80
+let oxy=Math.floor(Math.random()*3)+97
+let temp=(36.5+Math.random()*0.4).toFixed(1)
+
+document.getElementById("bpm").innerText=bpm+" BPM"
+document.getElementById("oxy").innerText=oxy
+document.getElementById("temp").innerText=temp
+
+}
+
+setInterval(updateVitals,2000)
+
+
+const logs=[
+
+"Genome Sequencing Initiated",
+"Protein Mapping Running",
+"Bio Containment Stable",
+"Host Cell Monitoring Active",
+"Viral Mutation Analysis Running",
+"Global Node Sync Complete",
+"Satellite Scan Active",
+"Bio Threat Scan Clear"
+
+]
+
+function addLog(){
+
+let time=new Date().toLocaleTimeString()
+
+let line="["+time+"] "+logs[Math.floor(Math.random()*logs.length)]+"<br>"
+
+let logBox=document.getElementById("log")
+
+logBox.innerHTML=line+logBox.innerHTML
+
+}
+
+setInterval(addLog,3000)
+
+</script>
 
 </body>
 </html>
