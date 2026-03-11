@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -8,77 +7,129 @@
 
 body{
 margin:0;
-font-family:Arial;
-background:#050505;
+font-family:system-ui;
+background:linear-gradient(#070707,#000000);
 color:white;
 }
 
 .header{
-padding:25px;
-border-bottom:1px solid #222;
+padding:22px;
+border-bottom:1px solid #1c1c1c;
+}
+
+.header h2{
+margin:0;
+font-size:18px;
+letter-spacing:1px;
+}
+
+.header p{
+margin:4px 0 0;
+font-size:12px;
+color:#8a8a8a;
+}
+
+.container{
+padding:18px;
 }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:15px;
-padding:20px;
+gap:12px;
+margin-top:15px;
 }
 
 .card{
 background:#111;
-padding:20px;
+padding:16px;
 border-radius:10px;
+border:1px solid #1f1f1f;
+}
+
+.card small{
+color:#7a7a7a;
+}
+
+.card strong{
+display:block;
+margin-top:6px;
+font-size:16px;
+}
+
+.activity{
+margin-top:18px;
+background:#0f0f0f;
+padding:16px;
+border-radius:10px;
+border:1px solid #1c1c1c;
+font-size:13px;
+color:#9a9a9a;
 }
 
 button{
-width:90%;
-margin:30px auto;
-display:block;
-padding:15px;
+margin-top:20px;
+width:100%;
+padding:14px;
 background:#0f766e;
 border:none;
 border-radius:10px;
 color:white;
-font-size:16px;
+font-size:14px;
+}
+
+button:hover{
+background:#0c5f59;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="header">
-
 <h2>NEXUS CORE LAB</h2>
 <p>National Bio Defense System</p>
-
 </div>
+
+<div class="container">
 
 <div class="grid">
 
 <div class="card">
-GLOBAL NODES<br><b>14 ACTIVE</b>
+<small>GLOBAL NODES</small>
+<strong>14 ACTIVE</strong>
 </div>
 
 <div class="card">
-SYSTEM LOAD<br><b>38%</b>
+<small>SYSTEM LOAD</small>
+<strong>38%</strong>
 </div>
 
 <div class="card">
-NETWORK STATUS<br><b>ONLINE</b>
+<small>NETWORK STATUS</small>
+<strong>ONLINE</strong>
 </div>
 
 <div class="card">
-LAST LOG<br><b>Genome Scan</b>
+<small>LAST LOG</small>
+<strong>Genome Scan</strong>
 </div>
 
+</div>
+
+<div class="activity">
+SYSTEM ACTIVITY<br>
+• Genome analysis completed<br>
+• Node synchronization active<br>
+• Threat scan running
 </div>
 
 <button onclick="location.href='lab.html'">
 ENTER LAB
 </button>
+
+</div>
 
 </body>
 </html>
