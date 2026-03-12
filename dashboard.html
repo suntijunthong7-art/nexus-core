@@ -1,63 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE DASHBOARD</title>
+
+<title>NEXUS CORE AI</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
-background:#071b1f;
-color:white;
+font-family:Arial,Helvetica,sans-serif;
+background:#021017;
+color:#cfe6ec;
 }
 
-.topbar{
-background:#0f2d32;
-padding:15px 30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+/* HEADER */
+
+header{
+padding:18px;
+border-bottom:1px solid #12323a;
 }
 
-.logo{
-font-size:18px;
-font-weight:bold;
-letter-spacing:2px;
+h1{
+margin:0;
+letter-spacing:3px;
+font-size:22px;
 }
+
+nav{
+margin-top:8px;
+}
+
+nav a{
+color:#7aa5ad;
+margin-right:18px;
+text-decoration:none;
+font-size:14px;
+}
+
+nav a:hover{
+color:#ffffff;
+}
+
+/* STATUS BAR */
+
+.status{
+text-align:center;
+color:#49d6a7;
+padding:10px;
+border-bottom:1px solid #12323a;
+}
+
+/* MAIN */
 
 .container{
-padding:30px;
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-bottom:25px;
 }
 
 .card{
-background:#0f2d32;
-padding:20px;
+background:#051820;
+border:1px solid #10333b;
 border-radius:12px;
-margin-bottom:20px;
+padding:18px;
 }
 
-button{
-padding:12px 18px;
-border:none;
-border-radius:8px;
-background:#2f4158;
-color:white;
+.card h3{
+margin:0;
+font-size:13px;
+color:#7fa9b1;
+}
+
+.value{
+margin-top:8px;
+font-size:22px;
+}
+
+/* SECTIONS */
+
+.section{
+margin-top:25px;
+}
+
+.section h2{
+font-size:16px;
+margin-bottom:10px;
+color:#9cc6ce;
+}
+
+.panel{
+background:#04141a;
+border:1px solid #10333b;
+border-radius:12px;
+padding:18px;
+}
+
+/* LOG */
+
+.activity div{
+padding:5px 0;
+border-bottom:1px solid rgba(255,255,255,0.05);
+font-size:13px;
+color:#9dbcc2;
+}
+
+/* AI */
+
+.ai-box{
+margin-top:15px;
+padding:15px;
+border-radius:10px;
+background:#031218;
+border:1px solid #0f3942;
+}
+
+.ai-title{
+font-size:13px;
+color:#7cc8d4;
+}
+
+.ai-result{
+margin-top:6px;
 font-size:14px;
-cursor:pointer;
 }
 
-button:hover{
-background:#1d2c3f;
-}
+.threat-low{color:#2cff88}
+.threat-mid{color:#ffc857}
+.threat-high{color:#ff3b3b}
 
-.status{
-margin-top:10px;
-font-size:14px;
-color:#8ad9b3;
+.time{
+text-align:center;
+margin-top:20px;
+color:#8db6be;
 }
 
 </style>
@@ -66,54 +149,191 @@ color:#8ad9b3;
 
 <body>
 
-<div class="topbar">
-<div class="logo">NEXUS CORE</div>
+<header>
+
+<h1>NEXUS CORE</h1>
+
+<nav>
+<a href="index.html">Dashboard</a>
+<a href="lab.html">Laboratories</a>
+<a href="network.html">Research Network</a>
+<a href="security.html">Security</a>
+<a href="logs.html">Logs</a>
+</nav>
+
+</header>
+
+<div class="status">
+SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 </div>
 
 <div class="container">
 
+<div class="grid">
+
 <div class="card">
-
-<h3>AI System Monitor</h3>
-
-<div id="aiStatus" class="status">
-AI ANALYZING SYSTEM...
+<h3>Active Labs</h3>
+<div class="value">14</div>
 </div>
 
-<br>
+<div class="card">
+<h3>Samples Processing</h3>
+<div class="value">327</div>
+</div>
 
-<button onclick="goLab()">
-OPEN LAB CONTROL
-</button>
+<div class="card">
+<h3>Network Nodes</h3>
+<div class="value">42</div>
+</div>
 
+<div class="card">
+<h3>AI Monitoring</h3>
+<div class="value">ONLINE</div>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>System Activity</h2>
+
+<div class="panel">
+<div class="activity" id="log"></div>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>AI Threat Intelligence</h2>
+
+<div class="panel">
+
+<div class="ai-box">
+<div class="ai-title">Threat Level</div>
+<div id="aiThreat" class="ai-result threat-low">LOW</div>
+</div>
+
+<div class="ai-box">
+<div class="ai-title">AI Insight</div>
+<div id="aiInsight" class="ai-result">System operating normally</div>
+</div>
+
+<div class="ai-box">
+<div class="ai-title">Recommendation</div>
+<div id="aiAdvice" class="ai-result">No action required</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="time">
+SERVER TIME : <span id="time"></span>
 </div>
 
 </div>
 
 <script>
 
-function goLab(){
-window.location="lab.html"
+/* CLOCK */
+
+function updateTime(){
+
+let now=new Date()
+
+let h=String(now.getHours()).padStart(2,'0')
+let m=String(now.getMinutes()).padStart(2,'0')
+let s=String(now.getSeconds()).padStart(2,'0')
+
+document.getElementById("time").innerText=h+":"+m+":"+s
+
 }
 
+setInterval(updateTime,1000)
+updateTime()
 
-function aiMonitor(){
 
-let status=[
-"AI scanning network...",
-"AI analyzing lab activity...",
-"AI security check running...",
-"AI monitoring system health...",
-"AI anomaly detection active..."
+/* LOG */
+
+let logs=[
+"Genome Data Uploaded",
+"AI Scan Completed",
+"Lab Node Connected",
+"Secure Channel Verified",
+"Network Sync Completed",
+"Bio Sample Analysis Running"
 ]
 
-let text=status[Math.floor(Math.random()*status.length)]
+function addLog(){
 
-document.getElementById("aiStatus").innerText=text
+let time=new Date().toLocaleTimeString()
+
+let text=time+" • "+logs[Math.floor(Math.random()*logs.length)]
+
+let div=document.createElement("div")
+div.innerText=text
+
+let logBox=document.getElementById("log")
+
+logBox.prepend(div)
+
+if(logBox.children.length>6){
+logBox.removeChild(logBox.lastChild)
+}
+
+runAI(text)
 
 }
 
-setInterval(aiMonitor,4000)
+setInterval(addLog,4000)
+
+
+/* AI */
+
+function runAI(event){
+
+let threat="LOW"
+let insight="System operating normally"
+let advice="No action required"
+
+if(event.includes("Analysis")){
+threat="MODERATE"
+insight="Bio analysis process detected"
+advice="Monitor lab activity"
+}
+
+if(event.includes("Node")){
+threat="MODERATE"
+insight="New network node connection"
+advice="Verify node authorization"
+}
+
+if(event.includes("Genome")){
+threat="MODERATE"
+insight="Genome dataset processing"
+}
+
+updateAI(threat,insight,advice)
+
+}
+
+function updateAI(t,i,a){
+
+let threatBox=document.getElementById("aiThreat")
+
+threatBox.innerText=t
+
+threatBox.className="ai-result"
+
+if(t=="LOW") threatBox.classList.add("threat-low")
+if(t=="MODERATE") threatBox.classList.add("threat-mid")
+if(t=="HIGH") threatBox.classList.add("threat-high")
+
+document.getElementById("aiInsight").innerText=i
+document.getElementById("aiAdvice").innerText=a
+
+}
 
 </script>
 
