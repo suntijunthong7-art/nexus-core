@@ -4,28 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nexus Core</title>
+<title>Nexus Core Research Authority</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
-background:#071c20;
-color:#e4f1f2;
+background:#0c1b24;
+color:#d6e3ea;
 }
 
 /* HEADER */
 
 header{
-background:#06171a;
+background:#07141b;
 padding:20px;
-border-bottom:1px solid #0f3c42;
+border-bottom:1px solid #20343e;
 }
 
-.logo{
+header h1{
+margin:0;
 font-size:22px;
-font-weight:bold;
 letter-spacing:2px;
 }
 
@@ -34,9 +34,9 @@ margin-top:10px;
 }
 
 nav a{
-color:#9fbec2;
 margin-right:20px;
 text-decoration:none;
+color:#9fb7c4;
 font-size:14px;
 }
 
@@ -49,79 +49,84 @@ color:white;
 .status{
 text-align:center;
 padding:12px;
-background:#08262b;
 font-size:13px;
-letter-spacing:1px;
-color:#6ee7c8;
-border-bottom:1px solid #0f3c42;
+background:#0e2631;
+border-bottom:1px solid #1f3b46;
 }
 
 /* MAIN */
 
 .container{
 padding:25px;
-max-width:1000px;
+max-width:1100px;
 margin:auto;
 }
 
-/* CARDS */
+/* GRID */
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 margin-bottom:30px;
 }
 
 .card{
-background:#0b2b30;
+background:#0f2732;
 padding:20px;
-border-radius:10px;
-border:1px solid #0f3c42;
+border-radius:8px;
+border:1px solid #1f3d49;
 }
 
-.card-title{
-font-size:13px;
-color:#9fbec2;
-margin-bottom:8px;
+.card h3{
+margin:0;
+font-size:14px;
+color:#9fb7c4;
 }
 
-.card-value{
-font-size:26px;
+.card p{
+margin:10px 0 0 0;
+font-size:24px;
 }
 
-/* SECTIONS */
+/* SECTION */
 
 .section{
-background:#0b2b30;
-padding:20px;
-border-radius:10px;
-border:1px solid #0f3c42;
-margin-bottom:20px;
+margin-top:30px;
 }
 
-.section h3{
-margin-top:0;
-font-size:16px;
+.section h2{
+font-size:18px;
+margin-bottom:10px;
+}
+
+.panel{
+background:#0f2732;
+padding:20px;
+border-radius:8px;
+border:1px solid #1f3d49;
+font-size:14px;
+line-height:1.8;
 }
 
 /* FOOTER */
 
-.footer{
+footer{
 text-align:center;
+padding:20px;
 font-size:13px;
-color:#9fbec2;
-margin-top:30px;
+color:#7f9aa6;
 }
 
 </style>
 </head>
 
+
 <body>
 
 <header>
 
-<div class="logo">NEXUS CORE</div>
+<h1>NEXUS CORE</h1>
 
 <nav>
 <a href="#">Dashboard</a>
@@ -142,61 +147,71 @@ SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 <div class="grid">
 
 <div class="card">
-<div class="card-title">Active Labs</div>
-<div class="card-value">14</div>
+<h3>Active Laboratories</h3>
+<p>14</p>
 </div>
 
 <div class="card">
-<div class="card-title">Samples Processing</div>
-<div class="card-value">327</div>
+<h3>Samples Processing</h3>
+<p>327</p>
 </div>
 
 <div class="card">
-<div class="card-title">Network Nodes</div>
-<div class="card-value">42</div>
+<h3>Network Nodes</h3>
+<p>42</p>
 </div>
 
 <div class="card">
-<div class="card-title">AI Monitoring</div>
-<div class="card-value">ONLINE</div>
+<h3>AI Monitoring</h3>
+<p>ONLINE</p>
 </div>
 
 </div>
 
 
 <div class="section">
-<h3>System Activity</h3>
-<div id="activity">
-11:34:00 • Bio Sample Analysis Running
+
+<h2>System Activity</h2>
+
+<div class="panel">
+11:34:00 — Bio sample analysis running<br>
+11:28:10 — Secure channel verified<br>
+11:20:32 — Network node synchronization completed
 </div>
+
 </div>
 
 
 <div class="section">
-<h3>AI Threat Intelligence</h3>
 
-<p><b>Threat Level :</b> Moderate</p>
-<p><b>AI Insight :</b> Bio analysis process detected</p>
-<p><b>Recommendation :</b> Monitor laboratory activity</p>
+<h2>AI Threat Intelligence</h2>
 
-</div>
-
-
-<div class="footer">
-SERVER TIME : <span id="time"></span>
+<div class="panel">
+Threat Level : Moderate<br>
+AI Insight : Bio analysis process detected<br>
+Recommendation : Continue monitoring laboratory activity
 </div>
 
 </div>
 
+</div>
+
+<footer>
+
+SERVER TIME :
+<span id="clock"></span>
+
+</footer>
 
 <script>
 
-function updateTime(){
-let now=new Date();
-document.getElementById("time").innerText=now.toLocaleTimeString();
+function updateClock(){
+const now = new Date();
+document.getElementById("clock").innerText =
+now.toLocaleTimeString();
 }
 
-setInterval(updateTime,1000);
+setInterval(updateClock,1000);
 
 </script>
 
