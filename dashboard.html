@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS CORE AI</title>
+
+<title>Nexus Core</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#021017;
-color:#cfe6ec;
+font-family:Arial, Helvetica, sans-serif;
+background:#071c20;
+color:#e4f1f2;
 }
+
+/* HEADER */
 
 header{
-padding:18px;
-border-bottom:1px solid #12323a;
+background:#06171a;
+padding:20px;
+border-bottom:1px solid #0f3c42;
 }
 
-h1{
-margin:0;
-letter-spacing:3px;
+.logo{
 font-size:22px;
+font-weight:bold;
+letter-spacing:2px;
 }
 
 nav{
-margin-top:8px;
+margin-top:10px;
 }
 
 nav a{
-color:#7aa5ad;
-margin-right:18px;
+color:#9fbec2;
+margin-right:20px;
 text-decoration:none;
 font-size:14px;
 }
@@ -41,92 +44,74 @@ nav a:hover{
 color:white;
 }
 
+/* STATUS BAR */
+
 .status{
 text-align:center;
-color:#49d6a7;
-padding:10px;
-border-bottom:1px solid #12323a;
+padding:12px;
+background:#08262b;
+font-size:13px;
+letter-spacing:1px;
+color:#6ee7c8;
+border-bottom:1px solid #0f3c42;
 }
 
+/* MAIN */
+
 .container{
-padding:20px;
+padding:25px;
+max-width:1000px;
+margin:auto;
 }
+
+/* CARDS */
 
 .grid{
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:14px;
-margin-bottom:25px;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-bottom:30px;
 }
 
 .card{
-background:#051820;
-border:1px solid #10333b;
-border-radius:12px;
-padding:18px;
+background:#0b2b30;
+padding:20px;
+border-radius:10px;
+border:1px solid #0f3c42;
 }
 
-.card h3{
-margin:0;
+.card-title{
 font-size:13px;
-color:#7fa9b1;
+color:#9fbec2;
+margin-bottom:8px;
 }
 
-.value{
-margin-top:8px;
-font-size:22px;
+.card-value{
+font-size:26px;
 }
+
+/* SECTIONS */
 
 .section{
-margin-top:25px;
-}
-
-.section h2{
-font-size:16px;
-margin-bottom:10px;
-color:#9cc6ce;
-}
-
-.panel{
-background:#04141a;
-border:1px solid #10333b;
-border-radius:12px;
-padding:18px;
-}
-
-.activity div{
-padding:6px 0;
-border-bottom:1px solid rgba(255,255,255,0.05);
-font-size:13px;
-color:#9dbcc2;
-}
-
-.ai-box{
-margin-top:12px;
-padding:14px;
+background:#0b2b30;
+padding:20px;
 border-radius:10px;
-background:#031218;
-border:1px solid #0f3942;
+border:1px solid #0f3c42;
+margin-bottom:20px;
 }
 
-.ai-title{
-font-size:13px;
-color:#7cc8d4;
+.section h3{
+margin-top:0;
+font-size:16px;
 }
 
-.ai-result{
-margin-top:6px;
-font-size:14px;
-}
+/* FOOTER */
 
-.threat-low{color:#2cff88}
-.threat-mid{color:#ffc857}
-.threat-high{color:#ff3b3b}
-
-.time{
+.footer{
 text-align:center;
-margin-top:20px;
-color:#8db6be;
+font-size:13px;
+color:#9fbec2;
+margin-top:30px;
 }
 
 </style>
@@ -136,11 +121,11 @@ color:#8db6be;
 
 <header>
 
-<h1>NEXUS CORE</h1>
+<div class="logo">NEXUS CORE</div>
 
 <nav>
-<a href="index.html">Dashboard</a>
-<a href="lab.html">Laboratories</a>
+<a href="#">Dashboard</a>
+<a href="#">Laboratories</a>
 <a href="#">Research Network</a>
 <a href="#">Security</a>
 <a href="#">Logs</a>
@@ -157,158 +142,61 @@ SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 <div class="grid">
 
 <div class="card">
-<h3>Active Labs</h3>
-<div class="value">14</div>
+<div class="card-title">Active Labs</div>
+<div class="card-value">14</div>
 </div>
 
 <div class="card">
-<h3>Samples Processing</h3>
-<div class="value">327</div>
+<div class="card-title">Samples Processing</div>
+<div class="card-value">327</div>
 </div>
 
 <div class="card">
-<h3>Network Nodes</h3>
-<div class="value">42</div>
+<div class="card-title">Network Nodes</div>
+<div class="card-value">42</div>
 </div>
 
 <div class="card">
-<h3>AI Monitoring</h3>
-<div class="value">ONLINE</div>
+<div class="card-title">AI Monitoring</div>
+<div class="card-value">ONLINE</div>
 </div>
 
 </div>
+
 
 <div class="section">
-
-<h2>System Activity</h2>
-
-<div class="panel">
-<div class="activity" id="log"></div>
+<h3>System Activity</h3>
+<div id="activity">
+11:34:00 • Bio Sample Analysis Running
+</div>
 </div>
 
-</div>
 
 <div class="section">
+<h3>AI Threat Intelligence</h3>
 
-<h2>AI Threat Intelligence</h2>
-
-<div class="panel">
-
-<div class="ai-box">
-<div class="ai-title">Threat Level</div>
-<div id="aiThreat" class="ai-result threat-low">LOW</div>
-</div>
-
-<div class="ai-box">
-<div class="ai-title">AI Insight</div>
-<div id="aiInsight" class="ai-result">System operating normally</div>
-</div>
-
-<div class="ai-box">
-<div class="ai-title">Recommendation</div>
-<div id="aiAdvice" class="ai-result">No action required</div>
-</div>
+<p><b>Threat Level :</b> Moderate</p>
+<p><b>AI Insight :</b> Bio analysis process detected</p>
+<p><b>Recommendation :</b> Monitor laboratory activity</p>
 
 </div>
 
-</div>
 
-<div class="time">
+<div class="footer">
 SERVER TIME : <span id="time"></span>
 </div>
 
 </div>
 
+
 <script>
 
-/* CLOCK */
-
 function updateTime(){
-let now=new Date()
-let h=String(now.getHours()).padStart(2,'0')
-let m=String(now.getMinutes()).padStart(2,'0')
-let s=String(now.getSeconds()).padStart(2,'0')
-document.getElementById("time").innerText=h+":"+m+":"+s
+let now=new Date();
+document.getElementById("time").innerText=now.toLocaleTimeString();
 }
 
-setInterval(updateTime,1000)
-updateTime()
-
-
-/* LOG SYSTEM */
-
-let logs=[
-"Genome Data Uploaded",
-"AI Scan Completed",
-"Lab Node Connected",
-"Secure Channel Verified",
-"Network Sync Completed",
-"Bio Sample Analysis Running"
-]
-
-function addLog(){
-
-let time=new Date().toLocaleTimeString()
-
-let text=time+" • "+logs[Math.floor(Math.random()*logs.length)]
-
-let div=document.createElement("div")
-div.innerText=text
-
-let logBox=document.getElementById("log")
-
-logBox.prepend(div)
-
-if(logBox.children.length>6){
-logBox.removeChild(logBox.lastChild)
-}
-
-runAI(text)
-
-}
-
-setInterval(addLog,4000)
-
-
-/* AI ENGINE */
-
-function runAI(event){
-
-let threat="LOW"
-let insight="System operating normally"
-let advice="No action required"
-
-if(event.includes("Analysis")){
-threat="MODERATE"
-insight="Bio analysis process detected"
-advice="Monitor lab activity"
-}
-
-if(event.includes("Node")){
-threat="MODERATE"
-insight="New network node connection"
-advice="Verify node authorization"
-}
-
-updateAI(threat,insight,advice)
-
-}
-
-function updateAI(t,i,a){
-
-let threatBox=document.getElementById("aiThreat")
-
-threatBox.innerText=t
-threatBox.className="ai-result"
-
-if(t=="LOW") threatBox.classList.add("threat-low")
-if(t=="MODERATE") threatBox.classList.add("threat-mid")
-if(t=="HIGH") threatBox.classList.add("threat-high")
-
-document.getElementById("aiInsight").innerText=i
-document.getElementById("aiAdvice").innerText=a
-
-}
+setInterval(updateTime,1000);
 
 </script>
 
