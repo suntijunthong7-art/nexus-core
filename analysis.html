@@ -37,6 +37,10 @@ text-decoration:none;
 font-size:14px;
 }
 
+nav a:hover{
+color:#cfe6ec;
+}
+
 .status{
 text-align:center;
 color:#49d6a7;
@@ -77,12 +81,6 @@ font-size:22px;
 margin-top:25px;
 }
 
-.section h2{
-font-size:16px;
-margin-bottom:10px;
-color:#9cc6ce;
-}
-
 .panel{
 background:#04141a;
 border:1px solid #10333b;
@@ -91,7 +89,7 @@ padding:18px;
 }
 
 .activity div{
-padding:5px 0;
+padding:6px 0;
 border-bottom:1px solid rgba(255,255,255,0.05);
 font-size:13px;
 color:#9dbcc2;
@@ -126,7 +124,6 @@ color:#8db6be;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -136,17 +133,143 @@ color:#8db6be;
 <h1>NEXUS CORE</h1>
 
 <nav>
-<a>Dashboard</a>
-<a>Laboratories</a>
-<a>Research Network</a>
-<a>Security</a>
-<a>Logs</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="lab.html">Laboratories</a>
+<a href="#">Research Network</a>
+<a href="#">Security</a>
+<a href="#">Logs</a>
 </nav>
 
 </header>
 
 <div class="status">
 SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
+</div>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="card">
+<h3>Active Labs</h3>
+<div class="value">14</div>
+</div>
+
+<div class="card">
+<h3>Samples Processing</h3>
+<div class="value">327</div>
+</div>
+
+<div class="card">
+<h3>Network Nodes</h3>
+<div class="value">42</div>
+</div>
+
+<div class="card">
+<h3>AI Monitoring</h3>
+<div class="value">ONLINE</div>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>System Activity</h2>
+
+<div class="panel">
+
+<div class="activity" id="log"></div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>AI Threat Intelligence</h2>
+
+<div class="panel">
+
+<div class="ai-box">
+<div class="ai-title">Threat Level</div>
+<div id="aiThreat" class="ai-result threat-low">LOW</div>
+</div>
+
+<div class="ai-box">
+<div class="ai-title">AI Insight</div>
+<div id="aiInsight" class="ai-result">System operating normally</div>
+</div>
+
+<div class="ai-box">
+<div class="ai-title">Recommendation</div>
+<div id="aiAdvice" class="ai-result">No action required</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="time">
+SERVER TIME : <span id="time"></span>
+</div>
+
+</div>
+
+<script>
+
+/* CLOCK */
+
+function updateTime(){
+
+let now=new Date()
+
+let h=String(now.getHours()).padStart(2,'0')
+let m=String(now.getMinutes()).padStart(2,'0')
+let s=String(now.getSeconds()).padStart(2,'0')
+
+document.getElementById("time").innerText=h+":"+m+":"+s
+
+}
+
+setInterval(updateTime,1000)
+updateTime()
+
+/* LOG */
+
+let logs=[
+"Genome Data Uploaded",
+"AI Scan Completed",
+"Lab Node Connected",
+"Secure Channel Verified",
+"Network Sync Completed",
+"Bio Sample Analysis Running"
+]
+
+function addLog(){
+
+let time=new Date().toLocaleTimeString()
+
+let text=time+" • "+logs[Math.floor(Math.random()*logs.length)]
+
+let div=document.createElement("div")
+div.innerText=text
+
+let logBox=document.getElementById("log")
+
+logBox.prepend(div)
+
+if(logBox.children.length>6){
+logBox.removeChild(logBox.lastChild)
+}
+
+}
+
+setInterval(addLog,4000)
+
+</script>
+
+</body>
+</html>SYSTEM STATUS : OPERATIONAL • NETWORK SECURE • AI MONITOR ACTIVE
 </div>
 
 <div class="container">
